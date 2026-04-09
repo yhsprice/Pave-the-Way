@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pave the Way | Below the Surface</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #f4f4f4, #e7ecef);
+      color: #222;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      padding: 30px;
+    }
+
+    .main-title {
+      text-align: center;
+      font-size: 42px;
+      margin-bottom: 8px;
+      color: #1d3557;
+    }
+
+    .sub-title {
+      text-align: center;
+      font-size: 28px;
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    .tagline {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .quiz-box {
+      background: #f8fafc;
+      border: 2px solid #d9e2ec;
+      border-radius: 16px;
+      padding: 25px;
+    }
+
+    .progress {
+      font-size: 15px;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .question-type {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e3a8a;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 15px;
+    }
+
+    .question {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .answers {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .answer-btn {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      background: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .answer-btn:hover {
+      background: #eef6ff;
+      border-color: #93c5fd;
+    }
+
+    .answer-btn.correct {
+      background: #dcfce7;
+      border-color: #22c55e;
+      font-weight: bold;
+    }
+
+    .answer-btn.wrong {
+      background: #fee2e2;
+      border-color: #ef4444;
+      font-weight: bold;
+    }
+
+    .answer-btn:disabled {
+      cursor: default;
+    }
+
+    .feedback {
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      min-height: 24px;
+    }
+
+    .explanation {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 20px;
+      min-height: 40px;
+      line-height: 1.5;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .control-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .next-btn {
+      background: #1d4ed8;
+      color: white;
+    }
+
+    .next-btn:hover {
+      background: #1e40af;
+    }
+
+    .restart-btn {
+      background: #64748b;
+      color: white;
+    }
+
+    .restart-btn:hover {
+      background: #475569;
+    }
+
+    .score-board {
+      margin-top: 20px;
+      font-size: 17px;
+      font-weight: bold;
+      color: #1f2937;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .result-box {
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    .result-box h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #1d3557;
+    }
+
+    .result-box p {
+      font-size: 20px;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 700px) {
+      .main-title {
+        font-size: 34px;
+      }
+
+      .sub-title {
+        font-size: 24px;
+      }
+
+      .question {
+        font-size: 20px;
+      }
+
+      .container {
+        margin: 20px 12px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="main-title">Pave the Way</h1>
+    <h2 class="sub-title">Below the Surface</h2>
+    <p class="tagline">Test your knowledge of grade, drain, and utility work one question at a time.</p>
+
+    <div id="quizSection" class="quiz-box">
+      <div class="progress" id="progressText">Question 1 of 10</div>
+      <div class="question-type" id="questionType">Multiple Choice</div>
+      <div class="question" id="questionText"></div>
+      <div class="answers" id="answersContainer"></div>
+      <div class="feedback" id="feedbackText"></div>
+      <div class="explanation" id="explanationText"></div>
+
+      <div class="controls">
+        <button class="control-btn next-btn" id="nextBtn" onclick="nextQuestion()" disabled>Next Question</button>
+        <button class="control-btn restart-btn" onclick="startQuiz()">Restart Quiz</button>
+      </div>
+
+      <div class="score-board" id="scoreBoard">Score: 0 / 0</div>
+    </div>
+
+    <div id="resultSection" class="quiz-box hidden">
+      <div class="result-box">
+        <h2>Quiz Complete</h2>
+        <p id="finalScoreText"></p>
+        <div class="controls" style="justify-content:center; margin-top: 20px;">
+          <button class="control-btn restart-btn" onclick="startQuiz()">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const allQuestions = [
+      {
+        type: "True / False",
+        question: "Grade work involves shaping the ground to the correct elevation and slope.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "Grade work is about shaping the site to the correct elevation and slope for construction and drainage."
+      },
+      {
+        type: "True / False",
+        question: "Drainage is only important after the project is completed.",
+        options: ["True", "False"],
+        answer: "False",
+        explanation: "Drainage matters during and after construction. Water does not wait for project closeout."
+      },
+      {
+        type: "True / False",
+        question: "Utility work may include installing water, sewer, and storm lines.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "Utility crews often install underground water, sanitary sewer, and storm sewer systems."
+      },
+      {
+        type: "True / False",
+        question: "A poor grade can cause water to collect where it should not.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "Improper grading often leads to standing water, erosion, or drainage problems."
+      },
+      {
+        type: "True / False",
+        question: "Storm sewer and sanitary sewer are always the same system.",
+        options: ["True", "False"],
+        answer: "False",
+        explanation: "Storm sewer carries runoff, while sanitary sewer carries wastewater. Mixing them up is a bad day."
+      },
+      {
+        type: "True / False",
+        question: "Proper drainage helps protect roads, buildings, and surrounding areas.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "Good drainage reduces water damage, erosion, and structural problems."
+      },
+      {
+        type: "True / False",
+        question: "Utility trenches never need to be compacted after backfilling.",
+        options: ["True", "False"],
+        answer: "False",
+        explanation: "Backfill must be properly compacted to reduce settlement and surface failure."
+      },
+      {
+        type: "True / False",
+        question: "Grade stakes help crews know the correct elevation and alignment.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "Grade stakes guide the crew on line, elevation, and layout."
+      },
+      {
+        type: "True / False",
+        question: "Water always drains uphill if the pipe is large enough.",
+        options: ["True", "False"],
+        answer: "False",
+        explanation: "Nope. Gravity still runs the show."
+      },
+      {
+        type: "True / False",
+        question: "Safety is important around trenches, utilities, and heavy equipment.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "Trenches, underground utilities, and moving equipment create serious hazards."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What is the main purpose of grading?",
+        options: [
+          "A. Add color to the site",
+          "B. Shape the land to proper slope and elevation",
+          "C. Remove all soil",
+          "D. Install asphalt"
+        ],
+        answer: "B. Shape the land to proper slope and elevation",
+        explanation: "Grading prepares the site with the correct slope and elevation for drainage and construction."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What is one main purpose of drainage work?",
+        options: [
+          "A. Hold water in place",
+          "B. Move water away safely",
+          "C. Raise utility lines",
+          "D. Dry concrete faster"
+        ],
+        answer: "B. Move water away safely",
+        explanation: "Drainage systems move water away from structures, roads, and work areas."
+      },
+      {
+        type: "Multiple Choice",
+        question: "Which of the following is considered utility work?",
+        options: [
+          "A. Painting curbs",
+          "B. Installing sewer pipe",
+          "C. Sweeping pavement",
+          "D. Striping a parking lot"
+        ],
+        answer: "B. Installing sewer pipe",
+        explanation: "Installing underground water, sewer, and storm systems is utility work."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What can happen if site grading is incorrect?",
+        options: [
+          "A. Better drainage",
+          "B. Water ponding",
+          "C. Lower labor costs",
+          "D. Pipe becomes stronger"
+        ],
+        answer: "B. Water ponding",
+        explanation: "Improper slope often causes water to collect in the wrong places."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What is backfill?",
+        options: [
+          "A. Soil or material placed back into an excavation",
+          "B. Water left in a trench",
+          "C. The top layer of asphalt",
+          "D. A concrete form"
+        ],
+        answer: "A. Soil or material placed back into an excavation",
+        explanation: "Backfill is the material placed back into the trench or excavation after installation."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What is a trench box used for?",
+        options: [
+          "A. Moving concrete",
+          "B. Protecting workers in a trench",
+          "C. Checking pipe slope",
+          "D. Holding tools only"
+        ],
+        answer: "B. Protecting workers in a trench",
+        explanation: "A trench box helps protect workers from trench collapse hazards."
+      },
+      {
+        type: "Multiple Choice",
+        question: "Which utility commonly carries wastewater from buildings?",
+        options: [
+          "A. Water line",
+          "B. Gas line",
+          "C. Sanitary sewer",
+          "D. Electric conduit"
+        ],
+        answer: "C. Sanitary sewer",
+        explanation: "Sanitary sewer carries wastewater from homes, buildings, and facilities."
+      },
+      {
+        type: "Multiple Choice",
+        question: "Which utility commonly carries runoff from rain?",
+        options: [
+          "A. Storm sewer",
+          "B. Gas line",
+          "C. Fiber line",
+          "D. Power cable"
+        ],
+        answer: "A. Storm sewer",
+        explanation: "Storm sewer systems carry rainwater runoff."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What tool is commonly used to check slope or elevation?",
+        options: [
+          "A. Roller",
+          "B. Level or laser",
+          "C. Broom",
+          "D. Jackhammer"
+        ],
+        answer: "B. Level or laser",
+        explanation: "Levels and lasers are commonly used to verify elevation and slope."
+      },
+      {
+        type: "Multiple Choice",
+        question: "Why is compaction important in utility work?",
+        options: [
+          "A. To make the trench look cleaner",
+          "B. To prevent settling after backfill",
+          "C. To change pipe color",
+          "D. To reduce excavation depth"
+        ],
+        answer: "B. To prevent settling after backfill",
+        explanation: "Compaction helps reduce settlement, depressions, and future surface problems."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "Grade work helps control site ______ and elevation.",
+        options: ["slope", "color", "traffic", "speed"],
+        answer: "slope",
+        explanation: "Grade work controls the slope and elevation of the site."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "Drainage systems are designed to move ______ away from roads and structures.",
+        options: ["water", "gravel", "concrete", "dust"],
+        answer: "water",
+        explanation: "The main job of drainage systems is moving water where it needs to go."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "A trench must often be protected with a trench box or proper ______.",
+        options: ["shoring", "paint", "fencing", "paving"],
+        answer: "shoring",
+        explanation: "Shoring is one of the protection methods used in trench safety."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "Utility work often includes installing water, sewer, and ______ lines.",
+        options: ["storm", "paint", "timber", "fence"],
+        answer: "storm",
+        explanation: "Storm lines are a common part of underground utility work."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "Material placed back into a trench is called ______.",
+        options: ["backfill", "overlay", "milling", "basecoat"],
+        answer: "backfill",
+        explanation: "Backfill is the material returned to the trench after the utility is installed."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "If backfill is not compacted correctly, the ground may ______ later.",
+        options: ["settle", "shine", "freeze", "lift"],
+        answer: "settle",
+        explanation: "Poor compaction often leads to settling later."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "Grade stakes help crews know the correct line and ______.",
+        options: ["elevation", "color", "speed", "texture"],
+        answer: "elevation",
+        explanation: "Grade stakes guide crews on both line and elevation."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "A storm sewer system is used to carry ______ water.",
+        options: ["runoff", "drinking", "heated", "waste"],
+        answer: "runoff",
+        explanation: "Storm sewer systems carry runoff water from rain or surface drainage."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "A sanitary sewer line carries ______ from buildings.",
+        options: ["wastewater", "runoff", "fuel", "gas"],
+        answer: "wastewater",
+        explanation: "Sanitary sewer lines carry wastewater from buildings."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "Proper drainage helps prevent erosion and water ______.",
+        options: ["damage", "paint", "lighting", "storage"],
+        answer: "damage",
+        explanation: "Proper drainage helps reduce erosion and water damage."
+      }
+    ];
+
+    const totalQuestionsPerRound = 10;
+    let selectedQuestions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let answered = false;
+
+    function shuffleArray(array) {
+      const copied = [...array];
+      for (let i = copied.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copied[i], copied[j]] = [copied[j], copied[i]];
+      }
+      return copied;
+    }
+
+    function startQuiz() {
+      selectedQuestions = shuffleArray(allQuestions).slice(0, totalQuestionsPerRound);
+      currentQuestionIndex = 0;
+      score = 0;
+      answered = false;
+
+      document.getElementById("quizSection").classList.remove("hidden");
+      document.getElementById("resultSection").classList.add("hidden");
+
+      showQuestion();
+      updateScore();
+    }
+
+    function showQuestion() {
+      answered = false;
+      const q = selectedQuestions[currentQuestionIndex];
+
+      document.getElementById("progressText").textContent =
+        `Question ${currentQuestionIndex + 1} of ${selectedQuestions.length}`;
+      document.getElementById("questionType").textContent = q.type;
+      document.getElementById("questionText").textContent = q.question;
+      document.getElementById("feedbackText").textContent = "";
+      document.getElementById("explanationText").textContent = "";
+      document.getElementById("nextBtn").disabled = true;
+
+      const answersContainer = document.getElementById("answersContainer");
+      answersContainer.innerHTML = "";
+
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "answer-btn";
+        btn.textContent = option;
+        btn.onclick = () => selectAnswer(btn, option, q.answer, q.explanation);
+        answersContainer.appendChild(btn);
+      });
+
+      updateScore();
+    }
+
+    function selectAnswer(button, selected, correct, explanation) {
+      if (answered) return;
+      answered = true;
+
+      const buttons = document.querySelectorAll(".answer-btn");
+
+      buttons.forEach(btn => {
+        btn.disabled = true;
+
+        if (btn.textContent === correct) {
+          btn.classList.add("correct");
+        }
+
+        if (btn.textContent === selected && selected !== correct) {
+          btn.classList.add("wrong");
+        }
+      });
+
+      if (selected === correct) {
+        score++;
+        document.getElementById("feedbackText").textContent = "Correct";
+        document.getElementById("feedbackText").style.color = "#15803d";
+      } else {
+        document.getElementById("feedbackText").textContent = "Incorrect";
+        document.getElementById("feedbackText").style.color = "#b91c1c";
+      }
+
+      document.getElementById("explanationText").textContent = `Answer: ${correct}. ${explanation}`;
+      document.getElementById("nextBtn").disabled = false;
+
+      updateScore();
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < selectedQuestions.length) {
+        showQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function updateScore() {
+      document.getElementById("scoreBoard").textContent =
+        `Score: ${score} / ${currentQuestionIndex + (answered ? 1 : 0)}`;
+    }
+
+    function showResults() {
+      document.getElementById("quizSection").classList.add("hidden");
+      document.getElementById("resultSection").classList.remove("hidden");
+
+      let message = "";
+      const percent = Math.round((score / selectedQuestions.length) * 100);
+
+      if (percent >= 90) {
+        message = "Excellent work. You are clearly not guessing below the surface.";
+      } else if (percent >= 70) {
+        message = "Nice job. Solid performance with only a few trenches left to dig.";
+      } else if (percent >= 50) {
+        message = "Not bad, but a few knowledge gaps are still hiding underground.";
+      } else {
+        message = "Time for another round. Let’s keep digging.";
+      }
+
+      document.getElementById("finalScoreText").textContent =
+        `You scored ${score} out of ${selectedQuestions.length} (${percent}%). ${message}`;
+    }
+
+    startQuiz();
+  </script>
+</body>
+</html>
