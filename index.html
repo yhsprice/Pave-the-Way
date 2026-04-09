@@ -95,6 +95,13 @@
       line-height: 1.4;
     }
 
+    .count-line {
+      margin-top: 8px !important;
+      font-size: 13px !important;
+      color: #1d4ed8 !important;
+      font-weight: bold !important;
+    }
+
     .mini-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -399,7 +406,7 @@
         <button class="primary-btn" onclick="startGame()">Start Game</button>
       </div>
       <div class="small-note">
-        Timer mode adds pressure. Sudden Death ends head-to-head or team mode immediately after the first missed answer that follows a correct answer by the other side. Brutal, but fun.
+        Timer mode gives 15 seconds per question. Sudden Death ends head-to-head or team play immediately after one side misses following a correct answer by the other side. Ruthless. As it should be.
       </div>
     </div>
 
@@ -452,14 +459,13 @@
             <th>Rank / Result</th>
           </tr>
         </thead>
-        <tbody id="leaderboardBody">
-        </tbody>
+        <tbody id="leaderboardBody"></tbody>
       </table>
       <div class="controls">
         <button class="danger-btn" onclick="clearLeaderboard()">Clear Leaderboard</button>
       </div>
       <div class="small-note">
-        This leaderboard is saved in the browser on that device. So it is smart enough for training day, but not magic enough to follow people across computers.
+        This leaderboard is saved in the browser on that device only. So it is useful, but it is not a wizard.
       </div>
     </div>
   </div>
@@ -469,16 +475,16 @@
     const PASS_PERCENT = 70;
 
     const categories = [
-      { id: "smooth", name: "Smooth Operators", description: "Paving and milling fundamentals." },
-      { id: "surface", name: "Below the Surface", description: "Grade, drain, and utility work." },
-      { id: "safety", name: "Safety Zone", description: "PPE, spotting, trench safety, traffic control." },
-      { id: "materials", name: "Material Matters", description: "Aggregates, mix basics, handling, moisture." },
-      { id: "bridge", name: "Bridge the Gap", description: "Bridge work and structural field awareness." },
-      { id: "aggregate", name: "Rock & Route", description: "Aggregate delivery and hauling practices." },
-      { id: "tank", name: "Tanked Up", description: "Tank work, handling, and operational basics." },
-      { id: "barge", name: "Barge to the Point", description: "Barge operations and material movement." },
-      { id: "rail", name: "On Track", description: "Rail transloading and movement logistics." },
-      { id: "mixed", name: "Mixed Bag", description: "Random questions from every available category." }
+      { id: "smooth", name: "🚧 Smooth Operators", description: "Paving and milling fundamentals." },
+      { id: "surface", name: "🕳️ Below the Surface", description: "Grade, drain, and utility work." },
+      { id: "safety", name: "⚠️ Safety Zone", description: "PPE, spotting, trench safety, traffic control." },
+      { id: "materials", name: "🪨 Material Matters", description: "Aggregates, mix basics, handling, moisture." },
+      { id: "bridge", name: "🌉 Bridge the Gap", description: "Bridge work and structural field awareness." },
+      { id: "aggregate", name: "🚛 Rock & Route", description: "Aggregate delivery and hauling practices." },
+      { id: "tank", name: "🛢️ Tanked Up", description: "Tank work, handling, and operational basics." },
+      { id: "barge", name: "🚢 Barge to the Point", description: "Barge operations and material movement." },
+      { id: "rail", name: "🚆 On Track", description: "Rail transloading and movement logistics." },
+      { id: "mixed", name: "🎲 Mixed Bag", description: "Random questions from every available category." }
     ];
 
     const modes = [
@@ -490,7 +496,8 @@
     const difficulties = [
       { id: "easy", name: "Easy", description: "Basic vocabulary and awareness." },
       { id: "medium", name: "Medium", description: "Field knowledge and process understanding." },
-      { id: "hard", name: "Hard", description: "Scenarios, troubleshooting, and tougher judgment calls." }
+      { id: "hard", name: "Hard", description: "Scenarios, troubleshooting, and tougher judgment calls." },
+      { id: "all", name: "All Difficulties", description: "A mix of easy, medium, and hard questions." }
     ];
 
     const settings = [
@@ -529,73 +536,69 @@
       { category: "materials", difficulty: "hard", type: "Multiple Choice", question: "Why does material handling matter before placement even begins?", options: ["A. It only affects paperwork", "B. It affects consistency, contamination, and final performance", "C. It changes equipment warranty", "D. It controls weather"], answer: "B. It affects consistency, contamination, and final performance", explanation: "Bad handling upstream creates bad results downstream." },
 
       { category: "bridge", difficulty: "easy", type: "True / False", question: "Bridge work often requires close attention to sequencing, safety, and structural details.", options: ["True", "False"], answer: "True", explanation: "Bridge work is detail-sensitive and sequence matters." },
-      { category: "bridge", difficulty: "medium", type: "Multiple Choice", question: "Why is correct sequencing important during bridge work?", options: ["A. It changes concrete color", "B. It helps maintain safety and structural quality", "C. It reduces traffic signs", "D. It avoids surveying"], answer: "B. It helps maintain safety and structural quality", explanation: "Bridge work requires correct order of operations for safety and quality." },
-      { category: "bridge", difficulty: "hard", type: "Multiple Choice", question: "A bridge crew skips a required prep step before the next phase. The biggest likely consequence is:", options: ["A. Faster paperwork", "B. Rework, safety risk, or quality failure", "C. Better weather", "D. Lower traffic counts"], answer: "B. Rework, safety risk, or quality failure", explanation: "Skipped prep steps on bridge work can create serious downstream problems." },
-
-      { category: "aggregate", difficulty: "easy", type: "True / False", question: "Aggregate delivery affects production flow and jobsite efficiency.", options: ["True", "False"], answer: "True", explanation: "Poor delivery timing can disrupt production and site performance." },
-      { category: "aggregate", difficulty: "medium", type: "Multiple Choice", question: "What is one key concern in aggregate delivery?", options: ["A. Decorative striping", "B. Correct material, timing, and unloading", "C. Bridge lighting", "D. Fence paint"], answer: "B. Correct material, timing, and unloading", explanation: "Delivery quality depends on getting the right material to the right place at the right time." },
-      { category: "aggregate", difficulty: "hard", type: "Multiple Choice", question: "A plant experiences production inconsistency tied to incoming stone loads. What should be checked first?", options: ["A. Office chairs", "B. Material type, contamination, and moisture variation", "C. Social media scheduling", "D. Parking layout"], answer: "B. Material type, contamination, and moisture variation", explanation: "Inconsistent incoming material can ripple through the entire process." },
-
-      { category: "tank", difficulty: "easy", type: "True / False", question: "Tank work requires attention to contents, handling, and safety procedures.", options: ["True", "False"], answer: "True", explanation: "Tank operations can involve handling risks, product awareness, and process controls." },
-      { category: "tank", difficulty: "medium", type: "Multiple Choice", question: "Why is it important to verify tank contents before transfer or use?", options: ["A. To improve logo placement", "B. To prevent contamination or handling errors", "C. To change tire pressure", "D. To reduce paperwork only"], answer: "B. To prevent contamination or handling errors", explanation: "Wrong product or wrong tank can create major quality and safety problems." },
-      { category: "tank", difficulty: "hard", type: "Multiple Choice", question: "A tank transfer goes wrong because assumptions were made instead of checks being completed. The biggest lesson is:", options: ["A. Move faster next time", "B. Verification and procedure matter more than assumptions", "C. Use fewer labels", "D. Skip communication"], answer: "B. Verification and procedure matter more than assumptions", explanation: "Tank work punishes guessing." },
-
-      { category: "barge", difficulty: "easy", type: "True / False", question: "Barge operations depend heavily on coordination, material handling, and safe loading practices.", options: ["True", "False"], answer: "True", explanation: "Barge work involves timing, movement, and safe handling." },
-      { category: "barge", difficulty: "medium", type: "Multiple Choice", question: "What is one important concern in barge material movement?", options: ["A. Proper coordination and loading control", "B. Office carpet selection", "C. Concrete paint color", "D. Sidewalk striping"], answer: "A. Proper coordination and loading control", explanation: "Barge operations depend on controlled loading and coordinated movement." },
-      { category: "barge", difficulty: "hard", type: "Multiple Choice", question: "A barge loading sequence is poorly coordinated. What is the most likely result?", options: ["A. Better communication", "B. Delays, material issues, or safety problems", "C. Stronger asphalt", "D. Cleaner trucks"], answer: "B. Delays, material issues, or safety problems", explanation: "Poor coordination in barge operations quickly creates operational headaches." },
-
-      { category: "rail", difficulty: "easy", type: "True / False", question: "Rail transloading involves moving materials between rail and another transport or storage system.", options: ["True", "False"], answer: "True", explanation: "That is exactly what rail transloading is." },
-      { category: "rail", difficulty: "medium", type: "Multiple Choice", question: "What is one major concern in rail transloading?", options: ["A. Correct transfer handling and coordination", "B. Grass height", "C. Office lighting", "D. Fence shape"], answer: "A. Correct transfer handling and coordination", explanation: "Rail transloading depends on controlled handling and logistics." },
-      { category: "rail", difficulty: "hard", type: "Multiple Choice", question: "If transloaded material is mishandled during transfer, the main risk is:", options: ["A. Better site branding", "B. Product loss, contamination, delays, or safety issues", "C. Reduced paperwork", "D. Improved weather"], answer: "B. Product loss, contamination, delays, or safety issues", explanation: "Material handling errors in transloading can create costly problems." }
-         { category: "bridge", difficulty: "easy", type: "Multiple Choice", question: "What is one major reason bridge work requires extra attention to detail?", options: ["A. It changes traffic color", "B. It affects structural safety and long-term performance", "C. It reduces paperwork", "D. It avoids weather"], answer: "B. It affects structural safety and long-term performance", explanation: "Bridge work affects structure, safety, and long-term durability." },
+      { category: "bridge", difficulty: "easy", type: "Multiple Choice", question: "What is one major reason bridge work requires extra attention to detail?", options: ["A. It changes traffic color", "B. It affects structural safety and long-term performance", "C. It reduces paperwork", "D. It avoids weather"], answer: "B. It affects structural safety and long-term performance", explanation: "Bridge work affects structure, safety, and long-term durability." },
       { category: "bridge", difficulty: "easy", type: "True / False", question: "Bridge work often involves working around traffic, elevation changes, and structural elements.", options: ["True", "False"], answer: "True", explanation: "Those conditions are common on bridge projects." },
       { category: "bridge", difficulty: "easy", type: "Fill in the Blank", question: "Incorrect sequence in bridge work can lead to costly ______.", options: ["rework", "paint", "signs", "mowing"], answer: "rework", explanation: "Bridge projects punish mistakes with expensive rework." },
+      { category: "bridge", difficulty: "medium", type: "Multiple Choice", question: "Why is correct sequencing important during bridge work?", options: ["A. It changes concrete color", "B. It helps maintain safety and structural quality", "C. It reduces traffic signs", "D. It avoids surveying"], answer: "B. It helps maintain safety and structural quality", explanation: "Bridge work requires correct order of operations for safety and quality." },
       { category: "bridge", difficulty: "medium", type: "Multiple Choice", question: "Why are inspections especially important during bridge work?", options: ["A. To slow the project down", "B. To verify quality, safety, and compliance", "C. To avoid materials", "D. To remove the need for plans"], answer: "B. To verify quality, safety, and compliance", explanation: "Bridge work usually has critical inspection points." },
       { category: "bridge", difficulty: "medium", type: "Multiple Choice", question: "What is one risk of skipping surface preparation before the next bridge work phase?", options: ["A. Better bonding", "B. Poor quality or premature failure", "C. Lower labor", "D. Faster curing every time"], answer: "B. Poor quality or premature failure", explanation: "Prep steps matter because later work depends on them." },
       { category: "bridge", difficulty: "medium", type: "True / False", question: "Bridge crews can ignore alignment and elevation as long as the structure looks correct.", options: ["True", "False"], answer: "False", explanation: "Alignment and elevation are critical, not optional." },
+      { category: "bridge", difficulty: "hard", type: "Multiple Choice", question: "A bridge crew skips a required prep step before the next phase. The biggest likely consequence is:", options: ["A. Faster paperwork", "B. Rework, safety risk, or quality failure", "C. Better weather", "D. Lower traffic counts"], answer: "B. Rework, safety risk, or quality failure", explanation: "Skipped prep steps on bridge work can create serious downstream problems." },
       { category: "bridge", difficulty: "hard", type: "Multiple Choice", question: "A bridge repair phase starts before the previous area is properly verified. What is the greatest risk?", options: ["A. Cleaner equipment", "B. Hidden defects leading to safety or quality issues", "C. Better traffic flow", "D. Shorter concrete cure time"], answer: "B. Hidden defects leading to safety or quality issues", explanation: "Starting the next phase too early can bury problems that become expensive later." },
       { category: "bridge", difficulty: "hard", type: "Multiple Choice", question: "Why is coordination between crews especially important in bridge work?", options: ["A. Because fewer people are involved", "B. Because multiple operations can affect structure, safety, and sequence", "C. Because traffic does not matter", "D. Because plans are optional"], answer: "B. Because multiple operations can affect structure, safety, and sequence", explanation: "Bridge work usually has interconnected tasks with little room for sloppy handoffs." },
       { category: "bridge", difficulty: "hard", type: "Fill in the Blank", question: "A mistake in bridge work may affect not just appearance, but structural ______.", options: ["integrity", "paint", "marketing", "signage"], answer: "integrity", explanation: "That is why bridge work is not the place for guessing." },
 
+      { category: "aggregate", difficulty: "easy", type: "True / False", question: "Aggregate delivery affects production flow and jobsite efficiency.", options: ["True", "False"], answer: "True", explanation: "Poor delivery timing can disrupt production and site performance." },
       { category: "aggregate", difficulty: "easy", type: "Multiple Choice", question: "What is one key goal of aggregate delivery?", options: ["A. Bring any material at any time", "B. Deliver the correct material in the correct amount at the correct time", "C. Keep trucks waiting longer", "D. Mix loads without checking"], answer: "B. Deliver the correct material in the correct amount at the correct time", explanation: "Delivery accuracy affects production and quality." },
       { category: "aggregate", difficulty: "easy", type: "True / False", question: "Wrong aggregate delivery can affect plant operations and jobsite performance.", options: ["True", "False"], answer: "True", explanation: "Material issues upstream become production issues downstream." },
       { category: "aggregate", difficulty: "easy", type: "Fill in the Blank", question: "Aggregate delivery problems can create delays and material ______.", options: ["shortages", "flowers", "permits", "paint"], answer: "shortages", explanation: "Bad timing or bad loads can leave a site or plant short on needed material." },
+      { category: "aggregate", difficulty: "medium", type: "Multiple Choice", question: "What is one key concern in aggregate delivery?", options: ["A. Decorative striping", "B. Correct material, timing, and unloading", "C. Bridge lighting", "D. Fence paint"], answer: "B. Correct material, timing, and unloading", explanation: "Delivery quality depends on getting the right material to the right place at the right time." },
       { category: "aggregate", difficulty: "medium", type: "Multiple Choice", question: "Why does contamination matter during aggregate delivery?", options: ["A. It makes unloading quieter", "B. It can hurt product quality and performance", "C. It changes the truck logo", "D. It reduces paperwork"], answer: "B. It can hurt product quality and performance", explanation: "Contaminated aggregate can create serious quality issues." },
       { category: "aggregate", difficulty: "medium", type: "Multiple Choice", question: "What should be verified before unloading aggregate?", options: ["A. Driver playlist", "B. Material type and destination", "C. Office temperature", "D. Sign spacing"], answer: "B. Material type and destination", explanation: "Wrong material in the wrong place creates a mess fast." },
       { category: "aggregate", difficulty: "medium", type: "True / False", question: "Delivery timing matters because some operations depend on a steady material supply.", options: ["True", "False"], answer: "True", explanation: "Interrupted supply can slow or stop production." },
+      { category: "aggregate", difficulty: "hard", type: "Multiple Choice", question: "A plant experiences production inconsistency tied to incoming stone loads. What should be checked first?", options: ["A. Office chairs", "B. Material type, contamination, and moisture variation", "C. Social media scheduling", "D. Parking layout"], answer: "B. Material type, contamination, and moisture variation", explanation: "Inconsistent incoming material can ripple through the entire process." },
       { category: "aggregate", difficulty: "hard", type: "Multiple Choice", question: "Several loads arrive with different moisture conditions. What is the likely impact?", options: ["A. More uniform production", "B. Variable handling and possible mix inconsistency", "C. Cleaner storage areas", "D. Lower safety risk automatically"], answer: "B. Variable handling and possible mix inconsistency", explanation: "Moisture variation affects material behavior and consistency." },
       { category: "aggregate", difficulty: "hard", type: "Multiple Choice", question: "A crew unloads the correct stone into the wrong stockpile. The biggest risk is:", options: ["A. Better blending", "B. Inventory confusion and material quality issues", "C. Lower fuel use", "D. Better weather"], answer: "B. Inventory confusion and material quality issues", explanation: "Wrong stockpile placement can create contamination and tracking problems." },
       { category: "aggregate", difficulty: "hard", type: "Fill in the Blank", question: "Aggregate delivery is not just hauling; it also affects production ______.", options: ["control", "music", "uniforms", "advertising"], answer: "control", explanation: "Good delivery supports good process control." },
 
+      { category: "tank", difficulty: "easy", type: "True / False", question: "Tank work requires attention to contents, handling, and safety procedures.", options: ["True", "False"], answer: "True", explanation: "Tank operations can involve handling risks, product awareness, and process controls." },
       { category: "tank", difficulty: "easy", type: "Multiple Choice", question: "What is one basic rule of tank work?", options: ["A. Assume contents based on memory", "B. Verify contents before transfer or use", "C. Skip labels if the tank looks familiar", "D. Open everything first"], answer: "B. Verify contents before transfer or use", explanation: "Assumptions and tank work are a bad combination." },
       { category: "tank", difficulty: "easy", type: "True / False", question: "Tank work may involve handling products that require specific procedures.", options: ["True", "False"], answer: "True", explanation: "Tank operations often depend on correct handling and process steps." },
       { category: "tank", difficulty: "easy", type: "Fill in the Blank", question: "Before transfer, crews should verify tank contents and proper ______.", options: ["connections", "music", "signs", "weather"], answer: "connections", explanation: "Correct connections matter before any transfer begins." },
+      { category: "tank", difficulty: "medium", type: "Multiple Choice", question: "Why is it important to verify tank contents before transfer or use?", options: ["A. To improve logo placement", "B. To prevent contamination or handling errors", "C. To change tire pressure", "D. To reduce paperwork only"], answer: "B. To prevent contamination or handling errors", explanation: "Wrong product or wrong tank can create major quality and safety problems." },
       { category: "tank", difficulty: "medium", type: "Multiple Choice", question: "Why is labeling important in tank operations?", options: ["A. It only helps visitors", "B. It helps prevent product mix-ups and transfer errors", "C. It makes tanks heavier", "D. It removes the need for checks"], answer: "B. It helps prevent product mix-ups and transfer errors", explanation: "Labeling supports verification and safer handling." },
       { category: "tank", difficulty: "medium", type: "Multiple Choice", question: "What is one likely result of using the wrong tank contents in an operation?", options: ["A. Better quality control", "B. Contamination, waste, or process failure", "C. Faster setup every time", "D. Reduced need for training"], answer: "B. Contamination, waste, or process failure", explanation: "Wrong product use can create expensive downstream problems." },
       { category: "tank", difficulty: "medium", type: "True / False", question: "Tank work should rely on procedure, not memory or guesswork.", options: ["True", "False"], answer: "True", explanation: "Procedure exists because guessing fails hard here." },
+      { category: "tank", difficulty: "hard", type: "Multiple Choice", question: "A tank transfer goes wrong because assumptions were made instead of checks being completed. The biggest lesson is:", options: ["A. Move faster next time", "B. Verification and procedure matter more than assumptions", "C. Use fewer labels", "D. Skip communication"], answer: "B. Verification and procedure matter more than assumptions", explanation: "Tank work punishes guessing." },
       { category: "tank", difficulty: "hard", type: "Multiple Choice", question: "A transfer line is connected before the destination is fully confirmed. What is the main risk?", options: ["A. Better efficiency", "B. Wrong transfer, contamination, or unsafe conditions", "C. Better pressure control", "D. Fewer communication needs"], answer: "B. Wrong transfer, contamination, or unsafe conditions", explanation: "Tank mistakes can escalate quickly if checks happen too late." },
       { category: "tank", difficulty: "hard", type: "Multiple Choice", question: "Why are checklists valuable in tank operations?", options: ["A. They waste time", "B. They help catch errors before product movement begins", "C. They replace training", "D. They eliminate supervision"], answer: "B. They help catch errors before product movement begins", explanation: "A simple checklist beats a confident guess every time." },
       { category: "tank", difficulty: "hard", type: "Fill in the Blank", question: "In tank work, small errors can become big ______ very quickly.", options: ["problems", "decorations", "meetings", "logos"], answer: "problems", explanation: "That is why the process has to be tight." },
 
+      { category: "barge", difficulty: "easy", type: "True / False", question: "Barge operations depend heavily on coordination, material handling, and safe loading practices.", options: ["True", "False"], answer: "True", explanation: "Barge work involves timing, movement, and safe handling." },
       { category: "barge", difficulty: "easy", type: "Multiple Choice", question: "What is one major need in barge operations?", options: ["A. Random loading", "B. Coordination and controlled material movement", "C. Less communication", "D. More guessing"], answer: "B. Coordination and controlled material movement", explanation: "Barge work depends on timing and control." },
       { category: "barge", difficulty: "easy", type: "True / False", question: "Poor coordination during barge loading can create delays and safety issues.", options: ["True", "False"], answer: "True", explanation: "Poor coordination tends to spread problems fast." },
       { category: "barge", difficulty: "easy", type: "Fill in the Blank", question: "Barge loading requires safe handling and clear ______.", options: ["communication", "advertising", "painting", "survey stakes"], answer: "communication", explanation: "Without communication, movement and loading get messy fast." },
+      { category: "barge", difficulty: "medium", type: "Multiple Choice", question: "What is one important concern in barge material movement?", options: ["A. Proper coordination and loading control", "B. Office carpet selection", "C. Concrete paint color", "D. Sidewalk striping"], answer: "A. Proper coordination and loading control", explanation: "Barge operations depend on controlled loading and coordinated movement." },
       { category: "barge", difficulty: "medium", type: "Multiple Choice", question: "Why is loading control important in barge operations?", options: ["A. It affects only paperwork", "B. It helps maintain efficiency, safety, and proper material handling", "C. It improves office seating", "D. It changes river current"], answer: "B. It helps maintain efficiency, safety, and proper material handling", explanation: "Loading control supports both safe operation and production flow." },
       { category: "barge", difficulty: "medium", type: "Multiple Choice", question: "What can poor material tracking during barge operations lead to?", options: ["A. Better forecasting", "B. Confusion, delays, or product handling errors", "C. Cleaner boots", "D. Lower training needs"], answer: "B. Confusion, delays, or product handling errors", explanation: "Tracking matters when materials are moving through multiple steps." },
       { category: "barge", difficulty: "medium", type: "True / False", question: "Barge operations require less planning than truck-only delivery.", options: ["True", "False"], answer: "False", explanation: "Barge operations usually require serious coordination." },
+      { category: "barge", difficulty: "hard", type: "Multiple Choice", question: "A barge loading sequence is poorly coordinated. What is the most likely result?", options: ["A. Better communication", "B. Delays, material issues, or safety problems", "C. Stronger asphalt", "D. Cleaner trucks"], answer: "B. Delays, material issues, or safety problems", explanation: "Poor coordination in barge operations quickly creates operational headaches." },
       { category: "barge", difficulty: "hard", type: "Multiple Choice", question: "A barge operation falls behind because different crews are not working from the same sequence. What is the root problem?", options: ["A. Too many life jackets", "B. Poor coordination and sequencing", "C. Too much documentation", "D. Not enough paint"], answer: "B. Poor coordination and sequencing", explanation: "When crews are out of sync, delays and errors pile up." },
       { category: "barge", difficulty: "hard", type: "Multiple Choice", question: "Why is pre-planning especially important in barge material movement?", options: ["A. It removes all risk", "B. It helps avoid delays, confusion, and handling mistakes", "C. It changes the cargo type", "D. It improves water level"], answer: "B. It helps avoid delays, confusion, and handling mistakes", explanation: "Good pre-planning prevents predictable chaos." },
       { category: "barge", difficulty: "hard", type: "Fill in the Blank", question: "In barge work, poor coordination can affect safety, timing, and material ______.", options: ["control", "music", "weather", "uniforms"], answer: "control", explanation: "Controlled movement is the whole game." },
 
+      { category: "rail", difficulty: "easy", type: "True / False", question: "Rail transloading involves moving materials between rail and another transport or storage system.", options: ["True", "False"], answer: "True", explanation: "That is exactly what rail transloading is." },
       { category: "rail", difficulty: "easy", type: "Multiple Choice", question: "What is rail transloading?", options: ["A. Painting railcars", "B. Moving material between rail and another transport or storage system", "C. Building railroad signs", "D. Replacing tracks"], answer: "B. Moving material between rail and another transport or storage system", explanation: "That is the basic function of rail transloading." },
       { category: "rail", difficulty: "easy", type: "True / False", question: "Rail transloading depends on proper handling and coordination.", options: ["True", "False"], answer: "True", explanation: "Bad coordination causes delays and handling problems." },
       { category: "rail", difficulty: "easy", type: "Fill in the Blank", question: "Transloading means moving material from one system to ______.", options: ["another", "paint", "concrete", "gravel"], answer: "another", explanation: "That transfer is the whole point." },
+      { category: "rail", difficulty: "medium", type: "Multiple Choice", question: "What is one major concern in rail transloading?", options: ["A. Correct transfer handling and coordination", "B. Grass height", "C. Office lighting", "D. Fence shape"], answer: "A. Correct transfer handling and coordination", explanation: "Rail transloading depends on controlled handling and logistics." },
       { category: "rail", difficulty: "medium", type: "Multiple Choice", question: "Why is product tracking important in rail transloading?", options: ["A. It only matters for billing", "B. It helps prevent errors, delays, and material confusion", "C. It slows unloading", "D. It makes storage harder"], answer: "B. It helps prevent errors, delays, and material confusion", explanation: "Tracking supports control and accountability." },
       { category: "rail", difficulty: "medium", type: "Multiple Choice", question: "What is one likely outcome of poor coordination in rail transloading?", options: ["A. Smoother transfers", "B. Delays and handling mistakes", "C. Better stockpile accuracy", "D. Lower equipment needs"], answer: "B. Delays and handling mistakes", explanation: "Poor coordination usually shows up as wasted time and bad transfers." },
       { category: "rail", difficulty: "medium", type: "True / False", question: "Correct handling during transfer matters because material can be lost or contaminated.", options: ["True", "False"], answer: "True", explanation: "Transfer points are where mistakes love to happen." },
+      { category: "rail", difficulty: "hard", type: "Multiple Choice", question: "If transloaded material is mishandled during transfer, the main risk is:", options: ["A. Better site branding", "B. Product loss, contamination, delays, or safety issues", "C. Reduced paperwork", "D. Improved weather"], answer: "B. Product loss, contamination, delays, or safety issues", explanation: "Material handling errors in transloading can create costly problems." },
       { category: "rail", difficulty: "hard", type: "Multiple Choice", question: "A transloading site keeps having product discrepancies after transfers. What should be checked first?", options: ["A. Office paint color", "B. Transfer process, tracking, and handling controls", "C. Parking lot striping", "D. Fence height"], answer: "B. Transfer process, tracking, and handling controls", explanation: "Discrepancies usually point to poor process control or tracking." },
       { category: "rail", difficulty: "hard", type: "Multiple Choice", question: "Why is consistency important in rail transloading procedures?", options: ["A. It helps reduce error and improve control", "B. It removes the need for communication", "C. It makes materials cheaper", "D. It changes rail schedules"], answer: "A. It helps reduce error and improve control", explanation: "Consistency is how you stop repeat mistakes." },
-      { category: "rail", difficulty: "hard", type: "Fill in the Blank", question: "Rail transloading depends on safe handling, coordination, and process ______.", options: ["control", "advertising", "lighting", "landscaping"], answer: "control", explanation: "Without process control, things go sideways fast." },
+      { category: "rail", difficulty: "hard", type: "Fill in the Blank", question: "Rail transloading depends on safe handling, coordination, and process ______.", options: ["control", "advertising", "lighting", "landscaping"], answer: "control", explanation: "Without process control, things go sideways fast." }
     ];
 
     let selectedCategory = "smooth";
@@ -621,6 +624,13 @@
       teamB: 0
     };
 
+    function getQuestionCountForCategory(categoryId) {
+      if (categoryId === "mixed") {
+        return questionBank.length;
+      }
+      return questionBank.filter(q => q.category === categoryId).length;
+    }
+
     function renderOptions(containerId, items, selectedId, onSelect) {
       const container = document.getElementById(containerId);
       container.innerHTML = "";
@@ -629,7 +639,20 @@
         const card = document.createElement("div");
         card.className = "option-card" + (item.id === selectedId ? " selected" : "");
         card.onclick = () => onSelect(item.id);
-        card.innerHTML = `<h3>${item.name}</h3><p>${item.description}</p>`;
+
+        let extraLine = "";
+
+        if (containerId === "categoryOptions") {
+          const count = getQuestionCountForCategory(item.id);
+          extraLine = `<p class="count-line">${count} questions available</p>`;
+        }
+
+        card.innerHTML = `
+          <h3>${item.name}</h3>
+          <p>${item.description}</p>
+          ${extraLine}
+        `;
+
         container.appendChild(card);
       });
     }
@@ -694,7 +717,8 @@
     function getPointValue(difficulty) {
       if (difficulty === "easy") return 10;
       if (difficulty === "medium") return 20;
-      return 30;
+      if (difficulty === "hard") return 30;
+      return 20;
     }
 
     function getCategoryName(categoryId) {
@@ -713,23 +737,27 @@
     }
 
     function buildQuestionSet() {
-      let filtered;
+      let filtered = [];
 
-      if (selectedCategory === "mixed") {
+      if (selectedCategory === "mixed" && selectedDifficulty === "all") {
+        filtered = [...questionBank];
+      } else if (selectedCategory === "mixed") {
         filtered = questionBank.filter(q => q.difficulty === selectedDifficulty);
+      } else if (selectedDifficulty === "all") {
+        filtered = questionBank.filter(q => q.category === selectedCategory);
       } else {
-        filtered = questionBank.filter(q => q.category === selectedCategory && q.difficulty === selectedDifficulty);
+        filtered = questionBank.filter(
+          q => q.category === selectedCategory && q.difficulty === selectedDifficulty
+        );
       }
 
       if (filtered.length < QUESTION_COUNT) {
-        const fallback = selectedCategory === "mixed"
-          ? questionBank
-          : questionBank.filter(q => q.category === selectedCategory);
-
-        filtered = fallback.filter(q => q.difficulty === selectedDifficulty);
-
-        if (filtered.length < QUESTION_COUNT) {
-          filtered = fallback;
+        if (selectedCategory === "mixed") {
+          filtered = selectedDifficulty === "all"
+            ? [...questionBank]
+            : questionBank.filter(q => q.difficulty === selectedDifficulty);
+        } else {
+          filtered = questionBank.filter(q => q.category === selectedCategory);
         }
       }
 
@@ -746,11 +774,6 @@
       if (selectedMode === "solo") return "solo";
       if (selectedMode === "versus") return currentTurn % 2 === 0 ? "player1" : "player2";
       return currentTurn % 2 === 0 ? "teamA" : "teamB";
-    }
-
-    function getCurrentDisplayName() {
-      if (selectedMode === "solo") return participantOne;
-      return currentTurn % 2 === 0 ? participantOne : participantTwo;
     }
 
     function startGame() {
@@ -821,8 +844,11 @@
       const q = currentQuestions[currentQuestionIndex];
 
       document.getElementById("questionProgress").textContent = `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
-      document.getElementById("categoryPill").textContent = selectedCategory === "mixed" ? "Mixed Bag" : getCategoryName(q.category);
-      document.getElementById("difficultyPill").textContent = getDifficultyName(selectedDifficulty);
+      document.getElementById("categoryPill").textContent = selectedCategory === "mixed" ? "🎲 Mixed Bag" : getCategoryName(q.category);
+      document.getElementById("difficultyPill").textContent =
+        selectedDifficulty === "all"
+          ? `Mixed Difficulty (${getDifficultyName(q.difficulty)})`
+          : getDifficultyName(selectedDifficulty);
       document.getElementById("modePill").textContent = getModeName(selectedMode);
       document.getElementById("turnPill").textContent = getTurnLabel();
       document.getElementById("questionText").textContent = q.question;
@@ -882,7 +908,8 @@
       clearTimer();
 
       const buttons = document.querySelectorAll(".answer-btn");
-      const points = getPointValue(selectedDifficulty);
+      const currentQuestion = currentQuestions[currentQuestionIndex];
+      const points = getPointValue(currentQuestion.difficulty);
       const currentSide = getCurrentSideKey();
 
       buttons.forEach(btn => {
@@ -950,11 +977,11 @@
       document.getElementById("quizSection").classList.add("hidden");
       document.getElementById("resultsSection").classList.remove("hidden");
 
-      const maxPoints = currentQuestions.length * getPointValue(selectedDifficulty);
+      const maxPoints = currentQuestions.reduce((sum, q) => sum + getPointValue(q.difficulty), 0);
       let text = "";
 
       if (selectedMode === "solo") {
-        const percent = Math.round((scores.solo / maxPoints) * 100);
+        const percent = maxPoints === 0 ? 0 : Math.round((scores.solo / maxPoints) * 100);
         const rank = getSoloRank(percent);
         const passFail = percent >= PASS_PERCENT ? `<span class="pass">PASS</span>` : `<span class="fail">FAIL</span>`;
 
@@ -977,11 +1004,9 @@
         });
       } else if (selectedMode === "versus") {
         let winnerText = "";
-        let resultLabel = "";
 
         if (scores.player1 > scores.player2) {
           winnerText = `${participantOne} wins.`;
-          resultLabel = "Winner";
           saveLeaderboardEntry({
             name: participantOne,
             category: getCategoryName(selectedCategory),
@@ -992,7 +1017,6 @@
           });
         } else if (scores.player2 > scores.player1) {
           winnerText = `${participantTwo} wins.`;
-          resultLabel = "Winner";
           saveLeaderboardEntry({
             name: participantTwo,
             category: getCategoryName(selectedCategory),
@@ -1003,7 +1027,6 @@
           });
         } else {
           winnerText = "It’s a tie. Nobody gets bragging rights yet.";
-          resultLabel = "Tie";
         }
 
         text = `
@@ -1107,7 +1130,10 @@
     function playSound(type) {
       if (!getSetting("sound")) return;
 
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+
+      const ctx = new AudioContextClass();
 
       function beep(freq, duration, volume) {
         const osc = ctx.createOscillator();
