@@ -1,23 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pave the Way</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #eef6ff, #f8fbff);
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 44px;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: 0.2s ease;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #1d4ed8;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .card button {
+      background: #1d4ed8;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .card button:hover {
+      background: #1e40af;
+    }
+
+    .coming {
+      opacity: 0.6;
+    }
+
+    .coming button {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+  </style>
 </head>
-<body style="font-family: Arial; text-align:center; margin-top:50px;">
-  <h1>Pave the Way</h1>
-  <p>Welcome to the training platform</p>
 
-  <a href="Smooth-Operators.html">
-    <button style="padding:15px 25px; font-size:18px;">
-      Smooth Operators Quiz
-    </button>
-  </a>
+<body>
+  <div class="container">
 
-  <a href="Below-the-Surface.html">
-  <button style="padding:15px 25px; font-size:18px; margin-top:10px;">
-    Below the Surface Quiz
-  </button>
-</a>
-  
+    <h1>Pave the Way</h1>
+    <div class="subtitle">
+      Training. Knowledge. Built for the field.
+    </div>
+
+    <div class="grid">
+
+      <!-- Smooth Operators -->
+      <div class="card">
+        <h2>Smooth Operators</h2>
+        <p>Paving and milling fundamentals. Know the process, avoid the problems.</p>
+        <a href="Smooth-Operators.html">
+          <button>Start Quiz</button>
+        </a>
+      </div>
+
+      <!-- Below the Surface -->
+      <div class="card">
+        <h2>Below the Surface</h2>
+        <p>Grade, drainage, and utility work. What happens before the pavement matters.</p>
+        <a href="Below-the-Surface.html">
+          <button>Start Quiz</button>
+        </a>
+      </div>
+
+      <!-- Future Category -->
+      <div class="card coming">
+        <h2>Safety Zone</h2>
+        <p>Coming soon. Because going home matters more than finishing fast.</p>
+        <button>Coming Soon</button>
+      </div>
+
+      <!-- Future Category -->
+      <div class="card coming">
+        <h2>Material Matters</h2>
+        <p>Coming soon. Learn what you're actually working with.</p>
+        <button>Coming Soon</button>
+      </div>
+
+    </div>
+
+  </div>
 </body>
 </html>
