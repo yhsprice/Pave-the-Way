@@ -679,12 +679,13 @@
     let selectedDifficulty = "easy";
 
     let currentQuestions = [];
-    let currentQuestionIndex = 0;
-    let answered = false;
-    let currentTurn = 0;
-    let previousCorrectSide = null;
-    let timerInterval = null;
-    let timeLeft = 15;
+let currentQuestionIndex = 0;
+let answered = false;
+let currentTurn = 0;
+let previousCorrectSide = null;
+let timerInterval = null;
+let timeLeft = 15;
+let lastUsedQuestionKeys = [];
 
     let participantOne = "Player 1";
     let participantTwo = "Player 2";
@@ -786,7 +787,11 @@
       }
       return copied;
     }
-
+    
+function getQuestionKey(question) {
+  return `${question.category}|${question.difficulty}|${question.question}`;
+}
+    
     function getPointValue(difficulty) {
       if (difficulty === "easy") return 10;
       if (difficulty === "medium") return 20;
@@ -809,39 +814,50 @@
       return match ? match.name : "Unknown Mode";
     }
 
-    function buildQuestionSet() {
-      let filtered = [];
+   function buildQuestionSet() {
+  let filtered = [];
 
-      if (selectedCategory === "mixed" && selectedDifficulty === "all") {
-        filtered = [...questionBank];
-      } else if (selectedCategory === "mixed") {
-        filtered = questionBank.filter(q => q.difficulty === selectedDifficulty);
-      } else if (selectedDifficulty === "all") {
-        filtered = questionBank.filter(q => q.category === selectedCategory);
-      } else {
-        filtered = questionBank.filter(
-          q => q.category === selectedCategory && q.difficulty === selectedDifficulty
-        );
-      }
+  if (selectedCategory === "mixed" && selectedDifficulty === "all") {
+    filtered = [...questionBank];
+  } else if (selectedCategory === "mixed") {
+    filtered = questionBank.filter(q => q.difficulty === selectedDifficulty);
+  } else if (selectedDifficulty === "all") {
+    filtered = questionBank.filter(q => q.category === selectedCategory);
+  } else {
+    filtered = questionBank.filter(
+      q => q.category === selectedCategory && q.difficulty === selectedDifficulty
+    );
+  }
 
-      if (filtered.length < QUESTION_COUNT) {
-        if (selectedCategory === "mixed") {
-          filtered = selectedDifficulty === "all"
-            ? [...questionBank]
-            : questionBank.filter(q => q.difficulty === selectedDifficulty);
-        } else {
-          filtered = questionBank.filter(q => q.category === selectedCategory);
-        }
-      }
-
-      return shuffleArray(filtered).slice(0, Math.min(QUESTION_COUNT, filtered.length));
+  if (filtered.length < QUESTION_COUNT) {
+    if (selectedCategory === "mixed") {
+      filtered = selectedDifficulty === "all"
+        ? [...questionBank]
+        : questionBank.filter(q => q.difficulty === selectedDifficulty);
+    } else {
+      filtered = questionBank.filter(q => q.category === selectedCategory);
     }
+  }
 
-    function getTurnLabel() {
-      if (selectedMode === "solo") return participantOne;
-      if (selectedMode === "versus") return currentTurn % 2 === 0 ? `${participantOne} Turn` : `${participantTwo} Turn`;
-      return currentTurn % 2 === 0 ? `${participantOne} Turn` : `${participantTwo} Turn`;
-    }
+  const freshQuestions = filtered.filter(q => !lastUsedQuestionKeys.includes(getQuestionKey(q)));
+  let selected = [];
+
+  if (freshQuestions.length >= QUESTION_COUNT) {
+    selected = shuffleArray(freshQuestions).slice(0, QUESTION_COUNT);
+  } else {
+    const needed = QUESTION_COUNT - freshQuestions.length;
+    const fallbackPool = filtered.filter(q => lastUsedQuestionKeys.includes(getQuestionKey(q)));
+
+    selected = [
+      ...shuffleArray(freshQuestions),
+      ...shuffleArray(fallbackPool).slice(0, needed)
+    ];
+  }
+
+  lastUsedQuestionKeys = selected.map(getQuestionKey);
+
+  return selected.slice(0, Math.min(QUESTION_COUNT, selected.length));
+}
 
     function getCurrentSideKey() {
       if (selectedMode === "solo") return "solo";
