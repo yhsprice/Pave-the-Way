@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pave the Way | Smooth Operators</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #f4f4f4, #e7ecef);
+      color: #222;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      padding: 30px;
+    }
+
+    .main-title {
+      text-align: center;
+      font-size: 42px;
+      margin-bottom: 8px;
+      color: #1d3557;
+    }
+
+    .sub-title {
+      text-align: center;
+      font-size: 28px;
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    .tagline {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .quiz-box {
+      background: #f8fafc;
+      border: 2px solid #d9e2ec;
+      border-radius: 16px;
+      padding: 25px;
+    }
+
+    .progress {
+      font-size: 15px;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .question-type {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e3a8a;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 15px;
+    }
+
+    .question {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .answers {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .answer-btn {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      background: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .answer-btn:hover {
+      background: #eef6ff;
+      border-color: #93c5fd;
+    }
+
+    .answer-btn.correct {
+      background: #dcfce7;
+      border-color: #22c55e;
+      font-weight: bold;
+    }
+
+    .answer-btn.wrong {
+      background: #fee2e2;
+      border-color: #ef4444;
+      font-weight: bold;
+    }
+
+    .answer-btn:disabled {
+      cursor: default;
+    }
+
+    .feedback {
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      min-height: 24px;
+    }
+
+    .explanation {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 20px;
+      min-height: 40px;
+      line-height: 1.5;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .control-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .next-btn {
+      background: #1d4ed8;
+      color: white;
+    }
+
+    .next-btn:hover {
+      background: #1e40af;
+    }
+
+    .restart-btn {
+      background: #64748b;
+      color: white;
+    }
+
+    .restart-btn:hover {
+      background: #475569;
+    }
+
+    .score-board {
+      margin-top: 20px;
+      font-size: 17px;
+      font-weight: bold;
+      color: #1f2937;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .result-box {
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    .result-box h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #1d3557;
+    }
+
+    .result-box p {
+      font-size: 20px;
+      color: #444;
+    }
+
+    @media (max-width: 700px) {
+      .main-title {
+        font-size: 34px;
+      }
+
+      .sub-title {
+        font-size: 24px;
+      }
+
+      .question {
+        font-size: 20px;
+      }
+
+      .container {
+        margin: 20px 12px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="main-title">Pave the Way</h1>
+    <h2 class="sub-title">Smooth Operators</h2>
+    <p class="tagline">Test your paving and milling knowledge one question at a time.</p>
+
+    <div id="quizSection" class="quiz-box">
+      <div class="progress" id="progressText">Question 1 of 10</div>
+      <div class="question-type" id="questionType">Multiple Choice</div>
+      <div class="question" id="questionText"></div>
+      <div class="answers" id="answersContainer"></div>
+      <div class="feedback" id="feedbackText"></div>
+      <div class="explanation" id="explanationText"></div>
+
+      <div class="controls">
+        <button class="control-btn next-btn" id="nextBtn" onclick="nextQuestion()" disabled>Next Question</button>
+        <button class="control-btn restart-btn" onclick="startQuiz()">Restart Quiz</button>
+      </div>
+
+      <div class="score-board" id="scoreBoard">Score: 0 / 0</div>
+    </div>
+
+    <div id="resultSection" class="quiz-box hidden">
+      <div class="result-box">
+        <h2>Quiz Complete</h2>
+        <p id="finalScoreText"></p>
+        <div class="controls" style="justify-content:center; margin-top: 20px;">
+          <button class="control-btn restart-btn" onclick="startQuiz()">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const allQuestions = [
+      {
+        type: "True / False",
+        question: "Asphalt is made primarily of aggregates and binder.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "Asphalt pavement is mainly made from aggregate and asphalt binder."
+      },
+      {
+        type: "True / False",
+        question: "Milling removes the entire roadway down to the subgrade.",
+        options: ["True", "False"],
+        answer: "False",
+        explanation: "Milling usually removes the top asphalt layer, not the entire roadway structure."
+      },
+      {
+        type: "True / False",
+        question: "Tack coat helps new asphalt bond to the existing surface.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "Tack coat is applied to improve bonding between pavement layers."
+      },
+      {
+        type: "True / False",
+        question: "Asphalt must be compacted while it is still hot.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "If the asphalt cools too much, it will not compact properly."
+      },
+      {
+        type: "True / False",
+        question: "Milling machines use rotating drums with teeth to remove asphalt.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "That rotating drum with teeth is what grinds off the old surface."
+      },
+      {
+        type: "True / False",
+        question: "The smoother the base, the better the final pavement result.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "Bad base, bad pavement. Asphalt does not magically fix poor prep."
+      },
+      {
+        type: "True / False",
+        question: "Asphalt paving can be done effectively in freezing temperatures.",
+        options: ["True", "False"],
+        answer: "False",
+        explanation: "Freezing conditions cause asphalt to cool too quickly and hurt compaction."
+      },
+      {
+        type: "True / False",
+        question: "Rollers are used to compact asphalt after it is placed.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "Rollers help achieve density and remove air voids."
+      },
+      {
+        type: "True / False",
+        question: "Asphalt binder is typically derived from petroleum.",
+        options: ["True", "False"],
+        answer: "True",
+        explanation: "The binder used in asphalt is generally a petroleum-based product."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What is the main purpose of milling?",
+        options: [
+          "A. Add thickness",
+          "B. Remove old asphalt",
+          "C. Add color",
+          "D. Compact surface"
+        ],
+        answer: "B. Remove old asphalt",
+        explanation: "Milling removes worn or damaged asphalt so the surface can be replaced or corrected."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What piece of equipment lays asphalt?",
+        options: [
+          "A. Bulldozer",
+          "B. Paver",
+          "C. Excavator",
+          "D. Grader"
+        ],
+        answer: "B. Paver",
+        explanation: "The paver places and spreads the asphalt mat."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What happens if asphalt cools too quickly?",
+        options: [
+          "A. It becomes stronger",
+          "B. It cannot be compacted properly",
+          "C. It becomes more flexible",
+          "D. Nothing changes"
+        ],
+        answer: "B. It cannot be compacted properly",
+        explanation: "Once it cools too much, compaction quality drops fast."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What is the purpose of a roller?",
+        options: [
+          "A. Cut asphalt",
+          "B. Move materials",
+          "C. Compact asphalt",
+          "D. Heat asphalt"
+        ],
+        answer: "C. Compact asphalt",
+        explanation: "The roller compresses the mat to improve density and performance."
+      },
+      {
+        type: "Multiple Choice",
+        question: "Which layer is directly beneath asphalt?",
+        options: [
+          "A. Grass",
+          "B. Subbase/base",
+          "C. Sand only",
+          "D. Water layer"
+        ],
+        answer: "B. Subbase/base",
+        explanation: "The asphalt sits on a prepared base or subbase layer."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What does a milling machine use to grind asphalt?",
+        options: [
+          "A. Blades",
+          "B. Teeth on a drum",
+          "C. Heat",
+          "D. Water jets"
+        ],
+        answer: "B. Teeth on a drum",
+        explanation: "The drum and cutting teeth do the actual grinding."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What is a tack coat made of?",
+        options: [
+          "A. Water",
+          "B. Asphalt emulsion",
+          "C. Concrete",
+          "D. Sand"
+        ],
+        answer: "B. Asphalt emulsion",
+        explanation: "Tack coat is commonly an asphalt emulsion used for bonding."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What does grade refer to?",
+        options: [
+          "A. Asphalt color",
+          "B. Surface slope/elevation",
+          "C. Temperature",
+          "D. Thickness only"
+        ],
+        answer: "B. Surface slope/elevation",
+        explanation: "Grade affects elevation, slope, and drainage."
+      },
+      {
+        type: "Multiple Choice",
+        question: "What is the main reason for compaction?",
+        options: [
+          "A. Appearance only",
+          "B. Reduce air voids",
+          "C. Increase color",
+          "D. Add moisture"
+        ],
+        answer: "B. Reduce air voids",
+        explanation: "Compaction improves density and reduces air spaces in the mat."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "Asphalt is a mixture of aggregate and ______.",
+        options: ["binder", "water", "sand", "clay"],
+        answer: "binder",
+        explanation: "Aggregate and binder are the basic ingredients."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "Milling removes the ______ layer of pavement.",
+        options: ["top", "bottom", "middle", "dirt"],
+        answer: "top",
+        explanation: "Milling usually removes the top layer of asphalt pavement."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "A ______ is applied before new asphalt is placed.",
+        options: ["tack coat", "glue", "seal", "paint"],
+        answer: "tack coat",
+        explanation: "Tack coat helps the new layer stick to the old one."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "Asphalt must be compacted while it is still ______.",
+        options: ["hot", "cold", "wet", "dry"],
+        answer: "hot",
+        explanation: "Hot mix asphalt must be compacted before it cools too much."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "The machine that spreads asphalt is called a ______.",
+        options: ["paver", "roller", "loader", "grader"],
+        answer: "paver",
+        explanation: "The paver lays the asphalt mat."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "A smooth ______ leads to a smooth finished surface.",
+        options: ["base", "truck", "tire", "drum"],
+        answer: "base",
+        explanation: "The final result depends heavily on the condition of the base."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "Rollers remove ______ from asphalt.",
+        options: ["air voids", "water", "rocks", "color"],
+        answer: "air voids",
+        explanation: "Reducing air voids improves pavement strength and life."
+      },
+      {
+        type: "Fill in the Blank",
+        question: "Proper compaction increases pavement ______.",
+        options: ["durability", "color", "softness", "cost"],
+        answer: "durability",
+        explanation: "Better compaction usually means longer pavement life."
+      }
+    ];
+
+    const totalQuestionsPerRound = 10;
+    let selectedQuestions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let answered = false;
+
+    function shuffleArray(array) {
+      const copied = [...array];
+      for (let i = copied.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copied[i], copied[j]] = [copied[j], copied[i]];
+      }
+      return copied;
+    }
+
+    function startQuiz() {
+      selectedQuestions = shuffleArray(allQuestions).slice(0, totalQuestionsPerRound);
+      currentQuestionIndex = 0;
+      score = 0;
+      answered = false;
+
+      document.getElementById("quizSection").classList.remove("hidden");
+      document.getElementById("resultSection").classList.add("hidden");
+
+      showQuestion();
+      updateScore();
+    }
+
+    function showQuestion() {
+      answered = false;
+      const q = selectedQuestions[currentQuestionIndex];
+
+      document.getElementById("progressText").textContent =
+        `Question ${currentQuestionIndex + 1} of ${selectedQuestions.length}`;
+      document.getElementById("questionType").textContent = q.type;
+      document.getElementById("questionText").textContent = q.question;
+      document.getElementById("feedbackText").textContent = "";
+      document.getElementById("explanationText").textContent = "";
+      document.getElementById("nextBtn").disabled = true;
+
+      const answersContainer = document.getElementById("answersContainer");
+      answersContainer.innerHTML = "";
+
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "answer-btn";
+        btn.textContent = option;
+        btn.onclick = () => selectAnswer(btn, option, q.answer, q.explanation);
+        answersContainer.appendChild(btn);
+      });
+
+      updateScore();
+    }
+
+    function selectAnswer(button, selected, correct, explanation) {
+      if (answered) return;
+      answered = true;
+
+      const buttons = document.querySelectorAll(".answer-btn");
+
+      buttons.forEach(btn => {
+        btn.disabled = true;
+
+        if (btn.textContent === correct) {
+          btn.classList.add("correct");
+        }
+
+        if (btn.textContent === selected && selected !== correct) {
+          btn.classList.add("wrong");
+        }
+      });
+
+      if (selected === correct) {
+        score++;
+        document.getElementById("feedbackText").textContent = "Correct";
+        document.getElementById("feedbackText").style.color = "#15803d";
+      } else {
+        document.getElementById("feedbackText").textContent = "Incorrect";
+        document.getElementById("feedbackText").style.color = "#b91c1c";
+      }
+
+      document.getElementById("explanationText").textContent = `Answer: ${correct}. ${explanation}`;
+      document.getElementById("nextBtn").disabled = false;
+
+      updateScore();
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < selectedQuestions.length) {
+        showQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function updateScore() {
+      document.getElementById("scoreBoard").textContent =
+        `Score: ${score} / ${currentQuestionIndex + (answered ? 1 : 0)}`;
+    }
+
+    function showResults() {
+      document.getElementById("quizSection").classList.add("hidden");
+      document.getElementById("resultSection").classList.remove("hidden");
+
+      let message = "";
+      const percent = Math.round((score / selectedQuestions.length) * 100);
+
+      if (percent >= 90) {
+        message = "Excellent work. You are paving the way.";
+      } else if (percent >= 70) {
+        message = "Nice job. Solid performance with room to roll even smoother.";
+      } else if (percent >= 50) {
+        message = "Not bad, but the learning curve still has a few potholes.";
+      } else {
+        message = "Time for another round. The road to greatness is under construction.";
+      }
+
+      document.getElementById("finalScoreText").textContent =
+        `You scored ${score} out of ${selectedQuestions.length} (${percent}%). ${message}`;
+    }
+
+    startQuiz();
+  </script>
+</body>
+</html>
