@@ -859,6 +859,36 @@ function getQuestionKey(question) {
   return selected.slice(0, Math.min(QUESTION_COUNT, selected.length));
 }
 
+  if (filtered.length < QUESTION_COUNT) {
+    if (selectedCategory === "mixed") {
+      filtered = selectedDifficulty === "all"
+        ? [...questionBank]
+        : questionBank.filter(q => q.difficulty === selectedDifficulty);
+    } else {
+      filtered = questionBank.filter(q => q.category === selectedCategory);
+    }
+  }
+
+  const freshQuestions = filtered.filter(q => !lastUsedQuestionKeys.includes(getQuestionKey(q)));
+  let selected = [];
+
+  if (freshQuestions.length >= QUESTION_COUNT) {
+    selected = shuffleArray(freshQuestions).slice(0, QUESTION_COUNT);
+  } else {
+    const needed = QUESTION_COUNT - freshQuestions.length;
+    const fallbackPool = filtered.filter(q => lastUsedQuestionKeys.includes(getQuestionKey(q)));
+
+    selected = [
+      ...shuffleArray(freshQuestions),
+      ...shuffleArray(fallbackPool).slice(0, needed)
+    ];
+  }
+
+  lastUsedQuestionKeys = selected.map(getQuestionKey);
+
+  return selected.slice(0, Math.min(QUESTION_COUNT, selected.length));
+}
+
     function getCurrentSideKey() {
       if (selectedMode === "solo") return "solo";
       if (selectedMode === "versus") return currentTurn % 2 === 0 ? "player1" : "player2";
