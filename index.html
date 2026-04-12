@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pave the Way</title>
+  <title>Asphalt & Roadwork Safety Challenge</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,1252 +12,1017 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #eef6ff, #f8fbff);
+      background: linear-gradient(180deg, #eef3f8, #dfe8f1);
       color: #1f2937;
     }
 
     .container {
-      max-width: 1150px;
+      max-width: 1050px;
       margin: 30px auto;
-      padding: 20px;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .hero h1 {
-      margin: 0 0 8px 0;
-      font-size: 46px;
-    }
-
-    .hero p {
-      margin: 0;
-      font-size: 18px;
-      color: #555;
-    }
-
-    .panel,
-    .quiz-box,
-    .result-box,
-    .leaderboard-box {
-      background: white;
+      background: #ffffff;
       border-radius: 18px;
-      padding: 24px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      padding: 28px;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 0 0 10px;
+      font-size: 34px;
+      color: #0f172a;
+    }
+
+    .subtitle {
+      text-align: center;
       margin-bottom: 24px;
-    }
-
-    .section-title {
-      font-size: 24px;
-      margin-top: 0;
-      margin-bottom: 16px;
-      color: #1d4ed8;
-    }
-
-    .option-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .option-card {
-      border: 2px solid #dbe4f0;
-      border-radius: 14px;
-      padding: 16px;
-      background: #fff;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .option-card:hover {
-      border-color: #93c5fd;
-      background: #f8fbff;
-      transform: translateY(-2px);
-    }
-
-    .option-card.selected {
-      border-color: #1d4ed8;
-      background: #eaf2ff;
-    }
-
-    .option-card h3 {
-      margin: 0 0 8px 0;
-      font-size: 18px;
-    }
-
-    .option-card p {
-      margin: 0;
-      font-size: 14px;
-      color: #555;
-      line-height: 1.4;
-    }
-
-    .count-line {
-      margin-top: 8px !important;
-      font-size: 13px !important;
-      color: #1d4ed8 !important;
-      font-weight: bold !important;
-    }
-
-    .mini-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      margin-top: 6px;
-    }
-
-    .toggle-card {
-      border: 2px solid #dbe4f0;
-      border-radius: 14px;
-      padding: 14px;
-      background: white;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .toggle-card:hover {
-      border-color: #93c5fd;
-      background: #f8fbff;
-    }
-
-    .toggle-card.selected {
-      border-color: #1d4ed8;
-      background: #eaf2ff;
-    }
-
-    .controls {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-
-    button {
-      border: none;
-      border-radius: 12px;
-      padding: 12px 18px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .primary-btn {
-      background: #1d4ed8;
-      color: white;
-    }
-
-    .primary-btn:hover {
-      background: #1e40af;
-    }
-
-    .secondary-btn {
-      background: #64748b;
-      color: white;
-    }
-
-    .secondary-btn:hover {
-      background: #475569;
-    }
-
-    .danger-btn {
-      background: #b91c1c;
-      color: white;
-    }
-
-    .danger-btn:hover {
-      background: #991b1b;
-    }
-
-    .status-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 16px;
-      font-size: 15px;
-      font-weight: bold;
       color: #475569;
-    }
-
-    .pill {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: #e2e8f0;
-      color: #334155;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .timer-pill {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .question {
-      font-size: 26px;
-      font-weight: bold;
-      line-height: 1.4;
-      margin-bottom: 18px;
-    }
-
-    .answers {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .answer-btn {
-      width: 100%;
-      text-align: left;
-      padding: 14px 16px;
-      border: 2px solid #cbd5e1;
-      border-radius: 12px;
-      background: white;
       font-size: 16px;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .answer-btn:hover {
-      background: #eef6ff;
-      border-color: #93c5fd;
-    }
-
-    .answer-btn.correct {
-      background: #dcfce7;
-      border-color: #22c55e;
-      font-weight: bold;
-    }
-
-    .answer-btn.wrong {
-      background: #fee2e2;
-      border-color: #ef4444;
-      font-weight: bold;
-    }
-
-    .answer-btn:disabled {
-      cursor: default;
-    }
-
-    .feedback {
-      min-height: 24px;
-      font-size: 17px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .explanation {
-      min-height: 44px;
-      font-size: 15px;
-      color: #555;
       line-height: 1.5;
-      margin-bottom: 18px;
     }
 
-    .score-panels {
+    .top-bar {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
       margin-bottom: 20px;
     }
 
-    .score-card {
+    .stat-box {
       background: #f8fafc;
-      border: 2px solid #dbe4f0;
+      border: 1px solid #dbe4ee;
       border-radius: 14px;
       padding: 14px;
       text-align: center;
     }
 
-    .score-card h4 {
-      margin: 0 0 8px 0;
-      font-size: 16px;
-      color: #1d4ed8;
-    }
-
-    .score-card div {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .result-box {
-      text-align: center;
-    }
-
-    .result-box h2 {
-      margin-top: 0;
-      font-size: 34px;
-      color: #1d3557;
-    }
-
-    .result-box p {
-      font-size: 19px;
-      color: #444;
-      line-height: 1.5;
-    }
-
-    .leaderboard-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 8px;
-    }
-
-    .leaderboard-table th,
-    .leaderboard-table td {
-      border-bottom: 1px solid #e5e7eb;
-      padding: 10px 8px;
-      text-align: left;
-      font-size: 14px;
-    }
-
-    .leaderboard-table th {
-      color: #1d4ed8;
-    }
-
-    .small-note {
-      font-size: 13px;
+    .stat-label {
+      font-size: 12px;
       color: #64748b;
-      margin-top: 8px;
-      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
     }
 
-    .hidden {
-      display: none;
+    .stat-value {
+      font-size: 22px;
+      font-weight: bold;
+      color: #0f172a;
     }
 
-    input[type="text"] {
-      width: 100%;
-      padding: 12px 14px;
-      border: 2px solid #cbd5e1;
-      border-radius: 12px;
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    select, button {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
       font-size: 15px;
     }
 
-    .name-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
+    button {
+      background: #1d4ed8;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #1e40af;
+    }
+
+    .question-card {
+      background: #f8fafc;
+      border: 1px solid #dbe4ee;
+      border-radius: 16px;
+      padding: 22px;
       margin-top: 10px;
-      margin-bottom: 10px;
     }
 
-    .pass {
-      color: #15803d;
+    .question-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
       font-weight: bold;
     }
 
-    .fail {
-      color: #b91c1c;
+    .tag-category {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .tag-difficulty-beginner {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .tag-difficulty-expert {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .question-text {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      color: #0f172a;
+    }
+
+    .media-box {
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .media-box img,
+    .media-box video {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+    }
+
+    .options {
+      display: grid;
+      gap: 12px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 1px solid #cbd5e1;
+      color: #1f2937;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 16px;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+      opacity: 1;
+    }
+
+    .correct {
+      background: #dcfce7 !important;
+      border-color: #22c55e !important;
+      color: #166534 !important;
       font-weight: bold;
     }
 
-    @media (max-width: 700px) {
-      .hero h1 {
-        font-size: 36px;
+    .incorrect {
+      background: #fee2e2 !important;
+      border-color: #ef4444 !important;
+      color: #991b1b !important;
+      font-weight: bold;
+    }
+
+    .explanation {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #eff6ff;
+      border-left: 5px solid #2563eb;
+      display: none;
+      line-height: 1.5;
+      color: #1e3a8a;
+      font-size: 15px;
+    }
+
+    .next-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .results-box {
+      display: none;
+      margin-top: 24px;
+      background: #f8fafc;
+      border: 1px solid #dbe4ee;
+      border-radius: 16px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .results-box h2 {
+      margin-top: 0;
+      color: #0f172a;
+    }
+
+    .results-box p {
+      font-size: 17px;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    .score-highlight {
+      font-size: 38px;
+      font-weight: bold;
+      color: #1d4ed8;
+      margin: 12px 0;
+    }
+
+    .small-note {
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .top-bar {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .question {
-        font-size: 21px;
+      .question-text {
+        font-size: 20px;
       }
+    }
 
+    @media (max-width: 560px) {
       .container {
-        padding: 14px;
+        margin: 14px;
+        padding: 18px;
+      }
+
+      .top-bar {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .question-text {
+        font-size: 18px;
+      }
+
+      .option-btn {
+        font-size: 15px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="hero">
-      <h1>Pave the Way</h1>
-      <p>Training. Knowledge. Built for the field.</p>
+    <h1>Asphalt & Roadwork Safety Challenge</h1>
+    <div class="subtitle">
+      Mixed beginner and expert safety questions focused on equipment, work zones, traffic control, and decision-making under pressure.
     </div>
 
-    <div id="setupSection" class="panel">
-      <h2 class="section-title">1. Choose a Category</h2>
-      <div class="option-grid" id="categoryOptions"></div>
-
-      <h2 class="section-title">2. Choose a Mode</h2>
-      <div class="option-grid" id="modeOptions"></div>
-
-      <h2 class="section-title">3. Choose a Difficulty</h2>
-      <div class="option-grid" id="difficultyOptions"></div>
-
-      <h2 class="section-title">4. Game Settings</h2>
-      <div class="mini-grid" id="settingsOptions"></div>
-
-      <h2 class="section-title">5. Player / Team Names</h2>
-      <div class="name-grid">
-        <div>
-          <label for="name1">Name 1</label>
-          <input type="text" id="name1" placeholder="Player 1 or Team A" />
-        </div>
-        <div>
-          <label for="name2">Name 2</label>
-          <input type="text" id="name2" placeholder="Player 2 or Team B" />
-        </div>
+    <div class="top-bar">
+      <div class="stat-box">
+        <div class="stat-label">Question</div>
+        <div class="stat-value" id="questionNumber">0 / 0</div>
       </div>
-
-      <div class="controls">
-        <button class="primary-btn" onclick="startGame()">Start Game</button>
+      <div class="stat-box">
+        <div class="stat-label">Score</div>
+        <div class="stat-value" id="scoreDisplay">0</div>
       </div>
-      <div class="small-note">
-        Timer mode gives 15 seconds per question. Sudden Death ends head-to-head or team play immediately after one side misses following a correct answer by the other side.
+      <div class="stat-box">
+        <div class="stat-label">Correct</div>
+        <div class="stat-value" id="correctDisplay">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Accuracy</div>
+        <div class="stat-value" id="accuracyDisplay">0%</div>
       </div>
     </div>
 
-    <div id="quizSection" class="hidden">
-      <div class="score-panels" id="scorePanels"></div>
+    <div class="controls">
+      <select id="categoryFilter">
+        <option value="All">All Categories</option>
+      </select>
 
-      <div class="quiz-box">
-        <div class="status-bar">
-          <div id="questionProgress">Question 1 of 10</div>
-          <div class="pill" id="categoryPill">Category</div>
-          <div class="pill" id="difficultyPill">Difficulty</div>
-          <div class="pill" id="modePill">Mode</div>
-          <div class="pill" id="turnPill">Turn</div>
-          <div class="pill timer-pill hidden" id="timerPill">Time: 15</div>
-        </div>
+      <select id="difficultyFilter">
+        <option value="Mixed">Mixed Difficulty</option>
+        <option value="Beginner">Beginner Only</option>
+        <option value="Expert">Expert Only</option>
+      </select>
 
-        <div class="question" id="questionText"></div>
-        <div class="answers" id="answersContainer"></div>
-        <div class="feedback" id="feedbackText"></div>
-        <div class="explanation" id="explanationText"></div>
+      <select id="questionCount">
+        <option value="10">10 Questions</option>
+        <option value="15" selected>15 Questions</option>
+        <option value="20">20 Questions</option>
+        <option value="25">25 Questions</option>
+        <option value="9999">All Available Questions</option>
+      </select>
 
-        <div class="controls">
-          <button class="primary-btn" id="nextBtn" onclick="nextQuestion()" disabled>Next Question</button>
-          <button class="secondary-btn" onclick="backToSetup()">Back to Menu</button>
-        </div>
+      <button id="startBtn">Start / Restart Quiz</button>
+    </div>
+
+    <div class="question-card" id="quizCard" style="display:none;">
+      <div class="question-meta" id="questionMeta"></div>
+      <div class="media-box" id="mediaBox"></div>
+      <div class="question-text" id="questionText"></div>
+      <div class="options" id="optionsBox"></div>
+      <div class="explanation" id="explanationBox"></div>
+      <div class="next-row">
+        <button id="nextBtn" style="display:none;">Next Question</button>
       </div>
     </div>
 
-    <div id="resultsSection" class="hidden">
-      <div class="result-box">
-        <h2>Game Complete</h2>
-        <p id="resultsText"></p>
-        <div class="controls" style="justify-content:center;">
-          <button class="primary-btn" onclick="startGame()">Play Again</button>
-          <button class="secondary-btn" onclick="backToSetup()">Back to Menu</button>
-        </div>
-      </div>
+    <div class="results-box" id="resultsBox">
+      <h2>Quiz Complete</h2>
+      <div class="score-highlight" id="finalScore">0 / 0</div>
+      <p id="finalMessage"></p>
+      <button onclick="startQuiz()">Play Again</button>
     </div>
 
-    <div class="leaderboard-box">
-      <h2 class="section-title">Leaderboard</h2>
-      <table class="leaderboard-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Difficulty</th>
-            <th>Mode</th>
-            <th>Score</th>
-            <th>Rank / Result</th>
-          </tr>
-        </thead>
-        <tbody id="leaderboardBody"></tbody>
-      </table>
-      <div class="controls">
-        <button class="danger-btn" onclick="clearLeaderboard()">Clear Leaderboard</button>
-      </div>
-      <div class="small-note">
-        This leaderboard is saved in the browser on that device only.
-      </div>
+    <div class="small-note">
+      Later, you can add images or videos to any question by filling in the optional image or video fields.
     </div>
   </div>
 
   <script>
-    const QUESTION_COUNT = 10;
-    const PASS_PERCENT = 70;
-    const RECENT_GAME_MEMORY = 3;
-
-    const categories = [
-      { id: "smooth", name: "🚧 Smooth Operators", description: "Paving and milling fundamentals." },
-      { id: "surface", name: "🕳️ Below the Surface", description: "Grade, drain, and utility work." },
-      { id: "safety", name: "⚠️ Safety Zone", description: "PPE, spotting, trench safety, traffic control." },
-      { id: "materials", name: "🪨 Material Matters", description: "Aggregates, mix basics, handling, moisture." },
-      { id: "bridge", name: "🌉 Bridge the Gap", description: "Bridge work and structural field awareness." },
-      { id: "aggregate", name: "🚛 Rock & Route", description: "Aggregate delivery and hauling practices." },
-      { id: "tank", name: "🛢️ Tanked Up", description: "Tank work, handling, and operational basics." },
-      { id: "barge", name: "🚢 Barge to the Point", description: "Barge operations and material movement." },
-      { id: "rail", name: "🚆 On Track", description: "Rail transloading and movement logistics." },
-      { id: "mixed", name: "🎲 Mixed Bag", description: "Random questions from every available category." }
+    const allQuestions = [
+      {
+        category: "Traffic Control",
+        difficulty: "Beginner",
+        question: "You are working near live traffic and a vehicle enters the work zone unexpectedly. What is the FIRST action you should take?",
+        options: [
+          "Signal the driver to stop immediately",
+          "Move yourself and nearby workers to a safe area",
+          "Stand your ground so the driver sees you",
+          "Continue working and watch the vehicle"
+        ],
+        correct: 1,
+        explanation: "Your first responsibility is immediate safety. Workers should move to a safe area rather than attempting to control the driver directly.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Traffic Control",
+        difficulty: "Expert",
+        question: "Traffic begins moving faster than expected through your work zone. What is the BEST response?",
+        options: [
+          "Continue working and stay alert",
+          "Move workers farther from the lane and continue",
+          "Pause work and reassess traffic control",
+          "Have one worker signal drivers while work continues"
+        ],
+        correct: 2,
+        explanation: "When traffic conditions change, work zone controls may no longer be adequate. The safest response is to pause and reassess.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Traffic Control",
+        difficulty: "Expert",
+        question: "A flagger is in position, but glare and low-angle sunlight reduce visibility for approaching drivers. What is the BEST action?",
+        options: [
+          "Continue because the flagger is already posted",
+          "Adjust the setup or flagger position immediately",
+          "Let the flagger decide without involving the crew",
+          "Wait to see whether drivers react correctly"
+        ],
+        correct: 1,
+        explanation: "Reduced visibility creates an immediate hazard. The setup should be adjusted rather than assumed to be adequate.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Traffic Control",
+        difficulty: "Expert",
+        question: "Vehicles are drifting closer to the taper and work area than expected. What is the MOST likely concern?",
+        options: [
+          "Drivers are simply impatient",
+          "Workers are standing too still",
+          "The work zone setup may be inadequate for conditions",
+          "The lane closure is probably not necessary"
+        ],
+        correct: 2,
+        explanation: "Encroaching vehicles often suggest a traffic control problem such as taper length, cone spacing, or visibility issues.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Traffic Control",
+        difficulty: "Beginner",
+        question: "Why is a high-visibility vest especially important near active traffic?",
+        options: [
+          "It makes workers look more professional",
+          "It helps drivers and operators see workers sooner",
+          "It protects against heat from asphalt",
+          "It prevents dust from sticking to clothing"
+        ],
+        correct: 1,
+        explanation: "High-visibility gear increases worker visibility for both motorists and equipment operators.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Equipment Safety",
+        difficulty: "Beginner",
+        question: "You need to pass near a roller, but the operator has not acknowledged you. What should you do?",
+        options: [
+          "Walk behind the roller quickly",
+          "Wait for clear acknowledgment before moving",
+          "Stay close to the machine so you are easier to see",
+          "Cross as long as the machine is moving slowly"
+        ],
+        correct: 1,
+        explanation: "If the operator has not acknowledged you, assume you are not visible.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Equipment Safety",
+        difficulty: "Expert",
+        question: "You are unsure whether an equipment operator sees you while multiple machines are active nearby. What is the BEST action?",
+        options: [
+          "Proceed carefully if you stay outside the closest blind spot",
+          "Wait for clear acknowledgment before moving through the area",
+          "Move quickly before machine positions change",
+          "Use the shortest route to reduce time exposed"
+        ],
+        correct: 1,
+        explanation: "No acknowledgment means no confirmed visibility. That is not the time for optimism.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Equipment Safety",
+        difficulty: "Expert",
+        question: "Two machines are operating with overlapping movement paths. What is the safest position for a ground worker?",
+        options: [
+          "Between both machines to track their movement",
+          "Behind the slower machine where movement is easier to predict",
+          "In a fixed safe zone outside both travel paths",
+          "Alongside the machine with the better line of sight"
+        ],
+        correct: 2,
+        explanation: "Overlapping movement paths create complex blind spots. A fixed safe zone is the best choice.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Equipment Safety",
+        difficulty: "Expert",
+        question: "A spotter is unavailable for a task involving machine movement in a tight area. What is the BEST decision?",
+        options: [
+          "Proceed more slowly without a spotter",
+          "Assign a trained replacement or delay the task",
+          "Use hand signals from any nearby worker",
+          "Continue if backup alarms are functioning"
+        ],
+        correct: 1,
+        explanation: "A missing control measure should be replaced or the task should wait. Backup alarms are not a substitute for proper spotting.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Equipment Safety",
+        difficulty: "Expert",
+        question: "An operator waves you through, but another machine is moving in the same area from a different angle. What is the BEST response?",
+        options: [
+          "Follow the operator's signal immediately",
+          "Move halfway, then reassess",
+          "Stop and reassess the full area before moving",
+          "Cross quickly while the signal is still clear"
+        ],
+        correct: 2,
+        explanation: "One operator's signal does not guarantee the full area is safe. Reassess all active movement.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Equipment Safety",
+        difficulty: "Beginner",
+        question: "What should you assume if you do not know what a machine will do next?",
+        options: [
+          "It will stay where it is",
+          "It will follow the same pattern as before",
+          "It may move unexpectedly",
+          "It will avoid nearby workers automatically"
+        ],
+        correct: 2,
+        explanation: "Assuming unpredictability is safer than assuming the machine will behave the way you hope.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Hot Asphalt",
+        difficulty: "Beginner",
+        question: "If hot asphalt contacts skin, what should you avoid doing?",
+        options: [
+          "Seeking medical help",
+          "Cooling the area appropriately",
+          "Trying to peel hardened material off immediately",
+          "Reporting the injury right away"
+        ],
+        correct: 2,
+        explanation: "Trying to remove hardened asphalt from skin immediately can cause more damage.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Hot Asphalt",
+        difficulty: "Expert",
+        question: "Hot material spills across part of the work area. What is the FIRST priority?",
+        options: [
+          "Clean the material before it hardens",
+          "Secure the area to prevent contact",
+          "Continue work around the spill to maintain production",
+          "Wait for a supervisor before doing anything"
+        ],
+        correct: 1,
+        explanation: "The first priority is preventing worker exposure and contact with the hazard.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Hot Asphalt",
+        difficulty: "Expert",
+        question: "A worker gets hot asphalt on a glove while handling material. What is the BEST response?",
+        options: [
+          "Remove the glove safely as soon as possible",
+          "Finish the task, then inspect it",
+          "Keep the glove on if pain is minimal",
+          "Wipe the material off with a rag"
+        ],
+        correct: 0,
+        explanation: "Contaminated PPE can continue transferring heat. It should be addressed immediately and safely.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Hot Asphalt",
+        difficulty: "Expert",
+        question: "Fresh asphalt looks solid but feels unstable underfoot. What is the BEST action?",
+        options: [
+          "Continue carefully and shorten your steps",
+          "Step off and reassess the area",
+          "Shift weight and move faster",
+          "Warn others after the pass is complete"
+        ],
+        correct: 1,
+        explanation: "An unstable surface can shift unexpectedly. Do not negotiate with it.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "PPE",
+        difficulty: "Beginner",
+        question: "You forgot your high-visibility vest before starting work near traffic. What should you do?",
+        options: [
+          "Start work and stay extra alert",
+          "Borrow one or retrieve yours before starting",
+          "Stand farther from traffic and continue",
+          "Work only for a short time without it"
+        ],
+        correct: 1,
+        explanation: "Required PPE should be in place before work begins, not after luck runs out.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "PPE",
+        difficulty: "Expert",
+        question: "A worker's PPE is contaminated with hot material but still appears usable. What is the BEST response?",
+        options: [
+          "Continue using it for the rest of the task",
+          "Replace or clean the PPE before continuing",
+          "Use it only if the material has cooled",
+          "Avoid using that side of the body"
+        ],
+        correct: 1,
+        explanation: "Contaminated PPE can reduce protection and create continuing hazards.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "PPE",
+        difficulty: "Expert",
+        question: "A task changes unexpectedly and now places workers closer to traffic than planned. What is the BEST PPE-related response?",
+        options: [
+          "Continue because PPE was already checked earlier",
+          "Pause and confirm PPE is still adequate for the new exposure",
+          "Rely on traffic control devices rather than PPE",
+          "Have only the nearest worker adjust equipment"
+        ],
+        correct: 1,
+        explanation: "Changed conditions can change PPE needs. Safety checks should match current conditions, not old assumptions.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Heat Safety",
+        difficulty: "Beginner",
+        question: "A worker becomes dizzy, confused, and stops sweating during extreme heat. What is the BEST action?",
+        options: [
+          "Have them sit down and finish water first",
+          "Call for medical help immediately and begin cooling",
+          "Let them rest a few minutes and reevaluate later",
+          "Move them to shade and wait for a supervisor"
+        ],
+        correct: 1,
+        explanation: "These are signs of heat stroke, which is a medical emergency.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Heat Safety",
+        difficulty: "Expert",
+        question: "A worker insists they are fine, but their reactions are slow and coordination is poor in high heat. What is the BEST action?",
+        options: [
+          "Respect their judgment and monitor them",
+          "Have them finish the current task, then rest",
+          "Remove them from work and assess immediately",
+          "Encourage hydration while continuing work"
+        ],
+        correct: 2,
+        explanation: "Visible impairment in heat conditions should be treated immediately, not negotiated.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Heat Safety",
+        difficulty: "Expert",
+        question: "The crew is behind schedule and breaks are being skipped during high heat. What is the BEST response?",
+        options: [
+          "Keep pushing until the task is done",
+          "Take only personal breaks as needed",
+          "Reinforce scheduled cooling and hydration breaks",
+          "Wait for management to notice the problem"
+        ],
+        correct: 2,
+        explanation: "Skipping breaks in extreme heat is a direct setup for heat-related illness.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Human Behavior",
+        difficulty: "Beginner",
+        question: "A coworker is walking into an active equipment area while distracted. What should you do?",
+        options: [
+          "Ignore it and stay focused on your work",
+          "Stop them immediately and warn them",
+          "Mention it later if nothing happens",
+          "Assume the operator sees them"
+        ],
+        correct: 1,
+        explanation: "Unsafe entry into an equipment zone should be addressed immediately, not filed under bad memories and regret.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Human Behavior",
+        difficulty: "Expert",
+        question: "Experienced workers have started skipping a safety step because nothing bad has happened so far. What is the BEST interpretation?",
+        options: [
+          "The step may not be necessary for this crew",
+          "Experience allows more flexibility",
+          "Risk is increasing even if no incident has happened yet",
+          "The issue is minor unless a supervisor objects"
+        ],
+        correct: 2,
+        explanation: "Complacency often grows before an incident. Lack of recent injury does not prove safety.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Human Behavior",
+        difficulty: "Expert",
+        question: "You notice a minor unsafe habit becoming common on the crew. What is the BEST action?",
+        options: [
+          "Ignore it unless someone gets hurt",
+          "Correct it immediately and consistently",
+          "Bring it up at the end of the week",
+          "Wait for formal discipline to address it"
+        ],
+        correct: 1,
+        explanation: "Unsafe habits grow roots fast. Address them early before the jobsite starts training itself badly.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Decision Making",
+        difficulty: "Expert",
+        question: "You are behind schedule and a shortcut would slightly reduce visibility but save time. What is the BEST decision?",
+        options: [
+          "Use the shortcut carefully",
+          "Avoid it and maintain full visibility",
+          "Use it only if a supervisor approves verbally",
+          "Take the shortcut once to catch up"
+        ],
+        correct: 1,
+        explanation: "Reduced visibility creates unnecessary risk. Schedule pressure does not improve line of sight.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Decision Making",
+        difficulty: "Expert",
+        question: "You receive conflicting directions from two supervisors during an active operation. What is the BEST response?",
+        options: [
+          "Follow the fastest instruction",
+          "Choose the instruction from the more senior supervisor",
+          "Pause and clarify before proceeding",
+          "Do part of both instructions"
+        ],
+        correct: 2,
+        explanation: "Conflicting direction during active work is a hazard. Clarify before creating a bigger one.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Decision Making",
+        difficulty: "Beginner",
+        question: "If you are unsure whether an area is safe to enter, what is the BEST action?",
+        options: [
+          "Enter briefly and judge from inside the area",
+          "Assume it is safe if no one stops you",
+          "Pause and verify before entering",
+          "Follow the nearest worker without asking"
+        ],
+        correct: 2,
+        explanation: "Uncertainty is your cue to verify, not improvise.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Emergency Response",
+        difficulty: "Beginner",
+        question: "An incident occurs and several workers begin reacting at once. What is the BEST first move?",
+        options: [
+          "Jump in immediately without assessing",
+          "Pause and assess before acting",
+          "Follow whoever is yelling directions",
+          "Continue working until instructed otherwise"
+        ],
+        correct: 1,
+        explanation: "A fast but chaotic response can make an incident worse. Assess first.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Emergency Response",
+        difficulty: "Expert",
+        question: "A near miss occurs and no one is injured. What is the BEST response?",
+        options: [
+          "Continue working because no injury occurred",
+          "Mention it casually later",
+          "Stop and address the cause immediately",
+          "Wait to see if it happens again"
+        ],
+        correct: 2,
+        explanation: "Near misses are free warnings. Wasting them is expensive later.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Emergency Response",
+        difficulty: "Expert",
+        question: "A worker is injured but conscious. What is the FIRST priority?",
+        options: [
+          "Move them out of the area immediately",
+          "Assess the scene and get appropriate help",
+          "Ask them to stand if they can",
+          "Resume nearby work to avoid delay"
+        ],
+        correct: 1,
+        explanation: "Respond to the actual situation safely. Immediate movement is not always appropriate.",
+        image: "",
+        video: ""
+      }
     ];
 
-    const modes = [
-      { id: "solo", name: "Solo Play", description: "One player, one score, no excuses." },
-      { id: "versus", name: "Head-to-Head", description: "Player 1 vs Player 2, alternating turns." },
-      { id: "team", name: "Team Challenge", description: "Team A vs Team B, alternating turns." }
-    ];
-
-    const difficulties = [
-      { id: "easy", name: "Easy", description: "Basic vocabulary and awareness." },
-      { id: "medium", name: "Medium", description: "Field knowledge and process understanding." },
-      { id: "hard", name: "Hard", description: "Scenarios, troubleshooting, and tougher judgment calls." },
-      { id: "all", name: "All Difficulties", description: "A mix of easy, medium, and hard questions." }
-    ];
-
-    const settings = [
-      { id: "timer", name: "Timer Mode", description: "15 seconds per question.", selected: false },
-      { id: "sound", name: "Sound Effects", description: "Right, wrong, and final result sounds.", selected: true },
-      { id: "suddendeath", name: "Sudden Death", description: "For head-to-head and teams only.", selected: false }
-    ];
-
-    const questionBank = [
-      { category: "smooth", difficulty: "easy", type: "True / False", question: "Tack coat helps new asphalt bond to the existing surface.", options: ["True", "False"], answer: "True", explanation: "Tack coat improves bonding between pavement layers." },
-      { category: "smooth", difficulty: "easy", type: "Multiple Choice", question: "What piece of equipment lays asphalt?", options: ["A. Bulldozer", "B. Paver", "C. Excavator", "D. Crane"], answer: "B. Paver", explanation: "The paver spreads and places asphalt." },
-      { category: "smooth", difficulty: "medium", type: "Multiple Choice", question: "What is the main reason for compaction in asphalt work?", options: ["A. Improve color", "B. Reduce air voids", "C. Add moisture", "D. Cool the mat"], answer: "B. Reduce air voids", explanation: "Compaction improves density and pavement performance." },
-      { category: "smooth", difficulty: "medium", type: "Fill in the Blank", question: "Milling typically removes the ______ layer of asphalt pavement.", options: ["top", "bottom", "middle", "subgrade"], answer: "top", explanation: "Milling removes the top asphalt layer to prepare for repair or overlay." },
-      { category: "smooth", difficulty: "hard", type: "Multiple Choice", question: "A newly paved surface shows weak spots and early rutting. What should be checked first?", options: ["A. Whether the paint dried", "B. Base support and compaction quality", "C. Sign placement", "D. Curb color"], answer: "B. Base support and compaction quality", explanation: "Weak support and poor compaction are common causes of early pavement failure." },
-      { category: "smooth", difficulty: "hard", type: "Multiple Choice", question: "If asphalt cools too quickly before rolling is complete, the biggest risk is:", options: ["A. Better density", "B. Poor compaction and reduced pavement life", "C. Stronger binder", "D. Cleaner truck beds"], answer: "B. Poor compaction and reduced pavement life", explanation: "Cooling too fast reduces the ability to compact properly." },
-
-      { category: "surface", difficulty: "easy", type: "True / False", question: "Grade work involves shaping the ground to the correct elevation and slope.", options: ["True", "False"], answer: "True", explanation: "Grading sets the site to the proper line and slope." },
-      { category: "surface", difficulty: "easy", type: "Multiple Choice", question: "What is one main purpose of drainage work?", options: ["A. Hold water in place", "B. Move water away safely", "C. Raise utility lines", "D. Dry paint faster"], answer: "B. Move water away safely", explanation: "Drainage directs water away from roads, structures, and work areas." },
-      { category: "surface", difficulty: "medium", type: "Multiple Choice", question: "Which utility commonly carries wastewater from buildings?", options: ["A. Water line", "B. Storm sewer", "C. Sanitary sewer", "D. Gas line"], answer: "C. Sanitary sewer", explanation: "Sanitary sewer carries wastewater from buildings." },
-      { category: "surface", difficulty: "medium", type: "Fill in the Blank", question: "Material placed back into a trench is called ______.", options: ["backfill", "overlay", "binder", "milling"], answer: "backfill", explanation: "Backfill is the material placed into the trench after installation." },
-      { category: "surface", difficulty: "hard", type: "Multiple Choice", question: "A site has standing water after rain near a newly finished area. What is the most likely issue?", options: ["A. Too many signs", "B. Improper grading or drainage path", "C. Asphalt was too black", "D. Pipe color mismatch"], answer: "B. Improper grading or drainage path", explanation: "Standing water usually points to grading or drainage problems." },
-      { category: "surface", difficulty: "hard", type: "Multiple Choice", question: "A utility trench settles after backfill. What was most likely missed?", options: ["A. Surface striping", "B. Proper compaction in lifts", "C. Fence installation", "D. Pavement markings"], answer: "B. Proper compaction in lifts", explanation: "Insufficient compaction often causes trench settlement." },
-
-      { category: "safety", difficulty: "easy", type: "True / False", question: "PPE requirements can vary depending on the task and jobsite hazards.", options: ["True", "False"], answer: "True", explanation: "Different tasks and hazards require different PPE." },
-      { category: "safety", difficulty: "easy", type: "Multiple Choice", question: "Why is a spotter used around heavy equipment?", options: ["A. To make the site louder", "B. To help communicate movement safely", "C. To measure asphalt temperature", "D. To direct traffic off-site only"], answer: "B. To help communicate movement safely", explanation: "Spotters help operators move equipment more safely." },
-      { category: "safety", difficulty: "medium", type: "Multiple Choice", question: "What is one major hazard of trench work?", options: ["A. Paint overspray", "B. Trench collapse", "C. Overwatering grass", "D. Broken signage"], answer: "B. Trench collapse", explanation: "Trench collapse is one of the most serious excavation hazards." },
-      { category: "safety", difficulty: "medium", type: "Fill in the Blank", question: "Before digging, crews should verify underground utility ______.", options: ["locates", "recipes", "budgets", "colors"], answer: "locates", explanation: "Utility locates help prevent line strikes and injuries." },
-      { category: "safety", difficulty: "hard", type: "Multiple Choice", question: "A worker enters an unprotected trench because the task will 'only take a minute.' The best response is:", options: ["A. Allow it if someone watches", "B. Stop the work and require proper trench protection", "C. Let them decide", "D. Finish quickly before inspection"], answer: "B. Stop the work and require proper trench protection", explanation: "Short task or not, unprotected trench entry is a serious hazard." },
-      { category: "safety", difficulty: "hard", type: "Multiple Choice", question: "What is the best reason to establish clear equipment travel paths on a site?", options: ["A. Better tire shine", "B. Reduce confusion and struck-by risk", "C. Make grading easier to guess", "D. Increase horn use"], answer: "B. Reduce confusion and struck-by risk", explanation: "Defined travel paths reduce traffic conflicts and struck-by hazards." },
-      { category: "safety", difficulty: "easy", type: "True / False", question: "High-visibility clothing helps equipment operators see workers more easily.", options: ["True", "False"], answer: "True", explanation: "High-visibility clothing improves worker visibility around moving equipment." },
-      { category: "safety", difficulty: "easy", type: "True / False", question: "Good housekeeping on a jobsite can help reduce slips, trips, and falls.", options: ["True", "False"], answer: "True", explanation: "A cleaner site usually means fewer avoidable hazards." },
-      { category: "safety", difficulty: "easy", type: "Multiple Choice", question: "What is one purpose of a jobsite safety meeting?", options: ["A. To delay the job", "B. To discuss hazards and expectations", "C. To replace training forever", "D. To reduce paperwork only"], answer: "B. To discuss hazards and expectations", explanation: "Safety meetings help crews identify hazards and align expectations." },
-      { category: "safety", difficulty: "easy", type: "Fill in the Blank", question: "A clean jobsite helps reduce slips, trips, and ______.", options: ["falls", "emails", "meetings", "budgets"], answer: "falls", explanation: "Housekeeping is a basic but important safety practice." },
-      { category: "safety", difficulty: "medium", type: "Multiple Choice", question: "Why should workers avoid standing directly behind backing equipment?", options: ["A. It is louder there", "B. It may be in the operator's blind spot", "C. It improves communication", "D. It keeps boots cleaner"], answer: "B. It may be in the operator's blind spot", explanation: "Backing equipment creates major struck-by risk, especially in blind spots." },
-      { category: "safety", difficulty: "medium", type: "Multiple Choice", question: "What is one key reason to secure work zones from public traffic?", options: ["A. Better logo visibility", "B. Reduce risk to workers and drivers", "C. Make paperwork shorter", "D. Improve material color"], answer: "B. Reduce risk to workers and drivers", explanation: "Traffic control protects both the crew and the public." },
-      { category: "safety", difficulty: "medium", type: "True / False", question: "Hearing protection may be necessary depending on site noise levels.", options: ["True", "False"], answer: "True", explanation: "Noise exposure can be a serious site hazard." },
-      { category: "safety", difficulty: "medium", type: "Fill in the Blank", question: "A worker who cannot be clearly seen by an equipment operator may be in a ______ spot.", options: ["blind", "safe", "painted", "graded"], answer: "blind", explanation: "Blind spots are a major equipment hazard." },
-      { category: "safety", difficulty: "hard", type: "Multiple Choice", question: "A crew starts working near moving equipment without agreeing on hand signals or communication. What is the biggest risk?", options: ["A. Better speed", "B. Miscommunication leading to injury", "C. Better compaction", "D. Less dust"], answer: "B. Miscommunication leading to injury", explanation: "Poor communication around moving equipment creates serious safety risk." },
-      { category: "safety", difficulty: "hard", type: "Multiple Choice", question: "Why should a hazard that 'has never caused a problem before' still be corrected?", options: ["A. Because luck is not a safety plan", "B. Because rules are annoying", "C. Because it improves paint", "D. Because it changes production speed"], answer: "A. Because luck is not a safety plan", explanation: "Past luck does not make a current hazard safe." },
-      { category: "safety", difficulty: "hard", type: "True / False", question: "Rushing a task can increase safety risk even if the job gets finished faster.", options: ["True", "False"], answer: "True", explanation: "Speed without control often increases mistakes and injuries." },
-
-      { category: "materials", difficulty: "easy", type: "True / False", question: "Aggregate size and cleanliness can affect pavement performance.", options: ["True", "False"], answer: "True", explanation: "Aggregate characteristics influence strength, stability, and workability." },
-      { category: "materials", difficulty: "easy", type: "Multiple Choice", question: "What does asphalt binder mainly do in a mix?", options: ["A. Paint the aggregate", "B. Hold the aggregate together", "C. Remove moisture", "D. Increase traffic"], answer: "B. Hold the aggregate together", explanation: "Binder coats and holds the aggregate together." },
-      { category: "materials", difficulty: "medium", type: "Multiple Choice", question: "Why is moisture in aggregate important to monitor?", options: ["A. It changes logo colors", "B. It affects mix quality and handling", "C. It lowers traffic cones", "D. It replaces compaction"], answer: "B. It affects mix quality and handling", explanation: "Moisture affects production, consistency, and performance." },
-      { category: "materials", difficulty: "medium", type: "Fill in the Blank", question: "Aggregate that contains too much dirt or debris may be considered ______.", options: ["contaminated", "finished", "coated", "striped"], answer: "contaminated", explanation: "Dirty aggregate can create quality and performance issues." },
-      { category: "materials", difficulty: "hard", type: "Multiple Choice", question: "A mix appears inconsistent from load to load. What is the most likely quality issue to investigate first?", options: ["A. Social media response", "B. Aggregate moisture or feed consistency", "C. Paint stripe spacing", "D. Flagging position"], answer: "B. Aggregate moisture or feed consistency", explanation: "Changing moisture or inconsistent feed can cause variable mix quality." },
-      { category: "materials", difficulty: "hard", type: "Multiple Choice", question: "Why does material handling matter before placement even begins?", options: ["A. It only affects paperwork", "B. It affects consistency, contamination, and final performance", "C. It changes equipment warranty", "D. It controls weather"], answer: "B. It affects consistency, contamination, and final performance", explanation: "Bad handling upstream creates bad results downstream." },
-      { category: "materials", difficulty: "easy", type: "True / False", question: "Material quality can affect how well a finished product performs.", options: ["True", "False"], answer: "True", explanation: "Material quality directly affects performance and consistency." },
-      { category: "materials", difficulty: "easy", type: "Multiple Choice", question: "What is one reason clean stockpiles matter?", options: ["A. Better color only", "B. Reduced contamination risk", "C. Shorter meetings", "D. Less surveying"], answer: "B. Reduced contamination risk", explanation: "Clean stockpiles help preserve usable, consistent material." },
-      { category: "materials", difficulty: "easy", type: "Fill in the Blank", question: "Dirty material may lead to quality ______.", options: ["issues", "emails", "logos", "permits"], answer: "issues", explanation: "Contamination usually leads to quality issues." },
-      { category: "materials", difficulty: "easy", type: "Multiple Choice", question: "What is one basic purpose of separating material types in storage?", options: ["A. To create confusion", "B. To prevent contamination and mix-ups", "C. To make piles larger", "D. To improve traffic"], answer: "B. To prevent contamination and mix-ups", explanation: "Keeping materials separated improves control and quality." },
-      { category: "materials", difficulty: "medium", type: "Multiple Choice", question: "Why does feed consistency matter in production?", options: ["A. It affects product uniformity", "B. It changes truck color", "C. It reduces paperwork only", "D. It controls weather"], answer: "A. It affects product uniformity", explanation: "Inconsistent feed can lead to inconsistent output." },
-      { category: "materials", difficulty: "medium", type: "True / False", question: "Poor material handling can create problems before the material is ever placed.", options: ["True", "False"], answer: "True", explanation: "Damage, contamination, and inconsistency often happen before placement." },
-      { category: "materials", difficulty: "medium", type: "Fill in the Blank", question: "Material that is mixed with the wrong stockpile may become ______.", options: ["contaminated", "faster", "lighter", "drier"], answer: "contaminated", explanation: "Mixing stockpiles can contaminate otherwise usable material." },
-      { category: "materials", difficulty: "medium", type: "Multiple Choice", question: "What is one likely result of inconsistent material properties?", options: ["A. Better quality control", "B. Variable performance", "C. Lower safety training needs", "D. Better branding"], answer: "B. Variable performance", explanation: "Inconsistent material often leads to inconsistent results." },
-      { category: "materials", difficulty: "hard", type: "Multiple Choice", question: "A product is failing inconsistently, and no equipment issues are found. What should be checked next?", options: ["A. Social media posts", "B. Material condition and consistency", "C. Office furniture", "D. Safety vest color"], answer: "B. Material condition and consistency", explanation: "Material variability is a common source of inconsistent results." },
-      { category: "materials", difficulty: "hard", type: "True / False", question: "Upstream material mistakes can create downstream production and performance problems.", options: ["True", "False"], answer: "True", explanation: "Bad input often creates bad output." },
-      { category: "materials", difficulty: "hard", type: "Multiple Choice", question: "Why does stockpile management matter even before production starts?", options: ["A. It affects only appearance", "B. It affects contamination control, consistency, and usable inventory", "C. It replaces quality checks", "D. It changes material source"], answer: "B. It affects contamination control, consistency, and usable inventory", explanation: "Stockpile control is a core part of material quality." },
-
-      { category: "bridge", difficulty: "easy", type: "True / False", question: "Bridge work often requires close attention to sequencing, safety, and structural details.", options: ["True", "False"], answer: "True", explanation: "Bridge work is detail-sensitive and sequence matters." },
-      { category: "bridge", difficulty: "easy", type: "Multiple Choice", question: "What is one major reason bridge work requires extra attention to detail?", options: ["A. It changes traffic color", "B. It affects structural safety and long-term performance", "C. It reduces paperwork", "D. It avoids weather"], answer: "B. It affects structural safety and long-term performance", explanation: "Bridge work affects structure, safety, and long-term durability." },
-      { category: "bridge", difficulty: "easy", type: "True / False", question: "Bridge work often involves working around traffic, elevation changes, and structural elements.", options: ["True", "False"], answer: "True", explanation: "Those conditions are common on bridge projects." },
-      { category: "bridge", difficulty: "easy", type: "Fill in the Blank", question: "Incorrect sequence in bridge work can lead to costly ______.", options: ["rework", "paint", "signs", "mowing"], answer: "rework", explanation: "Bridge projects punish mistakes with expensive rework." },
-      { category: "bridge", difficulty: "medium", type: "Multiple Choice", question: "Why is correct sequencing important during bridge work?", options: ["A. It changes concrete color", "B. It helps maintain safety and structural quality", "C. It reduces traffic signs", "D. It avoids surveying"], answer: "B. It helps maintain safety and structural quality", explanation: "Bridge work requires correct order of operations for safety and quality." },
-      { category: "bridge", difficulty: "medium", type: "Multiple Choice", question: "Why are inspections especially important during bridge work?", options: ["A. To slow the project down", "B. To verify quality, safety, and compliance", "C. To avoid materials", "D. To remove the need for plans"], answer: "B. To verify quality, safety, and compliance", explanation: "Bridge work usually has critical inspection points." },
-      { category: "bridge", difficulty: "medium", type: "Multiple Choice", question: "What is one risk of skipping surface preparation before the next bridge work phase?", options: ["A. Better bonding", "B. Poor quality or premature failure", "C. Lower labor", "D. Faster curing every time"], answer: "B. Poor quality or premature failure", explanation: "Prep steps matter because later work depends on them." },
-      { category: "bridge", difficulty: "medium", type: "True / False", question: "Bridge crews can ignore alignment and elevation as long as the structure looks correct.", options: ["True", "False"], answer: "False", explanation: "Alignment and elevation are critical, not optional." },
-      { category: "bridge", difficulty: "hard", type: "Multiple Choice", question: "A bridge crew skips a required prep step before the next phase. The biggest likely consequence is:", options: ["A. Faster paperwork", "B. Rework, safety risk, or quality failure", "C. Better weather", "D. Lower traffic counts"], answer: "B. Rework, safety risk, or quality failure", explanation: "Skipped prep steps on bridge work can create serious downstream problems." },
-      { category: "bridge", difficulty: "hard", type: "Multiple Choice", question: "A bridge repair phase starts before the previous area is properly verified. What is the greatest risk?", options: ["A. Cleaner equipment", "B. Hidden defects leading to safety or quality issues", "C. Better traffic flow", "D. Shorter concrete cure time"], answer: "B. Hidden defects leading to safety or quality issues", explanation: "Starting the next phase too early can bury problems that become expensive later." },
-      { category: "bridge", difficulty: "hard", type: "Multiple Choice", question: "Why is coordination between crews especially important in bridge work?", options: ["A. Because fewer people are involved", "B. Because multiple operations can affect structure, safety, and sequence", "C. Because traffic does not matter", "D. Because plans are optional"], answer: "B. Because multiple operations can affect structure, safety, and sequence", explanation: "Bridge work usually has interconnected tasks with little room for sloppy handoffs." },
-      { category: "bridge", difficulty: "hard", type: "Fill in the Blank", question: "A mistake in bridge work may affect not just appearance, but structural ______.", options: ["integrity", "paint", "marketing", "signage"], answer: "integrity", explanation: "That is why bridge work is not the place for guessing." },
-      { category: "bridge", difficulty: "easy", type: "Multiple Choice", question: "What is one reason bridge work is often less forgiving than general site work?", options: ["A. It involves structural and sequencing demands", "B. It uses fewer people", "C. It avoids inspections", "D. It never affects traffic"], answer: "A. It involves structural and sequencing demands", explanation: "Bridge work has tighter structural and process requirements." },
-      { category: "bridge", difficulty: "easy", type: "True / False", question: "Bridge work often requires more coordination than it appears from the outside.", options: ["True", "False"], answer: "True", explanation: "Multiple crews and steps often depend on each other closely." },
-      { category: "bridge", difficulty: "easy", type: "Fill in the Blank", question: "Bridge work often demands closer attention to safety, sequence, and ______.", options: ["detail", "music", "landscaping", "marketing"], answer: "detail", explanation: "Detail matters heavily in bridge work." },
-      { category: "bridge", difficulty: "medium", type: "Multiple Choice", question: "Why does verification matter before moving into the next bridge phase?", options: ["A. To bury mistakes faster", "B. To confirm the previous work is ready and acceptable", "C. To reduce communication", "D. To avoid supervision"], answer: "B. To confirm the previous work is ready and acceptable", explanation: "Skipping verification can cause hidden quality and safety problems." },
-      { category: "bridge", difficulty: "medium", type: "True / False", question: "A bridge issue that looks small can still affect long-term structural performance.", options: ["True", "False"], answer: "True", explanation: "Small errors can matter a lot in structural work." },
-      { category: "bridge", difficulty: "medium", type: "Fill in the Blank", question: "Correct bridge work depends heavily on line, elevation, and ______.", options: ["sequence", "paint", "timing only", "guessing"], answer: "sequence", explanation: "Sequence is just as important as physical placement." },
-      { category: "bridge", difficulty: "hard", type: "Multiple Choice", question: "A crew says they can skip documentation because they 'know what was done.' What is the problem with that?", options: ["A. It increases concrete strength", "B. It weakens accountability and verification", "C. It improves flow", "D. It helps traffic"], answer: "B. It weakens accountability and verification", explanation: "Critical work needs records, not memory." },
-      { category: "bridge", difficulty: "hard", type: "True / False", question: "Poor handoff between bridge crews can create quality and safety issues even if each crew is skilled.", options: ["True", "False"], answer: "True", explanation: "Good crews still need good coordination." },
-      { category: "bridge", difficulty: "hard", type: "Multiple Choice", question: "Why is rework especially painful on bridge work?", options: ["A. It is always easy", "B. It can affect schedule, access, safety, and cost all at once", "C. It improves morale", "D. It reduces inspections"], answer: "B. It can affect schedule, access, safety, and cost all at once", explanation: "Bridge rework tends to ripple into everything." },
-
-      { category: "aggregate", difficulty: "easy", type: "True / False", question: "Aggregate delivery affects production flow and jobsite efficiency.", options: ["True", "False"], answer: "True", explanation: "Poor delivery timing can disrupt production and site performance." },
-      { category: "aggregate", difficulty: "easy", type: "Multiple Choice", question: "What is one key goal of aggregate delivery?", options: ["A. Bring any material at any time", "B. Deliver the correct material in the correct amount at the correct time", "C. Keep trucks waiting longer", "D. Mix loads without checking"], answer: "B. Deliver the correct material in the correct amount at the correct time", explanation: "Delivery accuracy affects production and quality." },
-      { category: "aggregate", difficulty: "easy", type: "True / False", question: "Wrong aggregate delivery can affect plant operations and jobsite performance.", options: ["True", "False"], answer: "True", explanation: "Material issues upstream become production issues downstream." },
-      { category: "aggregate", difficulty: "easy", type: "Fill in the Blank", question: "Aggregate delivery problems can create delays and material ______.", options: ["shortages", "flowers", "permits", "paint"], answer: "shortages", explanation: "Bad timing or bad loads can leave a site or plant short on needed material." },
-      { category: "aggregate", difficulty: "medium", type: "Multiple Choice", question: "What is one key concern in aggregate delivery?", options: ["A. Decorative striping", "B. Correct material, timing, and unloading", "C. Bridge lighting", "D. Fence paint"], answer: "B. Correct material, timing, and unloading", explanation: "Delivery quality depends on getting the right material to the right place at the right time." },
-      { category: "aggregate", difficulty: "medium", type: "Multiple Choice", question: "Why does contamination matter during aggregate delivery?", options: ["A. It makes unloading quieter", "B. It can hurt product quality and performance", "C. It changes the truck logo", "D. It reduces paperwork"], answer: "B. It can hurt product quality and performance", explanation: "Contaminated aggregate can create serious quality issues." },
-      { category: "aggregate", difficulty: "medium", type: "Multiple Choice", question: "What should be verified before unloading aggregate?", options: ["A. Driver playlist", "B. Material type and destination", "C. Office temperature", "D. Sign spacing"], answer: "B. Material type and destination", explanation: "Wrong material in the wrong place creates a mess fast." },
-      { category: "aggregate", difficulty: "medium", type: "True / False", question: "Delivery timing matters because some operations depend on a steady material supply.", options: ["True", "False"], answer: "True", explanation: "Interrupted supply can slow or stop production." },
-      { category: "aggregate", difficulty: "hard", type: "Multiple Choice", question: "A plant experiences production inconsistency tied to incoming stone loads. What should be checked first?", options: ["A. Office chairs", "B. Material type, contamination, and moisture variation", "C. Social media scheduling", "D. Parking layout"], answer: "B. Material type, contamination, and moisture variation", explanation: "Inconsistent incoming material can ripple through the entire process." },
-      { category: "aggregate", difficulty: "hard", type: "Multiple Choice", question: "Several loads arrive with different moisture conditions. What is the likely impact?", options: ["A. More uniform production", "B. Variable handling and possible mix inconsistency", "C. Cleaner storage areas", "D. Lower safety risk automatically"], answer: "B. Variable handling and possible mix inconsistency", explanation: "Moisture variation affects material behavior and consistency." },
-      { category: "aggregate", difficulty: "hard", type: "Multiple Choice", question: "A crew unloads the correct stone into the wrong stockpile. The biggest risk is:", options: ["A. Better blending", "B. Inventory confusion and material quality issues", "C. Lower fuel use", "D. Better weather"], answer: "B. Inventory confusion and material quality issues", explanation: "Wrong stockpile placement can create contamination and tracking problems." },
-      { category: "aggregate", difficulty: "hard", type: "Fill in the Blank", question: "Aggregate delivery is not just hauling; it also affects production ______.", options: ["control", "music", "uniforms", "advertising"], answer: "control", explanation: "Good delivery supports good process control." },
-      { category: "aggregate", difficulty: "easy", type: "Multiple Choice", question: "Why is the right material type important during delivery?", options: ["A. Because all stone acts the same", "B. Because the wrong material can affect production and quality", "C. Because it improves truck branding", "D. Because it changes weather"], answer: "B. Because the wrong material can affect production and quality", explanation: "Wrong material in the wrong place creates immediate problems." },
-      { category: "aggregate", difficulty: "easy", type: "True / False", question: "A delivery system works better when material arrival matches operational demand.", options: ["True", "False"], answer: "True", explanation: "Supply timing matters for smooth production." },
-      { category: "aggregate", difficulty: "easy", type: "Fill in the Blank", question: "Unloading the wrong aggregate into the wrong location can create inventory ______.", options: ["confusion", "music", "weather", "shade"], answer: "confusion", explanation: "Wrong unloading creates tracking and quality headaches." },
-      { category: "aggregate", difficulty: "medium", type: "Multiple Choice", question: "What is one reason stockpile discipline matters during aggregate delivery?", options: ["A. It improves tire shine", "B. It helps keep materials separated and traceable", "C. It eliminates moisture", "D. It reduces traffic cones"], answer: "B. It helps keep materials separated and traceable", explanation: "Stockpile discipline supports control and quality." },
-      { category: "aggregate", difficulty: "medium", type: "True / False", question: "Delivery accuracy affects more than transportation; it also affects process quality.", options: ["True", "False"], answer: "True", explanation: "Delivery is part of process control, not just logistics." },
-      { category: "aggregate", difficulty: "medium", type: "Fill in the Blank", question: "Good aggregate delivery supports better production ______.", options: ["flow", "paint", "signage", "drainage"], answer: "flow", explanation: "A steady, correct supply helps production flow." },
-      { category: "aggregate", difficulty: "hard", type: "Multiple Choice", question: "A site keeps running short on material even though trucks are arriving. What should be checked first?", options: ["A. Delivery accuracy and coordination", "B. Office paint", "C. Safety vest color", "D. Sign placement"], answer: "A. Delivery accuracy and coordination", explanation: "Arrival alone is not enough; it has to be the right material, timing, and location." },
-      { category: "aggregate", difficulty: "hard", type: "True / False", question: "Poor delivery coordination can create both efficiency loss and quality problems.", options: ["True", "False"], answer: "True", explanation: "Bad coordination usually hurts both operations and product control." },
-      { category: "aggregate", difficulty: "hard", type: "Multiple Choice", question: "Why can moisture variation in delivered material be a serious issue?", options: ["A. It only affects color", "B. It can affect handling, consistency, and production behavior", "C. It improves blending", "D. It has no impact"], answer: "B. It can affect handling, consistency, and production behavior", explanation: "Moisture variation matters more than many people think." },
-
-      { category: "tank", difficulty: "easy", type: "True / False", question: "Tank work requires attention to contents, handling, and safety procedures.", options: ["True", "False"], answer: "True", explanation: "Tank operations can involve handling risks, product awareness, and process controls." },
-      { category: "tank", difficulty: "easy", type: "Multiple Choice", question: "What is one basic rule of tank work?", options: ["A. Assume contents based on memory", "B. Verify contents before transfer or use", "C. Skip labels if the tank looks familiar", "D. Open everything first"], answer: "B. Verify contents before transfer or use", explanation: "Assumptions and tank work are a bad combination." },
-      { category: "tank", difficulty: "easy", type: "True / False", question: "Tank work may involve handling products that require specific procedures.", options: ["True", "False"], answer: "True", explanation: "Tank operations often depend on correct handling and process steps." },
-      { category: "tank", difficulty: "easy", type: "Fill in the Blank", question: "Before transfer, crews should verify tank contents and proper ______.", options: ["connections", "music", "signs", "weather"], answer: "connections", explanation: "Correct connections matter before any transfer begins." },
-      { category: "tank", difficulty: "medium", type: "Multiple Choice", question: "Why is it important to verify tank contents before transfer or use?", options: ["A. To improve logo placement", "B. To prevent contamination or handling errors", "C. To change tire pressure", "D. To reduce paperwork only"], answer: "B. To prevent contamination or handling errors", explanation: "Wrong product or wrong tank can create major quality and safety problems." },
-      { category: "tank", difficulty: "medium", type: "Multiple Choice", question: "Why is labeling important in tank operations?", options: ["A. It only helps visitors", "B. It helps prevent product mix-ups and transfer errors", "C. It makes tanks heavier", "D. It removes the need for checks"], answer: "B. It helps prevent product mix-ups and transfer errors", explanation: "Labeling supports verification and safer handling." },
-      { category: "tank", difficulty: "medium", type: "Multiple Choice", question: "What is one likely result of using the wrong tank contents in an operation?", options: ["A. Better quality control", "B. Contamination, waste, or process failure", "C. Faster setup every time", "D. Reduced need for training"], answer: "B. Contamination, waste, or process failure", explanation: "Wrong product use can create expensive downstream problems." },
-      { category: "tank", difficulty: "medium", type: "True / False", question: "Tank work should rely on procedure, not memory or guesswork.", options: ["True", "False"], answer: "True", explanation: "Procedure exists because guessing fails hard here." },
-      { category: "tank", difficulty: "hard", type: "Multiple Choice", question: "A tank transfer goes wrong because assumptions were made instead of checks being completed. The biggest lesson is:", options: ["A. Move faster next time", "B. Verification and procedure matter more than assumptions", "C. Use fewer labels", "D. Skip communication"], answer: "B. Verification and procedure matter more than assumptions", explanation: "Tank work punishes guessing." },
-      { category: "tank", difficulty: "hard", type: "Multiple Choice", question: "A transfer line is connected before the destination is fully confirmed. What is the main risk?", options: ["A. Better efficiency", "B. Wrong transfer, contamination, or unsafe conditions", "C. Better pressure control", "D. Fewer communication needs"], answer: "B. Wrong transfer, contamination, or unsafe conditions", explanation: "Tank mistakes can escalate quickly if checks happen too late." },
-      { category: "tank", difficulty: "hard", type: "Multiple Choice", question: "Why are checklists valuable in tank operations?", options: ["A. They waste time", "B. They help catch errors before product movement begins", "C. They replace training", "D. They eliminate supervision"], answer: "B. They help catch errors before product movement begins", explanation: "A simple checklist beats a confident guess every time." },
-      { category: "tank", difficulty: "hard", type: "Fill in the Blank", question: "In tank work, small errors can become big ______ very quickly.", options: ["problems", "decorations", "meetings", "logos"], answer: "problems", explanation: "That is why the process has to be tight." },
-      { category: "tank", difficulty: "easy", type: "Multiple Choice", question: "What is one reason procedures matter in tank work?", options: ["A. They reduce the need to think", "B. They help prevent wrong transfers and handling mistakes", "C. They make tanks larger", "D. They replace labels"], answer: "B. They help prevent wrong transfers and handling mistakes", explanation: "Tank work depends on disciplined process." },
-      { category: "tank", difficulty: "easy", type: "True / False", question: "Assuming tank contents based on memory can create serious problems.", options: ["True", "False"], answer: "True", explanation: "Memory is not a control system." },
-      { category: "tank", difficulty: "easy", type: "Fill in the Blank", question: "Tank labels help prevent product ______.", options: ["mix-ups", "photos", "weather", "permits"], answer: "mix-ups", explanation: "Labeling supports correct identification and transfer." },
-      { category: "tank", difficulty: "medium", type: "Multiple Choice", question: "What should happen before any tank transfer begins?", options: ["A. Guess the destination", "B. Verify contents, destination, and connections", "C. Skip communication", "D. Open all valves"], answer: "B. Verify contents, destination, and connections", explanation: "Those checks are basic controls before movement begins." },
-      { category: "tank", difficulty: "medium", type: "True / False", question: "Wrong product in the right tank can still create a process failure.", options: ["True", "False"], answer: "True", explanation: "Correct location does not fix incorrect contents." },
-      { category: "tank", difficulty: "medium", type: "Fill in the Blank", question: "Tank work should follow procedure instead of relying on ______.", options: ["assumptions", "paint", "timing only", "luck charms"], answer: "assumptions", explanation: "Assumptions are where many transfer problems start." },
-      { category: "tank", difficulty: "hard", type: "Multiple Choice", question: "Why are wrong-transfer events so serious?", options: ["A. They are easy to reverse", "B. They can cause contamination, waste, downtime, and safety problems", "C. They usually improve quality", "D. They reduce the need for records"], answer: "B. They can cause contamination, waste, downtime, and safety problems", explanation: "One wrong move can create several layers of trouble." },
-      { category: "tank", difficulty: "hard", type: "True / False", question: "A strong process is more reliable than a confident employee who skips checks.", options: ["True", "False"], answer: "True", explanation: "Confidence is not a substitute for verification." },
-      { category: "tank", difficulty: "hard", type: "Multiple Choice", question: "A crew member says the system is fine because 'we've always done it this way.' What should matter more?", options: ["A. Habit", "B. Verified procedure and current checks", "C. Speed only", "D. Tank color"], answer: "B. Verified procedure and current checks", explanation: "Old habits do not guarantee safe or correct transfers." },
-
-      { category: "barge", difficulty: "easy", type: "True / False", question: "Barge operations depend heavily on coordination, material handling, and safe loading practices.", options: ["True", "False"], answer: "True", explanation: "Barge work involves timing, movement, and safe handling." },
-      { category: "barge", difficulty: "easy", type: "Multiple Choice", question: "What is one major need in barge operations?", options: ["A. Random loading", "B. Coordination and controlled material movement", "C. Less communication", "D. More guessing"], answer: "B. Coordination and controlled material movement", explanation: "Barge work depends on timing and control." },
-      { category: "barge", difficulty: "easy", type: "True / False", question: "Poor coordination during barge loading can create delays and safety issues.", options: ["True", "False"], answer: "True", explanation: "Poor coordination tends to spread problems fast." },
-      { category: "barge", difficulty: "easy", type: "Fill in the Blank", question: "Barge loading requires safe handling and clear ______.", options: ["communication", "advertising", "painting", "survey stakes"], answer: "communication", explanation: "Without communication, movement and loading get messy fast." },
-      { category: "barge", difficulty: "medium", type: "Multiple Choice", question: "What is one important concern in barge material movement?", options: ["A. Proper coordination and loading control", "B. Office carpet selection", "C. Concrete paint color", "D. Sidewalk striping"], answer: "A. Proper coordination and loading control", explanation: "Barge operations depend on controlled loading and coordinated movement." },
-      { category: "barge", difficulty: "medium", type: "Multiple Choice", question: "Why is loading control important in barge operations?", options: ["A. It affects only paperwork", "B. It helps maintain efficiency, safety, and proper material handling", "C. It improves office seating", "D. It changes river current"], answer: "B. It helps maintain efficiency, safety, and proper material handling", explanation: "Loading control supports both safe operation and production flow." },
-      { category: "barge", difficulty: "medium", type: "Multiple Choice", question: "What can poor material tracking during barge operations lead to?", options: ["A. Better forecasting", "B. Confusion, delays, or product handling errors", "C. Cleaner boots", "D. Lower training needs"], answer: "B. Confusion, delays, or product handling errors", explanation: "Tracking matters when materials are moving through multiple steps." },
-      { category: "barge", difficulty: "medium", type: "True / False", question: "Barge operations require less planning than truck-only delivery.", options: ["True", "False"], answer: "False", explanation: "Barge operations usually require serious coordination." },
-      { category: "barge", difficulty: "hard", type: "Multiple Choice", question: "A barge loading sequence is poorly coordinated. What is the most likely result?", options: ["A. Better communication", "B. Delays, material issues, or safety problems", "C. Stronger asphalt", "D. Cleaner trucks"], answer: "B. Delays, material issues, or safety problems", explanation: "Poor coordination in barge operations quickly creates operational headaches." },
-      { category: "barge", difficulty: "hard", type: "Multiple Choice", question: "A barge operation falls behind because different crews are not working from the same sequence. What is the root problem?", options: ["A. Too many life jackets", "B. Poor coordination and sequencing", "C. Too much documentation", "D. Not enough paint"], answer: "B. Poor coordination and sequencing", explanation: "When crews are out of sync, delays and errors pile up." },
-      { category: "barge", difficulty: "hard", type: "Multiple Choice", question: "Why is pre-planning especially important in barge material movement?", options: ["A. It removes all risk", "B. It helps avoid delays, confusion, and handling mistakes", "C. It changes the cargo type", "D. It improves water level"], answer: "B. It helps avoid delays, confusion, and handling mistakes", explanation: "Good pre-planning prevents predictable chaos." },
-      { category: "barge", difficulty: "hard", type: "Fill in the Blank", question: "In barge work, poor coordination can affect safety, timing, and material ______.", options: ["control", "music", "weather", "uniforms"], answer: "control", explanation: "Controlled movement is the whole game." },
-      { category: "barge", difficulty: "easy", type: "Multiple Choice", question: "What is one reason communication matters in barge operations?", options: ["A. It fills time", "B. It helps coordinate movement and loading safely", "C. It improves river color", "D. It replaces planning"], answer: "B. It helps coordinate movement and loading safely", explanation: "Clear communication supports timing and control." },
-      { category: "barge", difficulty: "easy", type: "True / False", question: "Barge operations can be disrupted by poor sequencing.", options: ["True", "False"], answer: "True", explanation: "Sequence mistakes can quickly affect timing and handling." },
-      { category: "barge", difficulty: "easy", type: "Fill in the Blank", question: "Barge operations depend on coordination, timing, and loading ______.", options: ["control", "decorations", "marketing", "curb paint"], answer: "control", explanation: "Loading control is central to efficient and safe movement." },
-      { category: "barge", difficulty: "medium", type: "Multiple Choice", question: "Why is material tracking important during barge movement?", options: ["A. It only helps billing", "B. It helps reduce confusion and handling errors", "C. It changes water level", "D. It makes barges lighter"], answer: "B. It helps reduce confusion and handling errors", explanation: "Tracking supports operational control." },
-      { category: "barge", difficulty: "medium", type: "True / False", question: "Poor crew coordination can slow barge operations even if material is available.", options: ["True", "False"], answer: "True", explanation: "Availability of material does not fix weak coordination." },
-      { category: "barge", difficulty: "medium", type: "Fill in the Blank", question: "Good barge planning helps avoid delays, confusion, and handling ______.", options: ["mistakes", "music", "permits", "shadows"], answer: "mistakes", explanation: "Good planning reduces predictable errors." },
-      { category: "barge", difficulty: "hard", type: "Multiple Choice", question: "A barge operation keeps falling behind because no one is aligned on the sequence. What should be improved first?", options: ["A. Branding", "B. Coordination and pre-planning", "C. Paint scheme", "D. Fence layout"], answer: "B. Coordination and pre-planning", explanation: "Sequence failures usually start with weak coordination and planning." },
-      { category: "barge", difficulty: "hard", type: "True / False", question: "Material movement problems on barge work can affect both safety and productivity.", options: ["True", "False"], answer: "True", explanation: "Those two often get hit together." },
-      { category: "barge", difficulty: "hard", type: "Multiple Choice", question: "Why is loading control so important in barge work?", options: ["A. It affects only paperwork", "B. It affects timing, material handling, and safe operation", "C. It changes cargo ownership", "D. It removes the need for communication"], answer: "B. It affects timing, material handling, and safe operation", explanation: "Loading control is operational control." },
-
-      { category: "rail", difficulty: "easy", type: "True / False", question: "Rail transloading involves moving materials between rail and another transport or storage system.", options: ["True", "False"], answer: "True", explanation: "That is exactly what rail transloading is." },
-      { category: "rail", difficulty: "easy", type: "Multiple Choice", question: "What is rail transloading?", options: ["A. Painting railcars", "B. Moving material between rail and another transport or storage system", "C. Building railroad signs", "D. Replacing tracks"], answer: "B. Moving material between rail and another transport or storage system", explanation: "That is the basic function of rail transloading." },
-      { category: "rail", difficulty: "easy", type: "True / False", question: "Rail transloading depends on proper handling and coordination.", options: ["True", "False"], answer: "True", explanation: "Bad coordination causes delays and handling problems." },
-      { category: "rail", difficulty: "easy", type: "Fill in the Blank", question: "Transloading means moving material from one system to ______.", options: ["another", "paint", "concrete", "gravel"], answer: "another", explanation: "That transfer is the whole point." },
-      { category: "rail", difficulty: "medium", type: "Multiple Choice", question: "What is one major concern in rail transloading?", options: ["A. Correct transfer handling and coordination", "B. Grass height", "C. Office lighting", "D. Fence shape"], answer: "A. Correct transfer handling and coordination", explanation: "Rail transloading depends on controlled handling and logistics." },
-      { category: "rail", difficulty: "medium", type: "Multiple Choice", question: "Why is product tracking important in rail transloading?", options: ["A. It only matters for billing", "B. It helps prevent errors, delays, and material confusion", "C. It slows unloading", "D. It makes storage harder"], answer: "B. It helps prevent errors, delays, and material confusion", explanation: "Tracking supports control and accountability." },
-      { category: "rail", difficulty: "medium", type: "Multiple Choice", question: "What is one likely outcome of poor coordination in rail transloading?", options: ["A. Smoother transfers", "B. Delays and handling mistakes", "C. Better stockpile accuracy", "D. Lower equipment needs"], answer: "B. Delays and handling mistakes", explanation: "Poor coordination usually shows up as wasted time and bad transfers." },
-      { category: "rail", difficulty: "medium", type: "True / False", question: "Correct handling during transfer matters because material can be lost or contaminated.", options: ["True", "False"], answer: "True", explanation: "Transfer points are where mistakes love to happen." },
-      { category: "rail", difficulty: "hard", type: "Multiple Choice", question: "If transloaded material is mishandled during transfer, the main risk is:", options: ["A. Better site branding", "B. Product loss, contamination, delays, or safety issues", "C. Reduced paperwork", "D. Improved weather"], answer: "B. Product loss, contamination, delays, or safety issues", explanation: "Material handling errors in transloading can create costly problems." },
-      { category: "rail", difficulty: "hard", type: "Multiple Choice", question: "A transloading site keeps having product discrepancies after transfers. What should be checked first?", options: ["A. Office paint color", "B. Transfer process, tracking, and handling controls", "C. Parking lot striping", "D. Fence height"], answer: "B. Transfer process, tracking, and handling controls", explanation: "Discrepancies usually point to poor process control or tracking." },
-      { category: "rail", difficulty: "hard", type: "Multiple Choice", question: "Why is consistency important in rail transloading procedures?", options: ["A. It helps reduce error and improve control", "B. It removes the need for communication", "C. It makes materials cheaper", "D. It changes rail schedules"], answer: "A. It helps reduce error and improve control", explanation: "Consistency is how you stop repeat mistakes." },
-      { category: "rail", difficulty: "hard", type: "Fill in the Blank", question: "Rail transloading depends on safe handling, coordination, and process ______.", options: ["control", "advertising", "lighting", "landscaping"], answer: "control", explanation: "Without process control, things go sideways fast." },
-      { category: "rail", difficulty: "easy", type: "Multiple Choice", question: "What is one key purpose of process control in rail transloading?", options: ["A. To make things look official", "B. To reduce errors during material transfer", "C. To remove communication", "D. To change rail schedules"], answer: "B. To reduce errors during material transfer", explanation: "Process control helps make transfers consistent and traceable." },
-      { category: "rail", difficulty: "easy", type: "True / False", question: "Poor transfer handling can lead to product loss or contamination.", options: ["True", "False"], answer: "True", explanation: "Transfer points are vulnerable to mistakes." },
-      { category: "rail", difficulty: "easy", type: "Fill in the Blank", question: "Rail transloading depends on good handling, coordination, and ______.", options: ["tracking", "music", "paint", "concrete"], answer: "tracking", explanation: "Tracking helps maintain control over material movement." },
-      { category: "rail", difficulty: "medium", type: "Multiple Choice", question: "Why is consistency important in rail transfer procedures?", options: ["A. It reduces repeat mistakes", "B. It removes the need for checks", "C. It changes rail speed", "D. It improves office morale only"], answer: "A. It reduces repeat mistakes", explanation: "Consistent procedures improve control and reduce variation." },
-      { category: "rail", difficulty: "medium", type: "True / False", question: "A transfer that is completed quickly can still be a failure if tracking and handling were poor.", options: ["True", "False"], answer: "True", explanation: "Fast and wrong is still wrong." },
-      { category: "rail", difficulty: "medium", type: "Fill in the Blank", question: "Good transloading procedures help improve process ______.", options: ["control", "branding", "traffic", "weather"], answer: "control", explanation: "Control is the goal of a disciplined process." },
-      { category: "rail", difficulty: "hard", type: "Multiple Choice", question: "A site keeps seeing transfer discrepancies. What is the smartest first step?", options: ["A. Ignore minor errors", "B. Review transfer handling, tracking, and process consistency", "C. Repaint signage", "D. Change the team name"], answer: "B. Review transfer handling, tracking, and process consistency", explanation: "Recurring discrepancies usually point to weak process control." },
-      { category: "rail", difficulty: "hard", type: "True / False", question: "Good coordination in rail transloading helps reduce delays and handling mistakes.", options: ["True", "False"], answer: "True", explanation: "Coordination is one of the main defenses against transfer problems." },
-      { category: "rail", difficulty: "hard", type: "Multiple Choice", question: "Why can mishandled material transfer become expensive quickly?", options: ["A. It affects only paperwork", "B. It can cause loss, contamination, delay, and operational confusion", "C. It makes railcars heavier", "D. It improves productivity"], answer: "B. It can cause loss, contamination, delay, and operational confusion", explanation: "Transfer mistakes tend to multiply into several business problems." }
-    ];
-
-    let selectedCategory = "smooth";
-    let selectedMode = "solo";
-    let selectedDifficulty = "easy";
-
-    let currentQuestions = [];
+    let quizQuestions = [];
     let currentQuestionIndex = 0;
+    let score = 0;
+    let correctCount = 0;
     let answered = false;
-    let currentTurn = 0;
-    let previousCorrectSide = null;
-    let timerInterval = null;
-    let timeLeft = 15;
 
-    let participantOne = "Player 1";
-    let participantTwo = "Player 2";
+    const categoryFilter = document.getElementById("categoryFilter");
+    const difficultyFilter = document.getElementById("difficultyFilter");
+    const questionCountSelect = document.getElementById("questionCount");
+    const startBtn = document.getElementById("startBtn");
 
-    let recentGameHistory = [];
+    const quizCard = document.getElementById("quizCard");
+    const questionMeta = document.getElementById("questionMeta");
+    const mediaBox = document.getElementById("mediaBox");
+    const questionText = document.getElementById("questionText");
+    const optionsBox = document.getElementById("optionsBox");
+    const explanationBox = document.getElementById("explanationBox");
+    const nextBtn = document.getElementById("nextBtn");
 
-    let scores = {
-      solo: 0,
-      player1: 0,
-      player2: 0,
-      teamA: 0,
-      teamB: 0
-    };
+    const resultsBox = document.getElementById("resultsBox");
+    const finalScore = document.getElementById("finalScore");
+    const finalMessage = document.getElementById("finalMessage");
 
-    function getQuestionCountForCategory(categoryId) {
-      if (categoryId === "mixed") return questionBank.length;
-      return questionBank.filter(q => q.category === categoryId).length;
-    }
+    const questionNumber = document.getElementById("questionNumber");
+    const scoreDisplay = document.getElementById("scoreDisplay");
+    const correctDisplay = document.getElementById("correctDisplay");
+    const accuracyDisplay = document.getElementById("accuracyDisplay");
 
-    function renderOptions(containerId, items, selectedId, onSelect) {
-      const container = document.getElementById(containerId);
-      container.innerHTML = "";
-
-      items.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "option-card" + (item.id === selectedId ? " selected" : "");
-        card.onclick = () => onSelect(item.id);
-
-        let extraLine = "";
-        if (containerId === "categoryOptions") {
-          const count = getQuestionCountForCategory(item.id);
-          extraLine = `<p class="count-line">${count} questions available</p>`;
-        }
-
-        card.innerHTML = `
-          <h3>${item.name}</h3>
-          <p>${item.description}</p>
-          ${extraLine}
-        `;
-        container.appendChild(card);
+    function populateCategories() {
+      const categories = [...new Set(allQuestions.map(q => q.category))].sort();
+      categories.forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat;
+        option.textContent = cat;
+        categoryFilter.appendChild(option);
       });
-    }
-
-    function renderSettings() {
-      const container = document.getElementById("settingsOptions");
-      container.innerHTML = "";
-
-      settings.forEach(setting => {
-        const card = document.createElement("div");
-        card.className = "toggle-card" + (setting.selected ? " selected" : "");
-        card.onclick = () => toggleSetting(setting.id);
-        card.innerHTML = `<h3>${setting.name}</h3><p>${setting.description}</p>`;
-        container.appendChild(card);
-      });
-    }
-
-    function toggleSetting(id) {
-      const setting = settings.find(s => s.id === id);
-      if (!setting) return;
-      setting.selected = !setting.selected;
-      renderSettings();
-    }
-
-    function getSetting(id) {
-      const setting = settings.find(s => s.id === id);
-      return setting ? setting.selected : false;
-    }
-
-    function selectCategory(id) {
-      selectedCategory = id;
-      renderAllSelections();
-    }
-
-    function selectMode(id) {
-      selectedMode = id;
-      renderAllSelections();
-    }
-
-    function selectDifficulty(id) {
-      selectedDifficulty = id;
-      renderAllSelections();
-    }
-
-    function renderAllSelections() {
-      renderOptions("categoryOptions", categories, selectedCategory, selectCategory);
-      renderOptions("modeOptions", modes, selectedMode, selectMode);
-      renderOptions("difficultyOptions", difficulties, selectedDifficulty, selectDifficulty);
-      renderSettings();
     }
 
     function shuffleArray(array) {
-      const copied = [...array];
-      for (let i = copied.length - 1; i > 0; i--) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [copied[i], copied[j]] = [copied[j], copied[i]];
+        [arr[i], arr[j]] = [arr[j], arr[i]];
       }
-      return copied;
+      return arr;
     }
 
-    function getQuestionKey(question) {
-      return `${question.category}|${question.difficulty}|${question.question}`;
-    }
+    function startQuiz() {
+      const selectedCategory = categoryFilter.value;
+      const selectedDifficulty = difficultyFilter.value;
+      const selectedCount = parseInt(questionCountSelect.value, 10);
 
-    function shuffleQuestionOptions(question) {
-      return {
-        ...question,
-        options: shuffleArray(question.options)
-      };
-    }
+      let filtered = [...allQuestions];
 
-    function getPointValue(difficulty) {
-      if (difficulty === "easy") return 10;
-      if (difficulty === "medium") return 20;
-      if (difficulty === "hard") return 30;
-      return 20;
-    }
-
-    function getCategoryName(categoryId) {
-      const match = categories.find(c => c.id === categoryId);
-      return match ? match.name : "Unknown Category";
-    }
-
-    function getDifficultyName(difficultyId) {
-      const match = difficulties.find(d => d.id === difficultyId);
-      return match ? match.name : "Unknown Difficulty";
-    }
-
-    function getModeName(modeId) {
-      const match = modes.find(m => m.id === modeId);
-      return match ? match.name : "Unknown Mode";
-    }
-
-    function buildQuestionSet() {
-      let filtered = [];
-
-      if (selectedCategory === "mixed" && selectedDifficulty === "all") {
-        filtered = [...questionBank];
-      } else if (selectedCategory === "mixed") {
-        filtered = questionBank.filter(q => q.difficulty === selectedDifficulty);
-      } else if (selectedDifficulty === "all") {
-        filtered = questionBank.filter(q => q.category === selectedCategory);
-      } else {
-        filtered = questionBank.filter(
-          q => q.category === selectedCategory && q.difficulty === selectedDifficulty
-        );
+      if (selectedCategory !== "All") {
+        filtered = filtered.filter(q => q.category === selectedCategory);
       }
 
-      if (filtered.length < QUESTION_COUNT) {
-        if (selectedCategory === "mixed") {
-          filtered = selectedDifficulty === "all"
-            ? [...questionBank]
-            : questionBank.filter(q => q.difficulty === selectedDifficulty);
-        } else {
-          filtered = questionBank.filter(q => q.category === selectedCategory);
-        }
+      if (selectedDifficulty !== "Mixed") {
+        filtered = filtered.filter(q => q.difficulty === selectedDifficulty);
       }
 
-      const recentlyUsedKeys = new Set(recentGameHistory.flat());
-      let freshQuestions = filtered.filter(q => !recentlyUsedKeys.has(getQuestionKey(q)));
-      let selected = [];
+      filtered = shuffleArray(filtered);
 
-      if (freshQuestions.length >= QUESTION_COUNT) {
-        selected = shuffleArray(freshQuestions).slice(0, QUESTION_COUNT);
-      } else {
-        const needed = QUESTION_COUNT - freshQuestions.length;
-        const fallbackPool = filtered.filter(q => recentlyUsedKeys.has(getQuestionKey(q)));
-        selected = [
-          ...shuffleArray(freshQuestions),
-          ...shuffleArray(fallbackPool).slice(0, needed)
-        ];
+      if (selectedCount !== 9999) {
+        filtered = filtered.slice(0, selectedCount);
       }
 
-      const selectedKeys = selected.map(getQuestionKey);
-      recentGameHistory.push(selectedKeys);
-      if (recentGameHistory.length > RECENT_GAME_MEMORY) {
-        recentGameHistory.shift();
-      }
-
-      return selected.map(shuffleQuestionOptions);
-    }
-
-    function getTurnLabel() {
-      if (selectedMode === "solo") return participantOne;
-      if (selectedMode === "versus") return currentTurn % 2 === 0 ? `${participantOne} Turn` : `${participantTwo} Turn`;
-      return currentTurn % 2 === 0 ? `${participantOne} Turn` : `${participantTwo} Turn`;
-    }
-
-    function getCurrentSideKey() {
-      if (selectedMode === "solo") return "solo";
-      if (selectedMode === "versus") return currentTurn % 2 === 0 ? "player1" : "player2";
-      return currentTurn % 2 === 0 ? "teamA" : "teamB";
-    }
-
-    function startGame() {
-      participantOne = document.getElementById("name1").value.trim() || (selectedMode === "team" ? "Team A" : "Player 1");
-      participantTwo = document.getElementById("name2").value.trim() || (selectedMode === "team" ? "Team B" : "Player 2");
-
-      currentQuestions = buildQuestionSet();
-
-      if (currentQuestions.length === 0) {
-        alert("No questions found for that setup yet.");
+      if (filtered.length === 0) {
+        alert("No questions match your current selections.");
         return;
       }
 
+      quizQuestions = filtered;
       currentQuestionIndex = 0;
+      score = 0;
+      correctCount = 0;
       answered = false;
-      currentTurn = 0;
-      previousCorrectSide = null;
-      scores = { solo: 0, player1: 0, player2: 0, teamA: 0, teamB: 0 };
 
-      clearTimer();
+      resultsBox.style.display = "none";
+      quizCard.style.display = "block";
 
-      document.getElementById("setupSection").classList.add("hidden");
-      document.getElementById("resultsSection").classList.add("hidden");
-      document.getElementById("quizSection").classList.remove("hidden");
-
-      updateScorePanels();
-      showQuestion();
+      updateStats();
+      renderQuestion();
     }
 
-    function updateScorePanels() {
-      const container = document.getElementById("scorePanels");
-      container.innerHTML = "";
+    function updateStats() {
+      questionNumber.textContent = `${Math.min(currentQuestionIndex + 1, quizQuestions.length)} / ${quizQuestions.length}`;
+      scoreDisplay.textContent = score;
+      correctDisplay.textContent = correctCount;
 
-      if (selectedMode === "solo") {
-        container.innerHTML = `
-          <div class="score-card">
-            <h4>${participantOne}</h4>
-            <div>${scores.solo}</div>
-          </div>
-        `;
-      } else if (selectedMode === "versus") {
-        container.innerHTML = `
-          <div class="score-card">
-            <h4>${participantOne}</h4>
-            <div>${scores.player1}</div>
-          </div>
-          <div class="score-card">
-            <h4>${participantTwo}</h4>
-            <div>${scores.player2}</div>
-          </div>
-        `;
-      } else {
-        container.innerHTML = `
-          <div class="score-card">
-            <h4>${participantOne}</h4>
-            <div>${scores.teamA}</div>
-          </div>
-          <div class="score-card">
-            <h4>${participantTwo}</h4>
-            <div>${scores.teamB}</div>
-          </div>
+      const answeredCount = currentQuestionIndex;
+      const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+      accuracyDisplay.textContent = `${accuracy}%`;
+    }
+
+    function renderQuestion() {
+      answered = false;
+      explanationBox.style.display = "none";
+      explanationBox.innerHTML = "";
+      nextBtn.style.display = "none";
+      optionsBox.innerHTML = "";
+      mediaBox.innerHTML = "";
+
+      const q = quizQuestions[currentQuestionIndex];
+
+      questionMeta.innerHTML = `
+        <span class="tag tag-category">${q.category}</span>
+        <span class="tag ${q.difficulty === "Beginner" ? "tag-difficulty-beginner" : "tag-difficulty-expert"}">${q.difficulty}</span>
+      `;
+
+      questionText.textContent = q.question;
+
+      if (q.image) {
+        mediaBox.innerHTML += `<img src="${q.image}" alt="Question related image">`;
+      }
+
+      if (q.video) {
+        mediaBox.innerHTML += `
+          <video controls preload="metadata">
+            <source src="${q.video}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         `;
       }
-    }
 
-    function showQuestion() {
-      answered = false;
-      const q = currentQuestions[currentQuestionIndex];
-
-      document.getElementById("questionProgress").textContent = `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
-      document.getElementById("categoryPill").textContent = selectedCategory === "mixed" ? "🎲 Mixed Bag" : getCategoryName(q.category);
-      document.getElementById("difficultyPill").textContent =
-        selectedDifficulty === "all"
-          ? `Mixed Difficulty (${getDifficultyName(q.difficulty)})`
-          : getDifficultyName(selectedDifficulty);
-      document.getElementById("modePill").textContent = getModeName(selectedMode);
-      document.getElementById("turnPill").textContent = getTurnLabel();
-      document.getElementById("questionText").textContent = q.question;
-      document.getElementById("feedbackText").textContent = "";
-      document.getElementById("explanationText").textContent = "";
-      document.getElementById("nextBtn").disabled = true;
-
-      const answersContainer = document.getElementById("answersContainer");
-      answersContainer.innerHTML = "";
-
-      q.options.forEach(option => {
+      q.options.forEach((option, index) => {
         const btn = document.createElement("button");
-        btn.className = "answer-btn";
+        btn.className = "option-btn";
         btn.textContent = option;
-        btn.onclick = () => handleAnswer(option, q.answer, q.explanation, false);
-        answersContainer.appendChild(btn);
+        btn.onclick = () => selectAnswer(index);
+        optionsBox.appendChild(btn);
       });
 
-      updateScorePanels();
-      setupTimer();
+      updateStats();
     }
 
-    function setupTimer() {
-      const timerPill = document.getElementById("timerPill");
-      clearTimer();
-
-      if (!getSetting("timer")) {
-        timerPill.classList.add("hidden");
-        return;
-      }
-
-      timeLeft = 15;
-      timerPill.textContent = `Time: ${timeLeft}`;
-      timerPill.classList.remove("hidden");
-
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        timerPill.textContent = `Time: ${timeLeft}`;
-
-        if (timeLeft <= 0) {
-          clearTimer();
-          handleAnswer(null, currentQuestions[currentQuestionIndex].answer, currentQuestions[currentQuestionIndex].explanation, true);
-        }
-      }, 1000);
-    }
-
-    function clearTimer() {
-      if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-      }
-    }
-
-    function handleAnswer(selected, correct, explanation, timedOut) {
+    function selectAnswer(selectedIndex) {
       if (answered) return;
       answered = true;
-      clearTimer();
 
-      const buttons = document.querySelectorAll(".answer-btn");
-      const currentQuestion = currentQuestions[currentQuestionIndex];
-      const points = getPointValue(currentQuestion.difficulty);
-      const currentSide = getCurrentSideKey();
+      const q = quizQuestions[currentQuestionIndex];
+      const buttons = optionsBox.querySelectorAll(".option-btn");
 
-      buttons.forEach(btn => {
+      buttons.forEach((btn, index) => {
         btn.disabled = true;
-        if (btn.textContent === correct) btn.classList.add("correct");
-        if (selected && btn.textContent === selected && selected !== correct) btn.classList.add("wrong");
+
+        if (index === q.correct) {
+          btn.classList.add("correct");
+        } else if (index === selectedIndex) {
+          btn.classList.add("incorrect");
+        }
       });
 
-      const wasCorrect = selected === correct;
-
-      if (wasCorrect) {
-        if (currentSide === "solo") scores.solo += points;
-        if (currentSide === "player1") scores.player1 += points;
-        if (currentSide === "player2") scores.player2 += points;
-        if (currentSide === "teamA") scores.teamA += points;
-        if (currentSide === "teamB") scores.teamB += points;
-
-        document.getElementById("feedbackText").textContent = `Correct (+${points})`;
-        document.getElementById("feedbackText").style.color = "#15803d";
-        previousCorrectSide = currentSide;
-        playSound("correct");
-      } else {
-        document.getElementById("feedbackText").textContent = timedOut ? "Time’s Up" : "Incorrect";
-        document.getElementById("feedbackText").style.color = "#b91c1c";
-        playSound("wrong");
-
-        if (getSetting("suddendeath") && selectedMode !== "solo" && previousCorrectSide && previousCorrectSide !== currentSide) {
-          document.getElementById("explanationText").textContent = `Answer: ${correct}. ${explanation} Sudden Death triggered.`;
-          updateScorePanels();
-          setTimeout(() => showResults(true), 1200);
-          return;
-        }
+      if (selectedIndex === q.correct) {
+        score += q.difficulty === "Expert" ? 2 : 1;
+        correctCount++;
       }
 
-      document.getElementById("explanationText").textContent = `Answer: ${correct}. ${explanation}`;
-      updateScorePanels();
-      document.getElementById("nextBtn").disabled = false;
-    }
+      explanationBox.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
+      explanationBox.style.display = "block";
 
-    function nextQuestion() {
       currentQuestionIndex++;
-      currentTurn++;
+      updateStats();
 
-      if (currentQuestionIndex < currentQuestions.length) {
-        showQuestion();
+      if (currentQuestionIndex < quizQuestions.length) {
+        nextBtn.style.display = "inline-block";
       } else {
-        showResults(false);
+        nextBtn.style.display = "inline-block";
+        nextBtn.textContent = "See Results";
       }
     }
 
-    function getSoloRank(percent) {
-      if (percent >= 90) return "Road Boss";
-      if (percent >= 80) return "Crew Leader";
-      if (percent >= 70) return "Heavy Hitter";
-      if (percent >= 60) return "Work in Progress";
-      return "Back to the Yard";
-    }
-
-    function showResults(suddenDeathEnded) {
-      clearTimer();
-      document.getElementById("quizSection").classList.add("hidden");
-      document.getElementById("resultsSection").classList.remove("hidden");
-
-      const maxPoints = currentQuestions.reduce((sum, q) => sum + getPointValue(q.difficulty), 0);
-      let text = "";
-
-      if (selectedMode === "solo") {
-        const percent = maxPoints === 0 ? 0 : Math.round((scores.solo / maxPoints) * 100);
-        const rank = getSoloRank(percent);
-        const passFail = percent >= PASS_PERCENT ? `<span class="pass">PASS</span>` : `<span class="fail">FAIL</span>`;
-
-        text = `
-          <strong>${participantOne}</strong> scored <strong>${scores.solo}</strong> out of <strong>${maxPoints}</strong> possible points
-          in <strong>${getCategoryName(selectedCategory)}</strong> on <strong>${getDifficultyName(selectedDifficulty)}</strong>.
-          <br><br>
-          Final Rank: <strong>${rank}</strong> (${percent}%)
-          <br>
-          Result: ${passFail}
-        `;
-
-        saveLeaderboardEntry({
-          name: participantOne,
-          category: getCategoryName(selectedCategory),
-          difficulty: getDifficultyName(selectedDifficulty),
-          mode: getModeName(selectedMode),
-          score: `${scores.solo}/${maxPoints}`,
-          result: `${rank} - ${percent}%`
-        });
-      } else if (selectedMode === "versus") {
-        let winnerText = "";
-
-        if (scores.player1 > scores.player2) {
-          winnerText = `${participantOne} wins.`;
-          saveLeaderboardEntry({
-            name: participantOne,
-            category: getCategoryName(selectedCategory),
-            difficulty: getDifficultyName(selectedDifficulty),
-            mode: getModeName(selectedMode),
-            score: `${scores.player1}`,
-            result: "Winner"
-          });
-        } else if (scores.player2 > scores.player1) {
-          winnerText = `${participantTwo} wins.`;
-          saveLeaderboardEntry({
-            name: participantTwo,
-            category: getCategoryName(selectedCategory),
-            difficulty: getDifficultyName(selectedDifficulty),
-            mode: getModeName(selectedMode),
-            score: `${scores.player2}`,
-            result: "Winner"
-          });
-        } else {
-          winnerText = "It’s a tie. Nobody gets bragging rights yet.";
-        }
-
-        text = `
-          <strong>${participantOne}:</strong> ${scores.player1} points<br>
-          <strong>${participantTwo}:</strong> ${scores.player2} points
-          <br><br>
-          ${winnerText}
-          ${suddenDeathEnded ? "<br><br><strong>Sudden Death ended the match.</strong>" : ""}
-        `;
+    nextBtn.addEventListener("click", () => {
+      if (currentQuestionIndex < quizQuestions.length) {
+        nextBtn.textContent = "Next Question";
+        renderQuestion();
       } else {
-        let winnerText = "";
+        showResults();
+      }
+    });
 
-        if (scores.teamA > scores.teamB) {
-          winnerText = `${participantOne} wins.`;
-          saveLeaderboardEntry({
-            name: participantOne,
-            category: getCategoryName(selectedCategory),
-            difficulty: getDifficultyName(selectedDifficulty),
-            mode: getModeName(selectedMode),
-            score: `${scores.teamA}`,
-            result: "Winner"
-          });
-        } else if (scores.teamB > scores.teamA) {
-          winnerText = `${participantTwo} wins.`;
-          saveLeaderboardEntry({
-            name: participantTwo,
-            category: getCategoryName(selectedCategory),
-            difficulty: getDifficultyName(selectedDifficulty),
-            mode: getModeName(selectedMode),
-            score: `${scores.teamB}`,
-            result: "Winner"
-          });
-        } else {
-          winnerText = "It’s a tie. The rivalry lives on.";
-        }
+    function showResults() {
+      quizCard.style.display = "none";
+      resultsBox.style.display = "block";
 
-        text = `
-          <strong>${participantOne}:</strong> ${scores.teamA} points<br>
-          <strong>${participantTwo}:</strong> ${scores.teamB} points
-          <br><br>
-          ${winnerText}
-          ${suddenDeathEnded ? "<br><br><strong>Sudden Death ended the match.</strong>" : ""}
-        `;
+      const maxScore = quizQuestions.reduce((sum, q) => sum + (q.difficulty === "Expert" ? 2 : 1), 0);
+      const percent = Math.round((score / maxScore) * 100);
+
+      finalScore.textContent = `${score} / ${maxScore}`;
+
+      let message = "";
+      if (percent >= 90) {
+        message = "Excellent performance. This score suggests strong awareness and decision-making across asphalt and roadwork safety scenarios.";
+      } else if (percent >= 75) {
+        message = "Good work. There is solid knowledge here, with some areas that would benefit from stronger judgment under pressure.";
+      } else if (percent >= 60) {
+        message = "Fair result. The basics are present, but there are decision-making gaps that could create risk in real work zones.";
+      } else {
+        message = "This result shows important safety gaps. More training and review are needed before confidence should be high.";
       }
 
-      document.getElementById("resultsText").innerHTML = text;
-      renderLeaderboard();
-      playSound("end");
+      finalMessage.textContent = message;
+
+      questionNumber.textContent = `${quizQuestions.length} / ${quizQuestions.length}`;
+      scoreDisplay.textContent = score;
+      correctDisplay.textContent = correctCount;
+      accuracyDisplay.textContent = `${Math.round((correctCount / quizQuestions.length) * 100)}%`;
     }
 
-    function backToSetup() {
-      clearTimer();
-      document.getElementById("quizSection").classList.add("hidden");
-      document.getElementById("resultsSection").classList.add("hidden");
-      document.getElementById("setupSection").classList.remove("hidden");
-    }
+    startBtn.addEventListener("click", startQuiz);
 
-    function getLeaderboard() {
-      try {
-        return JSON.parse(localStorage.getItem("paveTheWayLeaderboard")) || [];
-      } catch {
-        return [];
-      }
-    }
-
-    function saveLeaderboardEntry(entry) {
-      const leaderboard = getLeaderboard();
-      leaderboard.unshift(entry);
-      localStorage.setItem("paveTheWayLeaderboard", JSON.stringify(leaderboard.slice(0, 20)));
-    }
-
-    function renderLeaderboard() {
-      const body = document.getElementById("leaderboardBody");
-      const leaderboard = getLeaderboard();
-      body.innerHTML = "";
-
-      if (leaderboard.length === 0) {
-        body.innerHTML = `<tr><td colspan="6">No scores yet.</td></tr>`;
-        return;
-      }
-
-      leaderboard.forEach(item => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td>${item.category}</td>
-          <td>${item.difficulty}</td>
-          <td>${item.mode}</td>
-          <td>${item.score}</td>
-          <td>${item.result}</td>
-        `;
-        body.appendChild(row);
-      });
-    }
-
-    function clearLeaderboard() {
-      localStorage.removeItem("paveTheWayLeaderboard");
-      renderLeaderboard();
-    }
-
-    function playSound(type) {
-      if (!getSetting("sound")) return;
-
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) return;
-
-      const ctx = new AudioContextClass();
-
-      function beep(freq, duration, volume) {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-
-        osc.type = "sine";
-        osc.frequency.value = freq;
-        gain.gain.value = volume;
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        osc.start();
-        osc.stop(ctx.currentTime + duration);
-      }
-
-      if (type === "correct") {
-        beep(700, 0.08, 0.04);
-        setTimeout(() => beep(900, 0.08, 0.04), 90);
-      } else if (type === "wrong") {
-        beep(300, 0.12, 0.05);
-        setTimeout(() => beep(220, 0.14, 0.05), 110);
-      } else if (type === "end") {
-        beep(500, 0.10, 0.04);
-        setTimeout(() => beep(650, 0.10, 0.04), 120);
-        setTimeout(() => beep(800, 0.14, 0.04), 240);
-      }
-    }
-
-    renderAllSelections();
-    renderLeaderboard();
+    populateCategories();
   </script>
 </body>
 </html>
