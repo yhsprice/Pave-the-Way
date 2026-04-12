@@ -1,1028 +1,586 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Asphalt & Roadwork Safety Challenge</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #eef3f8, #dfe8f1);
-      color: #1f2937;
-    }
-
-    .container {
-      max-width: 1050px;
-      margin: 30px auto;
-      background: #ffffff;
-      border-radius: 18px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-      padding: 28px;
-    }
-
-    h1 {
-      text-align: center;
-      margin: 0 0 10px;
-      font-size: 34px;
-      color: #0f172a;
-    }
-
-    .subtitle {
-      text-align: center;
-      margin-bottom: 24px;
-      color: #475569;
-      font-size: 16px;
-      line-height: 1.5;
-    }
-
-    .top-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .stat-box {
-      background: #f8fafc;
-      border: 1px solid #dbe4ee;
-      border-radius: 14px;
-      padding: 14px;
-      text-align: center;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-
-    .stat-value {
-      font-size: 22px;
-      font-weight: bold;
-      color: #0f172a;
-    }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    select, button {
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 1px solid #cbd5e1;
-      font-size: 15px;
-    }
-
-    button {
-      background: #1d4ed8;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background: #1e40af;
-    }
-
-    .question-card {
-      background: #f8fafc;
-      border: 1px solid #dbe4ee;
-      border-radius: 16px;
-      padding: 22px;
-      margin-top: 10px;
-    }
-
-    .question-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .tag-category {
-      background: #dbeafe;
-      color: #1d4ed8;
-    }
-
-    .tag-difficulty-beginner {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .tag-difficulty-expert {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .question-text {
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 1.4;
-      margin-bottom: 20px;
-      color: #0f172a;
-    }
-
-    .media-box {
-      margin-bottom: 18px;
-      text-align: center;
-    }
-
-    .media-box img,
-    .media-box video {
-      max-width: 100%;
-      border-radius: 12px;
-      border: 1px solid #cbd5e1;
-    }
-
-    .options {
-      display: grid;
-      gap: 12px;
-    }
-
-    .option-btn {
-      width: 100%;
-      text-align: left;
-      background: white;
-      border: 1px solid #cbd5e1;
-      color: #1f2937;
-      padding: 14px 16px;
-      border-radius: 12px;
-      font-size: 16px;
-      line-height: 1.4;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .option-btn:hover:not(:disabled) {
-      border-color: #2563eb;
-      transform: translateY(-1px);
-    }
-
-    .option-btn:disabled {
-      cursor: default;
-      opacity: 1;
-    }
-
-    .correct {
-      background: #dcfce7 !important;
-      border-color: #22c55e !important;
-      color: #166534 !important;
-      font-weight: bold;
-    }
-
-    .incorrect {
-      background: #fee2e2 !important;
-      border-color: #ef4444 !important;
-      color: #991b1b !important;
-      font-weight: bold;
-    }
-
-    .explanation {
-      margin-top: 18px;
-      padding: 14px;
-      border-radius: 12px;
-      background: #eff6ff;
-      border-left: 5px solid #2563eb;
-      display: none;
-      line-height: 1.5;
-      color: #1e3a8a;
-      font-size: 15px;
-    }
-
-    .next-row {
-      display: flex;
-      justify-content: center;
-      margin-top: 18px;
-    }
-
-    .results-box {
-      display: none;
-      margin-top: 24px;
-      background: #f8fafc;
-      border: 1px solid #dbe4ee;
-      border-radius: 16px;
-      padding: 22px;
-      text-align: center;
-    }
-
-    .results-box h2 {
-      margin-top: 0;
-      color: #0f172a;
-    }
-
-    .results-box p {
-      font-size: 17px;
-      color: #334155;
-      line-height: 1.6;
-    }
-
-    .score-highlight {
-      font-size: 38px;
-      font-weight: bold;
-      color: #1d4ed8;
-      margin: 12px 0;
-    }
-
-    .small-note {
-      text-align: center;
-      font-size: 13px;
-      color: #64748b;
-      margin-top: 18px;
-    }
-
-    @media (max-width: 800px) {
-      .top-bar {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .question-text {
-        font-size: 20px;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .container {
-        margin: 14px;
-        padding: 18px;
-      }
-
-      .top-bar {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 28px;
-      }
-
-      .question-text {
-        font-size: 18px;
-      }
-
-      .option-btn {
-        font-size: 15px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Asphalt & Roadwork Safety Challenge</h1>
-    <div class="subtitle">
-      Mixed beginner and expert safety questions focused on equipment, work zones, traffic control, and decision-making under pressure.
-    </div>
-
-    <div class="top-bar">
-      <div class="stat-box">
-        <div class="stat-label">Question</div>
-        <div class="stat-value" id="questionNumber">0 / 0</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">Score</div>
-        <div class="stat-value" id="scoreDisplay">0</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">Correct</div>
-        <div class="stat-value" id="correctDisplay">0</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">Accuracy</div>
-        <div class="stat-value" id="accuracyDisplay">0%</div>
-      </div>
-    </div>
-
-    <div class="controls">
-      <select id="categoryFilter">
-        <option value="All">All Categories</option>
-      </select>
-
-      <select id="difficultyFilter">
-        <option value="Mixed">Mixed Difficulty</option>
-        <option value="Beginner">Beginner Only</option>
-        <option value="Expert">Expert Only</option>
-      </select>
-
-      <select id="questionCount">
-        <option value="10">10 Questions</option>
-        <option value="15" selected>15 Questions</option>
-        <option value="20">20 Questions</option>
-        <option value="25">25 Questions</option>
-        <option value="9999">All Available Questions</option>
-      </select>
-
-      <button id="startBtn">Start / Restart Quiz</button>
-    </div>
-
-    <div class="question-card" id="quizCard" style="display:none;">
-      <div class="question-meta" id="questionMeta"></div>
-      <div class="media-box" id="mediaBox"></div>
-      <div class="question-text" id="questionText"></div>
-      <div class="options" id="optionsBox"></div>
-      <div class="explanation" id="explanationBox"></div>
-      <div class="next-row">
-        <button id="nextBtn" style="display:none;">Next Question</button>
-      </div>
-    </div>
-
-    <div class="results-box" id="resultsBox">
-      <h2>Quiz Complete</h2>
-      <div class="score-highlight" id="finalScore">0 / 0</div>
-      <p id="finalMessage"></p>
-      <button onclick="startQuiz()">Play Again</button>
-    </div>
-
-    <div class="small-note">
-      Later, you can add images or videos to any question by filling in the optional image or video fields.
-    </div>
-  </div>
-
-  <script>
-    const allQuestions = [
-      {
-        category: "Traffic Control",
-        difficulty: "Beginner",
-        question: "You are working near live traffic and a vehicle enters the work zone unexpectedly. What is the FIRST action you should take?",
-        options: [
-          "Signal the driver to stop immediately",
-          "Move yourself and nearby workers to a safe area",
-          "Stand your ground so the driver sees you",
-          "Continue working and watch the vehicle"
-        ],
-        correct: 1,
-        explanation: "Your first responsibility is immediate safety. Workers should move to a safe area rather than attempting to control the driver directly.",
-        image: "",
-        video: ""
-      },
+,
       {
         category: "Traffic Control",
         difficulty: "Expert",
-        question: "Traffic begins moving faster than expected through your work zone. What is the BEST response?",
+        question: "A lane closure is in place, but traffic is still crowding the edge of the work zone. What is the BEST response?",
         options: [
-          "Continue working and stay alert",
-          "Move workers farther from the lane and continue",
-          "Pause work and reassess traffic control",
-          "Have one worker signal drivers while work continues"
+          "Continue working because the lane is already closed",
+          "Move only the nearest workers farther back",
+          "Pause and evaluate whether the closure and taper are adequate",
+          "Have one worker watch traffic while the rest continue"
         ],
         correct: 2,
-        explanation: "When traffic conditions change, work zone controls may no longer be adequate. The safest response is to pause and reassess.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Traffic Control",
-        difficulty: "Expert",
-        question: "A flagger is in position, but glare and low-angle sunlight reduce visibility for approaching drivers. What is the BEST action?",
-        options: [
-          "Continue because the flagger is already posted",
-          "Adjust the setup or flagger position immediately",
-          "Let the flagger decide without involving the crew",
-          "Wait to see whether drivers react correctly"
-        ],
-        correct: 1,
-        explanation: "Reduced visibility creates an immediate hazard. The setup should be adjusted rather than assumed to be adequate.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Traffic Control",
-        difficulty: "Expert",
-        question: "Vehicles are drifting closer to the taper and work area than expected. What is the MOST likely concern?",
-        options: [
-          "Drivers are simply impatient",
-          "Workers are standing too still",
-          "The work zone setup may be inadequate for conditions",
-          "The lane closure is probably not necessary"
-        ],
-        correct: 2,
-        explanation: "Encroaching vehicles often suggest a traffic control problem such as taper length, cone spacing, or visibility issues.",
+        explanation: "If traffic is still encroaching, the setup may not be providing enough separation or visibility.",
         image: "",
         video: ""
       },
       {
         category: "Traffic Control",
         difficulty: "Beginner",
-        question: "Why is a high-visibility vest especially important near active traffic?",
+        question: "What is one major purpose of cones, barrels, and signs in a work zone?",
         options: [
-          "It makes workers look more professional",
-          "It helps drivers and operators see workers sooner",
-          "It protects against heat from asphalt",
-          "It prevents dust from sticking to clothing"
+          "To reduce how much PPE workers need",
+          "To guide traffic and separate vehicles from workers",
+          "To show where equipment should be parked after work",
+          "To keep dust from blowing across the roadway"
         ],
         correct: 1,
-        explanation: "High-visibility gear increases worker visibility for both motorists and equipment operators.",
+        explanation: "Traffic control devices are used to guide drivers and help create separation from the work area.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Traffic Control",
+        difficulty: "Expert",
+        question: "A flagger's instructions are being ignored repeatedly by drivers in one direction. What is the BEST conclusion?",
+        options: [
+          "The flagger is probably being too cautious",
+          "Drivers will eventually adapt if work continues",
+          "The control method or visibility may be inadequate for current conditions",
+          "Workers should move closer to the shoulder and finish quickly"
+        ],
+        correct: 2,
+        explanation: "Repeated driver noncompliance often points to a visibility, placement, or control problem that needs correction.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Traffic Control",
+        difficulty: "Expert",
+        question: "You are placing devices on a roadway and notice traffic speed is much higher than expected. What is the BEST immediate action?",
+        options: [
+          "Finish setup as quickly as possible",
+          "Continue while staying farther from the lane",
+          "Pause and reassess setup needs for the actual traffic speed",
+          "Let the rest of the crew decide while you continue"
+        ],
+        correct: 2,
+        explanation: "Traffic speed affects setup needs and worker exposure. Assumptions should not outrun reality.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Traffic Control",
+        difficulty: "Expert",
+        question: "A driver stops inside the work zone and begins asking a worker for directions. What is the BEST response?",
+        options: [
+          "Answer quickly so traffic can move again",
+          "Direct the driver out of the active area while maintaining worker safety",
+          "Ignore the driver and continue working beside the vehicle",
+          "Step into a better position near the vehicle to be heard"
+        ],
+        correct: 1,
+        explanation: "The priority is to remove the unexpected vehicle interaction from the active work area safely.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Equipment Safety",
+        difficulty: "Expert",
+        question: "A machine is stopped temporarily, and a worker assumes it is safe to walk closely behind it. What is the BEST assessment?",
+        options: [
+          "That is safe if the machine is not moving",
+          "That is safe only if the worker moves quickly",
+          "That is unsafe because stopped equipment can move without much warning",
+          "That is acceptable if the worker stays within arm's reach"
+        ],
+        correct: 2,
+        explanation: "Stopped equipment is not the same as secured equipment. Workers should not assume it will remain still.",
         image: "",
         video: ""
       },
       {
         category: "Equipment Safety",
         difficulty: "Beginner",
-        question: "You need to pass near a roller, but the operator has not acknowledged you. What should you do?",
+        question: "Why are blind spots dangerous around heavy equipment?",
         options: [
-          "Walk behind the roller quickly",
-          "Wait for clear acknowledgment before moving",
-          "Stay close to the machine so you are easier to see",
-          "Cross as long as the machine is moving slowly"
+          "They make machines harder to fuel",
+          "They are areas where the operator may not see workers",
+          "They make the machine slower to operate",
+          "They keep radios from working correctly"
         ],
         correct: 1,
-        explanation: "If the operator has not acknowledged you, assume you are not visible.",
+        explanation: "Blind spots are dangerous because workers can be close to a machine without the operator knowing it.",
         image: "",
         video: ""
       },
       {
         category: "Equipment Safety",
         difficulty: "Expert",
-        question: "You are unsure whether an equipment operator sees you while multiple machines are active nearby. What is the BEST action?",
+        question: "A worker needs to enter an area where a loader and roller are both maneuvering. What is the BEST action?",
         options: [
-          "Proceed carefully if you stay outside the closest blind spot",
-          "Wait for clear acknowledgment before moving through the area",
-          "Move quickly before machine positions change",
-          "Use the shortest route to reduce time exposed"
+          "Enter from the side with the best apparent visibility",
+          "Wait until both operators acknowledge and the movement path is clearly safe",
+          "Move quickly through before either machine changes direction",
+          "Stay close to the loader because larger machines are easier to track"
         ],
         correct: 1,
-        explanation: "No acknowledgment means no confirmed visibility. That is not the time for optimism.",
+        explanation: "When multiple machines are active, a worker should not enter until visibility and movement paths are clearly confirmed.",
         image: "",
         video: ""
       },
       {
         category: "Equipment Safety",
         difficulty: "Expert",
-        question: "Two machines are operating with overlapping movement paths. What is the safest position for a ground worker?",
+        question: "An operator is distracted by repeated radio traffic while maneuvering equipment in a tight area. What is the BEST concern?",
         options: [
-          "Between both machines to track their movement",
-          "Behind the slower machine where movement is easier to predict",
-          "In a fixed safe zone outside both travel paths",
-          "Alongside the machine with the better line of sight"
+          "The operator may move more slowly than planned",
+          "The machine may become harder to hear",
+          "Situational awareness may be reduced during a high-risk movement",
+          "The radio battery may fail before the shift ends"
         ],
         correct: 2,
-        explanation: "Overlapping movement paths create complex blind spots. A fixed safe zone is the best choice.",
+        explanation: "Divided attention during equipment movement is a real hazard, especially in tight work zones.",
         image: "",
         video: ""
       },
       {
         category: "Equipment Safety",
         difficulty: "Expert",
-        question: "A spotter is unavailable for a task involving machine movement in a tight area. What is the BEST decision?",
+        question: "You lose sight of one active machine while focusing on another. What is the BEST response?",
         options: [
-          "Proceed more slowly without a spotter",
-          "Assign a trained replacement or delay the task",
-          "Use hand signals from any nearby worker",
-          "Continue if backup alarms are functioning"
+          "Continue if the closest machine is visible",
+          "Pause and relocate to a position where all relevant movement can be assessed",
+          "Trust that the unseen machine is following the normal pattern",
+          "Move toward the visible operator for guidance"
         ],
         correct: 1,
-        explanation: "A missing control measure should be replaced or the task should wait. Backup alarms are not a substitute for proper spotting.",
+        explanation: "If you lose track of active equipment, your position and awareness need to be corrected before continuing.",
         image: "",
         video: ""
       },
       {
         category: "Equipment Safety",
         difficulty: "Expert",
-        question: "An operator waves you through, but another machine is moving in the same area from a different angle. What is the BEST response?",
+        question: "A worker is relying on backup alarms alone to judge machine movement. What is the problem?",
         options: [
-          "Follow the operator's signal immediately",
-          "Move halfway, then reassess",
-          "Stop and reassess the full area before moving",
-          "Cross quickly while the signal is still clear"
+          "Backup alarms only matter at night",
+          "Backup alarms replace the need for visual confirmation",
+          "Alarms are only one warning and should not replace full situational awareness",
+          "Alarms are intended mainly for traffic, not workers"
         ],
         correct: 2,
-        explanation: "One operator's signal does not guarantee the full area is safe. Reassess all active movement.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Equipment Safety",
-        difficulty: "Beginner",
-        question: "What should you assume if you do not know what a machine will do next?",
-        options: [
-          "It will stay where it is",
-          "It will follow the same pattern as before",
-          "It may move unexpectedly",
-          "It will avoid nearby workers automatically"
-        ],
-        correct: 2,
-        explanation: "Assuming unpredictability is safer than assuming the machine will behave the way you hope.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Hot Asphalt",
-        difficulty: "Beginner",
-        question: "If hot asphalt contacts skin, what should you avoid doing?",
-        options: [
-          "Seeking medical help",
-          "Cooling the area appropriately",
-          "Trying to peel hardened material off immediately",
-          "Reporting the injury right away"
-        ],
-        correct: 2,
-        explanation: "Trying to remove hardened asphalt from skin immediately can cause more damage.",
+        explanation: "Alarms help, but they are not a substitute for visibility, communication, or proper positioning.",
         image: "",
         video: ""
       },
       {
         category: "Hot Asphalt",
         difficulty: "Expert",
-        question: "Hot material spills across part of the work area. What is the FIRST priority?",
+        question: "A worker continues handling hot material after noticing a small burn through a glove. What is the BEST concern?",
         options: [
-          "Clean the material before it hardens",
-          "Secure the area to prevent contact",
-          "Continue work around the spill to maintain production",
-          "Wait for a supervisor before doing anything"
+          "The glove will probably cool on its own",
+          "A minor burn does not matter unless blistering starts",
+          "Continuing exposure can worsen the injury and reduce safe hand function",
+          "The burn is only a problem if the worker drops material"
         ],
-        correct: 1,
-        explanation: "The first priority is preventing worker exposure and contact with the hazard.",
+        correct: 2,
+        explanation: "A small burn during ongoing exposure can quickly become a more serious injury and impair safe work.",
         image: "",
         video: ""
       },
       {
         category: "Hot Asphalt",
-        difficulty: "Expert",
-        question: "A worker gets hot asphalt on a glove while handling material. What is the BEST response?",
+        difficulty: "Beginner",
+        question: "Why should workers treat fresh asphalt carefully even when it looks stable?",
         options: [
-          "Remove the glove safely as soon as possible",
-          "Finish the task, then inspect it",
-          "Keep the glove on if pain is minimal",
-          "Wipe the material off with a rag"
+          "It may still be extremely hot and unstable underfoot",
+          "It can only be touched once it turns darker",
+          "It is mainly dangerous because it attracts traffic",
+          "It becomes slippery only after rain"
         ],
         correct: 0,
-        explanation: "Contaminated PPE can continue transferring heat. It should be addressed immediately and safely.",
+        explanation: "Fresh asphalt can be both very hot and less stable than it looks.",
         image: "",
         video: ""
       },
       {
         category: "Hot Asphalt",
         difficulty: "Expert",
-        question: "Fresh asphalt looks solid but feels unstable underfoot. What is the BEST action?",
+        question: "A patch of fresh material appears cooler at the surface but remains hot below. What is the BEST hazard assessment?",
         options: [
-          "Continue carefully and shorten your steps",
-          "Step off and reassess the area",
-          "Shift weight and move faster",
-          "Warn others after the pass is complete"
+          "The risk has passed if the top layer looks set",
+          "Hidden heat can still cause burns or unstable footing",
+          "Only equipment is affected by deeper heat",
+          "It is safe for foot traffic if no steam is visible"
         ],
         correct: 1,
-        explanation: "An unstable surface can shift unexpectedly. Do not negotiate with it.",
+        explanation: "Surface appearance can be misleading. Heat and instability may remain below the visible layer.",
         image: "",
         video: ""
       },
       {
-        category: "PPE",
-        difficulty: "Beginner",
-        question: "You forgot your high-visibility vest before starting work near traffic. What should you do?",
-        options: [
-          "Start work and stay extra alert",
-          "Borrow one or retrieve yours before starting",
-          "Stand farther from traffic and continue",
-          "Work only for a short time without it"
-        ],
-        correct: 1,
-        explanation: "Required PPE should be in place before work begins, not after luck runs out.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "PPE",
+        category: "Hot Asphalt",
         difficulty: "Expert",
-        question: "A worker's PPE is contaminated with hot material but still appears usable. What is the BEST response?",
+        question: "A worker wants to shortcut across a recently placed area to save time. What is the BEST response?",
         options: [
-          "Continue using it for the rest of the task",
-          "Replace or clean the PPE before continuing",
-          "Use it only if the material has cooled",
-          "Avoid using that side of the body"
+          "Allow it if boots are heat resistant",
+          "Allow it only if the worker moves quickly",
+          "Do not allow it because recent placement may still be hot or unstable",
+          "Allow it if the area looks fully compacted"
         ],
-        correct: 1,
-        explanation: "Contaminated PPE can reduce protection and create continuing hazards.",
+        correct: 2,
+        explanation: "A shortcut across recent placement can expose the worker to burn and footing hazards unnecessarily.",
         image: "",
         video: ""
       },
       {
         category: "PPE",
         difficulty: "Expert",
-        question: "A task changes unexpectedly and now places workers closer to traffic than planned. What is the BEST PPE-related response?",
+        question: "A worker removes eye protection briefly because it is fogging during active work. What is the BEST response?",
         options: [
-          "Continue because PPE was already checked earlier",
-          "Pause and confirm PPE is still adequate for the new exposure",
-          "Rely on traffic control devices rather than PPE",
-          "Have only the nearest worker adjust equipment"
+          "That is fine if it is only for a moment",
+          "It is acceptable if the worker turns away from the task",
+          "The issue should be corrected without working unprotected",
+          "It is only a problem near equipment"
+        ],
+        correct: 2,
+        explanation: "PPE problems should be fixed, but not by removing protection in the middle of exposure.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "PPE",
+        difficulty: "Beginner",
+        question: "What is the BEST reason to wear the required PPE for the task, even on a short job?",
+        options: [
+          "Short tasks can still expose workers to serious hazards",
+          "PPE is mainly for inspection days",
+          "It helps equipment run more smoothly",
+          "Short tasks are less dangerous, so PPE is optional"
+        ],
+        correct: 0,
+        explanation: "A short task can still produce a permanent injury. Hazards do not care about the clock.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "PPE",
+        difficulty: "Expert",
+        question: "Conditions shift and dust increases dramatically in the work area. What is the BEST PPE-related action?",
+        options: [
+          "Continue since the original PPE check was completed",
+          "Pause and reassess whether protection remains adequate for the changed conditions",
+          "Have only the nearest worker adjust PPE",
+          "Ignore the change unless visibility drops completely"
         ],
         correct: 1,
-        explanation: "Changed conditions can change PPE needs. Safety checks should match current conditions, not old assumptions.",
+        explanation: "Changed conditions can create new exposure. PPE needs should be reassessed when the environment changes.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "PPE",
+        difficulty: "Expert",
+        question: "A worker says gloves make a task harder, so they plan to remove them for more control. What is the BEST response?",
+        options: [
+          "Allow it if the worker is experienced",
+          "Allow it only for fine-detail tasks",
+          "Stop and address the control issue without removing required protection",
+          "Let the worker decide based on comfort"
+        ],
+        correct: 2,
+        explanation: "If required PPE interferes with work, the solution is to correct the work setup, not strip away protection.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Heat Safety",
+        difficulty: "Expert",
+        question: "A worker becomes unusually irritable and makes repeated small mistakes in high heat. What is the BEST interpretation?",
+        options: [
+          "The worker is just having a bad day",
+          "These may be early signs of heat-related stress affecting judgment",
+          "The worker probably skipped breakfast",
+          "This is only a concern if the worker asks to stop"
+        ],
+        correct: 1,
+        explanation: "Heat stress can affect behavior, attention, and judgment before a more obvious medical emergency develops.",
         image: "",
         video: ""
       },
       {
         category: "Heat Safety",
         difficulty: "Beginner",
-        question: "A worker becomes dizzy, confused, and stops sweating during extreme heat. What is the BEST action?",
+        question: "Why are hydration and cooling breaks important during asphalt work in hot weather?",
         options: [
-          "Have them sit down and finish water first",
-          "Call for medical help immediately and begin cooling",
-          "Let them rest a few minutes and reevaluate later",
-          "Move them to shade and wait for a supervisor"
+          "They mainly improve morale",
+          "They help reduce heat-related illness and fatigue",
+          "They are only needed for new workers",
+          "They prevent equipment from overheating"
         ],
         correct: 1,
-        explanation: "These are signs of heat stroke, which is a medical emergency.",
+        explanation: "Hydration and cooling breaks help protect workers from heat-related illness and impaired performance.",
         image: "",
         video: ""
       },
       {
         category: "Heat Safety",
         difficulty: "Expert",
-        question: "A worker insists they are fine, but their reactions are slow and coordination is poor in high heat. What is the BEST action?",
+        question: "The crew wants to skip a scheduled break because the job is almost done and momentum is good. What is the BEST response?",
         options: [
-          "Respect their judgment and monitor them",
-          "Have them finish the current task, then rest",
-          "Remove them from work and assess immediately",
-          "Encourage hydration while continuing work"
+          "Skip it because stopping now will hurt production",
+          "Take the break as planned because fatigue and heat exposure still matter near the end of a task",
+          "Let only slower workers take the break",
+          "Delay the break until someone reports symptoms"
         ],
-        correct: 2,
-        explanation: "Visible impairment in heat conditions should be treated immediately, not negotiated.",
+        correct: 1,
+        explanation: "Heat and fatigue do not suddenly disappear because a task is almost finished.",
         image: "",
         video: ""
       },
       {
         category: "Heat Safety",
         difficulty: "Expert",
-        question: "The crew is behind schedule and breaks are being skipped during high heat. What is the BEST response?",
+        question: "A worker who seemed fine earlier is now slower, less focused, and making unusual decisions. What is the BEST concern?",
         options: [
-          "Keep pushing until the task is done",
-          "Take only personal breaks as needed",
-          "Reinforce scheduled cooling and hydration breaks",
-          "Wait for management to notice the problem"
-        ],
-        correct: 2,
-        explanation: "Skipping breaks in extreme heat is a direct setup for heat-related illness.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Human Behavior",
-        difficulty: "Beginner",
-        question: "A coworker is walking into an active equipment area while distracted. What should you do?",
-        options: [
-          "Ignore it and stay focused on your work",
-          "Stop them immediately and warn them",
-          "Mention it later if nothing happens",
-          "Assume the operator sees them"
+          "The worker may just be distracted by outside issues",
+          "This could be a developing heat or fatigue-related safety problem",
+          "The worker is probably just bored with the task",
+          "This is only important if the worker asks for a break"
         ],
         correct: 1,
-        explanation: "Unsafe entry into an equipment zone should be addressed immediately, not filed under bad memories and regret.",
+        explanation: "Changes in pace, focus, and judgment can signal heat or fatigue issues before they become more severe.",
         image: "",
         video: ""
       },
       {
         category: "Human Behavior",
         difficulty: "Expert",
-        question: "Experienced workers have started skipping a safety step because nothing bad has happened so far. What is the BEST interpretation?",
+        question: "A crew member says they have done the task this unsafe way for years without a problem. What is the BEST response?",
         options: [
-          "The step may not be necessary for this crew",
-          "Experience allows more flexibility",
-          "Risk is increasing even if no incident has happened yet",
-          "The issue is minor unless a supervisor objects"
+          "Experience proves the method works",
+          "Past luck does not make the method safe",
+          "The method is acceptable if productivity is good",
+          "The crew should keep using it until a supervisor says otherwise"
         ],
-        correct: 2,
-        explanation: "Complacency often grows before an incident. Lack of recent injury does not prove safety.",
+        correct: 1,
+        explanation: "An unsafe habit that has not yet caused an injury is still unsafe. Luck is not a procedure.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Human Behavior",
+        difficulty: "Beginner",
+        question: "Why is complacency dangerous on a roadwork site?",
+        options: [
+          "It helps people ignore the heat",
+          "It can make workers stop noticing hazards and skip safe habits",
+          "It makes equipment heavier to operate",
+          "It mainly affects only new employees"
+        ],
+        correct: 1,
+        explanation: "Complacency reduces attention and increases the chance of unsafe decisions and missed hazards.",
         image: "",
         video: ""
       },
       {
         category: "Human Behavior",
         difficulty: "Expert",
-        question: "You notice a minor unsafe habit becoming common on the crew. What is the BEST action?",
+        question: "A worker laughs off a near miss and immediately returns to the same task. What is the BEST response?",
         options: [
-          "Ignore it unless someone gets hurt",
-          "Correct it immediately and consistently",
-          "Bring it up at the end of the week",
-          "Wait for formal discipline to address it"
+          "Let it go since no one was injured",
+          "Use the event to stop and address what nearly happened",
+          "Wait until the shift ends to talk about it",
+          "Assume the worker will be more careful now"
         ],
         correct: 1,
-        explanation: "Unsafe habits grow roots fast. Address them early before the jobsite starts training itself badly.",
+        explanation: "Near misses are warnings. Returning to the same conditions without correction is asking for a rerun with worse timing.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Human Behavior",
+        difficulty: "Expert",
+        question: "A new worker copies an experienced worker's unsafe shortcut because it appears normal on the crew. What is the BEST concern?",
+        options: [
+          "The new worker is learning efficiency",
+          "Unsafe behavior is being normalized and taught through observation",
+          "Shortcuts spread only if supervisors approve them",
+          "This is not a real issue unless productivity drops"
+        ],
+        correct: 1,
+        explanation: "Crews train each other constantly, whether the lesson is good or bad. Unsafe shortcuts spread fast when they look normal.",
         image: "",
         video: ""
       },
       {
         category: "Decision Making",
         difficulty: "Expert",
-        question: "You are behind schedule and a shortcut would slightly reduce visibility but save time. What is the BEST decision?",
+        question: "You have enough information to know something feels unsafe, but not enough to explain every detail yet. What is the BEST response?",
         options: [
-          "Use the shortcut carefully",
-          "Avoid it and maintain full visibility",
-          "Use it only if a supervisor approves verbally",
-          "Take the shortcut once to catch up"
+          "Continue unless you can fully prove the danger first",
+          "Pause and verify before proceeding",
+          "Ignore the concern if others seem comfortable",
+          "Proceed only if the task will be quick"
         ],
         correct: 1,
-        explanation: "Reduced visibility creates unnecessary risk. Schedule pressure does not improve line of sight.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Decision Making",
-        difficulty: "Expert",
-        question: "You receive conflicting directions from two supervisors during an active operation. What is the BEST response?",
-        options: [
-          "Follow the fastest instruction",
-          "Choose the instruction from the more senior supervisor",
-          "Pause and clarify before proceeding",
-          "Do part of both instructions"
-        ],
-        correct: 2,
-        explanation: "Conflicting direction during active work is a hazard. Clarify before creating a bigger one.",
+        explanation: "Uncertainty about safety is a reason to verify, not a reason to gamble.",
         image: "",
         video: ""
       },
       {
         category: "Decision Making",
         difficulty: "Beginner",
-        question: "If you are unsure whether an area is safe to enter, what is the BEST action?",
+        question: "What should you do if you are unsure about the safest way to perform a task?",
         options: [
-          "Enter briefly and judge from inside the area",
-          "Assume it is safe if no one stops you",
-          "Pause and verify before entering",
-          "Follow the nearest worker without asking"
+          "Try your best and figure it out as you go",
+          "Ask and confirm before continuing",
+          "Watch someone else and copy them exactly",
+          "Skip the hardest part of the task"
+        ],
+        correct: 1,
+        explanation: "When safety is unclear, the best move is to ask and confirm before continuing.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Decision Making",
+        difficulty: "Expert",
+        question: "Production pressure is increasing, and several small safety decisions are being rushed. What is the BEST concern?",
+        options: [
+          "Only one major mistake matters",
+          "Multiple small rushed decisions can combine into a serious incident",
+          "Rushing only affects paperwork and communication",
+          "This is normal as long as the crew is experienced"
+        ],
+        correct: 1,
+        explanation: "Incidents often come from stacked small errors, not one dramatic mistake.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Decision Making",
+        difficulty: "Expert",
+        question: "A task can be finished faster by keeping workers closer to moving equipment than usual. What is the BEST decision?",
+        options: [
+          "Do it if the operator is experienced",
+          "Do it only if the crew agrees",
+          "Keep normal separation and complete the task safely",
+          "Use the faster method only during daylight"
         ],
         correct: 2,
-        explanation: "Uncertainty is your cue to verify, not improvise.",
+        explanation: "Normal safe separation exists for a reason. Production is not a good trade for exposure to moving equipment.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Decision Making",
+        difficulty: "Expert",
+        question: "A worker sees a hazard but hesitates to speak up because the crew is busy and behind. What is the BEST principle?",
+        options: [
+          "Wait until a calmer moment to avoid slowing work",
+          "Hazards should be raised when noticed, especially under pressure",
+          "Only supervisors should interrupt production for safety concerns",
+          "Minor hazards are better handled quietly later"
+        ],
+        correct: 1,
+        explanation: "Pressure is exactly when hazards need to be raised, because rushed crews miss more and recover worse.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Emergency Response",
+        difficulty: "Expert",
+        question: "A near miss happens in the same area for the third time in one week. What is the BEST conclusion?",
+        options: [
+          "The crew is just unlucky",
+          "There is likely a recurring setup, behavior, or process issue that needs correction",
+          "Near misses matter only if property is damaged",
+          "Workers are probably overreacting because no one was injured"
+        ],
+        correct: 1,
+        explanation: "Repeated near misses point to a pattern. Patterns deserve correction, not superstition.",
         image: "",
         video: ""
       },
       {
         category: "Emergency Response",
         difficulty: "Beginner",
-        question: "An incident occurs and several workers begin reacting at once. What is the BEST first move?",
+        question: "Why should near misses be taken seriously even when no one is hurt?",
         options: [
-          "Jump in immediately without assessing",
-          "Pause and assess before acting",
-          "Follow whoever is yelling directions",
-          "Continue working until instructed otherwise"
+          "They can reveal hazards before a real injury happens",
+          "They mainly help with paperwork",
+          "They are only important for insurance reasons",
+          "They usually happen by accident and mean very little"
         ],
-        correct: 1,
-        explanation: "A fast but chaotic response can make an incident worse. Assess first.",
+        correct: 0,
+        explanation: "Near misses are warnings that something can go wrong under the current conditions.",
         image: "",
         video: ""
       },
       {
         category: "Emergency Response",
         difficulty: "Expert",
-        question: "A near miss occurs and no one is injured. What is the BEST response?",
+        question: "A worker is hurt in an active equipment area. What is the BEST first concern before rushing in?",
         options: [
-          "Continue working because no injury occurred",
-          "Mention it casually later",
-          "Stop and address the cause immediately",
-          "Wait to see if it happens again"
+          "How quickly the worker can stand up",
+          "Whether the scene is safe enough to approach without creating another victim",
+          "Whether the shift can still finish on time",
+          "Which supervisor should take blame"
         ],
-        correct: 2,
-        explanation: "Near misses are free warnings. Wasting them is expensive later.",
+        correct: 1,
+        explanation: "Responders should not become additional casualties. Scene safety still matters during urgency.",
         image: "",
         video: ""
       },
       {
         category: "Emergency Response",
         difficulty: "Expert",
-        question: "A worker is injured but conscious. What is the FIRST priority?",
+        question: "After an incident, several workers start offering different versions of what happened. What is the BEST immediate priority?",
         options: [
-          "Move them out of the area immediately",
-          "Assess the scene and get appropriate help",
-          "Ask them to stand if they can",
-          "Resume nearby work to avoid delay"
+          "Determine blame right away",
+          "Stabilize the situation and address any ongoing hazards first",
+          "Resume work to keep the shift moving",
+          "Choose the loudest account and act on it"
         ],
         correct: 1,
-        explanation: "Respond to the actual situation safely. Immediate movement is not always appropriate.",
+        explanation: "During and immediately after an incident, controlling hazards and stabilizing the scene comes before sorting opinions.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Situational Awareness",
+        difficulty: "Expert",
+        question: "You notice your attention narrowing because of noise, heat, and time pressure. What is the BEST response?",
+        options: [
+          "Push through because stopping will slow the crew",
+          "Recognize the drop in awareness and reset before continuing",
+          "Ignore it unless someone else notices",
+          "Move faster so the exposure ends sooner"
+        ],
+        correct: 1,
+        explanation: "Awareness failures often start before people admit them. Recognizing that drift early is a strong safety skill.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Situational Awareness",
+        difficulty: "Beginner",
+        question: "Why is it important to keep scanning the work area instead of focusing only on your own task?",
+        options: [
+          "It helps you find easier jobs to do",
+          "Conditions can change quickly around traffic, equipment, and other workers",
+          "It is mainly useful for supervisors",
+          "It reduces the need for communication"
+        ],
+        correct: 1,
+        explanation: "A work zone is dynamic. Focusing too narrowly can make you miss equipment, traffic, or changing conditions.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Situational Awareness",
+        difficulty: "Expert",
+        question: "A worker is doing the task correctly but is no longer paying attention to changes around them. What is the BEST concern?",
+        options: [
+          "Correct technique is enough by itself",
+          "Safe technique without awareness can still end in an incident",
+          "Awareness only matters for operators",
+          "This is only a problem during emergencies"
+        ],
+        correct: 1,
+        explanation: "Doing a task correctly does not protect a worker from surrounding hazards if awareness drops.",
         image: "",
         video: ""
       }
-    ];
-
-    let quizQuestions = [];
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let correctCount = 0;
-    let answered = false;
-
-    const categoryFilter = document.getElementById("categoryFilter");
-    const difficultyFilter = document.getElementById("difficultyFilter");
-    const questionCountSelect = document.getElementById("questionCount");
-    const startBtn = document.getElementById("startBtn");
-
-    const quizCard = document.getElementById("quizCard");
-    const questionMeta = document.getElementById("questionMeta");
-    const mediaBox = document.getElementById("mediaBox");
-    const questionText = document.getElementById("questionText");
-    const optionsBox = document.getElementById("optionsBox");
-    const explanationBox = document.getElementById("explanationBox");
-    const nextBtn = document.getElementById("nextBtn");
-
-    const resultsBox = document.getElementById("resultsBox");
-    const finalScore = document.getElementById("finalScore");
-    const finalMessage = document.getElementById("finalMessage");
-
-    const questionNumber = document.getElementById("questionNumber");
-    const scoreDisplay = document.getElementById("scoreDisplay");
-    const correctDisplay = document.getElementById("correctDisplay");
-    const accuracyDisplay = document.getElementById("accuracyDisplay");
-
-    function populateCategories() {
-      const categories = [...new Set(allQuestions.map(q => q.category))].sort();
-      categories.forEach(cat => {
-        const option = document.createElement("option");
-        option.value = cat;
-        option.textContent = cat;
-        categoryFilter.appendChild(option);
-      });
-    }
-
-    function shuffleArray(array) {
-      const arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-
-    function startQuiz() {
-      const selectedCategory = categoryFilter.value;
-      const selectedDifficulty = difficultyFilter.value;
-      const selectedCount = parseInt(questionCountSelect.value, 10);
-
-      let filtered = [...allQuestions];
-
-      if (selectedCategory !== "All") {
-        filtered = filtered.filter(q => q.category === selectedCategory);
-      }
-
-      if (selectedDifficulty !== "Mixed") {
-        filtered = filtered.filter(q => q.difficulty === selectedDifficulty);
-      }
-
-      filtered = shuffleArray(filtered);
-
-      if (selectedCount !== 9999) {
-        filtered = filtered.slice(0, selectedCount);
-      }
-
-      if (filtered.length === 0) {
-        alert("No questions match your current selections.");
-        return;
-      }
-
-      quizQuestions = filtered;
-      currentQuestionIndex = 0;
-      score = 0;
-      correctCount = 0;
-      answered = false;
-
-      resultsBox.style.display = "none";
-      quizCard.style.display = "block";
-
-      updateStats();
-      renderQuestion();
-    }
-
-    function updateStats() {
-      questionNumber.textContent = `${Math.min(currentQuestionIndex + 1, quizQuestions.length)} / ${quizQuestions.length}`;
-      scoreDisplay.textContent = score;
-      correctDisplay.textContent = correctCount;
-
-      const answeredCount = currentQuestionIndex;
-      const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
-      accuracyDisplay.textContent = `${accuracy}%`;
-    }
-
-    function renderQuestion() {
-      answered = false;
-      explanationBox.style.display = "none";
-      explanationBox.innerHTML = "";
-      nextBtn.style.display = "none";
-      optionsBox.innerHTML = "";
-      mediaBox.innerHTML = "";
-
-      const q = quizQuestions[currentQuestionIndex];
-
-      questionMeta.innerHTML = `
-        <span class="tag tag-category">${q.category}</span>
-        <span class="tag ${q.difficulty === "Beginner" ? "tag-difficulty-beginner" : "tag-difficulty-expert"}">${q.difficulty}</span>
-      `;
-
-      questionText.textContent = q.question;
-
-      if (q.image) {
-        mediaBox.innerHTML += `<img src="${q.image}" alt="Question related image">`;
-      }
-
-      if (q.video) {
-        mediaBox.innerHTML += `
-          <video controls preload="metadata">
-            <source src="${q.video}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        `;
-      }
-
-      q.options.forEach((option, index) => {
-        const btn = document.createElement("button");
-        btn.className = "option-btn";
-        btn.textContent = option;
-        btn.onclick = () => selectAnswer(index);
-        optionsBox.appendChild(btn);
-      });
-
-      updateStats();
-    }
-
-    function selectAnswer(selectedIndex) {
-      if (answered) return;
-      answered = true;
-
-      const q = quizQuestions[currentQuestionIndex];
-      const buttons = optionsBox.querySelectorAll(".option-btn");
-
-      buttons.forEach((btn, index) => {
-        btn.disabled = true;
-
-        if (index === q.correct) {
-          btn.classList.add("correct");
-        } else if (index === selectedIndex) {
-          btn.classList.add("incorrect");
-        }
-      });
-
-      if (selectedIndex === q.correct) {
-        score += q.difficulty === "Expert" ? 2 : 1;
-        correctCount++;
-      }
-
-      explanationBox.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
-      explanationBox.style.display = "block";
-
-      currentQuestionIndex++;
-      updateStats();
-
-      if (currentQuestionIndex < quizQuestions.length) {
-        nextBtn.style.display = "inline-block";
-      } else {
-        nextBtn.style.display = "inline-block";
-        nextBtn.textContent = "See Results";
-      }
-    }
-
-    nextBtn.addEventListener("click", () => {
-      if (currentQuestionIndex < quizQuestions.length) {
-        nextBtn.textContent = "Next Question";
-        renderQuestion();
-      } else {
-        showResults();
-      }
-    });
-
-    function showResults() {
-      quizCard.style.display = "none";
-      resultsBox.style.display = "block";
-
-      const maxScore = quizQuestions.reduce((sum, q) => sum + (q.difficulty === "Expert" ? 2 : 1), 0);
-      const percent = Math.round((score / maxScore) * 100);
-
-      finalScore.textContent = `${score} / ${maxScore}`;
-
-      let message = "";
-      if (percent >= 90) {
-        message = "Excellent performance. This score suggests strong awareness and decision-making across asphalt and roadwork safety scenarios.";
-      } else if (percent >= 75) {
-        message = "Good work. There is solid knowledge here, with some areas that would benefit from stronger judgment under pressure.";
-      } else if (percent >= 60) {
-        message = "Fair result. The basics are present, but there are decision-making gaps that could create risk in real work zones.";
-      } else {
-        message = "This result shows important safety gaps. More training and review are needed before confidence should be high.";
-      }
-
-      finalMessage.textContent = message;
-
-      questionNumber.textContent = `${quizQuestions.length} / ${quizQuestions.length}`;
-      scoreDisplay.textContent = score;
-      correctDisplay.textContent = correctCount;
-      accuracyDisplay.textContent = `${Math.round((correctCount / quizQuestions.length) * 100)}%`;
-    }
-
-    startBtn.addEventListener("click", startQuiz);
-
-    populateCategories();
-  </script>
-</body>
-</html>
