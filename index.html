@@ -3,19 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pave the Way - Asphalt & Roadwork Safety Challenge</title>
+  <title>Pave the Way - Asphalt Safety Challenge</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: linear-gradient(180deg, #eef3f8, #dfe8f1);
       color: #1f2937;
     }
-
     .container {
       max-width: 1050px;
       margin: 30px auto;
@@ -24,14 +20,12 @@
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
       padding: 28px;
     }
-
     h1 {
       text-align: center;
       margin: 0 0 10px;
       font-size: 34px;
       color: #0f172a;
     }
-
     .subtitle {
       text-align: center;
       margin-bottom: 24px;
@@ -39,14 +33,12 @@
       font-size: 16px;
       line-height: 1.5;
     }
-
     .top-bar {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
       margin-bottom: 20px;
     }
-
     .stat-box {
       background: #f8fafc;
       border: 1px solid #dbe4ee;
@@ -54,7 +46,6 @@
       padding: 14px;
       text-align: center;
     }
-
     .stat-label {
       font-size: 12px;
       color: #64748b;
@@ -62,13 +53,11 @@
       letter-spacing: 0.5px;
       margin-bottom: 6px;
     }
-
     .stat-value {
       font-size: 22px;
       font-weight: bold;
       color: #0f172a;
     }
-
     .controls {
       display: flex;
       flex-wrap: wrap;
@@ -77,14 +66,12 @@
       justify-content: center;
       margin-bottom: 20px;
     }
-
     select, button {
       padding: 10px 14px;
       border-radius: 10px;
       border: 1px solid #cbd5e1;
       font-size: 15px;
     }
-
     button {
       background: #1d4ed8;
       color: white;
@@ -92,11 +79,7 @@
       cursor: pointer;
       font-weight: bold;
     }
-
-    button:hover {
-      background: #1e40af;
-    }
-
+    button:hover { background: #1e40af; }
     .question-card {
       background: #f8fafc;
       border: 1px solid #dbe4ee;
@@ -104,14 +87,12 @@
       padding: 22px;
       margin-top: 10px;
     }
-
     .question-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 16px;
     }
-
     .tag {
       display: inline-block;
       padding: 6px 12px;
@@ -119,22 +100,9 @@
       font-size: 13px;
       font-weight: bold;
     }
-
-    .tag-category {
-      background: #dbeafe;
-      color: #1d4ed8;
-    }
-
-    .tag-difficulty-beginner {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .tag-difficulty-expert {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
+    .tag-category { background: #dbeafe; color: #1d4ed8; }
+    .tag-difficulty-beginner { background: #dcfce7; color: #166534; }
+    .tag-difficulty-expert { background: #fee2e2; color: #991b1b; }
     .question-text {
       font-size: 24px;
       font-weight: bold;
@@ -142,24 +110,20 @@
       margin-bottom: 20px;
       color: #0f172a;
     }
-
     .media-box {
       margin-bottom: 18px;
       text-align: center;
     }
-
     .media-box img,
     .media-box video {
       max-width: 100%;
       border-radius: 12px;
       border: 1px solid #cbd5e1;
     }
-
     .options {
       display: grid;
       gap: 12px;
     }
-
     .option-btn {
       width: 100%;
       text-align: left;
@@ -173,31 +137,26 @@
       cursor: pointer;
       transition: 0.2s ease;
     }
-
     .option-btn:hover:not(:disabled) {
       border-color: #2563eb;
       transform: translateY(-1px);
     }
-
     .option-btn:disabled {
       cursor: default;
       opacity: 1;
     }
-
     .correct {
       background: #dcfce7 !important;
       border-color: #22c55e !important;
       color: #166534 !important;
       font-weight: bold;
     }
-
     .incorrect {
       background: #fee2e2 !important;
       border-color: #ef4444 !important;
       color: #991b1b !important;
       font-weight: bold;
     }
-
     .explanation {
       margin-top: 18px;
       padding: 14px;
@@ -209,13 +168,11 @@
       color: #1e3a8a;
       font-size: 15px;
     }
-
     .next-row {
       display: flex;
       justify-content: center;
       margin-top: 18px;
     }
-
     .results-box {
       display: none;
       margin-top: 24px;
@@ -225,63 +182,37 @@
       padding: 22px;
       text-align: center;
     }
-
     .results-box h2 {
       margin-top: 0;
       color: #0f172a;
     }
-
     .results-box p {
       font-size: 17px;
       color: #334155;
       line-height: 1.6;
     }
-
     .score-highlight {
       font-size: 38px;
       font-weight: bold;
       color: #1d4ed8;
       margin: 12px 0;
     }
-
     .small-note {
       text-align: center;
       font-size: 13px;
       color: #64748b;
       margin-top: 18px;
     }
-
     @media (max-width: 800px) {
-      .top-bar {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .question-text {
-        font-size: 20px;
-      }
+      .top-bar { grid-template-columns: repeat(2, 1fr); }
+      .question-text { font-size: 20px; }
     }
-
     @media (max-width: 560px) {
-      .container {
-        margin: 14px;
-        padding: 18px;
-      }
-
-      .top-bar {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 28px;
-      }
-
-      .question-text {
-        font-size: 18px;
-      }
-
-      .option-btn {
-        font-size: 15px;
-      }
+      .container { margin: 14px; padding: 18px; }
+      .top-bar { grid-template-columns: 1fr; }
+      h1 { font-size: 28px; }
+      .question-text { font-size: 18px; }
+      .option-btn { font-size: 15px; }
     }
   </style>
 </head>
@@ -289,7 +220,7 @@
   <div class="container">
     <h1>Pave the Way</h1>
     <div class="subtitle">
-      Asphalt & Roadwork Safety Challenge with mixed beginner and expert questions focused on equipment, work zones, traffic control, heat, PPE, communication, spotting, and decision-making under pressure.
+      Asphalt & roadwork safety training with mixed beginner and expert questions focused on traffic, equipment, dump trucks, paving, milling, work zones, human behavior, incidents, and real decision-making under pressure.
     </div>
 
     <div class="top-bar">
@@ -393,48 +324,49 @@
       {
         category: "Traffic Control",
         difficulty: "Expert",
-        question: "A flagger is in position, but glare and low-angle sunlight reduce visibility for approaching drivers. What is the BEST action?",
+        question: "A lane closure is in place, but traffic is still crowding the edge of the work zone. What is the BEST response?",
         options: [
-          "Continue because the flagger is already posted",
-          "Adjust the setup or flagger position immediately",
-          "Let the flagger decide without involving the crew",
-          "Wait to see whether drivers react correctly"
+          "Continue working because the lane is already closed",
+          "Move only the nearest workers farther back",
+          "Pause and evaluate whether the closure and taper are adequate",
+          "Have one worker watch traffic while the rest continue"
         ],
-        correct: 1,
-        explanation: "Reduced visibility creates an immediate hazard. The setup should be adjusted rather than assumed to be adequate.",
+        correct: 2,
+        explanation: "If traffic is still encroaching, the setup may not be providing enough separation or visibility.",
         image: "",
         video: ""
       },
       {
         category: "Traffic Control",
         difficulty: "Expert",
-        question: "Vehicles are drifting closer to the taper and work area than expected. What is the MOST likely concern?",
+        question: "A flagger's instructions are being ignored repeatedly by drivers in one direction. What is the BEST conclusion?",
         options: [
-          "Drivers are simply impatient",
-          "Workers are standing too still",
-          "The work zone setup may be inadequate for conditions",
-          "The lane closure is probably not necessary"
+          "The flagger is probably being too cautious",
+          "Drivers will eventually adapt if work continues",
+          "The control method or visibility may be inadequate for current conditions",
+          "Workers should move closer to the shoulder and finish quickly"
         ],
         correct: 2,
-        explanation: "Encroaching vehicles often suggest a traffic control problem such as taper length, cone spacing, or visibility issues.",
+        explanation: "Repeated driver noncompliance often points to a visibility, placement, or control problem that needs correction.",
         image: "",
         video: ""
       },
       {
         category: "Traffic Control",
         difficulty: "Beginner",
-        question: "Why is a high-visibility vest especially important near active traffic?",
+        question: "What is one major purpose of cones, barrels, and signs in a work zone?",
         options: [
-          "It makes workers look more professional",
-          "It helps drivers and operators see workers sooner",
-          "It protects against heat from asphalt",
-          "It prevents dust from sticking to clothing"
+          "To reduce how much PPE workers need",
+          "To guide traffic and separate vehicles from workers",
+          "To show where equipment should be parked after work",
+          "To keep dust from blowing across the roadway"
         ],
         correct: 1,
-        explanation: "High-visibility gear increases worker visibility for both motorists and equipment operators.",
+        explanation: "Traffic control devices are used to guide drivers and help create separation from the work area.",
         image: "",
         video: ""
       },
+
       {
         category: "Equipment Safety",
         difficulty: "Beginner",
@@ -447,21 +379,6 @@
         ],
         correct: 1,
         explanation: "If the operator has not acknowledged you, assume you are not visible.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Equipment Safety",
-        difficulty: "Expert",
-        question: "You are unsure whether an equipment operator sees you while multiple machines are active nearby. What is the BEST action?",
-        options: [
-          "Proceed carefully if you stay outside the closest blind spot",
-          "Wait for clear acknowledgment before moving through the area",
-          "Move quickly before machine positions change",
-          "Use the shortest route to reduce time exposed"
-        ],
-        correct: 1,
-        explanation: "No acknowledgment means no confirmed visibility. That is not the time for optimism.",
         image: "",
         video: ""
       },
@@ -491,40 +408,26 @@
           "Continue if backup alarms are functioning"
         ],
         correct: 1,
-        explanation: "A missing control measure should be replaced or the task should wait. Backup alarms are not a substitute for proper spotting.",
+        explanation: "A missing control measure should be replaced or the task should wait.",
         image: "",
         video: ""
       },
       {
         category: "Equipment Safety",
         difficulty: "Expert",
-        question: "An operator waves you through, but another machine is moving in the same area from a different angle. What is the BEST response?",
+        question: "A machine is stopped temporarily, and a worker assumes it is safe to walk closely behind it. What is the BEST assessment?",
         options: [
-          "Follow the operator's signal immediately",
-          "Move halfway, then reassess",
-          "Stop and reassess the full area before moving",
-          "Cross quickly while the signal is still clear"
+          "That is safe if the machine is not moving",
+          "That is safe only if the worker moves quickly",
+          "That is unsafe because stopped equipment can move without much warning",
+          "That is acceptable if the worker stays within arm's reach"
         ],
         correct: 2,
-        explanation: "One operator's signal does not guarantee the full area is safe. Reassess all active movement.",
+        explanation: "Stopped equipment is not the same as secured equipment. Workers should not assume it will remain still.",
         image: "",
         video: ""
       },
-      {
-        category: "Equipment Safety",
-        difficulty: "Beginner",
-        question: "What should you assume if you do not know what a machine will do next?",
-        options: [
-          "It will stay where it is",
-          "It will follow the same pattern as before",
-          "It may move unexpectedly",
-          "It will avoid nearby workers automatically"
-        ],
-        correct: 2,
-        explanation: "Assuming unpredictability is safer than assuming the machine will behave the way you hope.",
-        image: "",
-        video: ""
-      },
+
       {
         category: "Hot Asphalt",
         difficulty: "Beginner",
@@ -543,36 +446,6 @@
       {
         category: "Hot Asphalt",
         difficulty: "Expert",
-        question: "Hot material spills across part of the work area. What is the FIRST priority?",
-        options: [
-          "Clean the material before it hardens",
-          "Secure the area to prevent contact",
-          "Continue work around the spill to maintain production",
-          "Wait for a supervisor before doing anything"
-        ],
-        correct: 1,
-        explanation: "The first priority is preventing worker exposure and contact with the hazard.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Hot Asphalt",
-        difficulty: "Expert",
-        question: "A worker gets hot asphalt on a glove while handling material. What is the BEST response?",
-        options: [
-          "Remove the glove safely as soon as possible",
-          "Finish the task, then inspect it",
-          "Keep the glove on if pain is minimal",
-          "Wipe the material off with a rag"
-        ],
-        correct: 0,
-        explanation: "Contaminated PPE can continue transferring heat. It should be addressed immediately and safely.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Hot Asphalt",
-        difficulty: "Expert",
         question: "Fresh asphalt looks solid but feels unstable underfoot. What is the BEST action?",
         options: [
           "Continue carefully and shorten your steps",
@@ -581,10 +454,26 @@
           "Warn others after the pass is complete"
         ],
         correct: 1,
-        explanation: "An unstable surface can shift unexpectedly. Do not negotiate with it.",
+        explanation: "An unstable surface can shift unexpectedly.",
         image: "",
         video: ""
       },
+      {
+        category: "Hot Asphalt",
+        difficulty: "Expert",
+        question: "A worker wants to shortcut across a recently placed area to save time. What is the BEST response?",
+        options: [
+          "Allow it if boots are heat resistant",
+          "Allow it only if the worker moves quickly",
+          "Do not allow it because recent placement may still be hot or unstable",
+          "Allow it if the area looks fully compacted"
+        ],
+        correct: 2,
+        explanation: "A shortcut across recent placement can expose the worker to burn and footing hazards unnecessarily.",
+        image: "",
+        video: ""
+      },
+
       {
         category: "PPE",
         difficulty: "Beginner",
@@ -596,40 +485,26 @@
           "Work only for a short time without it"
         ],
         correct: 1,
-        explanation: "Required PPE should be in place before work begins, not after luck runs out.",
+        explanation: "Required PPE should be in place before work begins.",
         image: "",
         video: ""
       },
       {
         category: "PPE",
         difficulty: "Expert",
-        question: "A worker's PPE is contaminated with hot material but still appears usable. What is the BEST response?",
+        question: "A worker removes eye protection briefly because it is fogging during active work. What is the BEST response?",
         options: [
-          "Continue using it for the rest of the task",
-          "Replace or clean the PPE before continuing",
-          "Use it only if the material has cooled",
-          "Avoid using that side of the body"
+          "That is fine if it is only for a moment",
+          "It is acceptable if the worker turns away from the task",
+          "The issue should be corrected without working unprotected",
+          "It is only a problem near equipment"
         ],
-        correct: 1,
-        explanation: "Contaminated PPE can reduce protection and create continuing hazards.",
+        correct: 2,
+        explanation: "PPE problems should be fixed, but not by removing protection in the middle of exposure.",
         image: "",
         video: ""
       },
-      {
-        category: "PPE",
-        difficulty: "Expert",
-        question: "A task changes unexpectedly and now places workers closer to traffic than planned. What is the BEST PPE-related response?",
-        options: [
-          "Continue because PPE was already checked earlier",
-          "Pause and confirm PPE is still adequate for the new exposure",
-          "Rely on traffic control devices rather than PPE",
-          "Have only the nearest worker adjust equipment"
-        ],
-        correct: 1,
-        explanation: "Changed conditions can change PPE needs. Safety checks should match current conditions, not old assumptions.",
-        image: "",
-        video: ""
-      },
+
       {
         category: "Heat Safety",
         difficulty: "Beginner",
@@ -648,33 +523,19 @@
       {
         category: "Heat Safety",
         difficulty: "Expert",
-        question: "A worker insists they are fine, but their reactions are slow and coordination is poor in high heat. What is the BEST action?",
+        question: "The crew wants to skip a scheduled break because the job is almost done and momentum is good. What is the BEST response?",
         options: [
-          "Respect their judgment and monitor them",
-          "Have them finish the current task, then rest",
-          "Remove them from work and assess immediately",
-          "Encourage hydration while continuing work"
+          "Skip it because stopping now will hurt production",
+          "Take the break as planned because fatigue and heat exposure still matter near the end of a task",
+          "Let only slower workers take the break",
+          "Delay the break until someone reports symptoms"
         ],
-        correct: 2,
-        explanation: "Visible impairment in heat conditions should be treated immediately, not negotiated.",
+        correct: 1,
+        explanation: "Heat and fatigue do not suddenly disappear because a task is almost finished.",
         image: "",
         video: ""
       },
-      {
-        category: "Heat Safety",
-        difficulty: "Expert",
-        question: "The crew is behind schedule and breaks are being skipped during high heat. What is the BEST response?",
-        options: [
-          "Keep pushing until the task is done",
-          "Take only personal breaks as needed",
-          "Reinforce scheduled cooling and hydration breaks",
-          "Wait for management to notice the problem"
-        ],
-        correct: 2,
-        explanation: "Skipping breaks in extreme heat is a direct setup for heat-related illness.",
-        image: "",
-        video: ""
-      },
+
       {
         category: "Human Behavior",
         difficulty: "Beginner",
@@ -686,7 +547,7 @@
           "Assume the operator sees them"
         ],
         correct: 1,
-        explanation: "Unsafe entry into an equipment zone should be addressed immediately, not filed under bad memories and regret.",
+        explanation: "Unsafe entry into an equipment zone should be addressed immediately.",
         image: "",
         video: ""
       },
@@ -708,18 +569,19 @@
       {
         category: "Human Behavior",
         difficulty: "Expert",
-        question: "You notice a minor unsafe habit becoming common on the crew. What is the BEST action?",
+        question: "A worker laughs off a near miss and immediately returns to the same task. What is the BEST response?",
         options: [
-          "Ignore it unless someone gets hurt",
-          "Correct it immediately and consistently",
-          "Bring it up at the end of the week",
-          "Wait for formal discipline to address it"
+          "Let it go since no one was injured",
+          "Use the event to stop and address what nearly happened",
+          "Wait until the shift ends to talk about it",
+          "Assume the worker will be more careful now"
         ],
         correct: 1,
-        explanation: "Unsafe habits grow roots fast. Address them early before the jobsite starts training itself badly.",
+        explanation: "Near misses are warnings. Returning to the same conditions without correction is asking for a rerun with worse timing.",
         image: "",
         video: ""
       },
+
       {
         category: "Decision Making",
         difficulty: "Expert",
@@ -732,21 +594,6 @@
         ],
         correct: 1,
         explanation: "Reduced visibility creates unnecessary risk. Schedule pressure does not improve line of sight.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Decision Making",
-        difficulty: "Expert",
-        question: "You receive conflicting directions from two supervisors during an active operation. What is the BEST response?",
-        options: [
-          "Follow the fastest instruction",
-          "Choose the instruction from the more senior supervisor",
-          "Pause and clarify before proceeding",
-          "Do part of both instructions"
-        ],
-        correct: 2,
-        explanation: "Conflicting direction during active work is a hazard. Clarify before creating a bigger one.",
         image: "",
         video: ""
       },
@@ -765,547 +612,7 @@
         image: "",
         video: ""
       },
-      {
-        category: "Emergency Response",
-        difficulty: "Beginner",
-        question: "An incident occurs and several workers begin reacting at once. What is the BEST first move?",
-        options: [
-          "Jump in immediately without assessing",
-          "Pause and assess before acting",
-          "Follow whoever is yelling directions",
-          "Continue working until instructed otherwise"
-        ],
-        correct: 1,
-        explanation: "A fast but chaotic response can make an incident worse. Assess first.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Emergency Response",
-        difficulty: "Expert",
-        question: "A near miss occurs and no one is injured. What is the BEST response?",
-        options: [
-          "Continue working because no injury occurred",
-          "Mention it casually later",
-          "Stop and address the cause immediately",
-          "Wait to see if it happens again"
-        ],
-        correct: 2,
-        explanation: "Near misses are free warnings. Wasting them is expensive later.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Emergency Response",
-        difficulty: "Expert",
-        question: "A worker is injured but conscious. What is the FIRST priority?",
-        options: [
-          "Move them out of the area immediately",
-          "Assess the scene and get appropriate help",
-          "Ask them to stand if they can",
-          "Resume nearby work to avoid delay"
-        ],
-        correct: 1,
-        explanation: "Respond to the actual situation safely. Immediate movement is not always appropriate.",
-        image: "",
-        video: ""
-      },
 
-      {
-        category: "Traffic Control",
-        difficulty: "Expert",
-        question: "A lane closure is in place, but traffic is still crowding the edge of the work zone. What is the BEST response?",
-        options: [
-          "Continue working because the lane is already closed",
-          "Move only the nearest workers farther back",
-          "Pause and evaluate whether the closure and taper are adequate",
-          "Have one worker watch traffic while the rest continue"
-        ],
-        correct: 2,
-        explanation: "If traffic is still encroaching, the setup may not be providing enough separation or visibility.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Traffic Control",
-        difficulty: "Beginner",
-        question: "What is one major purpose of cones, barrels, and signs in a work zone?",
-        options: [
-          "To reduce how much PPE workers need",
-          "To guide traffic and separate vehicles from workers",
-          "To show where equipment should be parked after work",
-          "To keep dust from blowing across the roadway"
-        ],
-        correct: 1,
-        explanation: "Traffic control devices are used to guide drivers and help create separation from the work area.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Traffic Control",
-        difficulty: "Expert",
-        question: "A flagger's instructions are being ignored repeatedly by drivers in one direction. What is the BEST conclusion?",
-        options: [
-          "The flagger is probably being too cautious",
-          "Drivers will eventually adapt if work continues",
-          "The control method or visibility may be inadequate for current conditions",
-          "Workers should move closer to the shoulder and finish quickly"
-        ],
-        correct: 2,
-        explanation: "Repeated driver noncompliance often points to a visibility, placement, or control problem that needs correction.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Traffic Control",
-        difficulty: "Expert",
-        question: "You are placing devices on a roadway and notice traffic speed is much higher than expected. What is the BEST immediate action?",
-        options: [
-          "Finish setup as quickly as possible",
-          "Continue while staying farther from the lane",
-          "Pause and reassess setup needs for the actual traffic speed",
-          "Let the rest of the crew decide while you continue"
-        ],
-        correct: 2,
-        explanation: "Traffic speed affects setup needs and worker exposure. Assumptions should not outrun reality.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Traffic Control",
-        difficulty: "Expert",
-        question: "A driver stops inside the work zone and begins asking a worker for directions. What is the BEST response?",
-        options: [
-          "Answer quickly so traffic can move again",
-          "Direct the driver out of the active area while maintaining worker safety",
-          "Ignore the driver and continue working beside the vehicle",
-          "Step into a better position near the vehicle to be heard"
-        ],
-        correct: 1,
-        explanation: "The priority is to remove the unexpected vehicle interaction from the active work area safely.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Equipment Safety",
-        difficulty: "Expert",
-        question: "A machine is stopped temporarily, and a worker assumes it is safe to walk closely behind it. What is the BEST assessment?",
-        options: [
-          "That is safe if the machine is not moving",
-          "That is safe only if the worker moves quickly",
-          "That is unsafe because stopped equipment can move without much warning",
-          "That is acceptable if the worker stays within arm's reach"
-        ],
-        correct: 2,
-        explanation: "Stopped equipment is not the same as secured equipment. Workers should not assume it will remain still.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Equipment Safety",
-        difficulty: "Beginner",
-        question: "Why are blind spots dangerous around heavy equipment?",
-        options: [
-          "They make machines harder to fuel",
-          "They are areas where the operator may not see workers",
-          "They make the machine slower to operate",
-          "They keep radios from working correctly"
-        ],
-        correct: 1,
-        explanation: "Blind spots are dangerous because workers can be close to a machine without the operator knowing it.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Equipment Safety",
-        difficulty: "Expert",
-        question: "A worker needs to enter an area where a loader and roller are both maneuvering. What is the BEST action?",
-        options: [
-          "Enter from the side with the best apparent visibility",
-          "Wait until both operators acknowledge and the movement path is clearly safe",
-          "Move quickly through before either machine changes direction",
-          "Stay close to the loader because larger machines are easier to track"
-        ],
-        correct: 1,
-        explanation: "When multiple machines are active, a worker should not enter until visibility and movement paths are clearly confirmed.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Equipment Safety",
-        difficulty: "Expert",
-        question: "An operator is distracted by repeated radio traffic while maneuvering equipment in a tight area. What is the BEST concern?",
-        options: [
-          "The operator may move more slowly than planned",
-          "The machine may become harder to hear",
-          "Situational awareness may be reduced during a high-risk movement",
-          "The radio battery may fail before the shift ends"
-        ],
-        correct: 2,
-        explanation: "Divided attention during equipment movement is a real hazard, especially in tight work zones.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Equipment Safety",
-        difficulty: "Expert",
-        question: "You lose sight of one active machine while focusing on another. What is the BEST response?",
-        options: [
-          "Continue if the closest machine is visible",
-          "Pause and relocate to a position where all relevant movement can be assessed",
-          "Trust that the unseen machine is following the normal pattern",
-          "Move toward the visible operator for guidance"
-        ],
-        correct: 1,
-        explanation: "If you lose track of active equipment, your position and awareness need to be corrected before continuing.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Equipment Safety",
-        difficulty: "Expert",
-        question: "A worker is relying on backup alarms alone to judge machine movement. What is the problem?",
-        options: [
-          "Backup alarms only matter at night",
-          "Backup alarms replace the need for visual confirmation",
-          "Alarms are only one warning and should not replace full situational awareness",
-          "Alarms are intended mainly for traffic, not workers"
-        ],
-        correct: 2,
-        explanation: "Alarms help, but they are not a substitute for visibility, communication, or proper positioning.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Hot Asphalt",
-        difficulty: "Expert",
-        question: "A worker continues handling hot material after noticing a small burn through a glove. What is the BEST concern?",
-        options: [
-          "The glove will probably cool on its own",
-          "A minor burn does not matter unless blistering starts",
-          "Continuing exposure can worsen the injury and reduce safe hand function",
-          "The burn is only a problem if the worker drops material"
-        ],
-        correct: 2,
-        explanation: "A small burn during ongoing exposure can quickly become a more serious injury and impair safe work.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Hot Asphalt",
-        difficulty: "Beginner",
-        question: "Why should workers treat fresh asphalt carefully even when it looks stable?",
-        options: [
-          "It may still be extremely hot and unstable underfoot",
-          "It can only be touched once it turns darker",
-          "It is mainly dangerous because it attracts traffic",
-          "It becomes slippery only after rain"
-        ],
-        correct: 0,
-        explanation: "Fresh asphalt can be both very hot and less stable than it looks.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Hot Asphalt",
-        difficulty: "Expert",
-        question: "A patch of fresh material appears cooler at the surface but remains hot below. What is the BEST hazard assessment?",
-        options: [
-          "The risk has passed if the top layer looks set",
-          "Hidden heat can still cause burns or unstable footing",
-          "Only equipment is affected by deeper heat",
-          "It is safe for foot traffic if no steam is visible"
-        ],
-        correct: 1,
-        explanation: "Surface appearance can be misleading. Heat and instability may remain below the visible layer.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Hot Asphalt",
-        difficulty: "Expert",
-        question: "A worker wants to shortcut across a recently placed area to save time. What is the BEST response?",
-        options: [
-          "Allow it if boots are heat resistant",
-          "Allow it only if the worker moves quickly",
-          "Do not allow it because recent placement may still be hot or unstable",
-          "Allow it if the area looks fully compacted"
-        ],
-        correct: 2,
-        explanation: "A shortcut across recent placement can expose the worker to burn and footing hazards unnecessarily.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "PPE",
-        difficulty: "Expert",
-        question: "A worker removes eye protection briefly because it is fogging during active work. What is the BEST response?",
-        options: [
-          "That is fine if it is only for a moment",
-          "It is acceptable if the worker turns away from the task",
-          "The issue should be corrected without working unprotected",
-          "It is only a problem near equipment"
-        ],
-        correct: 2,
-        explanation: "PPE problems should be fixed, but not by removing protection in the middle of exposure.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "PPE",
-        difficulty: "Beginner",
-        question: "What is the BEST reason to wear the required PPE for the task, even on a short job?",
-        options: [
-          "Short tasks can still expose workers to serious hazards",
-          "PPE is mainly for inspection days",
-          "It helps equipment run more smoothly",
-          "Short tasks are less dangerous, so PPE is optional"
-        ],
-        correct: 0,
-        explanation: "A short task can still produce a permanent injury. Hazards do not care about the clock.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "PPE",
-        difficulty: "Expert",
-        question: "Conditions shift and dust increases dramatically in the work area. What is the BEST PPE-related action?",
-        options: [
-          "Continue since the original PPE check was completed",
-          "Pause and reassess whether protection remains adequate for the changed conditions",
-          "Have only the nearest worker adjust PPE",
-          "Ignore the change unless visibility drops completely"
-        ],
-        correct: 1,
-        explanation: "Changed conditions can create new exposure. PPE needs should be reassessed when the environment changes.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "PPE",
-        difficulty: "Expert",
-        question: "A worker says gloves make a task harder, so they plan to remove them for more control. What is the BEST response?",
-        options: [
-          "Allow it if the worker is experienced",
-          "Allow it only for fine-detail tasks",
-          "Stop and address the control issue without removing required protection",
-          "Let the worker decide based on comfort"
-        ],
-        correct: 2,
-        explanation: "If required PPE interferes with work, the solution is to correct the work setup, not strip away protection.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Heat Safety",
-        difficulty: "Expert",
-        question: "A worker becomes unusually irritable and makes repeated small mistakes in high heat. What is the BEST interpretation?",
-        options: [
-          "The worker is just having a bad day",
-          "These may be early signs of heat-related stress affecting judgment",
-          "The worker probably skipped breakfast",
-          "This is only a concern if the worker asks to stop"
-        ],
-        correct: 1,
-        explanation: "Heat stress can affect behavior, attention, and judgment before a more obvious medical emergency develops.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Heat Safety",
-        difficulty: "Beginner",
-        question: "Why are hydration and cooling breaks important during asphalt work in hot weather?",
-        options: [
-          "They mainly improve morale",
-          "They help reduce heat-related illness and fatigue",
-          "They are only needed for new workers",
-          "They prevent equipment from overheating"
-        ],
-        correct: 1,
-        explanation: "Hydration and cooling breaks help protect workers from heat-related illness and impaired performance.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Heat Safety",
-        difficulty: "Expert",
-        question: "The crew wants to skip a scheduled break because the job is almost done and momentum is good. What is the BEST response?",
-        options: [
-          "Skip it because stopping now will hurt production",
-          "Take the break as planned because fatigue and heat exposure still matter near the end of a task",
-          "Let only slower workers take the break",
-          "Delay the break until someone reports symptoms"
-        ],
-        correct: 1,
-        explanation: "Heat and fatigue do not suddenly disappear because a task is almost finished.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Heat Safety",
-        difficulty: "Expert",
-        question: "A worker who seemed fine earlier is now slower, less focused, and making unusual decisions. What is the BEST concern?",
-        options: [
-          "The worker may just be distracted by outside issues",
-          "This could be a developing heat or fatigue-related safety problem",
-          "The worker is probably just bored with the task",
-          "This is only important if the worker asks for a break"
-        ],
-        correct: 1,
-        explanation: "Changes in pace, focus, and judgment can signal heat or fatigue issues before they become more severe.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Human Behavior",
-        difficulty: "Expert",
-        question: "A crew member says they have done the task this unsafe way for years without a problem. What is the BEST response?",
-        options: [
-          "Experience proves the method works",
-          "Past luck does not make the method safe",
-          "The method is acceptable if productivity is good",
-          "The crew should keep using it until a supervisor says otherwise"
-        ],
-        correct: 1,
-        explanation: "An unsafe habit that has not yet caused an injury is still unsafe. Luck is not a procedure.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Human Behavior",
-        difficulty: "Beginner",
-        question: "Why is complacency dangerous on a roadwork site?",
-        options: [
-          "It helps people ignore the heat",
-          "It can make workers stop noticing hazards and skip safe habits",
-          "It makes equipment heavier to operate",
-          "It mainly affects only new employees"
-        ],
-        correct: 1,
-        explanation: "Complacency reduces attention and increases the chance of unsafe decisions and missed hazards.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Human Behavior",
-        difficulty: "Expert",
-        question: "A worker laughs off a near miss and immediately returns to the same task. What is the BEST response?",
-        options: [
-          "Let it go since no one was injured",
-          "Use the event to stop and address what nearly happened",
-          "Wait until the shift ends to talk about it",
-          "Assume the worker will be more careful now"
-        ],
-        correct: 1,
-        explanation: "Near misses are warnings. Returning to the same conditions without correction is asking for a rerun with worse timing.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Human Behavior",
-        difficulty: "Expert",
-        question: "A new worker copies an experienced worker's unsafe shortcut because it appears normal on the crew. What is the BEST concern?",
-        options: [
-          "The new worker is learning efficiency",
-          "Unsafe behavior is being normalized and taught through observation",
-          "Shortcuts spread only if supervisors approve them",
-          "This is not a real issue unless productivity drops"
-        ],
-        correct: 1,
-        explanation: "Crews train each other constantly, whether the lesson is good or bad. Unsafe shortcuts spread fast when they look normal.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Decision Making",
-        difficulty: "Expert",
-        question: "You have enough information to know something feels unsafe, but not enough to explain every detail yet. What is the BEST response?",
-        options: [
-          "Continue unless you can fully prove the danger first",
-          "Pause and verify before proceeding",
-          "Ignore the concern if others seem comfortable",
-          "Proceed only if the task will be quick"
-        ],
-        correct: 1,
-        explanation: "Uncertainty about safety is a reason to verify, not a reason to gamble.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Decision Making",
-        difficulty: "Beginner",
-        question: "What should you do if you are unsure about the safest way to perform a task?",
-        options: [
-          "Try your best and figure it out as you go",
-          "Ask and confirm before continuing",
-          "Watch someone else and copy them exactly",
-          "Skip the hardest part of the task"
-        ],
-        correct: 1,
-        explanation: "When safety is unclear, the best move is to ask and confirm before continuing.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Decision Making",
-        difficulty: "Expert",
-        question: "Production pressure is increasing, and several small safety decisions are being rushed. What is the BEST concern?",
-        options: [
-          "Only one major mistake matters",
-          "Multiple small rushed decisions can combine into a serious incident",
-          "Rushing only affects paperwork and communication",
-          "This is normal as long as the crew is experienced"
-        ],
-        correct: 1,
-        explanation: "Incidents often come from stacked small errors, not one dramatic mistake.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Decision Making",
-        difficulty: "Expert",
-        question: "A task can be finished faster by keeping workers closer to moving equipment than usual. What is the BEST decision?",
-        options: [
-          "Do it if the operator is experienced",
-          "Do it only if the crew agrees",
-          "Keep normal separation and complete the task safely",
-          "Use the faster method only during daylight"
-        ],
-        correct: 2,
-        explanation: "Normal safe separation exists for a reason. Production is not a good trade for exposure to moving equipment.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Decision Making",
-        difficulty: "Expert",
-        question: "A worker sees a hazard but hesitates to speak up because the crew is busy and behind. What is the BEST principle?",
-        options: [
-          "Wait until a calmer moment to avoid slowing work",
-          "Hazards should be raised when noticed, especially under pressure",
-          "Only supervisors should interrupt production for safety concerns",
-          "Minor hazards are better handled quietly later"
-        ],
-        correct: 1,
-        explanation: "Pressure is exactly when hazards need to be raised, because rushed crews miss more and recover worse.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Emergency Response",
-        difficulty: "Expert",
-        question: "A near miss happens in the same area for the third time in one week. What is the BEST conclusion?",
-        options: [
-          "The crew is just unlucky",
-          "There is likely a recurring setup, behavior, or process issue that needs correction",
-          "Near misses matter only if property is damaged",
-          "Workers are probably overreacting because no one was injured"
-        ],
-        correct: 1,
-        explanation: "Repeated near misses point to a pattern. Patterns deserve correction, not superstition.",
-        image: "",
-        video: ""
-      },
       {
         category: "Emergency Response",
         difficulty: "Beginner",
@@ -1336,21 +643,162 @@
         image: "",
         video: ""
       },
+
       {
-        category: "Emergency Response",
-        difficulty: "Expert",
-        question: "After an incident, several workers start offering different versions of what happened. What is the BEST immediate priority?",
+        category: "Work Zone Setup",
+        difficulty: "Beginner",
+        question: "Why is work zone setup important before the crew begins active work?",
         options: [
-          "Determine blame right away",
-          "Stabilize the situation and address any ongoing hazards first",
-          "Resume work to keep the shift moving",
-          "Choose the loudest account and act on it"
+          "It mainly helps the site look organized",
+          "It helps separate workers, equipment, and traffic before exposure begins",
+          "It gives equipment operators more time to park",
+          "It reduces the need for communication later"
         ],
         correct: 1,
-        explanation: "During and immediately after an incident, controlling hazards and stabilizing the scene comes before sorting opinions.",
+        explanation: "A proper setup creates safer conditions before work begins instead of reacting after exposure starts.",
         image: "",
         video: ""
       },
+      {
+        category: "Work Zone Setup",
+        difficulty: "Expert",
+        question: "The setup looked correct an hour ago, but traffic, lighting, and equipment positions have all changed. What is the BEST action?",
+        options: [
+          "Leave the setup alone unless there is an incident",
+          "Reevaluate whether the work zone still matches current conditions",
+          "Trust the original setup because it was approved earlier",
+          "Adjust only if a supervisor specifically notices the issue"
+        ],
+        correct: 1,
+        explanation: "A good setup has to match current conditions, not just past conditions.",
+        image: "",
+        video: ""
+      },
+
+      {
+        category: "Communication",
+        difficulty: "Beginner",
+        question: "Why is clear communication important around paving and roadwork equipment?",
+        options: [
+          "It makes the shift feel shorter",
+          "It helps workers and operators understand movement, hazards, and intentions",
+          "It is only necessary for supervisors",
+          "It mainly reduces paperwork later"
+        ],
+        correct: 1,
+        explanation: "Clear communication helps prevent confusion where confusion can get someone hit or trapped.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Communication",
+        difficulty: "Expert",
+        question: "Noise levels rise enough that verbal communication becomes unreliable. What is the BEST response?",
+        options: [
+          "Speak louder and continue with the same method",
+          "Use a more reliable communication method such as clear hand signals or radio",
+          "Assume experienced workers will understand anyway",
+          "Reduce communication to only urgent issues"
+        ],
+        correct: 1,
+        explanation: "When the environment degrades communication, the method should change before the misunderstanding does.",
+        image: "",
+        video: ""
+      },
+
+      {
+        category: "Spotting and Backing",
+        difficulty: "Beginner",
+        question: "What is the purpose of a spotter during equipment movement?",
+        options: [
+          "To replace the operator's judgment",
+          "To help guide movement where visibility is limited",
+          "To keep written notes on equipment use",
+          "To watch traffic only"
+        ],
+        correct: 1,
+        explanation: "A spotter helps manage limited visibility and reduce movement-related risk.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Spotting and Backing",
+        difficulty: "Expert",
+        question: "A backing path that was clear minutes ago is now crowded with tools and foot traffic. What is the BEST action?",
+        options: [
+          "Proceed carefully while watching the alarm response",
+          "Pause and re-clear the path before backing continues",
+          "Use the same route but at a slower speed",
+          "Continue if the operator has done the move before"
+        ],
+        correct: 1,
+        explanation: "A previously safe path can become unsafe quickly. Conditions need to be current, not remembered.",
+        image: "",
+        video: ""
+      },
+
+      {
+        category: "Night Work and Visibility",
+        difficulty: "Beginner",
+        question: "Why does reduced light make work zones more dangerous?",
+        options: [
+          "Workers become less experienced at night",
+          "Visibility drops for workers, operators, and drivers",
+          "Equipment moves faster in cooler weather",
+          "Noise levels increase automatically after dark"
+        ],
+        correct: 1,
+        explanation: "Reduced light limits visibility and makes hazards harder to detect early.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Night Work and Visibility",
+        difficulty: "Expert",
+        question: "Lighting creates glare on equipment and pavement, making it harder to judge distance. What is the BEST response?",
+        options: [
+          "Continue because the area is still technically lit",
+          "Recognize the distorted visibility and adjust movement and setup accordingly",
+          "Ignore it unless operators complain",
+          "Move workers closer so signals are easier to see"
+        ],
+        correct: 1,
+        explanation: "Poor lighting is not only about darkness. Glare can distort visibility and decision-making too.",
+        image: "",
+        video: ""
+      },
+
+      {
+        category: "Material Handling",
+        difficulty: "Beginner",
+        question: "Why should workers stay aware while handling materials around active paving operations?",
+        options: [
+          "Materials make the workday feel longer",
+          "Handling materials can distract from nearby equipment and movement",
+          "Material handling is safer than equipment work, so awareness matters less",
+          "It mainly matters only for supervisors"
+        ],
+        correct: 1,
+        explanation: "Material handling can narrow attention and make nearby hazards easier to miss.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Material Handling",
+        difficulty: "Expert",
+        question: "A worker carries a load that blocks part of their view while moving through an active area. What is the BEST assessment?",
+        options: [
+          "That is fine if the worker knows the route well",
+          "Reduced visibility while moving through an active area increases exposure to surrounding hazards",
+          "That matters only for heavy loads",
+          "That is acceptable if the path is short"
+        ],
+        correct: 1,
+        explanation: "If a load blocks visibility, the worker is moving with less awareness in a place that demands more.",
+        image: "",
+        video: ""
+      },
+
       {
         category: "Situational Awareness",
         difficulty: "Expert",
@@ -1381,450 +829,420 @@
         image: "",
         video: ""
       },
+
       {
-        category: "Situational Awareness",
-        difficulty: "Expert",
-        question: "A worker is doing the task correctly but is no longer paying attention to changes around them. What is the BEST concern?",
+        category: "Paving Operations",
+        difficulty: "Beginner",
+        question: "Why should workers stay clear of the paver hopper area?",
         options: [
-          "Correct technique is enough by itself",
-          "Safe technique without awareness can still end in an incident",
-          "Awareness only matters for operators",
-          "This is only a problem during emergencies"
+          "It gets dirty quickly",
+          "Dump trucks and moving parts create pinch and crush hazards",
+          "It blocks visibility for supervisors",
+          "It slows production"
         ],
         correct: 1,
-        explanation: "Doing a task correctly does not protect a worker from surrounding hazards if awareness drops.",
+        explanation: "The hopper area is one of the most dangerous zones due to truck interaction and moving components.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Paving Operations",
+        difficulty: "Expert",
+        question: "A dump truck backs into the paver faster than expected. What is the BEST concern?",
+        options: [
+          "The driver is trying to improve production",
+          "Impact force and worker proximity create crush risk",
+          "The paver operator should react faster",
+          "It is normal behavior in busy jobs"
+        ],
+        correct: 1,
+        explanation: "Speed during backing increases impact force and reduces reaction time.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Paving Operations",
+        difficulty: "Expert",
+        question: "A worker stands between the truck and paver to 'help guide alignment.' What is the BEST assessment?",
+        options: [
+          "Helpful positioning",
+          "High-risk crush zone",
+          "Acceptable if experienced",
+          "Only dangerous at night"
+        ],
+        correct: 1,
+        explanation: "Never stand between two moving machines.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "Paving Operations",
+        difficulty: "Expert",
+        question: "The screed operator is focused on mat quality and not scanning surroundings. What is the BEST concern?",
+        options: [
+          "Mat quality will improve",
+          "Loss of situational awareness",
+          "Speed will decrease",
+          "Only affects production"
+        ],
+        correct: 1,
+        explanation: "Even skilled workers can become blind to surrounding hazards when focused too narrowly.",
         image: "",
         video: ""
       },
 
       {
-        category: "Work Zone Setup",
+        category: "Dump Truck Interaction",
         difficulty: "Beginner",
-        question: "Why is work zone setup important before the crew begins active work?",
+        question: "What is the safest assumption about dump truck drivers in a work zone?",
         options: [
-          "It mainly helps the site look organized",
-          "It helps separate workers, equipment, and traffic before exposure begins",
-          "It gives equipment operators more time to park",
-          "It reduces the need for communication later"
-        ],
-        correct: 1,
-        explanation: "A proper setup creates safer conditions before work begins instead of reacting after exposure starts.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Work Zone Setup",
-        difficulty: "Expert",
-        question: "A crew starts work before all traffic devices are fully in place because the delay seems minor. What is the BEST assessment?",
-        options: [
-          "That is acceptable if traffic volume is light",
-          "That is acceptable if only experienced workers are exposed",
-          "The crew is beginning work without the full protective setup intended for that task",
-          "The issue matters only if a driver complains"
+          "They see all workers",
+          "They follow the same pattern every time",
+          "They may not see you",
+          "They will stop automatically"
         ],
         correct: 2,
-        explanation: "Starting before the zone is fully established means exposure begins before controls are ready.",
+        explanation: "Never assume visibility. Assume the opposite.",
         image: "",
         video: ""
       },
       {
-        category: "Work Zone Setup",
+        category: "Dump Truck Interaction",
         difficulty: "Expert",
-        question: "The setup looked correct an hour ago, but traffic, lighting, and equipment positions have all changed. What is the BEST action?",
+        question: "Workers are walking behind trucks because 'they always stop.' What is the BEST concern?",
         options: [
-          "Leave the setup alone unless there is an incident",
-          "Reevaluate whether the work zone still matches current conditions",
-          "Trust the original setup because it was approved earlier",
-          "Adjust only if a supervisor specifically notices the issue"
+          "No issue",
+          "Driver consistency",
+          "False sense of predictability",
+          "Only new workers do that"
         ],
-        correct: 1,
-        explanation: "A good setup has to match current conditions, not just past conditions.",
+        correct: 2,
+        explanation: "Assumed patterns kill people.",
         image: "",
         video: ""
       },
       {
-        category: "Work Zone Setup",
+        category: "Dump Truck Interaction",
         difficulty: "Expert",
-        question: "A temporary material pile begins blocking part of a sightline into the work area. What is the BEST concern?",
+        question: "A truck is staged on a slight incline. What is the BEST concern?",
         options: [
-          "It only matters if workers stand near the pile",
-          "Sightline changes can reduce awareness for both workers and operators",
-          "It is mostly a housekeeping issue",
-          "It can wait until the cleanup phase"
+          "It will not move",
+          "It may roll unexpectedly",
+          "It only matters when unloading",
+          "It affects only the driver"
         ],
         correct: 1,
-        explanation: "A blocked sightline can affect visibility and decision-making immediately, not just appearance.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Work Zone Setup",
-        difficulty: "Expert",
-        question: "A path used by workers now crosses more active equipment travel than it did earlier. What is the BEST response?",
-        options: [
-          "Keep using the same path since everyone already knows it",
-          "Reevaluate and adjust the worker route to reduce exposure",
-          "Have workers move faster through the crossing",
-          "Continue unless someone reports feeling unsafe"
-        ],
-        correct: 1,
-        explanation: "Worker routes should be adjusted when conditions change, especially if exposure increases.",
+        explanation: "Gravity does not care about assumptions.",
         image: "",
         video: ""
       },
 
       {
-        category: "Communication",
+        category: "Milling Operations",
         difficulty: "Beginner",
-        question: "Why is clear communication important around paving and roadwork equipment?",
+        question: "Why is milling considered hazardous?",
         options: [
-          "It makes the shift feel shorter",
-          "It helps workers and operators understand movement, hazards, and intentions",
-          "It is only necessary for supervisors",
-          "It mainly reduces paperwork later"
+          "It is loud",
+          "Moving parts and debris create hazards",
+          "It slows paving",
+          "It is only risky at night"
         ],
         correct: 1,
-        explanation: "Clear communication helps prevent confusion where confusion can get someone hit or trapped.",
+        explanation: "Milling involves moving cutters, debris, and machine interaction.",
         image: "",
         video: ""
       },
       {
-        category: "Communication",
+        category: "Milling Operations",
         difficulty: "Expert",
-        question: "A worker assumes the operator understood a hand signal, but there was no visible acknowledgment. What is the BEST assessment?",
+        question: "Workers are walking near the milling drum area. What is the BEST concern?",
         options: [
-          "That is fine if the signal was standard",
-          "That is risky because communication is not confirmed until it is acknowledged",
-          "That is acceptable if the worker has experience",
-          "That is only a problem when two machines are involved"
+          "Noise exposure",
+          "Severe injury risk from moving parts",
+          "Only dust exposure",
+          "Machine efficiency"
         ],
         correct: 1,
-        explanation: "A signal that was sent is not the same as a signal that was received and understood.",
+        explanation: "The milling drum is extremely dangerous.",
         image: "",
         video: ""
       },
       {
-        category: "Communication",
+        category: "Milling Operations",
         difficulty: "Expert",
-        question: "Noise levels rise enough that verbal communication becomes unreliable. What is the BEST response?",
+        question: "Debris is flying from milling operations toward workers. What is the BEST response?",
         options: [
-          "Speak louder and continue with the same method",
-          "Use a more reliable communication method such as clear hand signals or radio",
-          "Assume experienced workers will understand anyway",
-          "Reduce communication to only urgent issues"
+          "Ignore it",
+          "Continue working",
+          "Adjust positioning or protection",
+          "Wait for supervisor"
         ],
-        correct: 1,
-        explanation: "When the environment degrades communication, the method should change before the misunderstanding does.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Communication",
-        difficulty: "Expert",
-        question: "Two workers give different directions to the same operator during a maneuver. What is the BEST concern?",
-        options: [
-          "The operator can choose whichever seems easier",
-          "Conflicting direction can create confusion during a hazardous movement",
-          "It only matters if the machine is backing",
-          "The louder worker should take control automatically"
-        ],
-        correct: 1,
-        explanation: "Conflicting signals during movement create uncertainty at exactly the wrong time.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Communication",
-        difficulty: "Expert",
-        question: "A worker hesitates to ask for clarification because the task seems routine. What is the BEST principle?",
-        options: [
-          "Routine tasks should not require extra questions",
-          "Clarifying uncertainty is safer than pretending routine means risk-free",
-          "Only new workers need clarification",
-          "It is better to wait and see what happens first"
-        ],
-        correct: 1,
-        explanation: "Routine work is where complacency breeds errors. Clarification beats assumption.",
+        correct: 2,
+        explanation: "Flying debris is immediate exposure.",
         image: "",
         video: ""
       },
 
       {
-        category: "Spotting and Backing",
+        category: "Incident Review",
         difficulty: "Beginner",
-        question: "What is the purpose of a spotter during equipment movement?",
+        question: "Why should crews review near misses instead of brushing them off?",
         options: [
-          "To replace the operator's judgment",
-          "To help guide movement where visibility is limited",
-          "To keep written notes on equipment use",
-          "To watch traffic only"
+          "Because paperwork needs more detail",
+          "Because near misses reveal problems before someone gets hurt",
+          "Because it improves production speed",
+          "Because insurance requires daily discussion"
         ],
         correct: 1,
-        explanation: "A spotter helps manage limited visibility and reduce movement-related risk.",
+        explanation: "Near misses are free warnings. Smart crews use them.",
         image: "",
         video: ""
       },
       {
-        category: "Spotting and Backing",
+        category: "Incident Review",
         difficulty: "Expert",
-        question: "A spotter loses visual contact with the operator for a moment during a backing movement. What is the BEST response?",
+        question: "A worker slips near fresh asphalt, catches themselves, and no one is hurt. What is the BEST response?",
         options: [
-          "Continue if the machine is moving slowly",
-          "Stop the movement until communication and visibility are restored",
-          "Trust that the operator remembers the last direction",
-          "Have another nearby worker fill in verbally"
+          "Keep moving because no injury happened",
+          "Treat it as a warning and address the contributing condition",
+          "Joke about it and remind them to be careful",
+          "Report it only if the same worker slips again"
         ],
         correct: 1,
-        explanation: "If spotting breaks down during movement, the movement should stop until control is restored.",
+        explanation: "A no-injury event can still expose a real hazard that will not stay polite forever.",
         image: "",
         video: ""
       },
       {
-        category: "Spotting and Backing",
+        category: "Incident Review",
         difficulty: "Expert",
-        question: "A worker stands directly where they can see both the operator and the machine's rear travel path, but they are also close to the movement. What is the BEST concern?",
+        question: "A backing incident nearly occurs because a worker stepped into a blind spot. What is the BEST lesson to focus on?",
         options: [
-          "That is ideal because visibility is best there",
-          "The spotter's position may expose them to the same danger they are trying to manage",
-          "The only issue is whether traffic is present",
-          "The position is fine if the ground is level"
+          "The worker should just pay more attention next time",
+          "Blind spot management, communication, and zone control all need review",
+          "Only the operator is responsible",
+          "The alarm volume should be increased and that solves it"
         ],
         correct: 1,
-        explanation: "A spotter has to be visible and effective without becoming part of the hazard zone.",
+        explanation: "Near misses usually involve layered failures, not one cartoon villain.",
         image: "",
         video: ""
       },
       {
-        category: "Spotting and Backing",
+        category: "Incident Review",
         difficulty: "Expert",
-        question: "A backing path that was clear minutes ago is now crowded with tools and foot traffic. What is the BEST action?",
+        question: "After a near miss, the crew says 'we got lucky.' What is the BEST response?",
         options: [
-          "Proceed carefully while watching the alarm response",
-          "Pause and re-clear the path before backing continues",
-          "Use the same route but at a slower speed",
-          "Continue if the operator has done the move before"
+          "Agree and keep moving",
+          "Treat luck as proof the system worked",
+          "Use the event to identify what failed before luck runs out",
+          "Only document it if management asks"
         ],
-        correct: 1,
-        explanation: "A previously safe path can become unsafe quickly. Conditions need to be current, not remembered.",
+        correct: 2,
+        explanation: "Luck is not a control measure.",
         image: "",
         video: ""
       },
       {
-        category: "Spotting and Backing",
+        category: "Incident Review",
         difficulty: "Expert",
-        question: "The operator can see the spotter, but the spotter cannot fully see the travel path. What is the BEST assessment?",
+        question: "A worker gets a minor burn from hot material but continues working. What is the BEST concern?",
         options: [
-          "That is sufficient because the operator has the final control",
-          "That is weak spotting because the person guiding movement does not fully see the risk area",
-          "That is acceptable if the backing alarm is working",
-          "That only matters on public roads"
+          "That shows toughness",
+          "Minor injuries can hide unsafe conditions and normalize bad exposure",
+          "It only matters if treatment is refused",
+          "The injury is too small to matter"
         ],
         correct: 1,
-        explanation: "Effective spotting requires the person guiding movement to actually see what matters.",
+        explanation: "Small injuries often reveal bigger process problems.",
         image: "",
         video: ""
       },
 
       {
-        category: "Night Work and Visibility",
+        category: "What Went Wrong",
+        difficulty: "Expert",
+        question: "A worker is struck by moving equipment after walking into a blind spot. What MOST likely went wrong?",
+        options: [
+          "Only the worker's boots were incorrect",
+          "Visibility control, positioning, and communication failed",
+          "The machine moved too quietly",
+          "The task itself was impossible"
+        ],
+        correct: 1,
+        explanation: "These incidents are almost always a chain of failures, not a random lightning bolt.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "What Went Wrong",
+        difficulty: "Expert",
+        question: "A driver enters the work zone unexpectedly and the crew has no clear escape path. What MOST likely went wrong?",
+        options: [
+          "The driver was rude",
+          "Work zone planning and worker positioning were not sufficient for that exposure",
+          "The cones were the wrong color",
+          "The crew moved too slowly"
+        ],
+        correct: 1,
+        explanation: "A work zone should not rely on driver perfection to keep workers alive.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "What Went Wrong",
+        difficulty: "Expert",
+        question: "A worker trips over tools staged in a walkway during a rushed operation. What MOST likely went wrong?",
+        options: [
+          "The worker was clumsy",
+          "Housekeeping and path control broke down under pace pressure",
+          "The tools were too heavy",
+          "The walkway was probably unnecessary"
+        ],
+        correct: 1,
+        explanation: "Mess spreads fast when pace rises. Then people pay tuition to gravity.",
+        image: "",
+        video: ""
+      },
+      {
+        category: "What Went Wrong",
+        difficulty: "Expert",
+        question: "A crew member becomes heat stressed late in the shift after skipped breaks. What MOST likely went wrong?",
+        options: [
+          "The worker was not motivated enough",
+          "Heat controls were not maintained under production pressure",
+          "The weather changed too fast to predict",
+          "Only the worker's personal hydration mattered"
+        ],
+        correct: 1,
+        explanation: "Skipping controls because the job is 'almost done' is a classic failure pattern.",
+        image: "",
+        video: ""
+      },
+
+      {
+        category: "Supervisor Pressure",
         difficulty: "Beginner",
-        question: "Why does reduced light make work zones more dangerous?",
+        question: "If a supervisor wants work to move faster, what should still remain in place?",
         options: [
-          "Workers become less experienced at night",
-          "Visibility drops for workers, operators, and drivers",
-          "Equipment moves faster in cooler weather",
-          "Noise levels increase automatically after dark"
+          "Only the most important rules",
+          "All required safety procedures",
+          "Only traffic control",
+          "Only PPE"
         ],
         correct: 1,
-        explanation: "Reduced light limits visibility and makes hazards harder to detect early.",
+        explanation: "Speed does not cancel safety requirements.",
         image: "",
         video: ""
       },
       {
-        category: "Night Work and Visibility",
+        category: "Supervisor Pressure",
         difficulty: "Expert",
-        question: "A work zone is transitioning into lower light conditions, but the crew is focused on finishing without adjustment. What is the BEST concern?",
+        question: "A supervisor says, 'Just make it happen' when a task setup is incomplete. What is the BEST response?",
         options: [
-          "The task is already underway, so conditions matter less",
-          "Visibility changes can reduce hazard recognition before workers consciously notice it",
-          "Only traffic control needs to change at dusk",
-          "Night hazards start only after full darkness"
+          "Proceed because the instruction came from authority",
+          "Move ahead slowly and fix it later",
+          "Pause until the setup is safe enough for the task",
+          "Let the fastest worker decide"
         ],
-        correct: 1,
-        explanation: "Visibility degrades before people fully adapt, which makes transition periods especially tricky.",
+        correct: 2,
+        explanation: "Authority can be loud and still be wrong.",
         image: "",
         video: ""
       },
       {
-        category: "Night Work and Visibility",
+        category: "Supervisor Pressure",
         difficulty: "Expert",
-        question: "Lighting creates glare on equipment and pavement, making it harder to judge distance. What is the BEST response?",
+        question: "A crew begins ignoring small hazards because leadership is focused almost entirely on schedule. What is the BEST concern?",
         options: [
-          "Continue because the area is still technically lit",
-          "Recognize the distorted visibility and adjust movement and setup accordingly",
-          "Ignore it unless operators complain",
-          "Move workers closer so signals are easier to see"
+          "Morale may improve",
+          "Risk tolerance is being trained upward",
+          "Only paperwork will suffer",
+          "This only affects new workers"
         ],
         correct: 1,
-        explanation: "Poor lighting is not only about darkness. Glare can distort visibility and decision-making too.",
+        explanation: "Crews learn what leaders reward. If speed is rewarded over control, incidents get invited in.",
         image: "",
         video: ""
       },
       {
-        category: "Night Work and Visibility",
+        category: "Supervisor Pressure",
         difficulty: "Expert",
-        question: "A driver approaches the work zone more aggressively than expected at night. What is the BEST interpretation?",
+        question: "A worker hesitates to report a hazard because they do not want to look difficult in front of management. What is the BEST concern?",
         options: [
-          "Night traffic is always more careless",
-          "The driver may be seeing the zone too late or reading it poorly under current visibility conditions",
-          "The crew should just work faster",
-          "It matters only if another driver does the same thing"
+          "That is normal and harmless",
+          "Psychological pressure is suppressing hazard reporting",
+          "The worker probably misunderstood the task",
+          "Only experienced workers should report hazards"
         ],
         correct: 1,
-        explanation: "Unexpected vehicle behavior at night can signal a visibility or perception problem in the setup.",
+        explanation: "A silent crew is not always a safe crew.",
         image: "",
         video: ""
       },
       {
-        category: "Night Work and Visibility",
+        category: "Supervisor Pressure",
         difficulty: "Expert",
-        question: "Workers begin clustering near the best-lit area even though it is closer to active equipment. What is the BEST concern?",
+        question: "Leadership praises crews for 'getting it done no matter what.' What is the BEST risk?",
         options: [
-          "Better lighting always makes the safer location",
-          "Workers may be choosing comfort in visibility over safer positioning",
-          "That is fine if they remain alert",
-          "It only matters if a supervisor sees it"
+          "No risk if production is high",
+          "Workers may interpret that as permission to cut controls when pressured",
+          "It mainly affects paperwork quality",
+          "That phrase only matters if written down"
         ],
         correct: 1,
-        explanation: "A well-lit location is not automatically a safe location. Position still matters.",
+        explanation: "People listen closely to what gets celebrated.",
         image: "",
         video: ""
       },
 
       {
-        category: "Material Handling",
-        difficulty: "Beginner",
-        question: "Why should workers stay aware while handling materials around active paving operations?",
-        options: [
-          "Materials make the workday feel longer",
-          "Handling materials can distract from nearby equipment and movement",
-          "Material handling is safer than equipment work, so awareness matters less",
-          "It mainly matters only for supervisors"
-        ],
-        correct: 1,
-        explanation: "Material handling can narrow attention and make nearby hazards easier to miss.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Material Handling",
+        category: "Real-World Judgment",
         difficulty: "Expert",
-        question: "A worker turns their back to active equipment while focused on unloading material. What is the BEST concern?",
+        question: "A task feels routine, everyone seems calm, and nothing looks obviously wrong. What is the BEST trap in that situation?",
         options: [
-          "That is fine if the unload is quick",
-          "Task focus may be reducing awareness of surrounding movement and risk",
-          "Only the operator needs to stay aware during unloading",
-          "That is mainly a housekeeping issue"
+          "There usually is no trap",
+          "Complacency can quietly replace active hazard recognition",
+          "Only new workers are at risk",
+          "Routine work is safer by default"
         ],
         correct: 1,
-        explanation: "Task fixation during material handling is a classic way to miss changing hazards nearby.",
+        explanation: "Routine is where risk goes undercover.",
         image: "",
         video: ""
       },
       {
-        category: "Material Handling",
+        category: "Real-World Judgment",
         difficulty: "Expert",
-        question: "Material staging begins creeping into an area used for worker movement. What is the BEST response?",
+        question: "A worker says, 'I've done it this way a hundred times.' What is the BEST reply in safety terms?",
         options: [
-          "Leave it unless someone trips",
-          "Re-stage the material to preserve safe movement paths",
-          "Tell workers to step around it carefully",
-          "Wait until cleanup at the end of the shift"
+          "Then the method must be safe",
+          "Frequency of use does not prove adequacy of control",
+          "Experienced workers should be trusted automatically",
+          "That only matters if there was a past injury"
         ],
         correct: 1,
-        explanation: "Staging should support safe work, not slowly erase safe routes through the zone.",
+        explanation: "Repetition is not evidence. Sometimes it is just repeated luck.",
         image: "",
         video: ""
       },
       {
-        category: "Material Handling",
+        category: "Real-World Judgment",
         difficulty: "Expert",
-        question: "A worker carries a load that blocks part of their view while moving through an active area. What is the BEST assessment?",
+        question: "A control feels inconvenient and slows the work slightly. What is the BEST question to ask?",
         options: [
-          "That is fine if the worker knows the route well",
-          "Reduced visibility while moving through an active area increases exposure to surrounding hazards",
-          "That matters only for heavy loads",
-          "That is acceptable if the path is short"
+          "Can we skip it this once?",
+          "What hazard is this control meant to prevent, and is that hazard still present?",
+          "Will anyone notice if we stop using it?",
+          "Can the most experienced worker ignore it?"
         ],
         correct: 1,
-        explanation: "If a load blocks visibility, the worker is moving with less awareness in a place that demands more.",
+        explanation: "Good judgment asks what the control is buying you before giving it away.",
         image: "",
         video: ""
       },
       {
-        category: "Material Handling",
-        difficulty: "Expert",
-        question: "Workers start placing tools and materials wherever convenient because the pace has increased. What is the BEST concern?",
-        options: [
-          "That usually improves efficiency",
-          "Convenience-based placement can create clutter, blocked paths, and unplanned exposure",
-          "Only supervisors need to worry about placement",
-          "It matters only when the shift ends"
-        ],
-        correct: 1,
-        explanation: "As pace rises, disorder often rises with it. Disorder quietly manufactures hazards.",
-        image: "",
-        video: ""
-      },
-
-      {
-        category: "Situational Awareness",
-        difficulty: "Expert",
-        question: "You have been performing the same task for hours and realize you are reacting automatically instead of actively scanning. What is the BEST response?",
-        options: [
-          "Keep going because familiarity reduces risk",
-          "Recognize the mental drift and deliberately reset your awareness",
-          "Ignore it unless something changes dramatically",
-          "Speed up so the repetitive task ends sooner"
-        ],
-        correct: 1,
-        explanation: "Automatic mode feels efficient, but it often erodes awareness in dynamic environments.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Situational Awareness",
-        difficulty: "Expert",
-        question: "A worker is fully focused on doing their own job right, but misses the fact that the entire area around them is changing. What is the BEST lesson?",
-        options: [
-          "Doing your own task correctly is enough",
-          "Safety requires both task focus and environmental awareness",
-          "Only supervisors need to track area changes",
-          "Area changes matter only during emergencies"
-        ],
-        correct: 1,
-        explanation: "A worker can do their own task correctly and still be blindsided by a changing environment.",
-        image: "",
-        video: ""
-      },
-
-      {
-        category: "Decision Making",
-        difficulty: "Expert",
-        question: "A risk control is inconvenient and seems unnecessary because nothing bad has happened yet. What is the BEST mindset?",
-        options: [
-          "Remove the control unless there is proof it is needed",
-          "Keep the control unless the hazard is truly gone, not just quiet",
-          "Let the fastest worker decide",
-          "Use the control only when inspectors are nearby"
-        ],
-        correct: 1,
-        explanation: "A quiet hazard is not a nonexistent hazard. Controls are there because risk exists, not because luck ran out.",
-        image: "",
-        video: ""
-      },
-      {
-        category: "Decision Making",
+        category: "Real-World Judgment",
         difficulty: "Beginner",
         question: "What is a smart response when a job starts feeling rushed or confusing?",
         options: [
