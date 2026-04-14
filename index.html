@@ -3,42 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pave the Way - Asphalt Safety Challenge</title>
+  <title>Pave the Way - Employee Training Challenge</title>
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: linear-gradient(180deg, #eef3f8, #dfe8f1);
       color: #1f2937;
     }
+
     .container {
-      max-width: 1050px;
-      margin: 30px auto;
+      max-width: 1100px;
+      margin: 24px auto;
       background: #ffffff;
       border-radius: 18px;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
       padding: 28px;
     }
+
     h1 {
       text-align: center;
       margin: 0 0 10px;
-      font-size: 34px;
+      font-size: 36px;
       color: #0f172a;
     }
+
     .subtitle {
       text-align: center;
-      margin-bottom: 24px;
+      margin: 0 auto 24px;
       color: #475569;
       font-size: 16px;
       line-height: 1.5;
+      max-width: 900px;
     }
+
     .top-bar {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
+
     .stat-box {
       background: #f8fafc;
       border: 1px solid #dbe4ee;
@@ -46,6 +53,7 @@
       padding: 14px;
       text-align: center;
     }
+
     .stat-label {
       font-size: 12px;
       color: #64748b;
@@ -53,25 +61,40 @@
       letter-spacing: 0.5px;
       margin-bottom: 6px;
     }
+
     .stat-value {
       font-size: 22px;
       font-weight: bold;
       color: #0f172a;
     }
+
     .controls {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 12px;
-      align-items: center;
-      justify-content: center;
       margin-bottom: 20px;
+      align-items: end;
     }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .control-group label {
+      font-size: 13px;
+      color: #475569;
+      font-weight: bold;
+    }
+
     select, button {
-      padding: 10px 14px;
+      padding: 11px 14px;
       border-radius: 10px;
       border: 1px solid #cbd5e1;
       font-size: 15px;
     }
+
     button {
       background: #1d4ed8;
       color: white;
@@ -79,20 +102,35 @@
       cursor: pointer;
       font-weight: bold;
     }
-    button:hover { background: #1e40af; }
+
+    button:hover {
+      background: #1e40af;
+    }
+
+    .secondary-btn {
+      background: #64748b;
+    }
+
+    .secondary-btn:hover {
+      background: #475569;
+    }
+
     .question-card {
       background: #f8fafc;
       border: 1px solid #dbe4ee;
       border-radius: 16px;
       padding: 22px;
       margin-top: 10px;
+      display: none;
     }
+
     .question-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 16px;
     }
+
     .tag {
       display: inline-block;
       padding: 6px 12px;
@@ -100,9 +138,22 @@
       font-size: 13px;
       font-weight: bold;
     }
-    .tag-category { background: #dbeafe; color: #1d4ed8; }
-    .tag-difficulty-beginner { background: #dcfce7; color: #166534; }
-    .tag-difficulty-expert { background: #fee2e2; color: #991b1b; }
+
+    .tag-category {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .tag-difficulty-beginner {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .tag-difficulty-expert {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
     .question-text {
       font-size: 24px;
       font-weight: bold;
@@ -110,20 +161,12 @@
       margin-bottom: 20px;
       color: #0f172a;
     }
-    .media-box {
-      margin-bottom: 18px;
-      text-align: center;
-    }
-    .media-box img,
-    .media-box video {
-      max-width: 100%;
-      border-radius: 12px;
-      border: 1px solid #cbd5e1;
-    }
+
     .options {
       display: grid;
       gap: 12px;
     }
+
     .option-btn {
       width: 100%;
       text-align: left;
@@ -137,26 +180,31 @@
       cursor: pointer;
       transition: 0.2s ease;
     }
+
     .option-btn:hover:not(:disabled) {
       border-color: #2563eb;
       transform: translateY(-1px);
     }
+
     .option-btn:disabled {
       cursor: default;
       opacity: 1;
     }
+
     .correct {
       background: #dcfce7 !important;
       border-color: #22c55e !important;
       color: #166534 !important;
       font-weight: bold;
     }
+
     .incorrect {
       background: #fee2e2 !important;
       border-color: #ef4444 !important;
       color: #991b1b !important;
       font-weight: bold;
     }
+
     .explanation {
       margin-top: 18px;
       padding: 14px;
@@ -168,11 +216,14 @@
       color: #1e3a8a;
       font-size: 15px;
     }
+
     .next-row {
       display: flex;
       justify-content: center;
+      gap: 12px;
       margin-top: 18px;
     }
+
     .results-box {
       display: none;
       margin-top: 24px;
@@ -182,37 +233,71 @@
       padding: 22px;
       text-align: center;
     }
+
     .results-box h2 {
       margin-top: 0;
       color: #0f172a;
     }
+
     .results-box p {
       font-size: 17px;
       color: #334155;
       line-height: 1.6;
     }
+
     .score-highlight {
       font-size: 38px;
       font-weight: bold;
       color: #1d4ed8;
       margin: 12px 0;
     }
+
     .small-note {
       text-align: center;
       font-size: 13px;
       color: #64748b;
       margin-top: 18px;
     }
-    @media (max-width: 800px) {
-      .top-bar { grid-template-columns: repeat(2, 1fr); }
-      .question-text { font-size: 20px; }
+
+    @media (max-width: 900px) {
+      .top-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .controls {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .controls .control-group:last-child {
+        grid-column: 1 / -1;
+      }
     }
+
     @media (max-width: 560px) {
-      .container { margin: 14px; padding: 18px; }
-      .top-bar { grid-template-columns: 1fr; }
-      h1 { font-size: 28px; }
-      .question-text { font-size: 18px; }
-      .option-btn { font-size: 15px; }
+      .container {
+        margin: 12px;
+        padding: 18px;
+      }
+
+      .top-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .question-text {
+        font-size: 18px;
+      }
+
+      .option-btn {
+        font-size: 15px;
+      }
     }
   </style>
 </head>
@@ -220,7 +305,8 @@
   <div class="container">
     <h1>Pave the Way</h1>
     <div class="subtitle">
-      Asphalt & roadwork safety training with mixed beginner and expert questions focused on traffic, equipment, dump trucks, paving, milling, work zones, human behavior, incidents, and real decision-making under pressure.
+      Employee training designed to be more engaging, more realistic, and more memorable.
+      Questions blend beginner and expert judgment, not just memorization.
     </div>
 
     <div class="top-bar">
@@ -240,40 +326,64 @@
         <div class="stat-label">Accuracy</div>
         <div class="stat-value" id="accuracyDisplay">0%</div>
       </div>
+      <div class="stat-box">
+        <div class="stat-label">Mode</div>
+        <div class="stat-value" id="modeDisplay">Ready</div>
+      </div>
     </div>
 
     <div class="controls">
-      <select id="categoryFilter">
-        <option value="All">All Categories</option>
-      </select>
+      <div class="control-group">
+        <label for="categoryFilter">Category</label>
+        <select id="categoryFilter">
+          <option value="All">All Categories</option>
+        </select>
+      </div>
 
-      <select id="difficultyFilter">
-        <option value="Mixed">Mixed Difficulty</option>
-        <option value="Beginner">Beginner Only</option>
-        <option value="Expert">Expert Only</option>
-      </select>
+      <div class="control-group">
+        <label for="difficultyFilter">Difficulty</label>
+        <select id="difficultyFilter">
+          <option value="Mixed">Mixed Difficulty</option>
+          <option value="Beginner">Beginner Only</option>
+          <option value="Expert">Expert Only</option>
+        </select>
+      </div>
 
-      <select id="questionCount">
-        <option value="10">10 Questions</option>
-        <option value="15" selected>15 Questions</option>
-        <option value="20">20 Questions</option>
-        <option value="25">25 Questions</option>
-        <option value="40">40 Questions</option>
-        <option value="60">60 Questions</option>
-        <option value="9999">All Available Questions</option>
-      </select>
+      <div class="control-group">
+        <label for="questionCount">Question Count</label>
+        <select id="questionCount">
+          <option value="10">10 Questions</option>
+          <option value="15" selected>15 Questions</option>
+          <option value="20">20 Questions</option>
+          <option value="25">25 Questions</option>
+          <option value="40">40 Questions</option>
+          <option value="9999">All Available Questions</option>
+        </select>
+      </div>
 
-      <button id="startBtn">Start / Restart Quiz</button>
+      <div class="control-group">
+        <label for="categoryMode">Quiz Style</label>
+        <select id="categoryMode">
+          <option value="standard" selected>Standard Quiz</option>
+          <option value="judgment">Judgment Focus</option>
+          <option value="mixed">Fully Mixed</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label>&nbsp;</label>
+        <button id="startBtn">Start / Restart Quiz</button>
+      </div>
     </div>
 
-    <div class="question-card" id="quizCard" style="display:none;">
+    <div class="question-card" id="quizCard">
       <div class="question-meta" id="questionMeta"></div>
-      <div class="media-box" id="mediaBox"></div>
       <div class="question-text" id="questionText"></div>
       <div class="options" id="optionsBox"></div>
       <div class="explanation" id="explanationBox"></div>
       <div class="next-row">
         <button id="nextBtn" style="display:none;">Next Question</button>
+        <button id="restartMidBtn" class="secondary-btn" style="display:none;">Restart</button>
       </div>
     </div>
 
@@ -285,7 +395,7 @@
     </div>
 
     <div class="small-note">
-      Images and videos can be added later by filling in the optional image or video fields for each question.
+      Expert questions are weighted heavier than beginner questions, so good judgment counts more than lucky guessing.
     </div>
   </div>
 
@@ -302,9 +412,7 @@
           "Continue working and watch the vehicle"
         ],
         correct: 1,
-        explanation: "Your first responsibility is immediate safety. Workers should move to a safe area rather than attempting to control the driver directly.",
-        image: "",
-        video: ""
+        explanation: "Your first responsibility is immediate safety. Workers should move to a safe area rather than attempting to control the driver directly."
       },
       {
         category: "Traffic Control",
@@ -317,9 +425,7 @@
           "Have one worker signal drivers while work continues"
         ],
         correct: 2,
-        explanation: "When traffic conditions change, work zone controls may no longer be adequate. The safest response is to pause and reassess.",
-        image: "",
-        video: ""
+        explanation: "When traffic conditions change, work zone controls may no longer be adequate. The safest response is to pause and reassess."
       },
       {
         category: "Traffic Control",
@@ -332,9 +438,7 @@
           "Have one worker watch traffic while the rest continue"
         ],
         correct: 2,
-        explanation: "If traffic is still encroaching, the setup may not be providing enough separation or visibility.",
-        image: "",
-        video: ""
+        explanation: "If traffic is still encroaching, the setup may not be providing enough separation or visibility."
       },
       {
         category: "Traffic Control",
@@ -347,9 +451,7 @@
           "Workers should move closer to the shoulder and finish quickly"
         ],
         correct: 2,
-        explanation: "Repeated driver noncompliance often points to a visibility, placement, or control problem that needs correction.",
-        image: "",
-        video: ""
+        explanation: "Repeated driver noncompliance often points to a visibility, placement, or control problem that needs correction."
       },
       {
         category: "Traffic Control",
@@ -362,9 +464,7 @@
           "To keep dust from blowing across the roadway"
         ],
         correct: 1,
-        explanation: "Traffic control devices are used to guide drivers and help create separation from the work area.",
-        image: "",
-        video: ""
+        explanation: "Traffic control devices are used to guide drivers and help create separation from the work area."
       },
 
       {
@@ -378,9 +478,7 @@
           "Cross as long as the machine is moving slowly"
         ],
         correct: 1,
-        explanation: "If the operator has not acknowledged you, assume you are not visible.",
-        image: "",
-        video: ""
+        explanation: "If the operator has not acknowledged you, assume you are not visible."
       },
       {
         category: "Equipment Safety",
@@ -393,9 +491,7 @@
           "Alongside the machine with the better line of sight"
         ],
         correct: 2,
-        explanation: "Overlapping movement paths create complex blind spots. A fixed safe zone is the best choice.",
-        image: "",
-        video: ""
+        explanation: "Overlapping movement paths create complex blind spots. A fixed safe zone is the best choice."
       },
       {
         category: "Equipment Safety",
@@ -408,9 +504,7 @@
           "Continue if backup alarms are functioning"
         ],
         correct: 1,
-        explanation: "A missing control measure should be replaced or the task should wait.",
-        image: "",
-        video: ""
+        explanation: "A missing control measure should be replaced or the task should wait."
       },
       {
         category: "Equipment Safety",
@@ -423,9 +517,7 @@
           "That is acceptable if the worker stays within arm's reach"
         ],
         correct: 2,
-        explanation: "Stopped equipment is not the same as secured equipment. Workers should not assume it will remain still.",
-        image: "",
-        video: ""
+        explanation: "Stopped equipment is not the same as secured equipment. Workers should not assume it will remain still."
       },
 
       {
@@ -439,9 +531,7 @@
           "Reporting the injury right away"
         ],
         correct: 2,
-        explanation: "Trying to remove hardened asphalt from skin immediately can cause more damage.",
-        image: "",
-        video: ""
+        explanation: "Trying to remove hardened asphalt from skin immediately can cause more damage."
       },
       {
         category: "Hot Asphalt",
@@ -454,9 +544,7 @@
           "Warn others after the pass is complete"
         ],
         correct: 1,
-        explanation: "An unstable surface can shift unexpectedly.",
-        image: "",
-        video: ""
+        explanation: "An unstable surface can shift unexpectedly."
       },
       {
         category: "Hot Asphalt",
@@ -469,9 +557,7 @@
           "Allow it if the area looks fully compacted"
         ],
         correct: 2,
-        explanation: "A shortcut across recent placement can expose the worker to burn and footing hazards unnecessarily.",
-        image: "",
-        video: ""
+        explanation: "A shortcut across recent placement can expose the worker to burn and footing hazards unnecessarily."
       },
 
       {
@@ -485,9 +571,7 @@
           "Work only for a short time without it"
         ],
         correct: 1,
-        explanation: "Required PPE should be in place before work begins.",
-        image: "",
-        video: ""
+        explanation: "Required PPE should be in place before work begins."
       },
       {
         category: "PPE",
@@ -500,9 +584,7 @@
           "It is only a problem near equipment"
         ],
         correct: 2,
-        explanation: "PPE problems should be fixed, but not by removing protection in the middle of exposure.",
-        image: "",
-        video: ""
+        explanation: "PPE problems should be fixed, but not by removing protection in the middle of exposure."
       },
 
       {
@@ -516,9 +598,7 @@
           "Move them to shade and wait for a supervisor"
         ],
         correct: 1,
-        explanation: "These are signs of heat stroke, which is a medical emergency.",
-        image: "",
-        video: ""
+        explanation: "These are signs of heat stroke, which is a medical emergency."
       },
       {
         category: "Heat Safety",
@@ -531,9 +611,7 @@
           "Delay the break until someone reports symptoms"
         ],
         correct: 1,
-        explanation: "Heat and fatigue do not suddenly disappear because a task is almost finished.",
-        image: "",
-        video: ""
+        explanation: "Heat and fatigue do not suddenly disappear because a task is almost finished."
       },
 
       {
@@ -547,9 +625,7 @@
           "Assume the operator sees them"
         ],
         correct: 1,
-        explanation: "Unsafe entry into an equipment zone should be addressed immediately.",
-        image: "",
-        video: ""
+        explanation: "Unsafe entry into an equipment zone should be addressed immediately."
       },
       {
         category: "Human Behavior",
@@ -562,9 +638,7 @@
           "The issue is minor unless a supervisor objects"
         ],
         correct: 2,
-        explanation: "Complacency often grows before an incident. Lack of recent injury does not prove safety.",
-        image: "",
-        video: ""
+        explanation: "Complacency often grows before an incident. Lack of recent injury does not prove safety."
       },
       {
         category: "Human Behavior",
@@ -577,9 +651,7 @@
           "Assume the worker will be more careful now"
         ],
         correct: 1,
-        explanation: "Near misses are warnings. Returning to the same conditions without correction is asking for a rerun with worse timing.",
-        image: "",
-        video: ""
+        explanation: "Near misses are warnings. Returning to the same conditions without correction is asking for a rerun with worse timing."
       },
 
       {
@@ -593,9 +665,7 @@
           "Take the shortcut once to catch up"
         ],
         correct: 1,
-        explanation: "Reduced visibility creates unnecessary risk. Schedule pressure does not improve line of sight.",
-        image: "",
-        video: ""
+        explanation: "Reduced visibility creates unnecessary risk. Schedule pressure does not improve line of sight."
       },
       {
         category: "Decision Making",
@@ -608,9 +678,7 @@
           "Follow the nearest worker without asking"
         ],
         correct: 2,
-        explanation: "Uncertainty is your cue to verify, not improvise.",
-        image: "",
-        video: ""
+        explanation: "Uncertainty is your cue to verify, not improvise."
       },
 
       {
@@ -624,9 +692,7 @@
           "They usually happen by accident and mean very little"
         ],
         correct: 0,
-        explanation: "Near misses are warnings that something can go wrong under the current conditions.",
-        image: "",
-        video: ""
+        explanation: "Near misses are warnings that something can go wrong under the current conditions."
       },
       {
         category: "Emergency Response",
@@ -639,9 +705,7 @@
           "Which supervisor should take blame"
         ],
         correct: 1,
-        explanation: "Responders should not become additional casualties. Scene safety still matters during urgency.",
-        image: "",
-        video: ""
+        explanation: "Responders should not become additional casualties. Scene safety still matters during urgency."
       },
 
       {
@@ -655,9 +719,7 @@
           "It reduces the need for communication later"
         ],
         correct: 1,
-        explanation: "A proper setup creates safer conditions before work begins instead of reacting after exposure starts.",
-        image: "",
-        video: ""
+        explanation: "A proper setup creates safer conditions before work begins instead of reacting after exposure starts."
       },
       {
         category: "Work Zone Setup",
@@ -670,9 +732,7 @@
           "Adjust only if a supervisor specifically notices the issue"
         ],
         correct: 1,
-        explanation: "A good setup has to match current conditions, not just past conditions.",
-        image: "",
-        video: ""
+        explanation: "A good setup has to match current conditions, not just past conditions."
       },
 
       {
@@ -686,9 +746,7 @@
           "It mainly reduces paperwork later"
         ],
         correct: 1,
-        explanation: "Clear communication helps prevent confusion where confusion can get someone hit or trapped.",
-        image: "",
-        video: ""
+        explanation: "Clear communication helps prevent confusion where confusion can get someone hit or trapped."
       },
       {
         category: "Communication",
@@ -701,9 +759,7 @@
           "Reduce communication to only urgent issues"
         ],
         correct: 1,
-        explanation: "When the environment degrades communication, the method should change before the misunderstanding does.",
-        image: "",
-        video: ""
+        explanation: "When the environment degrades communication, the method should change before the misunderstanding does."
       },
 
       {
@@ -717,9 +773,7 @@
           "To watch traffic only"
         ],
         correct: 1,
-        explanation: "A spotter helps manage limited visibility and reduce movement-related risk.",
-        image: "",
-        video: ""
+        explanation: "A spotter helps manage limited visibility and reduce movement-related risk."
       },
       {
         category: "Spotting and Backing",
@@ -732,9 +786,7 @@
           "Continue if the operator has done the move before"
         ],
         correct: 1,
-        explanation: "A previously safe path can become unsafe quickly. Conditions need to be current, not remembered.",
-        image: "",
-        video: ""
+        explanation: "A previously safe path can become unsafe quickly. Conditions need to be current, not remembered."
       },
 
       {
@@ -748,9 +800,7 @@
           "Noise levels increase automatically after dark"
         ],
         correct: 1,
-        explanation: "Reduced light limits visibility and makes hazards harder to detect early.",
-        image: "",
-        video: ""
+        explanation: "Reduced light limits visibility and makes hazards harder to detect early."
       },
       {
         category: "Night Work and Visibility",
@@ -763,9 +813,7 @@
           "Move workers closer so signals are easier to see"
         ],
         correct: 1,
-        explanation: "Poor lighting is not only about darkness. Glare can distort visibility and decision-making too.",
-        image: "",
-        video: ""
+        explanation: "Poor lighting is not only about darkness. Glare can distort visibility and decision-making too."
       },
 
       {
@@ -779,9 +827,7 @@
           "It mainly matters only for supervisors"
         ],
         correct: 1,
-        explanation: "Material handling can narrow attention and make nearby hazards easier to miss.",
-        image: "",
-        video: ""
+        explanation: "Material handling can narrow attention and make nearby hazards easier to miss."
       },
       {
         category: "Material Handling",
@@ -794,9 +840,7 @@
           "That is acceptable if the path is short"
         ],
         correct: 1,
-        explanation: "If a load blocks visibility, the worker is moving with less awareness in a place that demands more.",
-        image: "",
-        video: ""
+        explanation: "If a load blocks visibility, the worker is moving with less awareness in a place that demands more."
       },
 
       {
@@ -810,9 +854,7 @@
           "Move faster so the exposure ends sooner"
         ],
         correct: 1,
-        explanation: "Awareness failures often start before people admit them. Recognizing that drift early is a strong safety skill.",
-        image: "",
-        video: ""
+        explanation: "Awareness failures often start before people admit them. Recognizing that drift early is a strong safety skill."
       },
       {
         category: "Situational Awareness",
@@ -825,9 +867,7 @@
           "It reduces the need for communication"
         ],
         correct: 1,
-        explanation: "A work zone is dynamic. Focusing too narrowly can make you miss equipment, traffic, or changing conditions.",
-        image: "",
-        video: ""
+        explanation: "A work zone is dynamic. Focusing too narrowly can make you miss equipment, traffic, or changing conditions."
       },
 
       {
@@ -841,9 +881,7 @@
           "It slows production"
         ],
         correct: 1,
-        explanation: "The hopper area is one of the most dangerous zones due to truck interaction and moving components.",
-        image: "",
-        video: ""
+        explanation: "The hopper area is one of the most dangerous zones due to truck interaction and moving components."
       },
       {
         category: "Paving Operations",
@@ -856,9 +894,7 @@
           "It is normal behavior in busy jobs"
         ],
         correct: 1,
-        explanation: "Speed during backing increases impact force and reduces reaction time.",
-        image: "",
-        video: ""
+        explanation: "Speed during backing increases impact force and reduces reaction time."
       },
       {
         category: "Paving Operations",
@@ -871,9 +907,7 @@
           "Only dangerous at night"
         ],
         correct: 1,
-        explanation: "Never stand between two moving machines.",
-        image: "",
-        video: ""
+        explanation: "Never stand between two moving machines."
       },
       {
         category: "Paving Operations",
@@ -886,9 +920,7 @@
           "Only affects production"
         ],
         correct: 1,
-        explanation: "Even skilled workers can become blind to surrounding hazards when focused too narrowly.",
-        image: "",
-        video: ""
+        explanation: "Even skilled workers can become blind to surrounding hazards when focused too narrowly."
       },
 
       {
@@ -902,9 +934,7 @@
           "They will stop automatically"
         ],
         correct: 2,
-        explanation: "Never assume visibility. Assume the opposite.",
-        image: "",
-        video: ""
+        explanation: "Never assume visibility. Assume the opposite."
       },
       {
         category: "Dump Truck Interaction",
@@ -917,9 +947,7 @@
           "Only new workers do that"
         ],
         correct: 2,
-        explanation: "Assumed patterns kill people.",
-        image: "",
-        video: ""
+        explanation: "Assumed patterns kill people."
       },
       {
         category: "Dump Truck Interaction",
@@ -932,9 +960,7 @@
           "It affects only the driver"
         ],
         correct: 1,
-        explanation: "Gravity does not care about assumptions.",
-        image: "",
-        video: ""
+        explanation: "Gravity does not care about assumptions."
       },
 
       {
@@ -948,9 +974,7 @@
           "It is only risky at night"
         ],
         correct: 1,
-        explanation: "Milling involves moving cutters, debris, and machine interaction.",
-        image: "",
-        video: ""
+        explanation: "Milling involves moving cutters, debris, and machine interaction."
       },
       {
         category: "Milling Operations",
@@ -963,9 +987,7 @@
           "Machine efficiency"
         ],
         correct: 1,
-        explanation: "The milling drum is extremely dangerous.",
-        image: "",
-        video: ""
+        explanation: "The milling drum is extremely dangerous."
       },
       {
         category: "Milling Operations",
@@ -978,9 +1000,7 @@
           "Wait for supervisor"
         ],
         correct: 2,
-        explanation: "Flying debris is immediate exposure.",
-        image: "",
-        video: ""
+        explanation: "Flying debris is immediate exposure."
       },
 
       {
@@ -994,9 +1014,7 @@
           "Because insurance requires daily discussion"
         ],
         correct: 1,
-        explanation: "Near misses are free warnings. Smart crews use them.",
-        image: "",
-        video: ""
+        explanation: "Near misses are free warnings. Smart crews use them."
       },
       {
         category: "Incident Review",
@@ -1009,9 +1027,7 @@
           "Report it only if the same worker slips again"
         ],
         correct: 1,
-        explanation: "A no-injury event can still expose a real hazard that will not stay polite forever.",
-        image: "",
-        video: ""
+        explanation: "A no-injury event can still expose a real hazard that will not stay polite forever."
       },
       {
         category: "Incident Review",
@@ -1024,9 +1040,7 @@
           "The alarm volume should be increased and that solves it"
         ],
         correct: 1,
-        explanation: "Near misses usually involve layered failures, not one cartoon villain.",
-        image: "",
-        video: ""
+        explanation: "Near misses usually involve layered failures, not one cartoon villain."
       },
       {
         category: "Incident Review",
@@ -1039,9 +1053,7 @@
           "Only document it if management asks"
         ],
         correct: 2,
-        explanation: "Luck is not a control measure.",
-        image: "",
-        video: ""
+        explanation: "Luck is not a control measure."
       },
       {
         category: "Incident Review",
@@ -1054,9 +1066,7 @@
           "The injury is too small to matter"
         ],
         correct: 1,
-        explanation: "Small injuries often reveal bigger process problems.",
-        image: "",
-        video: ""
+        explanation: "Small injuries often reveal bigger process problems."
       },
 
       {
@@ -1070,9 +1080,7 @@
           "The task itself was impossible"
         ],
         correct: 1,
-        explanation: "These incidents are almost always a chain of failures, not a random lightning bolt.",
-        image: "",
-        video: ""
+        explanation: "These incidents are almost always a chain of failures, not a random lightning bolt."
       },
       {
         category: "What Went Wrong",
@@ -1085,9 +1093,7 @@
           "The crew moved too slowly"
         ],
         correct: 1,
-        explanation: "A work zone should not rely on driver perfection to keep workers alive.",
-        image: "",
-        video: ""
+        explanation: "A work zone should not rely on driver perfection to keep workers alive."
       },
       {
         category: "What Went Wrong",
@@ -1100,9 +1106,7 @@
           "The walkway was probably unnecessary"
         ],
         correct: 1,
-        explanation: "Mess spreads fast when pace rises. Then people pay tuition to gravity.",
-        image: "",
-        video: ""
+        explanation: "Mess spreads fast when pace rises. Then people pay tuition to gravity."
       },
       {
         category: "What Went Wrong",
@@ -1115,9 +1119,7 @@
           "Only the worker's personal hydration mattered"
         ],
         correct: 1,
-        explanation: "Skipping controls because the job is 'almost done' is a classic failure pattern.",
-        image: "",
-        video: ""
+        explanation: "Skipping controls because the job is 'almost done' is a classic failure pattern."
       },
 
       {
@@ -1131,9 +1133,7 @@
           "Only PPE"
         ],
         correct: 1,
-        explanation: "Speed does not cancel safety requirements.",
-        image: "",
-        video: ""
+        explanation: "Speed does not cancel safety requirements."
       },
       {
         category: "Supervisor Pressure",
@@ -1146,9 +1146,7 @@
           "Let the fastest worker decide"
         ],
         correct: 2,
-        explanation: "Authority can be loud and still be wrong.",
-        image: "",
-        video: ""
+        explanation: "Authority can be loud and still be wrong."
       },
       {
         category: "Supervisor Pressure",
@@ -1161,9 +1159,7 @@
           "This only affects new workers"
         ],
         correct: 1,
-        explanation: "Crews learn what leaders reward. If speed is rewarded over control, incidents get invited in.",
-        image: "",
-        video: ""
+        explanation: "Crews learn what leaders reward. If speed is rewarded over control, incidents get invited in."
       },
       {
         category: "Supervisor Pressure",
@@ -1176,9 +1172,7 @@
           "Only experienced workers should report hazards"
         ],
         correct: 1,
-        explanation: "A silent crew is not always a safe crew.",
-        image: "",
-        video: ""
+        explanation: "A silent crew is not always a safe crew."
       },
       {
         category: "Supervisor Pressure",
@@ -1191,9 +1185,7 @@
           "That phrase only matters if written down"
         ],
         correct: 1,
-        explanation: "People listen closely to what gets celebrated.",
-        image: "",
-        video: ""
+        explanation: "People listen closely to what gets celebrated."
       },
 
       {
@@ -1207,9 +1199,7 @@
           "Routine work is safer by default"
         ],
         correct: 1,
-        explanation: "Routine is where risk goes undercover.",
-        image: "",
-        video: ""
+        explanation: "Routine is where risk goes undercover."
       },
       {
         category: "Real-World Judgment",
@@ -1222,9 +1212,7 @@
           "That only matters if there was a past injury"
         ],
         correct: 1,
-        explanation: "Repetition is not evidence. Sometimes it is just repeated luck.",
-        image: "",
-        video: ""
+        explanation: "Repetition is not evidence. Sometimes it is just repeated luck."
       },
       {
         category: "Real-World Judgment",
@@ -1237,9 +1225,7 @@
           "Can the most experienced worker ignore it?"
         ],
         correct: 1,
-        explanation: "Good judgment asks what the control is buying you before giving it away.",
-        image: "",
-        video: ""
+        explanation: "Good judgment asks what the control is buying you before giving it away."
       },
       {
         category: "Real-World Judgment",
@@ -1252,9 +1238,7 @@
           "Keep going and fix problems later"
         ],
         correct: 1,
-        explanation: "When conditions feel rushed or unclear, the smart move is to verify before making the next mistake faster.",
-        image: "",
-        video: ""
+        explanation: "When conditions feel rushed or unclear, the smart move is to verify before making the next mistake faster."
       }
     ];
 
@@ -1267,11 +1251,12 @@
     const categoryFilter = document.getElementById("categoryFilter");
     const difficultyFilter = document.getElementById("difficultyFilter");
     const questionCountSelect = document.getElementById("questionCount");
+    const categoryMode = document.getElementById("categoryMode");
     const startBtn = document.getElementById("startBtn");
+    const restartMidBtn = document.getElementById("restartMidBtn");
 
     const quizCard = document.getElementById("quizCard");
     const questionMeta = document.getElementById("questionMeta");
-    const mediaBox = document.getElementById("mediaBox");
     const questionText = document.getElementById("questionText");
     const optionsBox = document.getElementById("optionsBox");
     const explanationBox = document.getElementById("explanationBox");
@@ -1285,6 +1270,7 @@
     const scoreDisplay = document.getElementById("scoreDisplay");
     const correctDisplay = document.getElementById("correctDisplay");
     const accuracyDisplay = document.getElementById("accuracyDisplay");
+    const modeDisplay = document.getElementById("modeDisplay");
 
     function populateCategories() {
       const categories = [...new Set(allQuestions.map(q => q.category))].sort();
@@ -1305,10 +1291,21 @@
       return arr;
     }
 
+    function getWeightedQuestionScore(question) {
+      return question.difficulty === "Expert" ? 2 : 1;
+    }
+
+    function sortForJudgmentMode(questions) {
+      const expert = questions.filter(q => q.difficulty === "Expert");
+      const beginner = questions.filter(q => q.difficulty === "Beginner");
+      return shuffleArray([...expert, ...beginner]);
+    }
+
     function startQuiz() {
       const selectedCategory = categoryFilter.value;
       const selectedDifficulty = difficultyFilter.value;
       const selectedCount = parseInt(questionCountSelect.value, 10);
+      const selectedStyle = categoryMode.value;
 
       let filtered = [...allQuestions];
 
@@ -1320,7 +1317,11 @@
         filtered = filtered.filter(q => q.difficulty === selectedDifficulty);
       }
 
-      filtered = shuffleArray(filtered);
+      if (selectedStyle === "judgment") {
+        filtered = sortForJudgmentMode(filtered);
+      } else {
+        filtered = shuffleArray(filtered);
+      }
 
       if (selectedCount !== 9999) {
         filtered = filtered.slice(0, selectedCount);
@@ -1339,19 +1340,21 @@
 
       resultsBox.style.display = "none";
       quizCard.style.display = "block";
+      restartMidBtn.style.display = "inline-block";
 
       updateStats();
       renderQuestion();
     }
 
     function updateStats() {
+      const answeredCount = currentQuestionIndex;
+      const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+
       questionNumber.textContent = `${Math.min(currentQuestionIndex + 1, quizQuestions.length)} / ${quizQuestions.length}`;
       scoreDisplay.textContent = score;
       correctDisplay.textContent = correctCount;
-
-      const answeredCount = currentQuestionIndex;
-      const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
       accuracyDisplay.textContent = `${accuracy}%`;
+      modeDisplay.textContent = categoryMode.value === "judgment" ? "Judgment" : categoryMode.value === "mixed" ? "Mixed" : "Standard";
     }
 
     function renderQuestion() {
@@ -1360,7 +1363,6 @@
       explanationBox.innerHTML = "";
       nextBtn.style.display = "none";
       optionsBox.innerHTML = "";
-      mediaBox.innerHTML = "";
 
       const q = quizQuestions[currentQuestionIndex];
 
@@ -1370,19 +1372,6 @@
       `;
 
       questionText.textContent = q.question;
-
-      if (q.image) {
-        mediaBox.innerHTML += `<img src="${q.image}" alt="Question related image">`;
-      }
-
-      if (q.video) {
-        mediaBox.innerHTML += `
-          <video controls preload="metadata">
-            <source src="${q.video}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        `;
-      }
 
       q.options.forEach((option, index) => {
         const btn = document.createElement("button");
@@ -1413,7 +1402,7 @@
       });
 
       if (selectedIndex === q.correct) {
-        score += q.difficulty === "Expert" ? 2 : 1;
+        score += getWeightedQuestionScore(q);
         correctCount++;
       }
 
@@ -1423,13 +1412,37 @@
       currentQuestionIndex++;
       updateStats();
 
-      if (currentQuestionIndex < quizQuestions.length) {
-        nextBtn.style.display = "inline-block";
-        nextBtn.textContent = "Next Question";
+      nextBtn.style.display = "inline-block";
+      nextBtn.textContent = currentQuestionIndex < quizQuestions.length ? "Next Question" : "See Results";
+    }
+
+    function showResults() {
+      quizCard.style.display = "none";
+      resultsBox.style.display = "block";
+
+      const maxScore = quizQuestions.reduce((sum, q) => sum + getWeightedQuestionScore(q), 0);
+      const percent = Math.round((score / maxScore) * 100);
+
+      finalScore.textContent = `${score} / ${maxScore}`;
+
+      let message = "";
+      if (percent >= 90) {
+        message = "Excellent performance. This shows strong awareness, judgment, and decision-making under pressure.";
+      } else if (percent >= 75) {
+        message = "Good work. The foundation is strong, but a few decision points still need tightening.";
+      } else if (percent >= 60) {
+        message = "Fair result. The basics are there, but the higher-risk judgment calls still need work.";
       } else {
-        nextBtn.style.display = "inline-block";
-        nextBtn.textContent = "See Results";
+        message = "This result shows meaningful training gaps. More repetition and review are needed before confidence should be high.";
       }
+
+      finalMessage.textContent = message;
+
+      questionNumber.textContent = `${quizQuestions.length} / ${quizQuestions.length}`;
+      scoreDisplay.textContent = score;
+      correctDisplay.textContent = correctCount;
+      accuracyDisplay.textContent = `${Math.round((correctCount / quizQuestions.length) * 100)}%`;
+      modeDisplay.textContent = "Complete";
     }
 
     nextBtn.addEventListener("click", () => {
@@ -1440,34 +1453,7 @@
       }
     });
 
-    function showResults() {
-      quizCard.style.display = "none";
-      resultsBox.style.display = "block";
-
-      const maxScore = quizQuestions.reduce((sum, q) => sum + (q.difficulty === "Expert" ? 2 : 1), 0);
-      const percent = Math.round((score / maxScore) * 100);
-
-      finalScore.textContent = `${score} / ${maxScore}`;
-
-      let message = "";
-      if (percent >= 90) {
-        message = "Excellent performance. This score suggests strong awareness and decision-making across asphalt and roadwork safety scenarios.";
-      } else if (percent >= 75) {
-        message = "Good work. There is solid knowledge here, with some areas that would benefit from stronger judgment under pressure.";
-      } else if (percent >= 60) {
-        message = "Fair result. The basics are present, but there are decision-making gaps that could create risk in real work zones.";
-      } else {
-        message = "This result shows important safety gaps. More training and review are needed before confidence should be high.";
-      }
-
-      finalMessage.textContent = message;
-
-      questionNumber.textContent = `${quizQuestions.length} / ${quizQuestions.length}`;
-      scoreDisplay.textContent = score;
-      correctDisplay.textContent = correctCount;
-      accuracyDisplay.textContent = `${Math.round((correctCount / quizQuestions.length) * 100)}%`;
-    }
-
+    restartMidBtn.addEventListener("click", startQuiz);
     startBtn.addEventListener("click", startQuiz);
 
     populateCategories();
