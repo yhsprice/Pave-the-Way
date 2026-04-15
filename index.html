@@ -608,8 +608,8 @@
       <p id="finalMessage"></p>
       <div class="badge-row" id="badgeRow"></div>
       <div class="actions">
-        <button onclick="startQuiz()">Play Again</button>
-        <button class="secondary-btn" onclick="backToSetup()">Back to Setup</button>
+        <button id="playAgainBtn">Play Again</button>
+        <button class="secondary-btn" id="backToSetupBtn">Back to Setup</button>
       </div>
     </div>
 
@@ -936,8 +936,9 @@
         correct: 1,
         explanation: "Good judgment asks what the control is buying you before giving it away.",
         image: ""
-      }
-            {
+      },
+
+      {
         category: "Safety Culture & Hazard Recognition",
         difficulty: "Beginner",
         question: "Why should a worker report a hazard even if no one has been injured yet?",
@@ -1077,7 +1078,6 @@
         explanation: "Habit is not evidence. Sometimes it is just repeated luck.",
         image: ""
       },
-
       {
         category: "Safety Culture & Hazard Recognition",
         difficulty: "Expert",
@@ -1359,7 +1359,6 @@
         explanation: "A work zone is not set-it-and-forget-it. Conditions drift.",
         image: ""
       },
-
       {
         category: "Traffic Control & Work Zone Setup",
         difficulty: "Expert",
@@ -1528,6 +1527,8 @@
     const startBtn = document.getElementById("startBtn");
     const restartMidBtn = document.getElementById("restartMidBtn");
     const clearLeaderboardBtn = document.getElementById("clearLeaderboardBtn");
+    const playAgainBtn = document.getElementById("playAgainBtn");
+    const backToSetupBtn = document.getElementById("backToSetupBtn");
 
     const setupSection = document.getElementById("setupSection");
     const quizBox = document.getElementById("quizBox");
@@ -1564,6 +1565,7 @@
 
     function renderOptionCards(container, items, selectedId, onSelect, showCounts = false) {
       container.innerHTML = "";
+
       items.forEach(item => {
         const card = document.createElement("div");
         card.className = "option-card" + (item.id === selectedId ? " selected" : "");
@@ -1635,8 +1637,10 @@
 
     function playTone(freq, duration, volume = 0.04) {
       if (!getCurrentSoundSetting()) return;
+
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       if (!AudioContextClass) return;
+
       const ctx = new AudioContextClass();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -1671,15 +1675,14 @@
 
     function launchConfetti() {
       const colors = ["#1d4ed8", "#22c55e", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"];
+
       for (let i = 0; i < 70; i++) {
         const piece = document.createElement("div");
         piece.className = "confetti-piece";
         piece.style.left = `${Math.random() * 100}%`;
         piece.style.background = colors[Math.floor(Math.random() * colors.length)];
         piece.style.animationDelay = `${Math.random() * 0.6}s`;
-        piece.style.transform = `translateY(-20px) rotate(${Math.random() * 360}deg)`;
         resultsBox.appendChild(piece);
-
         setTimeout(() => piece.remove(), 3500);
       }
     }
@@ -1732,17 +1735,6 @@
 
       setupSection.style.display = "none";
       resultsBox.style.display = "none";
-      resultsBox.innerHTML = `
-        <h2>Game Complete</h2>
-        <div class="score-highlight" id="finalScore">0 / 0</div>
-        <p id="finalMessage"></p>
-        <div class="badge-row" id="badgeRow"></div>
-        <div class="actions">
-          <button onclick="startQuiz()">Play Again</button>
-          <button class="secondary-btn" onclick="backToSetup()">Back to Setup</button>
-        </div>
-      `;
-
       quizBox.style.display = "block";
 
       renderQuestion();
@@ -1874,7 +1866,7 @@
         resultText = `${playerOneName}: ${playerOneScore} | ${playerTwoName}: ${playerTwoScore}`;
       }
 
-      document.getElementById("finalScore").textContent = selectedMode === "solo"
+      finalScore.textContent = selectedMode === "solo"
         ? `${playerOneScore} / ${maxScore}`
         : `${playerOneScore} - ${playerTwoScore}`;
 
@@ -1897,23 +1889,22 @@
         }
       }
 
-      document.getElementById("finalMessage").textContent = message;
+      finalMessage.textContent = message;
 
-      const badgeContainer = document.getElementById("badgeRow");
-      badgeContainer.innerHTML = "";
+      badgeRow.innerHTML = "";
 
       if (accuracy >= 90) {
-        badgeContainer.innerHTML += `<div class="badge">🏆 Road Boss</div>`;
+        badgeRow.innerHTML += `<div class="badge">🏆 Road Boss</div>`;
       } else if (accuracy >= 75) {
-        badgeContainer.innerHTML += `<div class="badge">💪 Crew Leader</div>`;
+        badgeRow.innerHTML += `<div class="badge">💪 Crew Leader</div>`;
       } else if (accuracy >= 60) {
-        badgeContainer.innerHTML += `<div class="badge">🛠️ Work In Progress</div>`;
+        badgeRow.innerHTML += `<div class="badge">🛠️ Work In Progress</div>`;
       } else {
-        badgeContainer.innerHTML += `<div class="badge">📘 Needs More Reps</div>`;
+        badgeRow.innerHTML += `<div class="badge">📘 Needs More Reps</div>`;
       }
 
       if (selectedMode !== "solo" && winningName !== "Tie") {
-        badgeContainer.innerHTML += `<div class="badge">🥇 ${winningName}</div>`;
+        badgeRow.innerHTML += `<div class="badge">🥇 ${winningName}</div>`;
       }
 
       if (accuracy >= 75) {
@@ -2018,6 +2009,8 @@
     restartMidBtn.addEventListener("click", startQuiz);
     nextBtn.addEventListener("click", nextQuestion);
     clearLeaderboardBtn.addEventListener("click", clearLeaderboard);
+    playAgainBtn.addEventListener("click", startQuiz);
+    backToSetupBtn.addEventListener("click", backToSetup);
 
     renderSelections();
     renderLeaderboard();
