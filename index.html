@@ -3,47 +3,169 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pave the Way - Employee Training Challenge</title>
+  <title>Pave the Way</title>
   <style>
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #eef3f8, #dfe8f1);
+      background: linear-gradient(180deg, #eef6ff, #f8fbff);
       color: #1f2937;
     }
 
     .container {
-      max-width: 1100px;
-      margin: 24px auto;
-      background: #ffffff;
-      border-radius: 18px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-      padding: 28px;
+      max-width: 1180px;
+      margin: 28px auto;
+      padding: 20px;
     }
 
-    h1 {
+    .hero {
       text-align: center;
-      margin: 0 0 10px;
-      font-size: 36px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px 0;
+      font-size: 46px;
       color: #0f172a;
     }
 
-    .subtitle {
-      text-align: center;
-      margin: 0 auto 24px;
-      color: #475569;
-      font-size: 16px;
-      line-height: 1.5;
+    .hero p {
+      margin: 0 auto;
       max-width: 900px;
+      font-size: 17px;
+      color: #475569;
+      line-height: 1.5;
     }
 
-    .top-bar {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
+    .panel,
+    .quiz-box,
+    .result-box,
+    .leaderboard-box {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.10);
       margin-bottom: 22px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      margin: 0 0 14px 0;
+      color: #1d4ed8;
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .option-card {
+      border: 2px solid #dbe4f0;
+      border-radius: 16px;
+      padding: 16px;
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .option-card:hover {
+      border-color: #93c5fd;
+      transform: translateY(-2px);
+    }
+
+    .option-card.selected {
+      border-color: #1d4ed8;
+      background: linear-gradient(180deg, #eef4ff, #e6f0ff);
+    }
+
+    .option-card h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      color: #0f172a;
+    }
+
+    .option-card p {
+      margin: 0;
+      font-size: 14px;
+      color: #475569;
+      line-height: 1.45;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .control-group label {
+      font-size: 13px;
+      font-weight: bold;
+      color: #475569;
+    }
+
+    select, input[type="text"], button {
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      padding: 11px 14px;
+      font-size: 15px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+    }
+
+    button {
+      border: none;
+      background: #1d4ed8;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: #1e40af;
+    }
+
+    .secondary-btn {
+      background: #64748b;
+    }
+
+    .secondary-btn:hover {
+      background: #475569;
+    }
+
+    .danger-btn {
+      background: #b91c1c;
+    }
+
+    .danger-btn:hover {
+      background: #991b1b;
+    }
+
+    .name-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .top-stats {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
     }
 
     .stat-box {
@@ -68,63 +190,11 @@
       color: #0f172a;
     }
 
-    .controls {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-      margin-bottom: 20px;
-      align-items: end;
-    }
-
-    .control-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .control-group label {
-      font-size: 13px;
-      color: #475569;
-      font-weight: bold;
-    }
-
-    select, button {
-      padding: 11px 14px;
-      border-radius: 10px;
-      border: 1px solid #cbd5e1;
-      font-size: 15px;
-    }
-
-    button {
-      background: #1d4ed8;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background: #1e40af;
-    }
-
-    .secondary-btn {
-      background: #64748b;
-    }
-
-    .secondary-btn:hover {
-      background: #475569;
-    }
-
-    .question-card {
-      background: #f8fafc;
-      border: 1px solid #dbe4ee;
-      border-radius: 16px;
-      padding: 22px;
-      margin-top: 10px;
+    .quiz-box {
       display: none;
     }
 
-    .question-meta {
+    .status-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -133,7 +203,7 @@
 
     .tag {
       display: inline-block;
-      padding: 6px 12px;
+      padding: 7px 12px;
       border-radius: 999px;
       font-size: 13px;
       font-weight: bold;
@@ -144,27 +214,38 @@
       color: #1d4ed8;
     }
 
-    .tag-difficulty-beginner {
+    .tag-beginner {
       background: #dcfce7;
       color: #166534;
     }
 
-    .tag-difficulty-expert {
+    .tag-expert {
       background: #fee2e2;
       color: #991b1b;
     }
 
+    .tag-turn {
+      background: #ede9fe;
+      color: #6d28d9;
+    }
+
+    .tag-mode {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
     .question-text {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: bold;
-      line-height: 1.4;
-      margin-bottom: 20px;
+      line-height: 1.45;
+      margin-bottom: 18px;
       color: #0f172a;
     }
 
     .options {
       display: grid;
       gap: 12px;
+      margin-bottom: 18px;
     }
 
     .option-btn {
@@ -205,8 +286,15 @@
       font-weight: bold;
     }
 
+    .feedback {
+      min-height: 22px;
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
     .explanation {
-      margin-top: 18px;
+      margin-top: 8px;
       padding: 14px;
       border-radius: 12px;
       background: #eff6ff;
@@ -217,185 +305,254 @@
       font-size: 15px;
     }
 
-    .next-row {
+    .actions {
       display: flex;
-      justify-content: center;
+      flex-wrap: wrap;
       gap: 12px;
+      justify-content: center;
       margin-top: 18px;
     }
 
-    .results-box {
+    .result-box {
       display: none;
-      margin-top: 24px;
-      background: #f8fafc;
-      border: 1px solid #dbe4ee;
-      border-radius: 16px;
-      padding: 22px;
       text-align: center;
     }
 
-    .results-box h2 {
+    .result-box h2 {
       margin-top: 0;
       color: #0f172a;
+      font-size: 34px;
     }
 
-    .results-box p {
-      font-size: 17px;
+    .result-box p {
+      font-size: 18px;
       color: #334155;
       line-height: 1.6;
     }
 
     .score-highlight {
-      font-size: 38px;
+      font-size: 40px;
       font-weight: bold;
       color: #1d4ed8;
       margin: 12px 0;
+    }
+
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 10px 8px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .leaderboard-table th {
+      color: #1d4ed8;
     }
 
     .small-note {
       text-align: center;
       font-size: 13px;
       color: #64748b;
-      margin-top: 18px;
+      margin-top: 16px;
+      line-height: 1.5;
     }
 
-    @media (max-width: 900px) {
-      .top-bar {
+    @media (max-width: 980px) {
+      .top-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .controls-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-
-      .controls {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .controls .control-group:last-child {
-        grid-column: 1 / -1;
-      }
     }
 
-    @media (max-width: 560px) {
-      .container {
-        margin: 12px;
-        padding: 18px;
-      }
-
-      .top-bar {
+    @media (max-width: 700px) {
+      .name-grid,
+      .controls-grid,
+      .top-stats {
         grid-template-columns: 1fr;
       }
 
-      .controls {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 28px;
+      .hero h1 {
+        font-size: 34px;
       }
 
       .question-text {
-        font-size: 18px;
+        font-size: 20px;
       }
 
-      .option-btn {
-        font-size: 15px;
+      .container {
+        padding: 14px;
+        margin: 12px auto;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Pave the Way</h1>
-    <div class="subtitle">
-      Employee training designed to be more engaging, more realistic, and more memorable.
-      Questions blend beginner and expert judgment, not just memorization.
+    <div class="hero">
+      <h1>Pave the Way</h1>
+      <p>
+        Fun to play. Hard to ignore. Built for real employee training with beginner and expert judgment questions, team play, scoring, and leaderboard tracking.
+      </p>
     </div>
 
-    <div class="top-bar">
-      <div class="stat-box">
-        <div class="stat-label">Question</div>
-        <div class="stat-value" id="questionNumber">0 / 0</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">Score</div>
-        <div class="stat-value" id="scoreDisplay">0</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">Correct</div>
-        <div class="stat-value" id="correctDisplay">0</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">Accuracy</div>
-        <div class="stat-value" id="accuracyDisplay">0%</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">Mode</div>
-        <div class="stat-value" id="modeDisplay">Ready</div>
-      </div>
-    </div>
+    <div class="panel" id="setupSection">
+      <h2 class="section-title">1. Choose How to Play</h2>
+      <div class="option-grid" id="modeOptions"></div>
 
-    <div class="controls">
-      <div class="control-group">
-        <label for="categoryFilter">Category</label>
-        <select id="categoryFilter">
-          <option value="All">All Categories</option>
-        </select>
-      </div>
+      <h2 class="section-title">2. Choose Difficulty</h2>
+      <div class="option-grid" id="difficultyOptions"></div>
 
-      <div class="control-group">
-        <label for="difficultyFilter">Difficulty</label>
-        <select id="difficultyFilter">
-          <option value="Mixed">Mixed Difficulty</option>
-          <option value="Beginner">Beginner Only</option>
-          <option value="Expert">Expert Only</option>
-        </select>
-      </div>
+      <h2 class="section-title">3. Choose Question Style</h2>
+      <div class="option-grid" id="styleOptions"></div>
 
-      <div class="control-group">
-        <label for="questionCount">Question Count</label>
-        <select id="questionCount">
-          <option value="10">10 Questions</option>
-          <option value="15" selected>15 Questions</option>
-          <option value="20">20 Questions</option>
-          <option value="25">25 Questions</option>
-          <option value="40">40 Questions</option>
-          <option value="9999">All Available Questions</option>
-        </select>
+      <h2 class="section-title">4. Quiz Settings</h2>
+      <div class="controls-grid">
+        <div class="control-group">
+          <label for="categoryFilter">Category</label>
+          <select id="categoryFilter">
+            <option value="All">All Categories</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="questionCount">Question Count</label>
+          <select id="questionCount">
+            <option value="10">10 Questions</option>
+            <option value="15" selected>15 Questions</option>
+            <option value="20">20 Questions</option>
+            <option value="25">25 Questions</option>
+            <option value="40">40 Questions</option>
+            <option value="9999">All Available Questions</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="playerOneName">Player / Team 1</label>
+          <input type="text" id="playerOneName" placeholder="Player 1 or Team A" />
+        </div>
+
+        <div class="control-group">
+          <label for="playerTwoName">Player / Team 2</label>
+          <input type="text" id="playerTwoName" placeholder="Player 2 or Team B" />
+        </div>
       </div>
 
-      <div class="control-group">
-        <label for="categoryMode">Quiz Style</label>
-        <select id="categoryMode">
-          <option value="standard" selected>Standard Quiz</option>
-          <option value="judgment">Judgment Focus</option>
-          <option value="mixed">Fully Mixed</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label>&nbsp;</label>
-        <button id="startBtn">Start / Restart Quiz</button>
+      <div class="actions">
+        <button id="startBtn">Start Game</button>
       </div>
     </div>
 
-    <div class="question-card" id="quizCard">
-      <div class="question-meta" id="questionMeta"></div>
+    <div class="leaderboard-box">
+      <h2 class="section-title">Leaderboard</h2>
+
+      <div class="top-stats">
+        <div class="stat-box">
+          <div class="stat-label">Top Player</div>
+          <div class="stat-value" id="topPlayer">—</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Top Score</div>
+          <div class="stat-value" id="topScore">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Best Accuracy</div>
+          <div class="stat-value" id="topAccuracy">0%</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Attempts</div>
+          <div class="stat-value" id="totalAttempts">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Best Category</div>
+          <div class="stat-value" id="bestCategory">—</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Mode</div>
+          <div class="stat-value" id="bestMode">—</div>
+        </div>
+      </div>
+
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Mode</th>
+            <th>Category</th>
+            <th>Difficulty</th>
+            <th>Score</th>
+            <th>Accuracy</th>
+            <th>Attempts</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody"></tbody>
+      </table>
+
+      <div class="actions">
+        <button class="danger-btn" id="clearLeaderboardBtn">Clear Leaderboard</button>
+      </div>
+    </div>
+
+    <div class="quiz-box" id="quizBox">
+      <div class="top-stats">
+        <div class="stat-box">
+          <div class="stat-label">Question</div>
+          <div class="stat-value" id="questionNumber">0 / 0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Score</div>
+          <div class="stat-value" id="scoreDisplay">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Correct</div>
+          <div class="stat-value" id="correctDisplay">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Accuracy</div>
+          <div class="stat-value" id="accuracyDisplay">0%</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Attempts</div>
+          <div class="stat-value" id="attemptDisplay">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Leader</div>
+          <div class="stat-value" id="liveLeader">—</div>
+        </div>
+      </div>
+
+      <div class="status-bar" id="questionMeta"></div>
       <div class="question-text" id="questionText"></div>
       <div class="options" id="optionsBox"></div>
+      <div class="feedback" id="feedbackText"></div>
       <div class="explanation" id="explanationBox"></div>
-      <div class="next-row">
+
+      <div class="actions">
         <button id="nextBtn" style="display:none;">Next Question</button>
-        <button id="restartMidBtn" class="secondary-btn" style="display:none;">Restart</button>
+        <button class="secondary-btn" id="restartMidBtn">Restart</button>
       </div>
     </div>
 
-    <div class="results-box" id="resultsBox">
-      <h2>Quiz Complete</h2>
+    <div class="result-box" id="resultsBox">
+      <h2>Game Complete</h2>
       <div class="score-highlight" id="finalScore">0 / 0</div>
       <p id="finalMessage"></p>
-      <button onclick="startQuiz()">Play Again</button>
+      <div class="actions">
+        <button onclick="startQuiz()">Play Again</button>
+        <button class="secondary-btn" onclick="backToSetup()">Back to Setup</button>
+      </div>
     </div>
 
     <div class="small-note">
-      Expert questions are weighted heavier than beginner questions, so good judgment counts more than lucky guessing.
+      Expert questions are worth 2 points. Beginner questions are worth 1 point. That way good judgment matters more than button mashing.
     </div>
   </div>
 
@@ -1242,35 +1399,110 @@
       }
     ];
 
+    const modeChoices = [
+      { id: "solo", name: "Solo Player", description: "One player, weighted score, leaderboard tracking." },
+      { id: "versus", name: "Head-to-Head", description: "Two players take turns. Highest weighted score wins." },
+      { id: "team", name: "Team Challenge", description: "Team A versus Team B. Great for training groups." }
+    ];
+
+    const difficultyChoices = [
+      { id: "Mixed", name: "Mixed Difficulty", description: "Uses both beginner and expert questions." },
+      { id: "Beginner", name: "Beginner Only", description: "Focuses on fundamentals and safer entry-level learning." },
+      { id: "Expert", name: "Expert Only", description: "Harder judgment and decision-making questions." }
+    ];
+
+    const styleChoices = [
+      { id: "standard", name: "Standard Mix", description: "Balanced random quiz." },
+      { id: "judgment", name: "Judgment Focus", description: "Pushes expert and higher-risk decision questions first." },
+      { id: "mixed", name: "Fully Mixed", description: "Total shuffle chaos. In a good way." }
+    ];
+
+    let selectedMode = "solo";
+    let selectedDifficulty = "Mixed";
+    let selectedStyle = "standard";
+
     let quizQuestions = [];
     let currentQuestionIndex = 0;
-    let score = 0;
     let correctCount = 0;
     let answered = false;
+    let currentTurn = 0;
+
+    let playerOneScore = 0;
+    let playerTwoScore = 0;
+    let attemptsMade = 0;
+
+    let playerOneName = "Player 1";
+    let playerTwoName = "Player 2";
+
+    const modeOptions = document.getElementById("modeOptions");
+    const difficultyOptions = document.getElementById("difficultyOptions");
+    const styleOptions = document.getElementById("styleOptions");
 
     const categoryFilter = document.getElementById("categoryFilter");
-    const difficultyFilter = document.getElementById("difficultyFilter");
     const questionCountSelect = document.getElementById("questionCount");
-    const categoryMode = document.getElementById("categoryMode");
+    const playerOneNameInput = document.getElementById("playerOneName");
+    const playerTwoNameInput = document.getElementById("playerTwoName");
+
     const startBtn = document.getElementById("startBtn");
     const restartMidBtn = document.getElementById("restartMidBtn");
+    const clearLeaderboardBtn = document.getElementById("clearLeaderboardBtn");
 
-    const quizCard = document.getElementById("quizCard");
+    const setupSection = document.getElementById("setupSection");
+    const quizBox = document.getElementById("quizBox");
+    const resultsBox = document.getElementById("resultsBox");
+
     const questionMeta = document.getElementById("questionMeta");
     const questionText = document.getElementById("questionText");
     const optionsBox = document.getElementById("optionsBox");
     const explanationBox = document.getElementById("explanationBox");
+    const feedbackText = document.getElementById("feedbackText");
     const nextBtn = document.getElementById("nextBtn");
-
-    const resultsBox = document.getElementById("resultsBox");
-    const finalScore = document.getElementById("finalScore");
-    const finalMessage = document.getElementById("finalMessage");
 
     const questionNumber = document.getElementById("questionNumber");
     const scoreDisplay = document.getElementById("scoreDisplay");
     const correctDisplay = document.getElementById("correctDisplay");
     const accuracyDisplay = document.getElementById("accuracyDisplay");
-    const modeDisplay = document.getElementById("modeDisplay");
+    const attemptDisplay = document.getElementById("attemptDisplay");
+    const liveLeader = document.getElementById("liveLeader");
+
+    const finalScore = document.getElementById("finalScore");
+    const finalMessage = document.getElementById("finalMessage");
+
+    const leaderboardBody = document.getElementById("leaderboardBody");
+    const topPlayer = document.getElementById("topPlayer");
+    const topScore = document.getElementById("topScore");
+    const topAccuracy = document.getElementById("topAccuracy");
+    const totalAttempts = document.getElementById("totalAttempts");
+    const bestCategory = document.getElementById("bestCategory");
+    const bestMode = document.getElementById("bestMode");
+
+    function renderOptionCards(container, items, selectedId, onSelect) {
+      container.innerHTML = "";
+      items.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "option-card" + (item.id === selectedId ? " selected" : "");
+        card.innerHTML = `<h3>${item.name}</h3><p>${item.description}</p>`;
+        card.onclick = () => onSelect(item.id);
+        container.appendChild(card);
+      });
+    }
+
+    function renderSelections() {
+      renderOptionCards(modeOptions, modeChoices, selectedMode, (id) => {
+        selectedMode = id;
+        renderSelections();
+      });
+
+      renderOptionCards(difficultyOptions, difficultyChoices, selectedDifficulty, (id) => {
+        selectedDifficulty = id;
+        renderSelections();
+      });
+
+      renderOptionCards(styleOptions, styleChoices, selectedStyle, (id) => {
+        selectedStyle = id;
+        renderSelections();
+      });
+    }
 
     function populateCategories() {
       const categories = [...new Set(allQuestions.map(q => q.category))].sort();
@@ -1291,21 +1523,30 @@
       return arr;
     }
 
-    function getWeightedQuestionScore(question) {
+    function getQuestionValue(question) {
       return question.difficulty === "Expert" ? 2 : 1;
     }
 
-    function sortForJudgmentMode(questions) {
-      const expert = questions.filter(q => q.difficulty === "Expert");
-      const beginner = questions.filter(q => q.difficulty === "Beginner");
-      return shuffleArray([...expert, ...beginner]);
+    function getCurrentPlayerLabel() {
+      if (selectedMode === "solo") return playerOneName;
+      return currentTurn % 2 === 0 ? playerOneName : playerTwoName;
     }
 
-    function startQuiz() {
+    function getCurrentPlayerScore() {
+      if (selectedMode === "solo") return playerOneScore;
+      return currentTurn % 2 === 0 ? playerOneScore : playerTwoScore;
+    }
+
+    function getLeadingPlayer() {
+      if (selectedMode === "solo") return playerOneName;
+      if (playerOneScore > playerTwoScore) return playerOneName;
+      if (playerTwoScore > playerOneScore) return playerTwoName;
+      return "Tie";
+    }
+
+    function buildQuestionSet() {
       const selectedCategory = categoryFilter.value;
-      const selectedDifficulty = difficultyFilter.value;
       const selectedCount = parseInt(questionCountSelect.value, 10);
-      const selectedStyle = categoryMode.value;
 
       let filtered = [...allQuestions];
 
@@ -1318,7 +1559,9 @@
       }
 
       if (selectedStyle === "judgment") {
-        filtered = sortForJudgmentMode(filtered);
+        const expert = filtered.filter(q => q.difficulty === "Expert");
+        const beginner = filtered.filter(q => q.difficulty === "Beginner");
+        filtered = [...shuffleArray(expert), ...shuffleArray(beginner)];
       } else {
         filtered = shuffleArray(filtered);
       }
@@ -1327,34 +1570,47 @@
         filtered = filtered.slice(0, selectedCount);
       }
 
-      if (filtered.length === 0) {
-        alert("No questions match your current selections.");
+      return filtered;
+    }
+
+    function startQuiz() {
+      playerOneName = playerOneNameInput.value.trim() || (selectedMode === "team" ? "Team A" : "Player 1");
+      playerTwoName = playerTwoNameInput.value.trim() || (selectedMode === "team" ? "Team B" : "Player 2");
+
+      quizQuestions = buildQuestionSet();
+
+      if (quizQuestions.length === 0) {
+        alert("No questions match your current setup.");
         return;
       }
 
-      quizQuestions = filtered;
       currentQuestionIndex = 0;
-      score = 0;
       correctCount = 0;
       answered = false;
+      currentTurn = 0;
+      playerOneScore = 0;
+      playerTwoScore = 0;
+      attemptsMade++;
 
+      setupSection.style.display = "none";
       resultsBox.style.display = "none";
-      quizCard.style.display = "block";
-      restartMidBtn.style.display = "inline-block";
+      quizBox.style.display = "block";
 
-      updateStats();
       renderQuestion();
+      updateLiveStats();
     }
 
-    function updateStats() {
+    function updateLiveStats() {
       const answeredCount = currentQuestionIndex;
       const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+      const totalScore = selectedMode === "solo" ? playerOneScore : `${playerOneScore}-${playerTwoScore}`;
 
       questionNumber.textContent = `${Math.min(currentQuestionIndex + 1, quizQuestions.length)} / ${quizQuestions.length}`;
-      scoreDisplay.textContent = score;
+      scoreDisplay.textContent = totalScore;
       correctDisplay.textContent = correctCount;
       accuracyDisplay.textContent = `${accuracy}%`;
-      modeDisplay.textContent = categoryMode.value === "judgment" ? "Judgment" : categoryMode.value === "mixed" ? "Mixed" : "Standard";
+      attemptDisplay.textContent = attemptsMade;
+      liveLeader.textContent = getLeadingPlayer();
     }
 
     function renderQuestion() {
@@ -1362,13 +1618,16 @@
       explanationBox.style.display = "none";
       explanationBox.innerHTML = "";
       nextBtn.style.display = "none";
+      feedbackText.textContent = "";
       optionsBox.innerHTML = "";
 
       const q = quizQuestions[currentQuestionIndex];
 
       questionMeta.innerHTML = `
         <span class="tag tag-category">${q.category}</span>
-        <span class="tag ${q.difficulty === "Beginner" ? "tag-difficulty-beginner" : "tag-difficulty-expert"}">${q.difficulty}</span>
+        <span class="tag ${q.difficulty === "Beginner" ? "tag-beginner" : "tag-expert"}">${q.difficulty}</span>
+        <span class="tag tag-turn">${getCurrentPlayerLabel()} Turn</span>
+        <span class="tag tag-mode">${selectedMode === "solo" ? "Solo" : selectedMode === "versus" ? "Head-to-Head" : "Team Play"}</span>
       `;
 
       questionText.textContent = q.question;
@@ -1381,7 +1640,7 @@
         optionsBox.appendChild(btn);
       });
 
-      updateStats();
+      updateLiveStats();
     }
 
     function selectAnswer(selectedIndex) {
@@ -1393,7 +1652,6 @@
 
       buttons.forEach((btn, index) => {
         btn.disabled = true;
-
         if (index === q.correct) {
           btn.classList.add("correct");
         } else if (index === selectedIndex) {
@@ -1402,61 +1660,187 @@
       });
 
       if (selectedIndex === q.correct) {
-        score += getWeightedQuestionScore(q);
+        const points = getQuestionValue(q);
         correctCount++;
+
+        if (selectedMode === "solo") {
+          playerOneScore += points;
+        } else {
+          if (currentTurn % 2 === 0) {
+            playerOneScore += points;
+          } else {
+            playerTwoScore += points;
+          }
+        }
+
+        feedbackText.textContent = `Correct (+${points})`;
+        feedbackText.style.color = "#15803d";
+      } else {
+        feedbackText.textContent = "Incorrect";
+        feedbackText.style.color = "#b91c1c";
       }
 
       explanationBox.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
       explanationBox.style.display = "block";
 
       currentQuestionIndex++;
-      updateStats();
-
       nextBtn.style.display = "inline-block";
       nextBtn.textContent = currentQuestionIndex < quizQuestions.length ? "Next Question" : "See Results";
+
+      updateLiveStats();
     }
 
     function showResults() {
-      quizCard.style.display = "none";
+      quizBox.style.display = "none";
       resultsBox.style.display = "block";
 
-      const maxScore = quizQuestions.reduce((sum, q) => sum + getWeightedQuestionScore(q), 0);
-      const percent = Math.round((score / maxScore) * 100);
+      const maxScore = quizQuestions.reduce((sum, q) => sum + getQuestionValue(q), 0);
+      const totalAnswered = quizQuestions.length;
+      const accuracy = Math.round((correctCount / totalAnswered) * 100);
 
-      finalScore.textContent = `${score} / ${maxScore}`;
+      let resultText = "";
+      let winningName = playerOneName;
+      let winningScore = playerOneScore;
+
+      if (selectedMode === "solo") {
+        resultText = `${playerOneName} scored ${playerOneScore} out of ${maxScore}.`;
+      } else {
+        if (playerTwoScore > playerOneScore) {
+          winningName = playerTwoName;
+          winningScore = playerTwoScore;
+        } else if (playerOneScore === playerTwoScore) {
+          winningName = "Tie";
+        }
+
+        resultText = `${playerOneName}: ${playerOneScore} | ${playerTwoName}: ${playerTwoScore}`;
+      }
+
+      finalScore.textContent = selectedMode === "solo"
+        ? `${playerOneScore} / ${maxScore}`
+        : `${playerOneScore} - ${playerTwoScore}`;
 
       let message = "";
-      if (percent >= 90) {
-        message = "Excellent performance. This shows strong awareness, judgment, and decision-making under pressure.";
-      } else if (percent >= 75) {
-        message = "Good work. The foundation is strong, but a few decision points still need tightening.";
-      } else if (percent >= 60) {
-        message = "Fair result. The basics are there, but the higher-risk judgment calls still need work.";
+      if (selectedMode === "solo") {
+        if (accuracy >= 90) {
+          message = `Excellent performance. ${resultText} Strong awareness and judgment all around.`;
+        } else if (accuracy >= 75) {
+          message = `Good work. ${resultText} Solid result with a few areas still worth tightening.`;
+        } else if (accuracy >= 60) {
+          message = `Fair result. ${resultText} The basics are there, but some of the harder judgment calls still need work.`;
+        } else {
+          message = `More practice needed. ${resultText} The training gaps are still pretty loud.`;
+        }
       } else {
-        message = "This result shows meaningful training gaps. More repetition and review are needed before confidence should be high.";
+        if (winningName === "Tie") {
+          message = `${resultText}. Nobody wins the bragging rights today.`;
+        } else {
+          message = `${resultText}. ${winningName} wins this round.`;
+        }
       }
 
       finalMessage.textContent = message;
 
-      questionNumber.textContent = `${quizQuestions.length} / ${quizQuestions.length}`;
-      scoreDisplay.textContent = score;
-      correctDisplay.textContent = correctCount;
-      accuracyDisplay.textContent = `${Math.round((correctCount / quizQuestions.length) * 100)}%`;
-      modeDisplay.textContent = "Complete";
+      saveLeaderboardEntry({
+        name: selectedMode === "solo" ? playerOneName : winningName,
+        mode: selectedMode === "solo" ? "Solo" : selectedMode === "versus" ? "Head-to-Head" : "Team Play",
+        category: categoryFilter.value,
+        difficulty: selectedDifficulty,
+        score: selectedMode === "solo" ? `${playerOneScore}/${maxScore}` : `${winningScore}`,
+        rawScore: selectedMode === "solo" ? playerOneScore : winningScore,
+        accuracy: `${accuracy}%`,
+        accuracyNum: accuracy,
+        attempts: attemptsMade
+      });
+
+      renderLeaderboard();
     }
 
-    nextBtn.addEventListener("click", () => {
+    function nextQuestion() {
       if (currentQuestionIndex < quizQuestions.length) {
+        if (selectedMode !== "solo") {
+          currentTurn++;
+        }
         renderQuestion();
       } else {
         showResults();
       }
-    });
+    }
 
-    restartMidBtn.addEventListener("click", startQuiz);
+    function backToSetup() {
+      quizBox.style.display = "none";
+      resultsBox.style.display = "none";
+      setupSection.style.display = "block";
+    }
+
+    function getLeaderboard() {
+      try {
+        return JSON.parse(localStorage.getItem("paveTheWayLeaderboardNew")) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveLeaderboardEntry(entry) {
+      const leaderboard = getLeaderboard();
+      leaderboard.unshift(entry);
+      localStorage.setItem("paveTheWayLeaderboardNew", JSON.stringify(leaderboard.slice(0, 25)));
+    }
+
+    function renderLeaderboard() {
+      const leaderboard = getLeaderboard();
+      leaderboardBody.innerHTML = "";
+
+      if (leaderboard.length === 0) {
+        leaderboardBody.innerHTML = `<tr><td colspan="7">No scores yet.</td></tr>`;
+        topPlayer.textContent = "—";
+        topScore.textContent = "0";
+        topAccuracy.textContent = "0%";
+        totalAttempts.textContent = "0";
+        bestCategory.textContent = "—";
+        bestMode.textContent = "—";
+        return;
+      }
+
+      leaderboard.forEach(item => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.mode}</td>
+          <td>${item.category}</td>
+          <td>${item.difficulty}</td>
+          <td>${item.score}</td>
+          <td>${item.accuracy}</td>
+          <td>${item.attempts}</td>
+        `;
+        leaderboardBody.appendChild(row);
+      });
+
+      const best = [...leaderboard].sort((a, b) => {
+        if (b.accuracyNum !== a.accuracyNum) return b.accuracyNum - a.accuracyNum;
+        return b.rawScore - a.rawScore;
+      })[0];
+
+      topPlayer.textContent = best.name;
+      topScore.textContent = best.rawScore;
+      topAccuracy.textContent = best.accuracy;
+      totalAttempts.textContent = leaderboard.length;
+      bestCategory.textContent = best.category;
+      bestMode.textContent = best.mode;
+    }
+
+    function clearLeaderboard() {
+      localStorage.removeItem("paveTheWayLeaderboardNew");
+      renderLeaderboard();
+    }
+
     startBtn.addEventListener("click", startQuiz);
+    restartMidBtn.addEventListener("click", startQuiz);
+    nextBtn.addEventListener("click", nextQuestion);
+    clearLeaderboardBtn.addEventListener("click", clearLeaderboard);
 
     populateCategories();
+    renderSelections();
+    renderLeaderboard();
   </script>
 </body>
 </html>
