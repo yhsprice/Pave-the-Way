@@ -6,26 +6,31 @@
   <title>Pave the Way</title>
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: linear-gradient(180deg, #eef6ff, #f8fbff);
       color: #1f2937;
     }
+
     .container {
       max-width: 1200px;
       margin: 24px auto;
       padding: 20px;
     }
+
     .hero {
       text-align: center;
       margin-bottom: 24px;
     }
+
     .hero h1 {
       margin: 0 0 8px 0;
       font-size: 46px;
       color: #0f172a;
     }
+
     .hero p {
       margin: 0 auto;
       max-width: 900px;
@@ -33,6 +38,7 @@
       color: #475569;
       line-height: 1.5;
     }
+
     .panel,
     .quiz-box,
     .result-box,
@@ -43,17 +49,20 @@
       box-shadow: 0 12px 30px rgba(0,0,0,0.10);
       margin-bottom: 22px;
     }
+
     .section-title {
       font-size: 24px;
       margin: 0 0 14px 0;
       color: #1d4ed8;
     }
+
     .option-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 14px;
       margin-bottom: 22px;
     }
+
     .option-card {
       border: 2px solid #dbe4f0;
       border-radius: 16px;
@@ -62,54 +71,67 @@
       cursor: pointer;
       transition: 0.2s ease;
     }
+
     .option-card:hover {
       border-color: #93c5fd;
       transform: translateY(-2px);
     }
+
     .option-card.selected {
       border-color: #1d4ed8;
       background: linear-gradient(180deg, #eef4ff, #e6f0ff);
     }
+
     .option-card h3 {
       margin: 0 0 8px 0;
       font-size: 18px;
       color: #0f172a;
     }
+
     .option-card p {
       margin: 0;
       font-size: 14px;
       color: #475569;
       line-height: 1.45;
     }
+
     .count-line {
       margin-top: 8px !important;
       font-size: 13px !important;
       color: #1d4ed8 !important;
       font-weight: bold !important;
     }
+
     .controls-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
       margin-bottom: 20px;
     }
+
     .control-group {
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
+
     .control-group label {
       font-size: 13px;
       font-weight: bold;
       color: #475569;
     }
+
     select, input[type="text"], button {
       border-radius: 12px;
       border: 1px solid #cbd5e1;
       padding: 11px 14px;
       font-size: 15px;
     }
-    input[type="text"] { width: 100%; }
+
+    input[type="text"] {
+      width: 100%;
+    }
+
     button {
       border: none;
       background: #1d4ed8;
@@ -118,11 +140,26 @@
       cursor: pointer;
       transition: 0.2s ease;
     }
-    button:hover { background: #1e40af; }
-    .secondary-btn { background: #64748b; }
-    .secondary-btn:hover { background: #475569; }
-    .danger-btn { background: #b91c1c; }
-    .danger-btn:hover { background: #991b1b; }
+
+    button:hover {
+      background: #1e40af;
+    }
+
+    .secondary-btn {
+      background: #64748b;
+    }
+
+    .secondary-btn:hover {
+      background: #475569;
+    }
+
+    .danger-btn {
+      background: #b91c1c;
+    }
+
+    .danger-btn:hover {
+      background: #991b1b;
+    }
 
     .top-stats {
       display: grid;
@@ -130,6 +167,7 @@
       gap: 12px;
       margin-bottom: 20px;
     }
+
     .stat-box {
       background: #f8fafc;
       border: 1px solid #dbe4ee;
@@ -137,6 +175,7 @@
       padding: 14px;
       text-align: center;
     }
+
     .stat-label {
       font-size: 12px;
       color: #64748b;
@@ -144,19 +183,24 @@
       letter-spacing: 0.5px;
       margin-bottom: 6px;
     }
+
     .stat-value {
       font-size: 22px;
       font-weight: bold;
       color: #0f172a;
     }
 
-    .quiz-box { display: none; }
+    .quiz-box {
+      display: none;
+    }
+
     .status-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 16px;
     }
+
     .tag {
       display: inline-block;
       padding: 7px 12px;
@@ -164,6 +208,7 @@
       font-size: 13px;
       font-weight: bold;
     }
+
     .tag-category { background: #dbeafe; color: #1d4ed8; }
     .tag-beginner { background: #dcfce7; color: #166534; }
     .tag-expert { background: #fee2e2; color: #991b1b; }
@@ -178,23 +223,13 @@
       color: #0f172a;
       white-space: pre-line;
     }
-    .question-image-wrap {
-      display: none;
-      margin-bottom: 18px;
-      text-align: center;
-    }
-    .question-image {
-      max-width: 100%;
-      max-height: 320px;
-      border-radius: 14px;
-      border: 1px solid #dbe4ee;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    }
+
     .options {
       display: grid;
       gap: 12px;
       margin-bottom: 18px;
     }
+
     .option-btn {
       width: 100%;
       text-align: left;
@@ -208,32 +243,38 @@
       cursor: pointer;
       transition: 0.2s ease;
     }
+
     .option-btn:hover:not(:disabled) {
       border-color: #2563eb;
       transform: translateY(-1px);
     }
+
     .option-btn:disabled {
       cursor: default;
       opacity: 1;
     }
+
     .correct {
       background: #dcfce7 !important;
       border-color: #22c55e !important;
       color: #166534 !important;
       font-weight: bold;
     }
+
     .incorrect {
       background: #fee2e2 !important;
       border-color: #ef4444 !important;
       color: #991b1b !important;
       font-weight: bold;
     }
+
     .feedback {
       min-height: 22px;
       font-size: 17px;
       font-weight: bold;
       margin-bottom: 8px;
     }
+
     .explanation {
       margin-top: 8px;
       padding: 14px;
@@ -245,6 +286,7 @@
       color: #1e3a8a;
       font-size: 15px;
     }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -252,28 +294,31 @@
       justify-content: center;
       margin-top: 18px;
     }
+
     .result-box {
       display: none;
       text-align: center;
-      position: relative;
-      overflow: hidden;
     }
+
     .result-box h2 {
       margin-top: 0;
       color: #0f172a;
       font-size: 34px;
     }
+
     .result-box p {
       font-size: 18px;
       color: #334155;
       line-height: 1.6;
     }
+
     .score-highlight {
       font-size: 40px;
       font-weight: bold;
       color: #1d4ed8;
       margin: 12px 0;
     }
+
     .badge-row {
       display: flex;
       justify-content: center;
@@ -281,6 +326,7 @@
       flex-wrap: wrap;
       margin-top: 14px;
     }
+
     .badge {
       padding: 10px 16px;
       border-radius: 999px;
@@ -289,11 +335,13 @@
       background: #ede9fe;
       color: #6d28d9;
     }
+
     .leaderboard-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 8px;
     }
+
     .leaderboard-table th,
     .leaderboard-table td {
       border-bottom: 1px solid #e5e7eb;
@@ -301,7 +349,11 @@
       text-align: left;
       font-size: 14px;
     }
-    .leaderboard-table th { color: #1d4ed8; }
+
+    .leaderboard-table th {
+      color: #1d4ed8;
+    }
+
     .small-note {
       text-align: center;
       font-size: 13px;
@@ -309,27 +361,35 @@
       margin-top: 16px;
       line-height: 1.5;
     }
-    .confetti-piece {
-      position: absolute;
-      top: -20px;
-      width: 10px;
-      height: 16px;
-      opacity: 0.9;
-      animation: fall 3s linear forwards;
-    }
-    @keyframes fall {
-      from { transform: translateY(-20px) rotate(0deg); }
-      to { transform: translateY(500px) rotate(540deg); opacity: 0; }
-    }
+
     @media (max-width: 980px) {
-      .top-stats { grid-template-columns: repeat(3, 1fr); }
-      .controls-grid { grid-template-columns: repeat(2, 1fr); }
+      .top-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .controls-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
+
     @media (max-width: 700px) {
-      .controls-grid, .top-stats { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 34px; }
-      .question-text { font-size: 20px; }
-      .container { padding: 14px; margin: 12px auto; }
+      .controls-grid,
+      .top-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .question-text {
+        font-size: 20px;
+      }
+
+      .container {
+        padding: 14px;
+        margin: 12px auto;
+      }
     }
   </style>
 </head>
@@ -366,7 +426,6 @@
             <option value="20">20 Questions</option>
             <option value="25">25 Questions</option>
             <option value="40">40 Questions</option>
-            <option value="9999">All Available Questions</option>
           </select>
         </div>
 
@@ -398,30 +457,12 @@
       <h2 class="section-title">Leaderboard</h2>
 
       <div class="top-stats">
-        <div class="stat-box">
-          <div class="stat-label">Top Player</div>
-          <div class="stat-value" id="topPlayer">—</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Top Score</div>
-          <div class="stat-value" id="topScore">0</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Best Accuracy</div>
-          <div class="stat-value" id="topAccuracy">0%</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Attempts</div>
-          <div class="stat-value" id="totalAttempts">0</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Best Category</div>
-          <div class="stat-value" id="bestCategory">—</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Best Mode</div>
-          <div class="stat-value" id="bestMode">—</div>
-        </div>
+        <div class="stat-box"><div class="stat-label">Top Player</div><div class="stat-value" id="topPlayer">—</div></div>
+        <div class="stat-box"><div class="stat-label">Top Score</div><div class="stat-value" id="topScore">0</div></div>
+        <div class="stat-box"><div class="stat-label">Best Accuracy</div><div class="stat-value" id="topAccuracy">0%</div></div>
+        <div class="stat-box"><div class="stat-label">Attempts</div><div class="stat-value" id="totalAttempts">0</div></div>
+        <div class="stat-box"><div class="stat-label">Best Category</div><div class="stat-value" id="bestCategory">—</div></div>
+        <div class="stat-box"><div class="stat-label">Best Mode</div><div class="stat-value" id="bestMode">—</div></div>
       </div>
 
       <table class="leaderboard-table">
@@ -446,39 +487,16 @@
 
     <div class="quiz-box" id="quizBox">
       <div class="top-stats">
-        <div class="stat-box">
-          <div class="stat-label">Question</div>
-          <div class="stat-value" id="questionNumber">0 / 0</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Score</div>
-          <div class="stat-value" id="scoreDisplay">0</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Correct</div>
-          <div class="stat-value" id="correctDisplay">0</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Accuracy</div>
-          <div class="stat-value" id="accuracyDisplay">0%</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Attempts</div>
-          <div class="stat-value" id="attemptDisplay">0</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Leader</div>
-          <div class="stat-value" id="liveLeader">—</div>
-        </div>
+        <div class="stat-box"><div class="stat-label">Question</div><div class="stat-value" id="questionNumber">0 / 0</div></div>
+        <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value" id="scoreDisplay">0</div></div>
+        <div class="stat-box"><div class="stat-label">Correct</div><div class="stat-value" id="correctDisplay">0</div></div>
+        <div class="stat-box"><div class="stat-label">Accuracy</div><div class="stat-value" id="accuracyDisplay">0%</div></div>
+        <div class="stat-box"><div class="stat-label">Attempts</div><div class="stat-value" id="attemptDisplay">0</div></div>
+        <div class="stat-box"><div class="stat-label">Leader</div><div class="stat-value" id="liveLeader">—</div></div>
       </div>
 
       <div class="status-bar" id="questionMeta"></div>
       <div class="question-text" id="questionText"></div>
-
-      <div class="question-image-wrap" id="questionImageWrap">
-        <img id="questionImage" class="question-image" alt="Question visual" />
-      </div>
-
       <div class="options" id="optionsBox"></div>
       <div class="feedback" id="feedbackText"></div>
       <div class="explanation" id="explanationBox"></div>
@@ -501,14 +519,12 @@
     </div>
 
     <div class="small-note">
-      Beginner questions are worth 1 point. Expert questions are worth 2 points.
-      Fun Mode mixes in nickname and culture questions. Boss Mode is expert-only.
-      Scenario Mode leans heavily into real-life decisions.
+      This clean version is built to avoid the script-rendering bug. Once this loads correctly, the larger bank can be expanded safely.
     </div>
   </div>
 
   <script>
-    const categories = [
+    var categories = [
       { id: "All", name: "🎲 All Categories", description: "Use everything in the game." },
       { id: "Safety Culture & Hazard Recognition", name: "⚠️ Safety Culture", description: "Hazard awareness, reporting, and safe choices." },
       { id: "Traffic Control & Work Zone Setup", name: "🚧 Traffic Control", description: "Work zones, traffic flow, and setup decisions." },
@@ -522,381 +538,420 @@
       { id: "Human Factors, Judgment & Decision-Making", name: "🧠 Judgment", description: "Pressure, shortcuts, and real-world decision traps." }
     ];
 
-    const modeChoices = [
+    var modeChoices = [
       { id: "solo", name: "Solo Player", description: "One player, weighted score, leaderboard tracking." },
       { id: "versus", name: "Head-to-Head", description: "Two players take turns. Highest weighted score wins." },
-      { id: "team", name: "Team Challenge", description: "Team A versus Team B. Great for training groups." },
-      { id: "fun", name: "Fun Mode", description: "Mixes in nicknames, culture, and lighter questions." },
-      { id: "boss", name: "Boss Mode", description: "Expert-only. No hand-holding. Just pain." },
-      { id: "scenario", name: "Scenario Mode", description: "Heavier on real-life judgment questions." }
+      { id: "team", name: "Team Challenge", description: "Team A versus Team B." },
+      { id: "fun", name: "Fun Mode", description: "Lighter and nickname-style questions." },
+      { id: "boss", name: "Boss Mode", description: "Expert-only." },
+      { id: "scenario", name: "Scenario Mode", description: "Real-life judgment questions." }
     ];
 
-    const difficultyChoices = [
+    var difficultyChoices = [
       { id: "Mixed", name: "Mixed Difficulty", description: "Uses both beginner and expert questions." },
-      { id: "Beginner", name: "Beginner Only", description: "Focuses on fundamentals and safer entry-level learning." },
+      { id: "Beginner", name: "Beginner Only", description: "Focuses on fundamentals." },
       { id: "Expert", name: "Expert Only", description: "Harder judgment and decision-making questions." }
     ];
 
-    const styleChoices = [
+    var styleChoices = [
       { id: "standard", name: "Standard Mix", description: "Balanced random quiz." },
-      { id: "judgment", name: "Judgment Focus", description: "Pushes expert and risk-based questions first." },
-      { id: "mixed", name: "Fully Mixed", description: "Full shuffle and more chaos." }
+      { id: "judgment", name: "Judgment Focus", description: "Pushes expert questions first." },
+      { id: "mixed", name: "Fully Mixed", description: "Full shuffle." }
     ];
 
-    let selectedMode = "solo";
-    let selectedDifficulty = "Mixed";
-    let selectedStyle = "standard";
-    let selectedCategory = "All";
+    var selectedMode = "solo";
+    var selectedDifficulty = "Mixed";
+    var selectedStyle = "standard";
+    var selectedCategory = "All";
 
-    function q(category, difficulty, question, options, correct, explanation, tags = [], image = "") {
-      return { category, difficulty, question, options, correct, explanation, tags, image };
-    }
-
-    const allQuestions = [];
-
-    function addBaseQuestions() {
-      allQuestions.push(
-        q("Traffic Control & Work Zone Setup","Beginner","You are working near live traffic and a vehicle enters the work zone unexpectedly. What is the FIRST action you should take?",["Signal the driver to stop immediately","Move yourself and nearby workers to a safe area","Stand your ground so the driver sees you","Continue working and watch the vehicle"],1,"Your first responsibility is immediate safety. Workers should move to a safe area rather than attempting to control the driver directly.",["scenario"]),
-        q("Traffic Control & Work Zone Setup","Expert","Traffic begins moving faster than expected through your work zone. What is the BEST response?",["Continue working and stay alert","Move workers farther from the lane and continue","Pause work and reassess traffic control","Have one worker signal drivers while work continues"],2,"When traffic conditions change, work zone controls may no longer be adequate. The safest response is to pause and reassess.",["scenario"]),
-        q("Equipment, Technology & Machine Awareness","Beginner","You need to pass near a roller, but the operator has not acknowledged you. What should you do?",["Walk behind the roller quickly","Wait for clear acknowledgment before moving","Stay close to the machine so you are easier to see","Cross as long as the machine is moving slowly"],1,"If the operator has not acknowledged you, assume you are not visible.",["scenario"]),
-        q("Equipment, Technology & Machine Awareness","Expert","A spotter is unavailable for a task involving machine movement in a tight area. What is the BEST decision?",["Proceed more slowly without a spotter","Assign a trained replacement or delay the task","Use hand signals from any nearby worker","Continue if backup alarms are functioning"],1,"A missing control measure should be replaced or the task should wait.",["scenario"]),
-        q("Asphalt Paving Operations","Beginner","Why should workers stay clear of the paver hopper area?",["It gets dirty quickly","Dump trucks and moving parts create pinch and crush hazards","It blocks visibility for supervisors","It slows production"],1,"The hopper area is one of the most dangerous zones due to truck interaction and moving components."),
-        q("Asphalt Paving Operations","Expert","A worker stands between the truck and paver to help guide alignment. What is the BEST assessment?",["Helpful positioning","High-risk crush zone","Acceptable if experienced","Only dangerous at night"],1,"Never stand between two moving machines.",["scenario"]),
-        q("Milling & Profiling","Beginner","Why is milling considered hazardous?",["It is loud","Moving parts and debris create hazards","It slows paving","It is only risky at night"],1,"Milling involves moving cutters, debris, and machine interaction."),
-        q("Milling & Profiling","Expert","Workers are walking near the milling drum area. What is the BEST concern?",["Noise exposure","Severe injury risk from moving parts","Only dust exposure","Machine efficiency"],1,"The milling drum is extremely dangerous.",["scenario"]),
-        q("Grade, Drain, Utility & Storm/Sewer","Beginner","If you are unsure whether an area is safe to enter, what is the BEST action?",["Enter briefly and judge from inside the area","Assume it is safe if no one stops you","Pause and verify before entering","Follow the nearest worker without asking"],2,"Uncertainty is your cue to verify, not improvise."),
-        q("Grade, Drain, Utility & Storm/Sewer","Expert","A worker enters an unprotected trench because the task will only take a minute. What is the BEST response?",["Allow it if someone watches","Stop the work and require proper trench protection","Let them decide","Finish quickly before inspection"],1,"Short task or not, unprotected trench entry is a serious hazard.",["scenario"]),
-        q("Bridge & Concrete Structures","Beginner","Why does bridge work require extra attention to sequence and detail?",["Because it affects structural safety and long-term performance","Because it uses less equipment","Because it avoids inspection","Because it is mostly cosmetic"],0,"Bridge work affects structural quality, safety, and long-term durability."),
-        q("Bridge & Concrete Structures","Expert","A bridge repair phase starts before the previous area is properly verified. What is the greatest risk?",["Cleaner equipment","Hidden defects leading to safety or quality issues","Better traffic flow","Shorter concrete cure time"],1,"Starting the next phase too early can bury problems that become expensive later.",["scenario"]),
-        q("Aggregate Production & Delivery","Beginner","What is one key goal of aggregate delivery?",["Bring any material at any time","Deliver the correct material in the correct amount at the correct time","Keep trucks waiting longer","Mix loads without checking"],1,"Delivery accuracy affects production and quality."),
-        q("Aggregate Production & Delivery","Expert","A crew unloads the correct stone into the wrong stockpile. The biggest risk is:",["Better blending","Inventory confusion and material quality issues","Lower fuel use","Better weather"],1,"Wrong stockpile placement can create contamination and tracking problems.",["scenario"]),
-        q("Tank, Barge & Rail Transloading","Beginner","What is one basic rule of tank work?",["Assume contents based on memory","Verify contents before transfer or use","Skip labels if the tank looks familiar","Open everything first"],1,"Assumptions and tank work are a bad combination."),
-        q("Tank, Barge & Rail Transloading","Expert","Why is consistency important in rail transloading procedures?",["It helps reduce error and improve control","It removes the need for communication","It makes materials cheaper","It changes rail schedules"],0,"Consistency is how you stop repeat mistakes."),
-        q("Safety Culture & Hazard Recognition","Beginner","Why should near misses be taken seriously even when no one is hurt?",["They can reveal hazards before a real injury happens","They mainly help with paperwork","They are only important for insurance reasons","They usually happen by accident and mean very little"],0,"Near misses are warnings that something can go wrong under the current conditions."),
-        q("Safety Culture & Hazard Recognition","Expert","A worker laughs off a near miss and immediately returns to the same task. What is the BEST response?",["Let it go since no one was injured","Use the event to stop and address what nearly happened","Wait until the shift ends to talk about it","Assume the worker will be more careful now"],1,"Near misses are warnings. Returning to the same conditions without correction is asking for a rerun with worse timing.",["scenario"]),
-        q("Human Factors, Judgment & Decision-Making","Beginner","What is a smart response when a job starts feeling rushed or confusing?",["Move faster so it ends sooner","Slow down enough to verify the safe way forward","Ignore the confusion if others seem calm","Keep going and fix problems later"],1,"When conditions feel rushed or unclear, the smart move is to verify before making the next mistake faster."),
-        q("Human Factors, Judgment & Decision-Making","Expert","A control feels inconvenient and slows the work slightly. What is the BEST question to ask?",["Can we skip it this once?","What hazard is this control meant to prevent, and is that hazard still present?","Will anyone notice if we stop using it?","Can the most experienced worker ignore it?"],1,"Good judgment asks what the control is buying you before giving it away.",["scenario"]),
-
-        q("Safety Culture & Hazard Recognition","Beginner","Why should a worker report a hazard even if no one has been injured yet?",["Because reporting is only for paperwork","Because hazards should be corrected before they become incidents","Because supervisors like extra emails","Because reports automatically stop work for the day"],1,"Hazard reporting is meant to catch problems early, not after someone gets hurt."),
-        q("Safety Culture & Hazard Recognition","Expert","Why is luck a poor safety strategy?",["Luck only helps new workers","Luck is inconsistent and cannot control exposure","Luck works well for short tasks","Luck only fails in bad weather"],1,"Luck is not a control measure. It is just delayed consequences wearing perfume."),
-        q("Traffic Control & Work Zone Setup","Beginner","What is one main purpose of a work zone setup?",["To make the site look organized","To separate workers from traffic and moving hazards","To reduce how many workers are needed","To give drivers something to look at"],1,"A work zone setup should create separation and control before exposure begins."),
-        q("Traffic Control & Work Zone Setup","Expert","A lane closure is in place, but vehicles are crowding the edge of the work zone. What is the strongest response?",["Continue because the lane is technically closed","Move only the nearest worker farther away","Pause and evaluate whether taper, spacing, or setup are adequate","Trust that traffic will settle down"],2,"A legal closure is not automatically an effective closure.",["scenario"]),
-        q("Asphalt Paving Operations","Beginner","Why should workers avoid standing too close to the paver during active placement?",["Because it slows the mat temperature drop","Because moving parts and truck interaction create serious hazards","Because the operator prefers more space","Because it affects the asphalt color"],1,"Paver operations involve moving components, hot material, and truck interaction that can quickly become dangerous."),
-        q("Asphalt Paving Operations","Expert","A worker crosses behind the paver because the machine appears to be moving slowly. What is flawed about that decision?",["Slow movement eliminates risk","Apparent speed does not remove blind spot and movement hazards","It only matters if the truck is reversing","That is safe if the worker is experienced"],1,"Slow equipment can still injure workers, especially when blind spots are involved.",["scenario"]),
-        q("Milling & Profiling","Beginner","What is one major hazard during milling operations?",["Flying debris","Improved visibility","Reduced machine movement","Automatic dust control"],0,"Milling can create flying debris that exposes nearby workers and others in the area."),
-        q("Milling & Profiling","Expert","Debris is flying toward workers during milling. What is the best response?",["Ignore it unless someone is hit","Continue working and turn away","Adjust worker position or protective controls immediately","Only document it if an inspector is present"],2,"Flying debris is a direct hazard and should be controlled immediately, not admired from a distance.",["scenario"]),
-        q("Grade, Drain, Utility & Storm/Sewer","Beginner","What material is placed back into a trench after installation?",["Overlay","Backfill","Binder","Tack"],1,"Backfill is the material placed into the trench after installation."),
-        q("Grade, Drain, Utility & Storm/Sewer","Expert","A utility trench settles after backfill. What was most likely missed?",["Surface striping","Proper compaction in lifts","Fence installation","Pavement markings"],1,"Insufficient compaction often causes trench settlement.",["scenario"]),
-        q("Bridge & Concrete Structures","Beginner","Why should workers respect curing time?",["It affects color","It affects strength and stability","It slows work","It only matters later"],1,"Curing is critical for strength."),
-        q("Bridge & Concrete Structures","Expert","Concrete is being poured unevenly across a form. What is the biggest concern?",["Color inconsistency","Uneven load causing form failure","Faster curing","Reduced inspection time"],1,"Uneven loading can overstress forms and cause collapse.",["scenario"]),
-        q("Aggregate Production & Delivery","Beginner","Why is stockpile organization important?",["It improves color","It prevents contamination and confusion","It increases speed","It removes inspection"],1,"Mixing materials incorrectly can cause quality issues."),
-        q("Aggregate Production & Delivery","Expert","Workers stand in a blind spot of a loader because it is moving slowly. What is flawed?",["Slow speed removes risk","Blind spots still exist regardless of speed","Only fast movement matters","Operators always see everything"],1,"Speed does not eliminate blind spots.",["scenario"]),
-        q("Tank, Barge & Rail Transloading","Beginner","Why is verifying tank contents critical before transfer?",["Because tanks always look the same","Because incorrect assumptions can lead to serious incidents","Because it slows the process","Because it only affects paperwork"],1,"Never assume contents. Verification prevents major mistakes."),
-        q("Tank, Barge & Rail Transloading","Expert","A transfer begins before all checks are completed to save time. What is the biggest risk?",["Slower process","Uncontrolled or incorrect transfer","Improved efficiency","Better coordination"],1,"Skipping verification steps removes critical safeguards.",["scenario"]),
-        q("Equipment, Technology & Machine Awareness","Beginner","What is the safest assumption around dump truck drivers in a work zone?",["They see all workers","They follow the same pattern every time","They may not see you","They will stop automatically"],2,"Never assume visibility. Assume the opposite."),
-        q("Equipment, Technology & Machine Awareness","Expert","What is the most dangerous assumption around heavy equipment?",["It moves slowly","It is loud","The operator sees you","It is predictable"],2,"Never assume visibility.",["scenario"]),
-        q("Human Factors, Judgment & Decision-Making","Beginner","Why should workers speak up when unsure?",["To delay work","To prevent mistakes and hazards","To avoid responsibility","To impress others"],1,"Speaking up prevents errors before they happen."),
-        q("Human Factors, Judgment & Decision-Making","Expert","A worker says, 'Nothing has happened yet.' What is wrong with that thinking?",["Past success guarantees safety","Lack of incidents does not equal low risk","Experience removes hazards","It only matters for new workers"],1,"No incident yet doesn’t mean no risk exists.",["scenario"]),
-
-        q("Equipment, Technology & Machine Awareness","Beginner","What do many crews call a front-end loader?",["Bucket truck","Loader","Payloader","Roller"],2,"“Payloader” is a very common nickname in the field.",["fun"]),
-        q("Traffic Control & Work Zone Setup","Beginner","What is a common term for the truck that protects a work zone?",["Shield truck","Crash truck","Buffer truck","Slow truck"],1,"“Crash truck” is commonly used slang.",["fun"]),
-        q("Asphalt Paving Operations","Beginner","What do some crews call a perfectly smooth job?",["Rough pass","Glass","Heavy mix","Crusher"],1,"“Glass” means extremely smooth.",["fun"]),
-        q("Aggregate Production & Delivery","Beginner","What do some crews call a pile of mixed materials?",["Premium stock","Mystery pile","Clean rock","Final blend"],1,"Because no one is quite sure what’s in it anymore.",["fun"]),
-        q("Human Factors, Judgment & Decision-Making","Beginner","What is a joking term for someone who skips steps?",["Engineer","Shortcut artist","Supervisor","Planner"],1,"Because they ‘create’ shortcuts… usually bad ones.",["fun"]),
-        q("Equipment, Technology & Machine Awareness","Beginner","What do some crews call a very old truck?",["Classic","Beater","Leader","Crusher"],1,"“Beater” = old but still running.",["fun"]),
-        q("Human Factors, Judgment & Decision-Making","Beginner","What’s a joking term for someone always rushing?",["Speed racer","Planner","Supervisor","Engineer"],0,"Because they’re always in a hurry.",["fun"]),
-        q("Equipment, Technology & Machine Awareness","Beginner","What do some crews call a very smooth roller operator?",["The Artist","The Crusher","The Driver","The Finisher"],0,"Because smooth work is like art.",["fun"])
-      );
-    }
-
-    function addGeneratedQuestions() {
-      const templates = {
-        "Safety Culture & Hazard Recognition": {
-          beginner: [
-            ["Why should workers avoid ignoring small hazards?","Because small issues can grow into serious incidents"],
-            ["What is one reason housekeeping matters on a jobsite?","It helps reduce slips, trips, and confusion"],
-            ["Why should workers avoid getting too comfortable with routine tasks?","Routine can lead to complacency"],
-            ["Why should workers speak up when something feels unsafe?","Small concerns can become serious incidents"],
-            ["What is the safest assumption when conditions change during the shift?","The site should be reassessed instead of assumed safe"]
-          ],
-          expert: [
-            ["What is the most dangerous effect of complacency on an experienced crew?","Workers begin overlooking familiar hazards"],
-            ["Why is silence on a jobsite not always a sign everything is fine?","Workers may be suppressing concerns"],
-            ["What happens when unsafe behavior is repeated without incident?","Risk becomes normalized"],
-            ["A near miss is laughed off because no one was hurt. What is the biggest problem?","Warning signs are being ignored instead of learned from"],
-            ["A worker hesitates to report a problem because they do not want to slow the crew down. What is the deeper concern?","Production pressure may be overriding hazard recognition"]
-          ]
-        },
-        "Traffic Control & Work Zone Setup": {
-          beginner: [
-            ["Why should workers know where safe escape paths are in a traffic-exposed area?","To react quickly if a vehicle enters the zone"],
-            ["Why is worker positioning important even when signs and cones are already in place?","Devices do not guarantee perfect driver behavior"],
-            ["What is one major purpose of cones, barrels, and signs in a work zone?","To guide traffic and separate vehicles from workers"],
-            ["Why should workers keep checking a work zone during the shift?","Conditions can change and weaken control"],
-            ["If a vehicle enters the work zone unexpectedly, what should happen first?","Workers move to safety"]
-          ],
-          expert: [
-            ["What does repeated driver confusion in one part of the work zone usually suggest?","The traffic control method or visibility may be inadequate"],
-            ["Why is a setup approved earlier not automatically acceptable later?","Traffic, lighting, weather, and site conditions can all change"],
-            ["A work zone plan looks correct on paper but is confusing in the field. What matters more?","How the plan functions in real conditions"],
-            ["If workers keep changing position to compensate for traffic behavior, what is the deeper concern?","The setup may not be doing enough protective work"],
-            ["A crew has no clear escape path if a vehicle breaches the zone. What does that mean?","Planning did not account well enough for intrusion risk"]
-          ]
-        },
-        "Asphalt Paving Operations": {
-          beginner: [
-            ["Why is fresh asphalt a hazard even when it looks stable?","It may still be hot and can affect footing"],
-            ["Why should workers avoid shortcuts across recently paved material?","It may still be hot, unstable, or unsafe to cross"],
-            ["Why is communication important between paver crews and truck drivers?","It helps reduce confusion and unsafe movement"],
-            ["What is one key danger near the hopper area?","Pinch, crush, and struck-by exposure"],
-            ["Why should workers avoid focusing only on mat appearance while near active equipment?","Narrow focus can reduce situational awareness"]
-          ],
-          expert: [
-            ["A dump truck backs toward the paver faster than expected. What is the strongest concern?","Impact force and worker proximity create crush risk"],
-            ["What is the biggest flaw in saying 'we do this pass all the time' while stepping into a truck-paver interaction zone?","Familiarity may be reducing hazard recognition"],
-            ["Fresh material is being placed and a worker wants to step onto the mat to save time. What is the strongest concern?","Heat exposure and unstable footing"],
-            ["During paving, worker positions keep changing without clear communication. Why is that a problem?","It increases unpredictability around trucks and equipment"],
-            ["A worker assumes the driver still sees them because eye contact happened earlier. What is the flaw?","Visibility can change as vehicles and workers move"]
-          ]
-        },
-        "Milling & Profiling": {
-          beginner: [
-            ["Why should workers keep distance from the milling drum area?","Moving parts can cause severe injury"],
-            ["Why is situational awareness important during milling work?","Debris, movement, and surrounding traffic can change quickly"],
-            ["Why should workers avoid unnecessary walking near active milling equipment?","It increases exposure to movement and debris hazards"],
-            ["What is one reason debris control matters during milling?","It reduces confusion and exposure from thrown material"],
-            ["What is the safest assumption near active milling equipment?","The area should be treated as hazardous unless clearly controlled"]
-          ],
-          expert: [
-            ["A worker assumes the operator sees them because the machine is moving in a straight line. What is wrong?","Machine path does not eliminate blind spots or changing worker positions"],
-            ["A crew keeps milling while ground workers repeatedly reposition inside the active zone. What is the deeper concern?","Worker movement is becoming unpredictable around machine hazards"],
-            ["A worker enters a debris zone briefly to save time. What is the best assessment?","Short exposure is still unnecessary exposure"],
-            ["Why is visibility management important during milling even when the machine path seems obvious?","Visibility affects debris, worker position, and machine interaction"],
-            ["A crew keeps working despite repeated debris strikes nearby because no one was hurt yet. What is the best interpretation?","They are accepting warning signs instead of fixing the exposure"]
-          ]
-        },
-        "Grade, Drain, Utility & Storm/Sewer": {
-          beginner: [
-            ["What is backfill?","Material placed back into a trench after installation"],
-            ["Why is grading important?","It shapes the ground to the correct elevation and slope"],
-            ["What is one main purpose of drainage work?","To move water away safely"],
-            ["Which utility commonly carries wastewater from buildings?","Sanitary sewer"],
-            ["Why should workers verify underground locates before digging?","To help prevent line strikes and injuries"]
-          ],
-          expert: [
-            ["A utility trench settles after backfill. What was most likely missed?","Proper compaction in lifts"],
-            ["A site has standing water after rain near a newly finished area. What is the likely issue?","Improper grading or drainage path"],
-            ["A worker enters an unprotected trench because the task will only take a minute. What is the best response?","Stop the work and require proper trench protection"],
-            ["Why is it dangerous to trust memory instead of locates during excavation?","Incorrect assumptions can lead to line strikes"],
-            ["What is the deeper problem when crews rush utility work because the trench is open?","Pressure can override trench and exposure controls"]
-          ]
-        },
-        "Bridge & Concrete Structures": {
-          beginner: [
-            ["Why is sequencing important in bridge construction?","Each step depends on the previous one being completed correctly"],
-            ["Why should workers stay alert around formwork?","It supports heavy loads and failure can cause collapse"],
-            ["What is a key concern when working around fresh concrete?","It may not support weight and can shift"],
-            ["Why should workers avoid stepping on unsupported forms?","They may fail under weight"],
-            ["Why is communication important during concrete pours?","It helps coordinate safe and controlled placement"]
-          ],
-          expert: [
-            ["A worker walks across partially supported decking because it held earlier. What is the flaw?","Previous support does not guarantee current stability"],
-            ["A crew rushes form removal before full cure. What is the risk?","Structural failure or collapse"],
-            ["Workers stand under a concrete pour area. Why is this dangerous?","They are exposed to falling material or failure"],
-            ["A worker assumes rebar placement is correct without checking. What is the issue?","Incorrect placement can affect strength and safety"],
-            ["Why is rework especially painful on bridge work?","It can affect schedule, access, safety, and cost all at once"]
-          ]
-        },
-        "Aggregate Production & Delivery": {
-          beginner: [
-            ["What is the main goal of aggregate production?","Produce consistent, correctly sized material"],
-            ["What is a hazard around stockpiles?","Unstable material can shift or collapse"],
-            ["Why should workers avoid standing near loading areas?","Equipment movement creates struck-by hazards"],
-            ["Why does correct material delivery matter?","It affects project quality and performance"],
-            ["Why is stockpile organization important?","It prevents contamination and confusion"]
-          ],
-          expert: [
-            ["Material is dumped into the wrong stockpile. What is the biggest risk?","Contamination and incorrect use later"],
-            ["A loader operates near workers without clear communication. What is the concern?","Increased struck-by risk"],
-            ["Workers assume a stockpile is stable because it hasn’t shifted yet. What is wrong?","Conditions can change and cause collapse"],
-            ["A truck driver unloads without verifying location. What is the issue?","Potential for incorrect material placement"],
-            ["A worker stands on top of a stockpile. What is the biggest risk?","Material collapse or sliding"]
-          ]
-        },
-        "Tank, Barge & Rail Transloading": {
-          beginner: [
-            ["Why is verifying tank contents critical before transfer?","Incorrect assumptions can lead to serious incidents"],
-            ["What is a key risk during tank transfer operations?","Uncontrolled release or incorrect transfer"],
-            ["Why is communication important during transloading?","It ensures coordinated and safe operations"],
-            ["What should a worker do if unsure about a connection or valve?","Pause and verify before acting"],
-            ["Why should workers avoid rushing transfer operations?","Rushing increases risk of error"]
-          ],
-          expert: [
-            ["A worker assumes a tank contains the same material as last time. What is the flaw?","Conditions and contents can change"],
-            ["Workers rely on memory instead of labels during transfer setup. What is the issue?","Memory-based decisions increase risk of error"],
-            ["A worker opens a valve without confirming system status. What is the concern?","Unexpected movement or release"],
-            ["A crew says 'we’ve done this a hundred times.' What is the hidden risk?","Reduced hazard awareness due to familiarity"],
-            ["Why are wrong-transfer events so serious?","They can cause contamination, waste, downtime, and safety problems"]
-          ]
-        },
-        "Equipment, Technology & Machine Awareness": {
-          beginner: [
-            ["What is the safest assumption around heavy equipment?","You may not be seen"],
-            ["Why are blind spots dangerous even with alarms?","Workers may ignore or not hear them"],
-            ["What is a simple way to stay safer around equipment?","Keep distance from active movement"],
-            ["What is a common nickname for a skid steer?","Bobcat"],
-            ["What do many crews call a front-end loader?","Payloader"]
-          ],
-          expert: [
-            ["You made eye contact with an operator 10 seconds ago. Is it safe to assume they still see you?","No, visibility changes constantly"],
-            ["A machine stops suddenly and workers move closer out of curiosity. What is the risk?","Unexpected restart or hazard exposure"],
-            ["Why is it dangerous to stand between equipment?","Pinch and crush zones can form instantly"],
-            ["What is the safest assumption around any moving equipment?","It may move unexpectedly"],
-            ["A worker says, 'I’m visible.' What is the safer mindset?","I might not be seen"]
-          ]
-        },
-        "Human Factors, Judgment & Decision-Making": {
-          beginner: [
-            ["Why is overconfidence dangerous?","It can lead to ignoring hazards"],
-            ["What is a smart response to unclear instructions?","Pause and clarify"],
-            ["What is the safest approach to unfamiliar tasks?","Verify before acting"],
-            ["What is the biggest danger of feeling rushed on a job?","You may skip steps or miss hazards"],
-            ["What is the best habit for avoiding mistakes?","Double-checking actions"]
-          ],
-          expert: [
-            ["A worker thinks, 'This will only take a second.' What is the real risk?","Shortcuts can still lead to serious incidents"],
-            ["A worker assumes someone else checked a hazard. What is the flaw?","Assumptions create gaps in safety checks"],
-            ["A worker feels pressure to keep moving even when unsure. What is the safest response?","Pause and verify"],
-            ["A task becomes routine and attention drops. What is the concern?","Complacency increases risk"],
-            ["A worker thinks, 'I’ll be careful,' instead of using controls. What is the flaw?","Personal caution is not a reliable control"]
-          ]
-        }
-      };
-
-      const distractors = [
-        "It improves appearance only",
-        "It mainly helps paperwork",
-        "It only matters for new workers",
-        "It automatically speeds production",
-        "It is only an issue at night",
-        "It mostly affects supervisors",
-        "It reduces communication needs",
-        "It is harmless if done quickly"
-      ];
-
-      function makeQuestion(category, difficulty, prompt, correctAnswer, i) {
-        const wrongs = shuffleArray(distractors).slice(0, 3);
-        const options = shuffleArray([correctAnswer, ...wrongs]);
-        const correct = options.indexOf(correctAnswer);
-        const explanation = correctAnswer + ".";
-        return q(category, difficulty, prompt, options, correct, explanation, difficulty === "Expert" ? ["scenario"] : []);
+    var allQuestions = [
+      {
+        category: "Safety Culture & Hazard Recognition",
+        difficulty: "Beginner",
+        question: "Why should near misses be taken seriously even when no one is hurt?",
+        options: [
+          "They can reveal hazards before a real injury happens",
+          "They mainly help with paperwork",
+          "They only matter after inspections",
+          "They are not important"
+        ],
+        correct: 0,
+        explanation: "Near misses are warnings that something can go wrong under the current conditions."
+      },
+      {
+        category: "Safety Culture & Hazard Recognition",
+        difficulty: "Expert",
+        question: "A worker laughs off a near miss and returns to the same task. What is the best response?",
+        options: [
+          "Ignore it because no one was injured",
+          "Use the event to stop and address what nearly happened",
+          "Wait until the end of the shift to mention it",
+          "Assume the worker learned enough"
+        ],
+        correct: 1,
+        explanation: "Near misses are warnings. Returning to the same setup without correction is bad odds pretending to be confidence."
+      },
+      {
+        category: "Traffic Control & Work Zone Setup",
+        difficulty: "Expert",
+        question: "Traffic begins moving faster than expected through your work zone. What is the best response?",
+        options: [
+          "Continue working and stay alert",
+          "Move workers farther from the lane and continue",
+          "Pause work and reassess traffic control",
+          "Wait to see if traffic settles down"
+        ],
+        correct: 2,
+        explanation: "When traffic conditions change, the setup may no longer be adequate."
+      },
+      {
+        category: "Traffic Control & Work Zone Setup",
+        difficulty: "Beginner",
+        question: "What is one main purpose of a work zone setup?",
+        options: [
+          "To make the site look organized",
+          "To separate workers from traffic and moving hazards",
+          "To reduce how many workers are needed",
+          "To give drivers something to look at"
+        ],
+        correct: 1,
+        explanation: "A work zone setup should create separation and control before exposure begins."
+      },
+      {
+        category: "Asphalt Paving Operations",
+        difficulty: "Beginner",
+        question: "Why should workers stay clear of the paver hopper area?",
+        options: [
+          "It gets dirty quickly",
+          "Dump trucks and moving parts create pinch and crush hazards",
+          "It blocks supervisor visibility",
+          "It slows production"
+        ],
+        correct: 1,
+        explanation: "The hopper area is one of the most dangerous zones because of truck interaction and moving components."
+      },
+      {
+        category: "Asphalt Paving Operations",
+        difficulty: "Expert",
+        question: "A worker stands between the truck and paver to help guide alignment. What is the best assessment?",
+        options: [
+          "Helpful positioning",
+          "High-risk crush zone",
+          "Acceptable if experienced",
+          "Only dangerous at night"
+        ],
+        correct: 1,
+        explanation: "Standing between two moving machines is a terrific way to let physics make the final decision."
+      },
+      {
+        category: "Milling & Profiling",
+        difficulty: "Expert",
+        question: "Workers are walking near the milling drum area. What is the strongest concern?",
+        options: [
+          "Noise exposure",
+          "Severe injury risk from moving parts",
+          "Only dust exposure",
+          "Machine efficiency"
+        ],
+        correct: 1,
+        explanation: "The milling drum is extremely dangerous because of moving cutting components."
+      },
+      {
+        category: "Milling & Profiling",
+        difficulty: "Beginner",
+        question: "What is one major hazard during milling operations?",
+        options: [
+          "Flying debris",
+          "Improved visibility",
+          "Reduced machine movement",
+          "Automatic dust control"
+        ],
+        correct: 0,
+        explanation: "Milling can create flying debris that exposes nearby workers and others in the area."
+      },
+      {
+        category: "Grade, Drain, Utility & Storm/Sewer",
+        difficulty: "Beginner",
+        question: "If you are unsure whether an area is safe to enter, what is the best action?",
+        options: [
+          "Enter briefly and judge from inside the area",
+          "Assume it is safe if no one stops you",
+          "Pause and verify before entering",
+          "Follow the nearest worker without asking"
+        ],
+        correct: 2,
+        explanation: "Uncertainty is your cue to verify, not improvise."
+      },
+      {
+        category: "Grade, Drain, Utility & Storm/Sewer",
+        difficulty: "Expert",
+        question: "A worker enters an unprotected trench because the task will only take a minute. What is the best response?",
+        options: [
+          "Allow it if someone watches",
+          "Stop the work and require proper trench protection",
+          "Let them decide",
+          "Finish quickly before inspection"
+        ],
+        correct: 1,
+        explanation: "Short task or not, unprotected trench entry is still a terrible bargain."
+      },
+      {
+        category: "Bridge & Concrete Structures",
+        difficulty: "Beginner",
+        question: "Why does bridge work require extra attention to sequence and detail?",
+        options: [
+          "Because it affects structural safety and long-term performance",
+          "Because it uses less equipment",
+          "Because it avoids inspection",
+          "Because it is mostly cosmetic"
+        ],
+        correct: 0,
+        explanation: "Bridge work affects structural quality, safety, and long-term durability."
+      },
+      {
+        category: "Bridge & Concrete Structures",
+        difficulty: "Expert",
+        question: "A bridge repair phase starts before the previous area is properly verified. What is the greatest risk?",
+        options: [
+          "Cleaner equipment",
+          "Hidden defects leading to safety or quality issues",
+          "Better traffic flow",
+          "Shorter concrete cure time"
+        ],
+        correct: 1,
+        explanation: "Starting the next phase too early can bury problems that become expensive later."
+      },
+      {
+        category: "Aggregate Production & Delivery",
+        difficulty: "Beginner",
+        question: "Why is stockpile organization important?",
+        options: [
+          "It improves color",
+          "It prevents contamination and confusion",
+          "It increases speed",
+          "It removes inspection"
+        ],
+        correct: 1,
+        explanation: "Mixing materials incorrectly can cause quality issues."
+      },
+      {
+        category: "Aggregate Production & Delivery",
+        difficulty: "Expert",
+        question: "A crew unloads the correct stone into the wrong stockpile. The biggest risk is:",
+        options: [
+          "Better blending",
+          "Inventory confusion and material quality issues",
+          "Lower fuel use",
+          "Better weather"
+        ],
+        correct: 1,
+        explanation: "Wrong stockpile placement can create contamination and tracking problems."
+      },
+      {
+        category: "Tank, Barge & Rail Transloading",
+        difficulty: "Beginner",
+        question: "Why is verifying tank contents critical before transfer?",
+        options: [
+          "Because tanks always look the same",
+          "Because incorrect assumptions can lead to serious incidents",
+          "Because it only affects paperwork",
+          "Because it slows production"
+        ],
+        correct: 1,
+        explanation: "Never assume contents. Verification prevents major mistakes."
+      },
+      {
+        category: "Tank, Barge & Rail Transloading",
+        difficulty: "Expert",
+        question: "A transfer begins before all checks are completed to save time. What is the biggest risk?",
+        options: [
+          "Slower process",
+          "Uncontrolled or incorrect transfer",
+          "Improved efficiency",
+          "Better coordination"
+        ],
+        correct: 1,
+        explanation: "Skipping verification steps removes the controls that keep bad days from becoming memorable."
+      },
+      {
+        category: "Equipment, Technology & Machine Awareness",
+        difficulty: "Beginner",
+        question: "What is the safest assumption around heavy equipment?",
+        options: [
+          "You are visible",
+          "You may not be seen",
+          "It will stop in time",
+          "It will stay predictable"
+        ],
+        correct: 1,
+        explanation: "Assume you may not be seen."
+      },
+      {
+        category: "Equipment, Technology & Machine Awareness",
+        difficulty: "Expert",
+        question: "A worker says, 'The operator sees me.' What is the safer mindset?",
+        options: [
+          "That is probably true",
+          "Visibility can change and I may not be seen",
+          "It only matters in reverse",
+          "It depends on machine color"
+        ],
+        correct: 1,
+        explanation: "Being seen once is not a lifetime membership."
+      },
+      {
+        category: "Human Factors, Judgment & Decision-Making",
+        difficulty: "Expert",
+        question: "A worker says, 'Nothing has happened yet.' What is wrong with that thinking?",
+        options: [
+          "Past success guarantees safety",
+          "Lack of incidents does not equal low risk",
+          "Experience removes hazards",
+          "It only matters for new workers"
+        ],
+        correct: 1,
+        explanation: "No incident yet does not mean no risk exists."
+      },
+      {
+        category: "Human Factors, Judgment & Decision-Making",
+        difficulty: "Beginner",
+        question: "Why should workers speak up when unsure?",
+        options: [
+          "To delay work",
+          "To prevent mistakes and hazards",
+          "To avoid responsibility",
+          "To impress others"
+        ],
+        correct: 1,
+        explanation: "Speaking up prevents errors before they happen."
+      },
+      {
+        category: "Equipment, Technology & Machine Awareness",
+        difficulty: "Beginner",
+        question: "What do many crews call a front-end loader?",
+        options: [
+          "Bucket truck",
+          "Loader",
+          "Payloader",
+          "Roller"
+        ],
+        correct: 2,
+        explanation: "Payloader is a common nickname."
+      },
+      {
+        category: "Human Factors, Judgment & Decision-Making",
+        difficulty: "Beginner",
+        question: "What is a joking term for someone who skips steps?",
+        options: [
+          "Engineer",
+          "Shortcut artist",
+          "Supervisor",
+          "Planner"
+        ],
+        correct: 1,
+        explanation: "Because they create shortcuts, usually the bad kind."
       }
+    ];
 
-      Object.entries(templates).forEach(([category, sets]) => {
-        sets.beginner.forEach((item, i) => {
-          allQuestions.push(makeQuestion(category, "Beginner", item[0], item[1], i));
-        });
-        sets.expert.forEach((item, i) => {
-          allQuestions.push(makeQuestion(category, "Expert", item[0], item[1], i));
-        });
-      });
+    var quizQuestions = [];
+    var currentQuestionIndex = 0;
+    var correctCount = 0;
+    var answered = false;
+    var currentTurn = 0;
+    var playerOneScore = 0;
+    var playerTwoScore = 0;
+    var attemptsMade = 0;
+    var playerOneName = "Player 1";
+    var playerTwoName = "Player 2";
 
-      const scenarioPrompts = [
-        ["A worker says, 'We’re behind schedule, so let’s skip one check.' What is the best response?","Do not skip the check because pressure does not reduce hazard severity"],
-        ["You notice a coworker stepping into a blind spot while distracted. What should happen first?","Immediately get their attention and redirect them"],
-        ["A crew continues working despite feeling uncomfortable about a setup. What is the issue?","They are ignoring warning signs"],
-        ["If everyone sees a hazard but no one speaks up, what is happening?","A breakdown in safety culture"],
-        ["A worker says, 'I’ve got this,' and ignores input. What is the concern?","Reduced teamwork and awareness"]
-      ];
+    var modeOptions = document.getElementById("modeOptions");
+    var difficultyOptions = document.getElementById("difficultyOptions");
+    var styleOptions = document.getElementById("styleOptions");
+    var categoryOptions = document.getElementById("categoryOptions");
+    var questionCountSelect = document.getElementById("questionCount");
+    var soundToggle = document.getElementById("soundToggle");
+    var playerOneNameInput = document.getElementById("playerOneName");
+    var playerTwoNameInput = document.getElementById("playerTwoName");
+    var startBtn = document.getElementById("startBtn");
+    var restartMidBtn = document.getElementById("restartMidBtn");
+    var clearLeaderboardBtn = document.getElementById("clearLeaderboardBtn");
+    var playAgainBtn = document.getElementById("playAgainBtn");
+    var backToSetupBtn = document.getElementById("backToSetupBtn");
+    var setupSection = document.getElementById("setupSection");
+    var quizBox = document.getElementById("quizBox");
+    var resultsBox = document.getElementById("resultsBox");
+    var questionMeta = document.getElementById("questionMeta");
+    var questionText = document.getElementById("questionText");
+    var optionsBox = document.getElementById("optionsBox");
+    var explanationBox = document.getElementById("explanationBox");
+    var feedbackText = document.getElementById("feedbackText");
+    var nextBtn = document.getElementById("nextBtn");
+    var questionNumber = document.getElementById("questionNumber");
+    var scoreDisplay = document.getElementById("scoreDisplay");
+    var correctDisplay = document.getElementById("correctDisplay");
+    var accuracyDisplay = document.getElementById("accuracyDisplay");
+    var attemptDisplay = document.getElementById("attemptDisplay");
+    var liveLeader = document.getElementById("liveLeader");
+    var finalScore = document.getElementById("finalScore");
+    var finalMessage = document.getElementById("finalMessage");
+    var badgeRow = document.getElementById("badgeRow");
+    var leaderboardBody = document.getElementById("leaderboardBody");
+    var topPlayer = document.getElementById("topPlayer");
+    var topScore = document.getElementById("topScore");
+    var topAccuracy = document.getElementById("topAccuracy");
+    var totalAttempts = document.getElementById("totalAttempts");
+    var bestCategory = document.getElementById("bestCategory");
+    var bestMode = document.getElementById("bestMode");
 
-      scenarioPrompts.forEach((sp, i) => {
-        allQuestions.push(makeQuestion("Human Factors, Judgment & Decision-Making", "Expert", sp[0], sp[1], i));
-      });
-    }
-
-    addBaseQuestions();
-    addGeneratedQuestions();
-
-    let quizQuestions = [];
-    let currentQuestionIndex = 0;
-    let correctCount = 0;
-    let answered = false;
-    let currentTurn = 0;
-    let playerOneScore = 0;
-    let playerTwoScore = 0;
-    let attemptsMade = 0;
-    let playerOneName = "Player 1";
-    let playerTwoName = "Player 2";
-
-    const modeOptions = document.getElementById("modeOptions");
-    const difficultyOptions = document.getElementById("difficultyOptions");
-    const styleOptions = document.getElementById("styleOptions");
-    const categoryOptions = document.getElementById("categoryOptions");
-    const questionCountSelect = document.getElementById("questionCount");
-    const soundToggle = document.getElementById("soundToggle");
-    const playerOneNameInput = document.getElementById("playerOneName");
-    const playerTwoNameInput = document.getElementById("playerTwoName");
-    const startBtn = document.getElementById("startBtn");
-    const restartMidBtn = document.getElementById("restartMidBtn");
-    const clearLeaderboardBtn = document.getElementById("clearLeaderboardBtn");
-    const playAgainBtn = document.getElementById("playAgainBtn");
-    const backToSetupBtn = document.getElementById("backToSetupBtn");
-    const setupSection = document.getElementById("setupSection");
-    const quizBox = document.getElementById("quizBox");
-    const resultsBox = document.getElementById("resultsBox");
-    const questionMeta = document.getElementById("questionMeta");
-    const questionText = document.getElementById("questionText");
-    const optionsBox = document.getElementById("optionsBox");
-    const explanationBox = document.getElementById("explanationBox");
-    const feedbackText = document.getElementById("feedbackText");
-    const nextBtn = document.getElementById("nextBtn");
-    const questionImageWrap = document.getElementById("questionImageWrap");
-    const questionImage = document.getElementById("questionImage");
-    const questionNumber = document.getElementById("questionNumber");
-    const scoreDisplay = document.getElementById("scoreDisplay");
-    const correctDisplay = document.getElementById("correctDisplay");
-    const accuracyDisplay = document.getElementById("accuracyDisplay");
-    const attemptDisplay = document.getElementById("attemptDisplay");
-    const liveLeader = document.getElementById("liveLeader");
-    const finalScore = document.getElementById("finalScore");
-    const finalMessage = document.getElementById("finalMessage");
-    const badgeRow = document.getElementById("badgeRow");
-    const leaderboardBody = document.getElementById("leaderboardBody");
-    const topPlayer = document.getElementById("topPlayer");
-    const topScore = document.getElementById("topScore");
-    const topAccuracy = document.getElementById("topAccuracy");
-    const totalAttempts = document.getElementById("totalAttempts");
-    const bestCategory = document.getElementById("bestCategory");
-    const bestMode = document.getElementById("bestMode");
-
-    function renderOptionCards(container, items, selectedId, onSelect, showCounts = false) {
+    function renderOptionCards(container, items, selectedId, onSelect, showCounts) {
       container.innerHTML = "";
-      items.forEach(item => {
-        const card = document.createElement("div");
+      items.forEach(function(item) {
+        var card = document.createElement("div");
         card.className = "option-card" + (item.id === selectedId ? " selected" : "");
-        let extra = "";
+
+        var extra = "";
         if (showCounts) {
-          const count = item.id === "All" ? allQuestions.length : allQuestions.filter(q => q.category === item.id).length;
-          extra = `<p class="count-line">${count} questions</p>`;
+          var count = item.id === "All"
+            ? allQuestions.length
+            : allQuestions.filter(function(q) { return q.category === item.id; }).length;
+          extra = '<p class="count-line">' + count + ' questions</p>';
         }
-        card.innerHTML = `<h3>${item.name}</h3><p>${item.description}</p>${extra}`;
-        card.onclick = () => onSelect(item.id);
+
+        card.innerHTML = '<h3>' + item.name + '</h3><p>' + item.description + '</p>' + extra;
+        card.onclick = function() { onSelect(item.id); };
         container.appendChild(card);
       });
     }
 
     function renderSelections() {
-      renderOptionCards(modeOptions, modeChoices, selectedMode, (id) => { selectedMode = id; renderSelections(); });
-      renderOptionCards(difficultyOptions, difficultyChoices, selectedDifficulty, (id) => { selectedDifficulty = id; renderSelections(); });
-      renderOptionCards(styleOptions, styleChoices, selectedStyle, (id) => { selectedStyle = id; renderSelections(); });
-      renderOptionCards(categoryOptions, categories, selectedCategory, (id) => { selectedCategory = id; renderSelections(); }, true);
+      renderOptionCards(modeOptions, modeChoices, selectedMode, function(id) {
+        selectedMode = id;
+        renderSelections();
+      }, false);
+
+      renderOptionCards(difficultyOptions, difficultyChoices, selectedDifficulty, function(id) {
+        selectedDifficulty = id;
+        renderSelections();
+      }, false);
+
+      renderOptionCards(styleOptions, styleChoices, selectedStyle, function(id) {
+        selectedStyle = id;
+        renderSelections();
+      }, false);
+
+      renderOptionCards(categoryOptions, categories, selectedCategory, function(id) {
+        selectedCategory = id;
+        renderSelections();
+      }, true);
     }
 
     function shuffleArray(array) {
-      const arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+      var arr = array.slice();
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
       }
       return arr;
     }
@@ -906,12 +961,16 @@
     }
 
     function getCurrentPlayerLabel() {
-      if (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario") return playerOneName;
+      if (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario") {
+        return playerOneName;
+      }
       return currentTurn % 2 === 0 ? playerOneName : playerTwoName;
     }
 
     function getLeadingPlayer() {
-      if (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario") return playerOneName;
+      if (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario") {
+        return playerOneName;
+      }
       if (playerOneScore > playerTwoScore) return playerOneName;
       if (playerTwoScore > playerOneScore) return playerTwoName;
       return "Tie";
@@ -921,94 +980,80 @@
       return soundToggle.value === "on";
     }
 
-    function playTone(freq, duration, volume = 0.04) {
+    function playTone(freq, duration, volume) {
       if (!getCurrentSoundSetting()) return;
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      volume = volume || 0.04;
+
+      var AudioContextClass = window.AudioContext || window.webkitAudioContext;
       if (!AudioContextClass) return;
-      const ctx = new AudioContextClass();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
+
+      var ctx = new AudioContextClass();
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+
       osc.type = "sine";
       osc.frequency.value = freq;
       gain.gain.value = volume;
+
       osc.connect(gain);
       gain.connect(ctx.destination);
+
       osc.start();
       osc.stop(ctx.currentTime + duration);
     }
 
     function playCorrectSound() {
       playTone(700, 0.08);
-      setTimeout(() => playTone(920, 0.08), 90);
+      setTimeout(function() { playTone(920, 0.08); }, 90);
     }
 
     function playWrongSound() {
       playTone(280, 0.12, 0.05);
-      setTimeout(() => playTone(220, 0.14, 0.05), 110);
+      setTimeout(function() { playTone(220, 0.14, 0.05); }, 110);
     }
 
     function playWinSound() {
       playTone(520, 0.10);
-      setTimeout(() => playTone(660, 0.10), 120);
-      setTimeout(() => playTone(820, 0.16), 240);
-      setTimeout(() => playTone(1040, 0.18), 380);
-    }
-
-    function launchConfetti() {
-      const colors = ["#1d4ed8", "#22c55e", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"];
-      for (let i = 0; i < 70; i++) {
-        const piece = document.createElement("div");
-        piece.className = "confetti-piece";
-        piece.style.left = `${Math.random() * 100}%`;
-        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.animationDelay = `${Math.random() * 0.6}s`;
-        resultsBox.appendChild(piece);
-        setTimeout(() => piece.remove(), 3500);
-      }
+      setTimeout(function() { playTone(660, 0.10); }, 120);
+      setTimeout(function() { playTone(820, 0.16); }, 240);
+      setTimeout(function() { playTone(1040, 0.18); }, 380);
     }
 
     function buildQuestionSet() {
-      let filtered = [...allQuestions];
-      const selectedCount = parseInt(questionCountSelect.value, 10);
+      var filtered = allQuestions.slice();
+      var selectedCount = parseInt(questionCountSelect.value, 10);
 
       if (selectedMode === "boss") {
-        filtered = filtered.filter(q => q.difficulty === "Expert");
+        filtered = filtered.filter(function(q) { return q.difficulty === "Expert"; });
       }
 
       if (selectedMode === "scenario") {
-        filtered = filtered.filter(q => q.tags && q.tags.includes("scenario"));
+        filtered = filtered.filter(function(q) { return q.difficulty === "Expert"; });
       }
 
       if (selectedMode === "fun") {
-        filtered = filtered.filter(q => (q.tags && q.tags.includes("fun")) || q.difficulty === "Beginner");
+        filtered = filtered.filter(function(q) {
+          return q.difficulty === "Beginner" || q.question.toLowerCase().indexOf("call") !== -1 || q.question.toLowerCase().indexOf("nickname") !== -1;
+        });
       }
 
       if (selectedCategory !== "All") {
-        filtered = filtered.filter(q => q.category === selectedCategory);
+        filtered = filtered.filter(function(q) { return q.category === selectedCategory; });
       }
 
-      if (!["boss", "scenario"].includes(selectedMode) && selectedDifficulty !== "Mixed") {
-        filtered = filtered.filter(q => q.difficulty === selectedDifficulty);
+      if (selectedMode !== "boss" && selectedMode !== "scenario" && selectedDifficulty !== "Mixed") {
+        filtered = filtered.filter(function(q) { return q.difficulty === selectedDifficulty; });
       }
 
-      if (selectedStyle === "judgment") {
-        const expert = filtered.filter(q => q.difficulty === "Expert");
-        const beginner = filtered.filter(q => q.difficulty === "Beginner");
-        filtered = [...shuffleArray(expert), ...shuffleArray(beginner)];
-      } else {
-        filtered = shuffleArray(filtered);
-      }
+      filtered = shuffleArray(filtered);
 
-      if (selectedCount !== 9999) {
-        filtered = filtered.slice(0, selectedCount);
-      }
-
-      return filtered;
+      return filtered.slice(0, selectedCount);
     }
 
     function startQuiz() {
       playerOneName = playerOneNameInput.value.trim() || (selectedMode === "team" ? "Team A" : "Player 1");
       playerTwoName = playerTwoNameInput.value.trim() || (selectedMode === "team" ? "Team B" : "Player 2");
+
       quizQuestions = buildQuestionSet();
 
       if (quizQuestions.length === 0) {
@@ -1033,16 +1078,16 @@
     }
 
     function updateLiveStats() {
-      const answeredCount = currentQuestionIndex;
-      const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
-      const totalScore = (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario")
+      var answeredCount = currentQuestionIndex;
+      var accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+      var totalScore = (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario")
         ? playerOneScore
-        : `${playerOneScore}-${playerTwoScore}`;
+        : playerOneScore + "-" + playerTwoScore;
 
-      questionNumber.textContent = `${Math.min(currentQuestionIndex + 1, quizQuestions.length)} / ${quizQuestions.length}`;
+      questionNumber.textContent = Math.min(currentQuestionIndex + 1, quizQuestions.length) + " / " + quizQuestions.length;
       scoreDisplay.textContent = totalScore;
       correctDisplay.textContent = correctCount;
-      accuracyDisplay.textContent = `${accuracy}%`;
+      accuracyDisplay.textContent = accuracy + "%";
       attemptDisplay.textContent = attemptsMade;
       liveLeader.textContent = getLeadingPlayer();
     }
@@ -1055,31 +1100,21 @@
       feedbackText.textContent = "";
       optionsBox.innerHTML = "";
 
-      const q = quizQuestions[currentQuestionIndex];
+      var q = quizQuestions[currentQuestionIndex];
 
-      questionMeta.innerHTML = `
-        <span class="tag tag-category">${q.category}</span>
-        <span class="tag ${q.difficulty === "Beginner" ? "tag-beginner" : "tag-expert"}">${q.difficulty}</span>
-        <span class="tag tag-turn">${getCurrentPlayerLabel()} Turn</span>
-        <span class="tag tag-mode">${modeChoices.find(m => m.id === selectedMode)?.name || selectedMode}</span>
-      `;
+      questionMeta.innerHTML =
+        '<span class="tag tag-category">' + q.category + '</span>' +
+        '<span class="tag ' + (q.difficulty === "Beginner" ? "tag-beginner" : "tag-expert") + '">' + q.difficulty + '</span>' +
+        '<span class="tag tag-turn">' + getCurrentPlayerLabel() + ' Turn</span>' +
+        '<span class="tag tag-mode">' + getModeName(selectedMode) + '</span>';
 
-      const funPrefix = (selectedMode === "fun" && q.tags && q.tags.includes("fun")) ? "⚡ BONUS FUN QUESTION ⚡\n\n" : "";
-      questionText.textContent = funPrefix + q.question;
+      questionText.textContent = q.question;
 
-      if (q.image && q.image.trim() !== "") {
-        questionImage.src = q.image;
-        questionImageWrap.style.display = "block";
-      } else {
-        questionImage.src = "";
-        questionImageWrap.style.display = "none";
-      }
-
-      q.options.forEach((option, index) => {
-        const btn = document.createElement("button");
+      q.options.forEach(function(option, index) {
+        var btn = document.createElement("button");
         btn.className = "option-btn";
         btn.textContent = option;
-        btn.onclick = () => selectAnswer(index);
+        btn.onclick = function() { selectAnswer(index); };
         optionsBox.appendChild(btn);
       });
 
@@ -1090,17 +1125,17 @@
       if (answered) return;
       answered = true;
 
-      const q = quizQuestions[currentQuestionIndex];
-      const buttons = optionsBox.querySelectorAll(".option-btn");
+      var q = quizQuestions[currentQuestionIndex];
+      var buttons = optionsBox.querySelectorAll(".option-btn");
 
-      buttons.forEach((btn, index) => {
+      buttons.forEach(function(btn, index) {
         btn.disabled = true;
         if (index === q.correct) btn.classList.add("correct");
         else if (index === selectedIndex) btn.classList.add("incorrect");
       });
 
       if (selectedIndex === q.correct) {
-        const points = getQuestionValue(q);
+        var points = getQuestionValue(q);
         correctCount++;
 
         if (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario") {
@@ -1110,7 +1145,7 @@
           else playerTwoScore += points;
         }
 
-        feedbackText.textContent = `Correct (+${points})`;
+        feedbackText.textContent = "Correct (+" + points + ")";
         feedbackText.style.color = "#15803d";
         playCorrectSound();
       } else {
@@ -1119,7 +1154,7 @@
         playWrongSound();
       }
 
-      explanationBox.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
+      explanationBox.innerHTML = "<strong>Explanation:</strong> " + q.explanation;
       explanationBox.style.display = "block";
 
       currentQuestionIndex++;
@@ -1133,16 +1168,19 @@
       quizBox.style.display = "none";
       resultsBox.style.display = "block";
 
-      const maxScore = quizQuestions.reduce((sum, q) => sum + getQuestionValue(q), 0);
-      const totalAnswered = quizQuestions.length;
-      const accuracy = Math.round((correctCount / totalAnswered) * 100);
+      var maxScore = quizQuestions.reduce(function(sum, q) {
+        return sum + getQuestionValue(q);
+      }, 0);
 
-      let resultText = "";
-      let winningName = playerOneName;
-      let winningScore = playerOneScore;
+      var totalAnswered = quizQuestions.length;
+      var accuracy = Math.round((correctCount / totalAnswered) * 100);
+
+      var resultText = "";
+      var winningName = playerOneName;
+      var winningScore = playerOneScore;
 
       if (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario") {
-        resultText = `${playerOneName} scored ${playerOneScore} out of ${maxScore}.`;
+        resultText = playerOneName + " scored " + playerOneScore + " out of " + maxScore + ".";
       } else {
         if (playerTwoScore > playerOneScore) {
           winningName = playerTwoName;
@@ -1150,53 +1188,53 @@
         } else if (playerOneScore === playerTwoScore) {
           winningName = "Tie";
         }
-        resultText = `${playerOneName}: ${playerOneScore} | ${playerTwoName}: ${playerTwoScore}`;
+
+        resultText = playerOneName + ": " + playerOneScore + " | " + playerTwoName + ": " + playerTwoScore;
       }
 
       finalScore.textContent = (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario")
-        ? `${playerOneScore} / ${maxScore}`
-        : `${playerOneScore} - ${playerTwoScore}`;
+        ? playerOneScore + " / " + maxScore
+        : playerOneScore + " - " + playerTwoScore;
 
-      let message = "";
+      var message = "";
       if (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario") {
-        if (accuracy >= 90) message = `Excellent performance. ${resultText} Strong awareness and judgment all around.`;
-        else if (accuracy >= 75) message = `Good work. ${resultText} Solid result with a few areas still worth tightening.`;
-        else if (accuracy >= 60) message = `Fair result. ${resultText} The basics are there, but some harder judgment calls still need work.`;
-        else message = `More practice needed. ${resultText} The training gaps are still pretty loud.`;
+        if (accuracy >= 90) message = "Excellent performance. " + resultText;
+        else if (accuracy >= 75) message = "Good work. " + resultText;
+        else if (accuracy >= 60) message = "Fair result. " + resultText;
+        else message = "More practice needed. " + resultText;
       } else {
-        if (winningName === "Tie") message = `${resultText}. Nobody wins the bragging rights today.`;
-        else message = `${resultText}. ${winningName} wins this round.`;
+        if (winningName === "Tie") message = resultText + ". Nobody wins the bragging rights today.";
+        else message = resultText + ". " + winningName + " wins this round.";
       }
 
       finalMessage.textContent = message;
       badgeRow.innerHTML = "";
 
-      if (selectedMode === "boss") badgeRow.innerHTML += `<div class="badge">👑 Boss Mode</div>`;
-      if (selectedMode === "scenario") badgeRow.innerHTML += `<div class="badge">🎯 Scenario Mode</div>`;
-      if (selectedMode === "fun") badgeRow.innerHTML += `<div class="badge">😄 Fun Mode</div>`;
+      if (selectedMode === "boss") badgeRow.innerHTML += '<div class="badge">👑 Boss Mode</div>';
+      if (selectedMode === "scenario") badgeRow.innerHTML += '<div class="badge">🎯 Scenario Mode</div>';
+      if (selectedMode === "fun") badgeRow.innerHTML += '<div class="badge">😄 Fun Mode</div>';
 
-      if (accuracy >= 90) badgeRow.innerHTML += `<div class="badge">🏆 Road Boss</div>`;
-      else if (accuracy >= 75) badgeRow.innerHTML += `<div class="badge">💪 Crew Leader</div>`;
-      else if (accuracy >= 60) badgeRow.innerHTML += `<div class="badge">🛠️ Work In Progress</div>`;
-      else badgeRow.innerHTML += `<div class="badge">📘 Needs More Reps</div>`;
-
-      if (!["solo","fun","boss","scenario"].includes(selectedMode) && winningName !== "Tie") {
-        badgeRow.innerHTML += `<div class="badge">🥇 ${winningName}</div>`;
-      }
+      if (accuracy >= 90) badgeRow.innerHTML += '<div class="badge">🏆 Road Boss</div>';
+      else if (accuracy >= 75) badgeRow.innerHTML += '<div class="badge">💪 Crew Leader</div>';
+      else if (accuracy >= 60) badgeRow.innerHTML += '<div class="badge">🛠️ Work In Progress</div>';
+      else badgeRow.innerHTML += '<div class="badge">📘 Needs More Reps</div>';
 
       if (accuracy >= 75) {
         playWinSound();
-        launchConfetti();
       }
 
       saveLeaderboardEntry({
         name: (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario") ? playerOneName : winningName,
-        mode: modeChoices.find(m => m.id === selectedMode)?.name || selectedMode,
+        mode: getModeName(selectedMode),
         category: selectedCategory,
         difficulty: selectedDifficulty,
-        score: (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario") ? `${playerOneScore}/${maxScore}` : `${winningScore}`,
-        rawScore: (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario") ? playerOneScore : winningScore,
-        accuracy: `${accuracy}%`,
+        score: (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario")
+          ? playerOneScore + "/" + maxScore
+          : String(winningScore),
+        rawScore: (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario")
+          ? playerOneScore
+          : winningScore,
+        accuracy: accuracy + "%",
         accuracyNum: accuracy,
         attempts: attemptsMade
       });
@@ -1206,7 +1244,9 @@
 
     function nextQuestion() {
       if (currentQuestionIndex < quizQuestions.length) {
-        if (!["solo","fun","boss","scenario"].includes(selectedMode)) currentTurn++;
+        if (!(selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario")) {
+          currentTurn++;
+        }
         renderQuestion();
       } else {
         showResults();
@@ -1219,26 +1259,31 @@
       setupSection.style.display = "block";
     }
 
+    function getModeName(id) {
+      var found = modeChoices.find(function(m) { return m.id === id; });
+      return found ? found.name : id;
+    }
+
     function getLeaderboard() {
       try {
-        return JSON.parse(localStorage.getItem("paveTheWayLeaderboardFinal")) || [];
-      } catch {
+        return JSON.parse(localStorage.getItem("paveTheWayLeaderboardFixed2")) || [];
+      } catch (e) {
         return [];
       }
     }
 
     function saveLeaderboardEntry(entry) {
-      const leaderboard = getLeaderboard();
+      var leaderboard = getLeaderboard();
       leaderboard.unshift(entry);
-      localStorage.setItem("paveTheWayLeaderboardFinal", JSON.stringify(leaderboard.slice(0, 25)));
+      localStorage.setItem("paveTheWayLeaderboardFixed2", JSON.stringify(leaderboard.slice(0, 25)));
     }
 
     function renderLeaderboard() {
-      const leaderboard = getLeaderboard();
+      var leaderboard = getLeaderboard();
       leaderboardBody.innerHTML = "";
 
       if (leaderboard.length === 0) {
-        leaderboardBody.innerHTML = `<tr><td colspan="7">No scores yet.</td></tr>`;
+        leaderboardBody.innerHTML = '<tr><td colspan="7">No scores yet.</td></tr>';
         topPlayer.textContent = "—";
         topScore.textContent = "0";
         topAccuracy.textContent = "0%";
@@ -1248,21 +1293,20 @@
         return;
       }
 
-      leaderboard.forEach(item => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td>${item.mode}</td>
-          <td>${item.category}</td>
-          <td>${item.difficulty}</td>
-          <td>${item.score}</td>
-          <td>${item.accuracy}</td>
-          <td>${item.attempts}</td>
-        `;
+      leaderboard.forEach(function(item) {
+        var row = document.createElement("tr");
+        row.innerHTML =
+          "<td>" + item.name + "</td>" +
+          "<td>" + item.mode + "</td>" +
+          "<td>" + item.category + "</td>" +
+          "<td>" + item.difficulty + "</td>" +
+          "<td>" + item.score + "</td>" +
+          "<td>" + item.accuracy + "</td>" +
+          "<td>" + item.attempts + "</td>";
         leaderboardBody.appendChild(row);
       });
 
-      const best = [...leaderboard].sort((a, b) => {
+      var best = leaderboard.slice().sort(function(a, b) {
         if (b.accuracyNum !== a.accuracyNum) return b.accuracyNum - a.accuracyNum;
         return b.rawScore - a.rawScore;
       })[0];
@@ -1276,7 +1320,7 @@
     }
 
     function clearLeaderboard() {
-      localStorage.removeItem("paveTheWayLeaderboardFinal");
+      localStorage.removeItem("paveTheWayLeaderboardFixed2");
       renderLeaderboard();
     }
 
