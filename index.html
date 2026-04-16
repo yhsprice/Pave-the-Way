@@ -569,7 +569,169 @@
         makeQuestion("Traffic Control & Work Zone Setup","Beginner","What is a common term for the truck that protects a work zone?",["Shield truck","Crash truck","Buffer truck","Slow truck"],1,"Crash truck is common slang.",["fun"]),
         makeQuestion("Asphalt Paving Operations","Beginner","What do some crews call a perfectly smooth job?",["Rough pass","Glass","Heavy mix","Crusher"],1,"Glass means very smooth.",["fun"]),
         makeQuestion("Aggregate Production & Delivery","Beginner","What do some crews call a pile of mixed materials?",["Premium stock","Mystery pile","Clean rock","Final blend"],1,"Because nobody is fully sure what got invited to the party.",["fun"])
-      ];
+     makeQuestion(
+  "Asphalt Paving Operations",
+  "Expert",
+  "A dump truck backs to the paver and stops short. The operator waves it in closer. A worker steps between them to guide. What is the real risk?",
+  [
+    "Being crushed between the truck and paver",
+    "Slowing down production",
+    "Misalignment of the asphalt",
+    "Driver confusion only"
+  ],
+  0,
+  "The biggest risk is being pinned between two moving machines. This is one of the most common serious injury scenarios."
+),
+
+makeQuestion(
+  "Asphalt Paving Operations",
+  "Expert",
+  "The crew is behind schedule and the foreman says 'keep it moving' while trucks cycle faster than normal. What changes?",
+  [
+    "Nothing if everyone is experienced",
+    "Risk increases due to rushed movements and less communication",
+    "Only production improves",
+    "Only new workers are affected"
+  ],
+  1,
+  "Speed reduces communication and increases unpredictability—this is when incidents happen."
+),
+        makeQuestion(
+  "Milling & Profiling",
+  "Expert",
+  "A worker walks along the milling machine to 'just check something quick' while it is operating. What is the actual issue?",
+  [
+    "Exposure to moving parts and debris",
+    "Only noise exposure",
+    "Only a visibility issue",
+    "No issue if they are careful"
+  ],
+  0,
+  "There is no such thing as a quick safe step near active milling equipment."
+),
+
+makeQuestion(
+  "Milling & Profiling",
+  "Expert",
+  "Debris is consistently landing near workers but not hitting them. The crew keeps working. What is the real problem?",
+  [
+    "Nothing until someone is hit",
+    "They are ignoring a warning sign of exposure",
+    "It is normal for milling",
+    "Only affects cleanup"
+  ],
+  1,
+  "Near misses with debris are warnings—not background noise."
+),
+        makeQuestion(
+  "Equipment, Technology & Machine Awareness",
+  "Expert",
+  "You made eye contact with an operator 10 seconds ago. You step into their path. What assumption are you making?",
+  [
+    "That visibility has not changed",
+    "That the operator stopped watching",
+    "That the machine will stop",
+    "That alarms will protect you"
+  ],
+  0,
+  "Visibility changes constantly. Eye contact is not permanent safety."
+),
+
+makeQuestion(
+  "Equipment, Technology & Machine Awareness",
+  "Expert",
+  "A loader is moving slowly, so a worker walks behind it quickly. Why is this dangerous?",
+  [
+    "Slow speed removes risk",
+    "Blind spots still exist regardless of speed",
+    "Only fast equipment is dangerous",
+    "Only new operators are risky"
+  ],
+  1,
+  "Speed does not remove blind spots. This is how people get hit."
+),
+        makeQuestion(
+  "Human Factors, Judgment & Decision-Making",
+  "Expert",
+  "A worker says 'we've always done it this way and nothing happened.' What is the actual problem?",
+  [
+    "They are relying on luck instead of control",
+    "They are experienced",
+    "They understand the job",
+    "They are efficient"
+  ],
+  0,
+  "Past success does not mean the method is safe—it means the risk hasn't hit yet."
+),
+
+makeQuestion(
+  "Human Factors, Judgment & Decision-Making",
+  "Expert",
+  "A crew feels uncomfortable with a setup but keeps working anyway. Why is this dangerous?",
+  [
+    "Instinct is often correct about risk",
+    "It slows production",
+    "It creates paperwork",
+    "It only matters if management is present"
+  ],
+  0,
+  "That gut feeling is usually picking up something real."
+),
+        makeQuestion(
+  "Traffic Control & Work Zone Setup",
+  "Expert",
+  "Drivers are drifting close to the work zone but staying in lane. The crew continues working. What is the real risk?",
+  [
+    "A small mistake could enter the work zone",
+    "No issue if lines are followed",
+    "Only affects traffic flow",
+    "Only matters at night"
+  ],
+  0,
+  "Near encroachments are early warnings—not acceptable conditions."
+),
+
+makeQuestion(
+  "Traffic Control & Work Zone Setup",
+  "Expert",
+  "The work zone worked fine yesterday, so the crew sets it up the same today without review. What is wrong?",
+  [
+    "Conditions may have changed",
+    "Nothing if it worked before",
+    "Only weather matters",
+    "Only supervisors decide"
+  ],
+  0,
+  "Traffic, lighting, and environment change constantly."
+),
+      makeQuestion(
+  "Grade, Drain, Utility & Storm/Sewer",
+  "Expert",
+  "A worker enters a trench because it is 'only for a minute.' What is the real issue?",
+  [
+    "Time does not reduce collapse risk",
+    "Only deep trenches are dangerous",
+    "It depends on soil color",
+    "It is fine if someone watches"
+  ],
+  0,
+  "Trenches fail instantly—not gradually."
+),
+
+makeQuestion(
+  "Grade, Drain, Utility & Storm/Sewer",
+  "Expert",
+  "Water starts collecting in a trench but work continues. What is the biggest concern?",
+  [
+    "Soil stability is changing",
+    "It will dry later",
+    "Only affects speed",
+    "Only matters if it rains more"
+  ],
+  0,
+  "Water weakens soil and increases collapse risk."
+),
+  ];
       allQuestions = allQuestions.concat(q);
     }
 
