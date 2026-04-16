@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -543,198 +542,59 @@
     var allQuestions = [];
 
     function pushManualQuestions() {
-      var q = [
-        makeQuestion("Safety Culture & Hazard Recognition","Beginner","Why should near misses be taken seriously even when no one is hurt?",["They can reveal hazards before a real injury happens","They mainly help with paperwork","They only matter after inspections","They are not important"],0,"Near misses are warnings that something can go wrong under the current conditions."),
-        makeQuestion("Safety Culture & Hazard Recognition","Expert","A worker laughs off a near miss and returns to the same task. What is the best response?",["Ignore it because no one was injured","Use the event to stop and address what nearly happened","Wait until the end of the shift to mention it","Assume the worker learned enough"],1,"Near misses are warnings. Returning to the same setup without correction is bad odds pretending to be confidence.",["scenario"]),
-        makeQuestion("Traffic Control & Work Zone Setup","Expert","Traffic begins moving faster than expected through your work zone. What is the best response?",["Continue working and stay alert","Move workers farther from the lane and continue","Pause work and reassess traffic control","Wait to see if traffic settles down"],2,"When traffic conditions change, the setup may no longer be adequate.",["scenario"]),
-        makeQuestion("Traffic Control & Work Zone Setup","Beginner","What is one main purpose of a work zone setup?",["To make the site look organized","To separate workers from traffic and moving hazards","To reduce how many workers are needed","To give drivers something to look at"],1,"A work zone setup should create separation and control before exposure begins."),
-        makeQuestion("Asphalt Paving Operations","Beginner","Why should workers stay clear of the paver hopper area?",["It gets dirty quickly","Dump trucks and moving parts create pinch and crush hazards","It blocks supervisor visibility","It slows production"],1,"The hopper area is one of the most dangerous zones because of truck interaction and moving components."),
-        makeQuestion("Asphalt Paving Operations","Expert","A worker stands between the truck and paver to help guide alignment. What is the best assessment?",["Helpful positioning","High-risk crush zone","Acceptable if experienced","Only dangerous at night"],1,"Standing between two moving machines is a terrific way to let physics make the final decision.",["scenario"]),
-        makeQuestion("Milling & Profiling","Expert","Workers are walking near the milling drum area. What is the strongest concern?",["Noise exposure","Severe injury risk from moving parts","Only dust exposure","Machine efficiency"],1,"The milling drum is extremely dangerous because of moving cutting components.",["scenario"]),
-        makeQuestion("Milling & Profiling","Beginner","What is one major hazard during milling operations?",["Flying debris","Improved visibility","Reduced machine movement","Automatic dust control"],0,"Milling can create flying debris that exposes nearby workers and others in the area."),
-        makeQuestion("Grade, Drain, Utility & Storm/Sewer","Beginner","If you are unsure whether an area is safe to enter, what is the best action?",["Enter briefly and judge from inside the area","Assume it is safe if no one stops you","Pause and verify before entering","Follow the nearest worker without asking"],2,"Uncertainty is your cue to verify, not improvise."),
-        makeQuestion("Grade, Drain, Utility & Storm/Sewer","Expert","A worker enters an unprotected trench because the task will only take a minute. What is the best response?",["Allow it if someone watches","Stop the work and require proper trench protection","Let them decide","Finish quickly before inspection"],1,"Short task or not, unprotected trench entry is still a terrible bargain.",["scenario"]),
-        makeQuestion("Bridge & Concrete Structures","Beginner","Why does bridge work require extra attention to sequence and detail?",["Because it affects structural safety and long-term performance","Because it uses less equipment","Because it avoids inspection","Because it is mostly cosmetic"],0,"Bridge work affects structural quality, safety, and long-term durability."),
-        makeQuestion("Bridge & Concrete Structures","Expert","A bridge repair phase starts before the previous area is properly verified. What is the greatest risk?",["Cleaner equipment","Hidden defects leading to safety or quality issues","Better traffic flow","Shorter concrete cure time"],1,"Starting the next phase too early can bury problems that become expensive later.",["scenario"]),
-        makeQuestion("Aggregate Production & Delivery","Beginner","Why is stockpile organization important?",["It improves color","It prevents contamination and confusion","It increases speed","It removes inspection"],1,"Mixing materials incorrectly can cause quality issues."),
-        makeQuestion("Aggregate Production & Delivery","Expert","A crew unloads the correct stone into the wrong stockpile. The biggest risk is:",["Better blending","Inventory confusion and material quality issues","Lower fuel use","Better weather"],1,"Wrong stockpile placement can create contamination and tracking problems.",["scenario"]),
-        makeQuestion("Tank, Barge & Rail Transloading","Beginner","Why is verifying tank contents critical before transfer?",["Because tanks always look the same","Because incorrect assumptions can lead to serious incidents","Because it only affects paperwork","Because it slows production"],1,"Never assume contents. Verification prevents major mistakes."),
-        makeQuestion("Tank, Barge & Rail Transloading","Expert","A transfer begins before all checks are completed to save time. What is the biggest risk?",["Slower process","Uncontrolled or incorrect transfer","Improved efficiency","Better coordination"],1,"Skipping verification steps removes the controls that keep bad days from becoming memorable.",["scenario"]),
-        makeQuestion("Equipment, Technology & Machine Awareness","Beginner","What is the safest assumption around heavy equipment?",["You are visible","You may not be seen","It will stop in time","It will stay predictable"],1,"Assume you may not be seen."),
-        makeQuestion("Equipment, Technology & Machine Awareness","Expert","A worker says, 'The operator sees me.' What is the safer mindset?",["That is probably true","Visibility can change and I may not be seen","It only matters in reverse","It depends on machine color"],1,"Being seen once is not a lifetime membership.",["scenario"]),
-        makeQuestion("Human Factors, Judgment & Decision-Making","Expert","A worker says, 'Nothing has happened yet.' What is wrong with that thinking?",["Past success guarantees safety","Lack of incidents does not equal low risk","Experience removes hazards","It only matters for new workers"],1,"No incident yet does not mean no risk exists.",["scenario"]),
-        makeQuestion("Human Factors, Judgment & Decision-Making","Beginner","Why should workers speak up when unsure?",["To delay work","To prevent mistakes and hazards","To avoid responsibility","To impress others"],1,"Speaking up prevents errors before they happen."),
-        makeQuestion("Equipment, Technology & Machine Awareness","Beginner","What do many crews call a front-end loader?",["Bucket truck","Loader","Payloader","Roller"],2,"Payloader is a common nickname.",["fun"]),
-        makeQuestion("Human Factors, Judgment & Decision-Making","Beginner","What is a joking term for someone who skips steps?",["Engineer","Shortcut artist","Supervisor","Planner"],1,"Because they create shortcuts, usually the bad kind.",["fun"]),
-        makeQuestion("Traffic Control & Work Zone Setup","Beginner","What is a common term for the truck that protects a work zone?",["Shield truck","Crash truck","Buffer truck","Slow truck"],1,"Crash truck is common slang.",["fun"]),
-        makeQuestion("Asphalt Paving Operations","Beginner","What do some crews call a perfectly smooth job?",["Rough pass","Glass","Heavy mix","Crusher"],1,"Glass means very smooth.",["fun"]),
-        makeQuestion("Aggregate Production & Delivery","Beginner","What do some crews call a pile of mixed materials?",["Premium stock","Mystery pile","Clean rock","Final blend"],1,"Because nobody is fully sure what got invited to the party.",["fun"])
-     makeQuestion(
-  "Asphalt Paving Operations",
-  "Expert",
-  "A dump truck backs to the paver and stops short. The operator waves it in closer. A worker steps between them to guide. What is the real risk?",
-  [
-    "Being crushed between the truck and paver",
-    "Slowing down production",
-    "Misalignment of the asphalt",
-    "Driver confusion only"
-  ],
-  0,
-  "The biggest risk is being pinned between two moving machines. This is one of the most common serious injury scenarios."
-),
+  var q = [
 
-makeQuestion(
-  "Asphalt Paving Operations",
-  "Expert",
-  "The crew is behind schedule and the foreman says 'keep it moving' while trucks cycle faster than normal. What changes?",
-  [
-    "Nothing if everyone is experienced",
-    "Risk increases due to rushed movements and less communication",
-    "Only production improves",
-    "Only new workers are affected"
-  ],
-  1,
-  "Speed reduces communication and increases unpredictability—this is when incidents happen."
-),
-        makeQuestion(
-  "Milling & Profiling",
-  "Expert",
-  "A worker walks along the milling machine to 'just check something quick' while it is operating. What is the actual issue?",
-  [
-    "Exposure to moving parts and debris",
-    "Only noise exposure",
-    "Only a visibility issue",
-    "No issue if they are careful"
-  ],
-  0,
-  "There is no such thing as a quick safe step near active milling equipment."
-),
+    // ORIGINAL QUESTIONS
+    makeQuestion("Safety Culture & Hazard Recognition","Beginner","Why should near misses be taken seriously even when no one is hurt?",["They can reveal hazards before a real injury happens","They mainly help with paperwork","They only matter after inspections","They are not important"],0,"Near misses are warnings that something can go wrong under the current conditions."),
 
-makeQuestion(
-  "Milling & Profiling",
-  "Expert",
-  "Debris is consistently landing near workers but not hitting them. The crew keeps working. What is the real problem?",
-  [
-    "Nothing until someone is hit",
-    "They are ignoring a warning sign of exposure",
-    "It is normal for milling",
-    "Only affects cleanup"
-  ],
-  1,
-  "Near misses with debris are warnings—not background noise."
-),
-        makeQuestion(
-  "Equipment, Technology & Machine Awareness",
-  "Expert",
-  "You made eye contact with an operator 10 seconds ago. You step into their path. What assumption are you making?",
-  [
-    "That visibility has not changed",
-    "That the operator stopped watching",
-    "That the machine will stop",
-    "That alarms will protect you"
-  ],
-  0,
-  "Visibility changes constantly. Eye contact is not permanent safety."
-),
+    makeQuestion("Safety Culture & Hazard Recognition","Expert","A worker laughs off a near miss and returns to the same task. What is the best response?",["Ignore it because no one was injured","Use the event to stop and address what nearly happened","Wait until the end of the shift to mention it","Assume the worker learned enough"],1,"Near misses are warnings."),
 
-makeQuestion(
-  "Equipment, Technology & Machine Awareness",
-  "Expert",
-  "A loader is moving slowly, so a worker walks behind it quickly. Why is this dangerous?",
-  [
-    "Slow speed removes risk",
-    "Blind spots still exist regardless of speed",
-    "Only fast equipment is dangerous",
-    "Only new operators are risky"
-  ],
-  1,
-  "Speed does not remove blind spots. This is how people get hit."
-),
-        makeQuestion(
-  "Human Factors, Judgment & Decision-Making",
-  "Expert",
-  "A worker says 'we've always done it this way and nothing happened.' What is the actual problem?",
-  [
-    "They are relying on luck instead of control",
-    "They are experienced",
-    "They understand the job",
-    "They are efficient"
-  ],
-  0,
-  "Past success does not mean the method is safe—it means the risk hasn't hit yet."
-),
+    makeQuestion("Traffic Control & Work Zone Setup","Expert","Traffic begins moving faster than expected through your work zone. What is the best response?",["Continue working and stay alert","Move workers farther from the lane and continue","Pause work and reassess traffic control","Wait to see if traffic settles down"],2,"Conditions changed."),
 
-makeQuestion(
-  "Human Factors, Judgment & Decision-Making",
-  "Expert",
-  "A crew feels uncomfortable with a setup but keeps working anyway. Why is this dangerous?",
-  [
-    "Instinct is often correct about risk",
-    "It slows production",
-    "It creates paperwork",
-    "It only matters if management is present"
-  ],
-  0,
-  "That gut feeling is usually picking up something real."
-),
-        makeQuestion(
-  "Traffic Control & Work Zone Setup",
-  "Expert",
-  "Drivers are drifting close to the work zone but staying in lane. The crew continues working. What is the real risk?",
-  [
-    "A small mistake could enter the work zone",
-    "No issue if lines are followed",
-    "Only affects traffic flow",
-    "Only matters at night"
-  ],
-  0,
-  "Near encroachments are early warnings—not acceptable conditions."
-),
+    makeQuestion("Traffic Control & Work Zone Setup","Beginner","What is one main purpose of a work zone setup?",["To make the site look organized","To separate workers from traffic and moving hazards","To reduce how many workers are needed","To give drivers something to look at"],1,"Separation is the goal."),
 
-makeQuestion(
-  "Traffic Control & Work Zone Setup",
-  "Expert",
-  "The work zone worked fine yesterday, so the crew sets it up the same today without review. What is wrong?",
-  [
-    "Conditions may have changed",
-    "Nothing if it worked before",
-    "Only weather matters",
-    "Only supervisors decide"
-  ],
-  0,
-  "Traffic, lighting, and environment change constantly."
-),
-      makeQuestion(
-  "Grade, Drain, Utility & Storm/Sewer",
-  "Expert",
-  "A worker enters a trench because it is 'only for a minute.' What is the real issue?",
-  [
-    "Time does not reduce collapse risk",
-    "Only deep trenches are dangerous",
-    "It depends on soil color",
-    "It is fine if someone watches"
-  ],
-  0,
-  "Trenches fail instantly—not gradually."
-),
+    makeQuestion("Asphalt Paving Operations","Beginner","Why should workers stay clear of the paver hopper area?",["It gets dirty quickly","Dump trucks and moving parts create pinch and crush hazards","It blocks supervisor visibility","It slows production"],1,"High-risk zone."),
 
-makeQuestion(
-  "Grade, Drain, Utility & Storm/Sewer",
-  "Expert",
-  "Water starts collecting in a trench but work continues. What is the biggest concern?",
-  [
-    "Soil stability is changing",
-    "It will dry later",
-    "Only affects speed",
-    "Only matters if it rains more"
-  ],
-  0,
-  "Water weakens soil and increases collapse risk."
-),
+    makeQuestion("Asphalt Paving Operations","Expert","A worker stands between the truck and paver to help guide alignment. What is the best assessment?",["Helpful positioning","High-risk crush zone","Acceptable if experienced","Only dangerous at night"],1,"Crush zone."),
+
+    makeQuestion("Milling & Profiling","Expert","Workers are walking near the milling drum area. What is the strongest concern?",["Noise exposure","Severe injury risk from moving parts","Only dust exposure","Machine efficiency"],1,"Moving parts risk."),
+
+    makeQuestion("Milling & Profiling","Beginner","What is one major hazard during milling operations?",["Flying debris","Improved visibility","Reduced machine movement","Automatic dust control"],0,"Debris hazard."),
+
+    makeQuestion("Grade, Drain, Utility & Storm/Sewer","Beginner","If you are unsure whether an area is safe to enter, what is the best action?",["Enter briefly","Assume safe","Pause and verify","Follow others"],2,"Verify first."),
+
+    makeQuestion("Grade, Drain, Utility & Storm/Sewer","Expert","A worker enters an unprotected trench because the task will only take a minute. What is the best response?",["Allow it","Stop work","Let them decide","Finish quickly"],1,"Stop it."),
+
+    // 🔥 NEW HIGH-QUALITY QUESTIONS
+
+    makeQuestion("Asphalt Paving Operations","Expert","A dump truck backs to the paver and stops short. The operator waves it in. A worker steps between them to guide. What is the real risk?",["Being crushed between the truck and paver","Slowing production","Mat misalignment","Driver confusion"],0,"This is a classic crush hazard."),
+
+    makeQuestion("Asphalt Paving Operations","Expert","The crew is behind schedule and trucks are cycling faster than normal. What changes?",["Nothing","Risk increases due to rushed movement","Only production improves","Only new workers affected"],1,"Speed increases risk."),
+
+    makeQuestion("Milling & Profiling","Expert","A worker walks along the milling machine to check something quickly. What is the issue?",["Exposure to moving parts and debris","Noise only","Visibility issue","No issue if careful"],0,"No quick safe check."),
+
+    makeQuestion("Milling & Profiling","Expert","Debris is landing near workers but not hitting them. What is the problem?",["Nothing yet","Ignoring warning signs","Normal operation","Cleanup issue"],1,"Near misses matter."),
+
+    makeQuestion("Equipment, Technology & Machine Awareness","Expert","You made eye contact with an operator 10 seconds ago and step into their path. What are you assuming?",["Visibility hasn't changed","They stopped watching","Machine will stop","Alarms protect you"],0,"Visibility changes."),
+
+    makeQuestion("Equipment, Technology & Machine Awareness","Expert","A loader is moving slowly so a worker walks behind it. Why dangerous?",["Speed removes risk","Blind spots still exist","Only fast machines dangerous","Only new operators risky"],1,"Blind spots always exist."),
+
+    makeQuestion("Human Factors, Judgment & Decision-Making","Expert","A worker says 'we've always done it this way and nothing happened.' What is wrong?",["Relying on luck","They are experienced","They understand job","They are efficient"],0,"Luck is not safety."),
+
+    makeQuestion("Human Factors, Judgment & Decision-Making","Expert","A crew feels uncomfortable but keeps working. Why dangerous?",["Instinct signals risk","Slows production","Creates paperwork","Only matters if boss present"],0,"Gut feeling matters."),
+
+    makeQuestion("Traffic Control & Work Zone Setup","Expert","Drivers are drifting close to the work zone but staying in lane. What is the risk?",["Small mistake could enter zone","No issue","Traffic flow only","Night issue"],0,"Close calls matter."),
+
+    makeQuestion("Traffic Control & Work Zone Setup","Expert","The work zone worked yesterday so it is copied today without review. What is wrong?",["Conditions change","Nothing wrong","Weather only","Supervisor decision"],0,"Always reassess."),
+
+    makeQuestion("Grade, Drain, Utility & Storm/Sewer","Expert","A worker enters a trench because it is 'just for a minute.' What is the issue?",["Time doesn't reduce collapse risk","Only deep trenches dangerous","Depends on soil color","Fine if watched"],0,"Collapse is instant."),
+
+    makeQuestion("Grade, Drain, Utility & Storm/Sewer","Expert","Water collects in a trench and work continues. Biggest concern?",["Soil stability changing","Will dry later","Only slows work","Only rain matters"],0,"Water weakens soil.")
+
   ];
-      allQuestions = allQuestions.concat(q);
-    }
 
+  allQuestions = allQuestions.concat(q);
+}
     function addGeneratedQuestions() {
       var templates = {
         "Safety Culture & Hazard Recognition": {
