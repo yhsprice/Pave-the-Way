@@ -6,26 +6,31 @@
   <title>Pave the Way</title>
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: linear-gradient(180deg, #eef6ff, #f8fbff);
       color: #1f2937;
     }
+
     .container {
       max-width: 1200px;
       margin: 24px auto;
       padding: 20px;
     }
+
     .hero {
       text-align: center;
       margin-bottom: 24px;
     }
+
     .hero h1 {
       margin: 0 0 8px 0;
       font-size: 46px;
       color: #0f172a;
     }
+
     .hero p {
       margin: 0 auto;
       max-width: 900px;
@@ -33,6 +38,7 @@
       color: #475569;
       line-height: 1.5;
     }
+
     .panel,
     .quiz-box,
     .result-box,
@@ -40,20 +46,23 @@
       background: white;
       border-radius: 20px;
       padding: 24px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
       margin-bottom: 22px;
     }
+
     .section-title {
       font-size: 24px;
       margin: 0 0 14px 0;
       color: #1d4ed8;
     }
+
     .option-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 14px;
       margin-bottom: 22px;
     }
+
     .option-card {
       border: 2px solid #dbe4f0;
       border-radius: 16px;
@@ -62,54 +71,67 @@
       cursor: pointer;
       transition: 0.2s ease;
     }
+
     .option-card:hover {
       border-color: #93c5fd;
       transform: translateY(-2px);
     }
+
     .option-card.selected {
       border-color: #1d4ed8;
       background: linear-gradient(180deg, #eef4ff, #e6f0ff);
     }
+
     .option-card h3 {
       margin: 0 0 8px 0;
       font-size: 18px;
       color: #0f172a;
     }
+
     .option-card p {
       margin: 0;
       font-size: 14px;
       color: #475569;
       line-height: 1.45;
     }
+
     .count-line {
       margin-top: 8px !important;
       font-size: 13px !important;
       color: #1d4ed8 !important;
       font-weight: bold !important;
     }
+
     .controls-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
       margin-bottom: 20px;
     }
+
     .control-group {
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
+
     .control-group label {
       font-size: 13px;
       font-weight: bold;
       color: #475569;
     }
+
     select, input[type="text"], button {
       border-radius: 12px;
       border: 1px solid #cbd5e1;
       padding: 11px 14px;
       font-size: 15px;
     }
-    input[type="text"] { width: 100%; }
+
+    input[type="text"] {
+      width: 100%;
+    }
+
     button {
       border: none;
       background: #1d4ed8;
@@ -118,11 +140,26 @@
       cursor: pointer;
       transition: 0.2s ease;
     }
-    button:hover { background: #1e40af; }
-    .secondary-btn { background: #64748b; }
-    .secondary-btn:hover { background: #475569; }
-    .danger-btn { background: #b91c1c; }
-    .danger-btn:hover { background: #991b1b; }
+
+    button:hover {
+      background: #1e40af;
+    }
+
+    .secondary-btn {
+      background: #64748b;
+    }
+
+    .secondary-btn:hover {
+      background: #475569;
+    }
+
+    .danger-btn {
+      background: #b91c1c;
+    }
+
+    .danger-btn:hover {
+      background: #991b1b;
+    }
 
     .top-stats {
       display: grid;
@@ -130,6 +167,7 @@
       gap: 12px;
       margin-bottom: 20px;
     }
+
     .stat-box {
       background: #f8fafc;
       border: 1px solid #dbe4ee;
@@ -137,6 +175,7 @@
       padding: 14px;
       text-align: center;
     }
+
     .stat-label {
       font-size: 12px;
       color: #64748b;
@@ -144,19 +183,24 @@
       letter-spacing: 0.5px;
       margin-bottom: 6px;
     }
+
     .stat-value {
       font-size: 22px;
       font-weight: bold;
       color: #0f172a;
     }
 
-    .quiz-box { display: none; }
+    .quiz-box {
+      display: none;
+    }
+
     .status-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 16px;
     }
+
     .tag {
       display: inline-block;
       padding: 7px 12px;
@@ -164,6 +208,7 @@
       font-size: 13px;
       font-weight: bold;
     }
+
     .tag-category { background: #dbeafe; color: #1d4ed8; }
     .tag-beginner { background: #dcfce7; color: #166534; }
     .tag-advanced { background: #e0f2fe; color: #075985; }
@@ -175,6 +220,7 @@
       margin-bottom: 18px;
       text-align: center;
     }
+
     .question-image {
       max-width: 100%;
       width: 100%;
@@ -196,11 +242,13 @@
       color: #0f172a;
       white-space: pre-line;
     }
+
     .options {
       display: grid;
       gap: 12px;
       margin-bottom: 18px;
     }
+
     .option-btn {
       width: 100%;
       text-align: left;
@@ -214,32 +262,38 @@
       cursor: pointer;
       transition: 0.2s ease;
     }
+
     .option-btn:hover:not(:disabled) {
       border-color: #2563eb;
       transform: translateY(-1px);
     }
+
     .option-btn:disabled {
       cursor: default;
       opacity: 1;
     }
+
     .correct {
       background: #dcfce7 !important;
       border-color: #22c55e !important;
       color: #166534 !important;
       font-weight: bold;
     }
+
     .incorrect {
       background: #fee2e2 !important;
       border-color: #ef4444 !important;
       color: #991b1b !important;
       font-weight: bold;
     }
+
     .feedback {
       min-height: 22px;
       font-size: 17px;
       font-weight: bold;
       margin-bottom: 8px;
     }
+
     .explanation {
       margin-top: 8px;
       padding: 14px;
@@ -251,6 +305,7 @@
       color: #1e3a8a;
       font-size: 15px;
     }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -258,28 +313,33 @@
       justify-content: center;
       margin-top: 18px;
     }
+
     .result-box {
       display: none;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
+
     .result-box h2 {
       margin-top: 0;
       color: #0f172a;
       font-size: 34px;
     }
+
     .result-box p {
       font-size: 18px;
       color: #334155;
       line-height: 1.6;
     }
+
     .score-highlight {
       font-size: 40px;
       font-weight: bold;
       color: #1d4ed8;
       margin: 12px 0;
     }
+
     .badge-row {
       display: flex;
       justify-content: center;
@@ -287,6 +347,7 @@
       flex-wrap: wrap;
       margin-top: 14px;
     }
+
     .badge {
       padding: 10px 16px;
       border-radius: 999px;
@@ -295,11 +356,13 @@
       background: #ede9fe;
       color: #6d28d9;
     }
+
     .leaderboard-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 8px;
     }
+
     .leaderboard-table th,
     .leaderboard-table td {
       border-bottom: 1px solid #e5e7eb;
@@ -307,7 +370,11 @@
       text-align: left;
       font-size: 14px;
     }
-    .leaderboard-table th { color: #1d4ed8; }
+
+    .leaderboard-table th {
+      color: #1d4ed8;
+    }
+
     .small-note {
       text-align: center;
       font-size: 13px;
@@ -315,6 +382,7 @@
       margin-top: 16px;
       line-height: 1.5;
     }
+
     .confetti-piece {
       position: absolute;
       top: -20px;
@@ -323,6 +391,7 @@
       opacity: 0.9;
       animation: fall 3s linear forwards;
     }
+
     @keyframes fall {
       from { transform: translateY(-20px) rotate(0deg); }
       to { transform: translateY(500px) rotate(540deg); opacity: 0; }
@@ -332,11 +401,25 @@
       .top-stats { grid-template-columns: repeat(3, 1fr); }
       .controls-grid { grid-template-columns: repeat(2, 1fr); }
     }
+
     @media (max-width: 700px) {
-      .controls-grid, .top-stats { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 34px; }
-      .question-text { font-size: 20px; }
-      .container { padding: 14px; margin: 12px auto; }
+      .controls-grid,
+      .top-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .question-text {
+        font-size: 20px;
+      }
+
+      .container {
+        padding: 14px;
+        margin: 12px auto;
+      }
     }
   </style>
 </head>
@@ -376,6 +459,7 @@
             <option value="9999">All Available Questions</option>
           </select>
         </div>
+
         <div class="control-group">
           <label for="soundToggle">Sound</label>
           <select id="soundToggle">
@@ -383,10 +467,12 @@
             <option value="off">Off</option>
           </select>
         </div>
+
         <div class="control-group">
           <label for="playerOneName">Player / Team 1</label>
           <input type="text" id="playerOneName" placeholder="Player 1 or Team A" />
         </div>
+
         <div class="control-group">
           <label for="playerTwoName">Player / Team 2</label>
           <input type="text" id="playerTwoName" placeholder="Player 2 or Team B" />
@@ -469,7 +555,7 @@
     </div>
 
     <div class="small-note">
-      Starter build using only the selected company preview questions.
+      Starter build using your current PNG files and starter questions.
     </div>
   </div>
 
@@ -545,160 +631,160 @@
       allQuestions = [
         makeQuestion("EQUIPMENT", "Beginner", "What is the biggest risk around a loader?",
           ["Being unseen by operator", "Noise exposure", "Dust exposure", "Blinded by the light"], 0,
-          "Always show off and be seen.", [], "images/loader.png"
+          "Always show off and be seen.", [], "loader.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is another common name for a skid steer?",
           ["Bobcat", "Booty caller", "Skid Mark", "Watchdog"], 0,
-          "What do you call a skid steer that won't move? A skid-stay-r", ["fun"], "images/skidsteer.png"
+          "What do you call a skid steer that won't move? A skid-stay-r", ["fun"], "skidsteer.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is the biggest risk around heavy equipment?",
           ["Being unseen by the operator", "Noise exposure", "Dust exposure", "Material falling out"], 0,
-          "Excavators really dig their job.", [], "images/heavy-equipment.png"
+          "Excavators really dig their job.", [], "heavy-equipment.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What area around equipment is most dangerous?",
           ["Blind spots", "Left side", "Right side", "Behind"], 0,
-          "Close your eyes and everywhere is dangerous.", [], "images/blind-spots.png"
+          "Close your eyes and everywhere is dangerous.", [], "blind-spots.png"
         ),
         makeQuestion("EQUIPMENT", "Expert", "What should you assume around any moving machine?",
           ["It may move unexpectedly", "The driver may be an idiot", "Lights can blind you", "It will stop automatically to keep you safe"], 0,
-          "Shy? Jackhammers really break the ice.", [], "images/moving-machine.png"
+          "Shy? Jackhammers really break the ice.", [], "moving-machine.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What is a loader primarily used for?",
           ["Moving material", "Compaction", "Lifting personelle", "Pushing equipment"], 0,
-          "Loaders are always uplifting.", [], "images/loader-use.png"
+          "Loaders are always uplifting.", [], "loader-use.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is a roller used for?",
           ["Compaction", "Moving Material", "Crushing pop cans", "Painting lines"], 0,
-          "Roll, roll, roll your dirt, gently down the street", [], "images/roller.png"
+          "Roll, roll, roll your dirt, gently down the street", [], "roller.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What is the safest distance from moving equipment?",
           ["Outside the operator’s blind spots", "5 feet", "10 ft", "Depends on location"], 0,
-          "Crane operators are really raising the bar.", [], "images/safe-distance.png"
+          "Crane operators are really raising the bar.", [], "safe-distance.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is the biggest mistake workers make around equipment?",
           ["Assuming they are visible", "Trusting coworkers", "Not wearing protective gear", "Not looking out in front while driving"], 0,
-          "Always know some people ignore you.", [], "images/visibility.png"
+          "Always know some people ignore you.", [], "visibility.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is the safest way to approach equipment operators?",
           ["Make eye contact and stay clear", "Don't do anything to make it mad", "Slowly with caution", "From the drivers side"], 0,
-          "This is not a hide and seek game.", [], "images/eye-contact.png"
+          "This is not a hide and seek game.", [], "eye-contact.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is a common nickname for a very old truck?",
           ["Beater", "Squirt", "Oldie", "Howler"], 0,
-          "You got it. Right?", ["fun"], "images/old-truck.png"
+          "You got it. Right?", ["fun"], "old-truck.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What should you never do near moving equipment?",
           ["All of the above", "Walk behind it without confirmation", "Taunt the driver", "Play hide and seek"], 0,
-          "Be nice.", ["fun"], "images/never-do.png"
+          "Be nice.", ["fun"], "never-do.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What is the biggest danger when equipment is backing up?",
           ["Limited visibility", "Going deaf from the beeping", "Sharp stabbing things on the ground", "The driver"], 0,
-          "Never ignore on purpose.", [], "images/backing-up.png"
+          "Never ignore on purpose.", [], "backing-up.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is the safest assumption about operators?",
           ["They may not see you", "They will hear you if you yell at them", "They always watch out for people", "They rely on the equipment to tell them of dangers"], 0,
-          "Visibility isn't always easy, even in well-lighted areas.", [], "images/operator-visibility.png"
+          "Visibility isn't always easy, even in well-lighted areas.", [], "operator-visibility.png"
         ),
         makeQuestion("EQUIPMENT", "Expert", "What causes most struck-by incidents?",
           ["Worker position and visibility", "Drunk drivers", "Not paying attention", "Bad lighting"], 0,
-          "A little bit of everything but definitely how well you are seen and where you are.", [], "images/struck-by.png"
+          "A little bit of everything but definitely how well you are seen and where you are.", [], "struck-by.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What is a safe mindset near equipment?",
           ["Stay alert and expect movement", "Always stay close to the equipment", "Leaving equipment running is better than turning off in between work", "Helmets save lives"], 0,
-          "Keep your distance and stay alert but wear a helmet if you need that too.", [], "images/safe-mindset.png"
+          "Keep your distance and stay alert but wear a helmet if you need that too.", [], "safe-mindset.png"
         ),
 
         makeQuestion("TRAFFIC CONTROL", "Advanced", "Traffic begins moving faster than expected through your work zone. What is the best response?",
           ["Pause work and reassess traffic control", "Continue working and stay alert", "Move workers farther from the lane and continue", "Wait to see if traffic settles down"], 0,
-          "Conditions change. Always reassess those situations.", [], "images/traffic-control.png"
+          "Conditions change. Always reassess those situations.", [], "traffic-control.png"
         ),
         makeQuestion("TRAFFIC CONTROL", "Beginner", "What is the biggest danger in a work zone?",
           ["Traffic entering it", "Workers falling asleep", "Immaturity", "Weather"], 0,
-          "Traffic is definitely unexpected. Not like Joe-bob who always falls asleep in the excavator.", [], "images/work-zone.png"
+          "Traffic is definitely unexpected. Not like Joe-bob who always falls asleep in the excavator.", [], "work-zone.png"
         ),
         makeQuestion("TRAFFIC CONTROL", "Advanced", "Why is worker positioning important even when signs and cones are already in place?",
           ["Devices do not guarantee perfect driver behavior", "To prevent accidents with the equipment", "To wave to the drivers and keep them in place", "To train the new workers"], 0,
-          "Never rely on drivers to always be paying attention.", [], "images/worker-positioning.png"
+          "Never rely on drivers to always be paying attention.", [], "worker-positioning.png"
         ),
         makeQuestion("TRAFFIC CONTROL", "Advanced", "If traffic starts acting unpredictably near the work area, what should workers assume?",
           ["The work zone may need to be reassessed", "It's best to shut down and wait for it to get better", "They should put signs out to slow traffic down", "They should put workers out to direct traffic better"], 0,
-          "Address the situation and see what needs to be done.", [], "images/reassess-traffic.png"
+          "Address the situation and see what needs to be done.", [], "reassess-traffic.png"
         ),
 
         makeQuestion("PAVING", "Expert", "Why should workers stay alert around the screed area?",
           ["Hot material & moving equipment still create exposure there", "Anything can happen", "Coworkers like to play jokes on each other", "Area can get stressed and crack"], 0,
-          "Be smart and safe.", [], "images/screed-area.png"
+          "Be smart and safe.", [], "screed-area.png"
         ),
         makeQuestion("PAVING", "Advanced", "Workers stand under a concrete pour area. Why is this dangerous?",
           ["They are exposed to falling material or failure", "It's hard to pay attention to surroundings", "The smell is toxic", "It would be hard to move out of the way if it falls"], 0,
-          "Anything could happen, but definitely this.", [], "images/concrete-pour.png"
+          "Anything could happen, but definitely this.", [], "concrete-pour.png"
         ),
 
         makeQuestion("MILLING", "Advanced", "What is the biggest milling hazard?",
           ["Moving parts", "Noise exposure", "Dust exposure", "Machine efficiency"], 0,
-          "Milling drums have caused a lot of injuries from moving parts", [], "images/milling-hazard.png"
+          "Milling drums have caused a lot of injuries from moving parts", [], "milling-hazard.png"
         ),
         makeQuestion("MILLING", "Advanced", "What is the danger of debris?",
           ["Injury", "Changes work positions", "Creates more paperwork", "Hurts the appearance of the job"], 0,
-          "Adjust worker position as needed and put on protective equipment.", [], "images/milling-debris.png"
+          "Adjust worker position as needed and put on protective equipment.", [], "milling-debris.png"
         ),
 
         makeQuestion("UTILITY / TRENCH", "Beginner", "What is grading?",
           ["Shaping ground", "The score your boss gives you", "Applying rebar", "Removing unneeded ground"], 0,
-          "It's not a score but just as important.", [], "images/grading.png"
+          "It's not a score but just as important.", [], "grading.png"
         ),
         makeQuestion("UTILITY / TRENCH", "Expert", "What is the danger of standing water?",
           ["Soil instability", "Takes longer to dry", "Slows down work", "It only matters if it is raining"], 0,
-          "Water weakens soil and increases risk of collapse.", [], "images/standing-water.png"
+          "Water weakens soil and increases risk of collapse.", [], "standing-water.png"
         ),
 
         makeQuestion("BRIDGE & STRUCTURES", "Expert", "What is the biggest risk when removing formwork too early?",
           ["Structural failure", "Paperwork documentation", "Scratch and dent appearance", "No worries"], 0,
-          "Not a scratch and dent type of thing. Don't fail here.", [], "images/formwork.png"
+          "Not a scratch and dent type of thing. Don't fail here.", [], "formwork.png"
         ),
         makeQuestion("BRIDGE & STRUCTURES", "Expert", "What does uneven concrete loading cause?",
           ["Form failure risk", "Headache from paperwork", "It only hurts the appearance", "Bubbles in the concrete"], 0,
-          "More than a headache.", [], "images/concrete-loading.png"
+          "More than a headache.", [], "concrete-loading.png"
         ),
 
         makeQuestion("AGGREGATE & MATERIALS", "Advanced", "What is the danger of poor stockpile organization?",
           ["Confusion and errors", "Things could get lost", "Creates anger when done wrong", "It doesn't look good for the company"], 0,
-          "You don't need to get anymore confused than you already are.", [], "images/stockpile.png"
+          "You don't need to get anymore confused than you already are.", [], "stockpile.png"
         ),
 
         makeQuestion("TRANSLOADING / TANK / RAIL", "Beginner", "What is a key risk during tank transfer operations?",
           ["Uncontrolled release or incorrect transfer", "cross-contamination", "Product issues", "Product getting lost"], 0,
-          "Stay controlled and correct.", [], "images/tank-transfer.png"
+          "Stay controlled and correct.", [], "tank-transfer.png"
         ),
         makeQuestion("TRANSLOADING / TANK / RAIL", "Expert", "A worker assumes a tank contains the same material as last time. What is the flaw?",
           ["Conditions and contents can change", "The worker didn't check their paperwork", "They didn't clean it before using it", "There is no flaw"], 0,
-          "Better to be safe than sorry.", [], "images/tank-assumption.png"
+          "Better to be safe than sorry.", [], "tank-assumption.png"
         ),
 
         makeQuestion("SAFETY & HAZARD RECOGNITION", "Beginner", "If you see a coworker doing something unsafe, what is the best response?",
           ["Address the situation or get help", "Ignore. Not your business", "Call 911", "Tell your supervisor immediately"], 0,
-          "Try not to laugh before you help them.", [], "images/unsafe-coworker.png"
+          "Try not to laugh before you help them.", [], "unsafe-coworker.png"
         ),
         makeQuestion("SAFETY & HAZARD RECOGNITION", "Expert", "If you are unsure whether an area is safe to enter, what is the best action?",
           ["Pause and verify", "Enter but briefly", "Assume it's safe", "Follow others if they go in"], 0,
-          "You always smell milk to make sure it's safe before drinking, so why risk this?", [], "images/pause-and-verify.png"
+          "You always smell milk to make sure it's safe before drinking, so why risk this?", [], "pause-and-verify.png"
         ),
         makeQuestion("SAFETY & HAZARD RECOGNITION", "Advanced", "A crew feels uncomfortable but keeps working. Why is this dangerous?",
           ["Instinct signals risk", "It slows down production", "Creates more paperwork", "They probably had bad food and feel sick"], 0,
-          "Always trust your instinct.", [], "images/instinct.png"
+          "Always trust your instinct.", [], "instinct.png"
         ),
 
         makeQuestion("ADVANCED SCENARIO QUESTIONS", "Expert", "A worker walks close to the milling drum to check something quickly. What is the problem?",
           ["Exposure to moving parts and debris", "Only noise exposure", "Only visibility issues", "No issue if the worker is experienced"], 0,
-          "Close is not always the best eyesight.", ["scenario"], "images/scenario-milling.png"
+          "Close is not always the best eyesight.", ["scenario"], "scenario-milling.png"
         ),
         makeQuestion("ADVANCED SCENARIO QUESTIONS", "Expert", "A work zone plan looks correct on paper but is confusing in the field. What matters more?",
           ["How the plan functions in real conditions", "No worries. Plans are always correct and verified", "It is just paperwork that has to be filed for safety reasons", "It only matters for new workers"], 0,
-          "Think outside the box.", ["scenario"], "images/scenario-workzone.png"
+          "Think outside the box.", ["scenario"], "scenario-workzone.png"
         ),
         makeQuestion("ADVANCED SCENARIO QUESTIONS", "Expert", "Material is dumped into the wrong stockpile. What is the biggest risk?",
           ["Contamination and incorrect use later", "Not getting it fixed fast enough", "Depends on the materials", "Product is instantly ruined and must be redone"], 0,
-          "Always check first before dumping.", ["scenario"], "images/scenario-stockpile.png"
+          "Always check first before dumping.", ["scenario"], "scenario-stockpile.png"
         )
       ];
     }
@@ -771,7 +857,9 @@
         }
 
         card.innerHTML = '<h3>' + item.name + '</h3><p>' + item.description + '</p>' + extra;
-        card.onclick = function() { onSelect(item.id); };
+        card.onclick = function() {
+          onSelect(item.id);
+        };
         container.appendChild(card);
       });
     }
@@ -827,6 +915,7 @@
     function playTone(freq, duration, volume) {
       if (!getCurrentSoundSetting()) return;
       volume = volume || 0.04;
+
       var AudioContextClass = window.AudioContext || window.webkitAudioContext;
       if (!AudioContextClass) return;
 
@@ -901,6 +990,7 @@
         var beginnerPool = filtered.filter(function(q) {
           return q.difficulty === "Beginner";
         });
+
         var expertPool = filtered.filter(function(q) {
           return q.difficulty === "Expert";
         });
@@ -942,10 +1032,15 @@
     function updateTopStats() {
       var totalAnswered = attemptsMade;
 
-      questionNumber.textContent = quizQuestions.length ? (currentQuestionIndex + 1) + " / " + quizQuestions.length : "0 / 0";
-      scoreDisplay.textContent = selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario"
-        ? playerOneScore
-        : (playerOneScore + " / " + playerTwoScore);
+      questionNumber.textContent = quizQuestions.length
+        ? (currentQuestionIndex + 1) + " / " + quizQuestions.length
+        : "0 / 0";
+
+      scoreDisplay.textContent =
+        (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario")
+          ? playerOneScore
+          : (playerOneScore + " / " + playerTwoScore);
+
       correctDisplay.textContent = correctCount;
       accuracyDisplay.textContent = totalAnswered ? Math.round((correctCount / totalAnswered) * 100) + "%" : "0%";
       attemptDisplay.textContent = attemptsMade;
@@ -971,8 +1066,12 @@
         questionMeta.appendChild(createTag("Expert", "tag-expert"));
       }
 
+      var modeName = modeChoices.find(function(m) {
+        return m.id === selectedMode;
+      }).name;
+
       questionMeta.appendChild(createTag("Turn: " + getCurrentPlayerLabel(), "tag-turn"));
-      questionMeta.appendChild(createTag("Mode: " + modeChoices.find(function(m) { return m.id === selectedMode; }).name, "tag-mode"));
+      questionMeta.appendChild(createTag("Mode: " + modeName, "tag-mode"));
     }
 
     function showQuestion() {
@@ -1057,6 +1156,7 @@
 
     function createConfetti() {
       var colors = ["#2563eb", "#7c3aed", "#22c55e", "#f59e0b", "#ef4444"];
+
       for (var i = 0; i < 40; i++) {
         var piece = document.createElement("div");
         piece.className = "confetti-piece";
@@ -1179,9 +1279,10 @@
       quizBox.style.display = "none";
       resultsBox.style.display = "block";
 
-      var finalNumericScore = selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario"
-        ? playerOneScore
-        : Math.max(playerOneScore, playerTwoScore);
+      var finalNumericScore =
+        (selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario")
+          ? playerOneScore
+          : Math.max(playerOneScore, playerTwoScore);
 
       var accuracy = attemptsMade ? Math.round((correctCount / attemptsMade) * 100) : 0;
 
@@ -1201,7 +1302,7 @@
         badgeRow.appendChild(badge);
       });
 
-      var entryName = selectedMode === "versus" || selectedMode === "team"
+      var entryName = (selectedMode === "versus" || selectedMode === "team")
         ? getLeadingPlayer()
         : playerOneName;
 
