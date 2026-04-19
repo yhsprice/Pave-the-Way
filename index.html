@@ -171,6 +171,23 @@
     .tag-turn { background: #ede9fe; color: #6d28d9; }
     .tag-mode { background: #fef3c7; color: #92400e; }
 
+    .question-image-wrap {
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .question-image {
+      max-width: 100%;
+      width: 100%;
+      max-height: 280px;
+      object-fit: contain;
+      border-radius: 16px;
+      border: 1px solid #dbe4ee;
+      background: #f8fafc;
+      padding: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      display: none;
+    }
+
     .question-text {
       font-size: 26px;
       font-weight: bold;
@@ -424,6 +441,11 @@
       </div>
 
       <div class="status-bar" id="questionMeta"></div>
+
+      <div class="question-image-wrap">
+        <img id="questionImage" class="question-image" alt="Question image" />
+      </div>
+
       <div class="question-text" id="questionText"></div>
       <div class="options" id="optionsBox"></div>
       <div class="feedback" id="feedbackText"></div>
@@ -493,7 +515,7 @@
     var selectedStyle = "standard";
     var selectedCategory = "All";
 
-    function makeQuestion(category, difficulty, question, options, correct, explanation, tags) {
+    function makeQuestion(category, difficulty, question, options, correct, explanation, tags, image) {
       return {
         category: category,
         difficulty: difficulty,
@@ -501,7 +523,8 @@
         options: options,
         correct: correct,
         explanation: explanation,
-        tags: tags || []
+        tags: tags || [],
+        image: image || ""
       };
     }
 
@@ -522,160 +545,160 @@
       allQuestions = [
         makeQuestion("EQUIPMENT", "Beginner", "What is the biggest risk around a loader?",
           ["Being unseen by operator", "Noise exposure", "Dust exposure", "Blinded by the light"], 0,
-          "Always show off and be seen."
+          "Always show off and be seen.", [], "images/loader.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is another common name for a skid steer?",
           ["Bobcat", "Booty caller", "Skid Mark", "Watchdog"], 0,
-          "What do you call a skid steer that won't move? A skid-stay-r", ["fun"]
+          "What do you call a skid steer that won't move? A skid-stay-r", ["fun"], "images/skidsteer.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is the biggest risk around heavy equipment?",
           ["Being unseen by the operator", "Noise exposure", "Dust exposure", "Material falling out"], 0,
-          "Excavators really dig their job."
+          "Excavators really dig their job.", [], "images/heavy-equipment.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What area around equipment is most dangerous?",
           ["Blind spots", "Left side", "Right side", "Behind"], 0,
-          "Close your eyes and everywhere is dangerous."
+          "Close your eyes and everywhere is dangerous.", [], "images/blind-spots.png"
         ),
         makeQuestion("EQUIPMENT", "Expert", "What should you assume around any moving machine?",
           ["It may move unexpectedly", "The driver may be an idiot", "Lights can blind you", "It will stop automatically to keep you safe"], 0,
-          "Shy? Jackhammers really break the ice."
+          "Shy? Jackhammers really break the ice.", [], "images/moving-machine.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What is a loader primarily used for?",
           ["Moving material", "Compaction", "Lifting personelle", "Pushing equipment"], 0,
-          "Loaders are always uplifting."
+          "Loaders are always uplifting.", [], "images/loader-use.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is a roller used for?",
           ["Compaction", "Moving Material", "Crushing pop cans", "Painting lines"], 0,
-          "Roll, roll, roll your dirt, gently down the street"
+          "Roll, roll, roll your dirt, gently down the street", [], "images/roller.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What is the safest distance from moving equipment?",
           ["Outside the operator’s blind spots", "5 feet", "10 ft", "Depends on location"], 0,
-          "Crane operators are really raising the bar."
+          "Crane operators are really raising the bar.", [], "images/safe-distance.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is the biggest mistake workers make around equipment?",
           ["Assuming they are visible", "Trusting coworkers", "Not wearing protective gear", "Not looking out in front while driving"], 0,
-          "Always know some people ignore you."
+          "Always know some people ignore you.", [], "images/visibility.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is the safest way to approach equipment operators?",
           ["Make eye contact and stay clear", "Don't do anything to make it mad", "Slowly with caution", "From the drivers side"], 0,
-          "This is not a hide and seek game."
+          "This is not a hide and seek game.", [], "images/eye-contact.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is a common nickname for a very old truck?",
           ["Beater", "Squirt", "Oldie", "Howler"], 0,
-          "You got it. Right?", ["fun"]
+          "You got it. Right?", ["fun"], "images/old-truck.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What should you never do near moving equipment?",
           ["All of the above", "Walk behind it without confirmation", "Taunt the driver", "Play hide and seek"], 0,
-          "Be nice.", ["fun"]
+          "Be nice.", ["fun"], "images/never-do.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What is the biggest danger when equipment is backing up?",
           ["Limited visibility", "Going deaf from the beeping", "Sharp stabbing things on the ground", "The driver"], 0,
-          "Never ignore on purpose."
+          "Never ignore on purpose.", [], "images/backing-up.png"
         ),
         makeQuestion("EQUIPMENT", "Beginner", "What is the safest assumption about operators?",
           ["They may not see you", "They will hear you if you yell at them", "They always watch out for people", "They rely on the equipment to tell them of dangers"], 0,
-          "Visibility isn't always easy, even in well-lighted areas."
+          "Visibility isn't always easy, even in well-lighted areas.", [], "images/operator-visibility.png"
         ),
         makeQuestion("EQUIPMENT", "Expert", "What causes most struck-by incidents?",
           ["Worker position and visibility", "Drunk drivers", "Not paying attention", "Bad lighting"], 0,
-          "A little bit of everything but definitely how well you are seen and where you are."
+          "A little bit of everything but definitely how well you are seen and where you are.", [], "images/struck-by.png"
         ),
         makeQuestion("EQUIPMENT", "Advanced", "What is a safe mindset near equipment?",
           ["Stay alert and expect movement", "Always stay close to the equipment", "Leaving equipment running is better than turning off in between work", "Helmets save lives"], 0,
-          "Keep your distance and stay alert but wear a helmet if you need that too."
+          "Keep your distance and stay alert but wear a helmet if you need that too.", [], "images/safe-mindset.png"
         ),
 
         makeQuestion("TRAFFIC CONTROL", "Advanced", "Traffic begins moving faster than expected through your work zone. What is the best response?",
           ["Pause work and reassess traffic control", "Continue working and stay alert", "Move workers farther from the lane and continue", "Wait to see if traffic settles down"], 0,
-          "Conditions change. Always reassess those situations."
+          "Conditions change. Always reassess those situations.", [], "images/traffic-control.png"
         ),
         makeQuestion("TRAFFIC CONTROL", "Beginner", "What is the biggest danger in a work zone?",
           ["Traffic entering it", "Workers falling asleep", "Immaturity", "Weather"], 0,
-          "Traffic is definitely unexpected. Not like Joe-bob who always falls asleep in the excavator."
+          "Traffic is definitely unexpected. Not like Joe-bob who always falls asleep in the excavator.", [], "images/work-zone.png"
         ),
         makeQuestion("TRAFFIC CONTROL", "Advanced", "Why is worker positioning important even when signs and cones are already in place?",
           ["Devices do not guarantee perfect driver behavior", "To prevent accidents with the equipment", "To wave to the drivers and keep them in place", "To train the new workers"], 0,
-          "Never rely on drivers to always be paying attention."
+          "Never rely on drivers to always be paying attention.", [], "images/worker-positioning.png"
         ),
         makeQuestion("TRAFFIC CONTROL", "Advanced", "If traffic starts acting unpredictably near the work area, what should workers assume?",
           ["The work zone may need to be reassessed", "It's best to shut down and wait for it to get better", "They should put signs out to slow traffic down", "They should put workers out to direct traffic better"], 0,
-          "Address the situation and see what needs to be done."
+          "Address the situation and see what needs to be done.", [], "images/reassess-traffic.png"
         ),
 
         makeQuestion("PAVING", "Expert", "Why should workers stay alert around the screed area?",
           ["Hot material & moving equipment still create exposure there", "Anything can happen", "Coworkers like to play jokes on each other", "Area can get stressed and crack"], 0,
-          "Be smart and safe."
+          "Be smart and safe.", [], "images/screed-area.png"
         ),
         makeQuestion("PAVING", "Advanced", "Workers stand under a concrete pour area. Why is this dangerous?",
           ["They are exposed to falling material or failure", "It's hard to pay attention to surroundings", "The smell is toxic", "It would be hard to move out of the way if it falls"], 0,
-          "Anything could happen, but definitely this."
+          "Anything could happen, but definitely this.", [], "images/concrete-pour.png"
         ),
 
         makeQuestion("MILLING", "Advanced", "What is the biggest milling hazard?",
           ["Moving parts", "Noise exposure", "Dust exposure", "Machine efficiency"], 0,
-          "Milling drums have caused a lot of injuries from moving parts"
+          "Milling drums have caused a lot of injuries from moving parts", [], "images/milling-hazard.png"
         ),
         makeQuestion("MILLING", "Advanced", "What is the danger of debris?",
           ["Injury", "Changes work positions", "Creates more paperwork", "Hurts the appearance of the job"], 0,
-          "Adjust worker position as needed and put on protective equipment."
+          "Adjust worker position as needed and put on protective equipment.", [], "images/milling-debris.png"
         ),
 
         makeQuestion("UTILITY / TRENCH", "Beginner", "What is grading?",
           ["Shaping ground", "The score your boss gives you", "Applying rebar", "Removing unneeded ground"], 0,
-          "It's not a score but just as important."
+          "It's not a score but just as important.", [], "images/grading.png"
         ),
         makeQuestion("UTILITY / TRENCH", "Expert", "What is the danger of standing water?",
           ["Soil instability", "Takes longer to dry", "Slows down work", "It only matters if it is raining"], 0,
-          "Water weakens soil and increases risk of collapse."
+          "Water weakens soil and increases risk of collapse.", [], "images/standing-water.png"
         ),
 
         makeQuestion("BRIDGE & STRUCTURES", "Expert", "What is the biggest risk when removing formwork too early?",
           ["Structural failure", "Paperwork documentation", "Scratch and dent appearance", "No worries"], 0,
-          "Not a scratch and dent type of thing. Don't fail here."
+          "Not a scratch and dent type of thing. Don't fail here.", [], "images/formwork.png"
         ),
         makeQuestion("BRIDGE & STRUCTURES", "Expert", "What does uneven concrete loading cause?",
           ["Form failure risk", "Headache from paperwork", "It only hurts the appearance", "Bubbles in the concrete"], 0,
-          "More than a headache."
+          "More than a headache.", [], "images/concrete-loading.png"
         ),
 
         makeQuestion("AGGREGATE & MATERIALS", "Advanced", "What is the danger of poor stockpile organization?",
           ["Confusion and errors", "Things could get lost", "Creates anger when done wrong", "It doesn't look good for the company"], 0,
-          "You don't need to get anymore confused than you already are."
+          "You don't need to get anymore confused than you already are.", [], "images/stockpile.png"
         ),
 
         makeQuestion("TRANSLOADING / TANK / RAIL", "Beginner", "What is a key risk during tank transfer operations?",
           ["Uncontrolled release or incorrect transfer", "cross-contamination", "Product issues", "Product getting lost"], 0,
-          "Stay controlled and correct."
+          "Stay controlled and correct.", [], "images/tank-transfer.png"
         ),
         makeQuestion("TRANSLOADING / TANK / RAIL", "Expert", "A worker assumes a tank contains the same material as last time. What is the flaw?",
           ["Conditions and contents can change", "The worker didn't check their paperwork", "They didn't clean it before using it", "There is no flaw"], 0,
-          "Better to be safe than sorry."
+          "Better to be safe than sorry.", [], "images/tank-assumption.png"
         ),
 
         makeQuestion("SAFETY & HAZARD RECOGNITION", "Beginner", "If you see a coworker doing something unsafe, what is the best response?",
           ["Address the situation or get help", "Ignore. Not your business", "Call 911", "Tell your supervisor immediately"], 0,
-          "Try not to laugh before you help them."
+          "Try not to laugh before you help them.", [], "images/unsafe-coworker.png"
         ),
         makeQuestion("SAFETY & HAZARD RECOGNITION", "Expert", "If you are unsure whether an area is safe to enter, what is the best action?",
           ["Pause and verify", "Enter but briefly", "Assume it's safe", "Follow others if they go in"], 0,
-          "You always smell milk to make sure it's safe before drinking, so why risk this?"
+          "You always smell milk to make sure it's safe before drinking, so why risk this?", [], "images/pause-and-verify.png"
         ),
         makeQuestion("SAFETY & HAZARD RECOGNITION", "Advanced", "A crew feels uncomfortable but keeps working. Why is this dangerous?",
           ["Instinct signals risk", "It slows down production", "Creates more paperwork", "They probably had bad food and feel sick"], 0,
-          "Always trust your instinct."
+          "Always trust your instinct.", [], "images/instinct.png"
         ),
 
         makeQuestion("ADVANCED SCENARIO QUESTIONS", "Expert", "A worker walks close to the milling drum to check something quickly. What is the problem?",
           ["Exposure to moving parts and debris", "Only noise exposure", "Only visibility issues", "No issue if the worker is experienced"], 0,
-          "Close is not always the best eyesight.", ["scenario"]
+          "Close is not always the best eyesight.", ["scenario"], "images/scenario-milling.png"
         ),
         makeQuestion("ADVANCED SCENARIO QUESTIONS", "Expert", "A work zone plan looks correct on paper but is confusing in the field. What matters more?",
           ["How the plan functions in real conditions", "No worries. Plans are always correct and verified", "It is just paperwork that has to be filed for safety reasons", "It only matters for new workers"], 0,
-          "Think outside the box.", ["scenario"]
+          "Think outside the box.", ["scenario"], "images/scenario-workzone.png"
         ),
         makeQuestion("ADVANCED SCENARIO QUESTIONS", "Expert", "Material is dumped into the wrong stockpile. What is the biggest risk?",
           ["Contamination and incorrect use later", "Not getting it fixed fast enough", "Depends on the materials", "Product is instantly ruined and must be redone"], 0,
-          "Always check first before dumping.", ["scenario"]
+          "Always check first before dumping.", ["scenario"], "images/scenario-stockpile.png"
         )
       ];
     }
@@ -711,6 +734,7 @@
     var resultsBox = document.getElementById("resultsBox");
     var questionMeta = document.getElementById("questionMeta");
     var questionText = document.getElementById("questionText");
+    var questionImage = document.getElementById("questionImage");
     var optionsBox = document.getElementById("optionsBox");
     var explanationBox = document.getElementById("explanationBox");
     var feedbackText = document.getElementById("feedbackText");
@@ -917,9 +941,6 @@
 
     function updateTopStats() {
       var totalAnswered = attemptsMade;
-      var totalScore = selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario"
-        ? playerOneScore
-        : Math.max(playerOneScore, playerTwoScore);
 
       questionNumber.textContent = quizQuestions.length ? (currentQuestionIndex + 1) + " / " + quizQuestions.length : "0 / 0";
       scoreDisplay.textContent = selectedMode === "solo" || selectedMode === "fun" || selectedMode === "boss" || selectedMode === "scenario"
@@ -965,6 +986,14 @@
       renderQuestionMeta(question);
       questionText.textContent = question.question;
       optionsBox.innerHTML = "";
+
+      if (question.image && question.image.trim() !== "") {
+        questionImage.src = question.image;
+        questionImage.style.display = "block";
+      } else {
+        questionImage.removeAttribute("src");
+        questionImage.style.display = "none";
+      }
 
       question.options.forEach(function(option, index) {
         var btn = document.createElement("button");
