@@ -602,17 +602,21 @@
     var selectedCategory = "All";
 
     function makeQuestion(category, difficulty, question, options, correct, explanation, tags, image) {
-      return {
-        category: category,
-        difficulty: difficulty,
-        question: question,
-        options: options,
-        correct: correct,
-        explanation: explanation,
-        tags: tags || [],
-        image: image || ""
-      };
-    }
+  var shuffledOptions = shuffleArray(options);
+  var correctAnswerText = options[correct];
+  var newCorrectIndex = shuffledOptions.indexOf(correctAnswerText);
+
+  return {
+    category: category,
+    difficulty: difficulty,
+    question: question,
+    options: shuffledOptions,
+    correct: newCorrectIndex,
+    explanation: explanation,
+    tags: tags || [],
+    image: image || ""
+  };
+}
 
     function shuffleArray(array) {
       var arr = array.slice();
