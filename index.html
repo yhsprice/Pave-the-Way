@@ -699,6 +699,7 @@
       <div class="local-board-title">Local Scoreboard</div>
       <div id="localLeaderboard" class="local-board"></div>
       <div class="controls">
+        <button onclick="downloadResults()">Download Results</button>
         <button onclick="restartGame()">Play Again</button>
       </div>
     </section>
@@ -1878,6 +1879,82 @@ resultsDiv.innerHTML += `
           </div>
         `).join("");
       }).join("");
+    }
+
+
+
+    function getWeakAreaSummaryText() {
+      const entries = Object.entries(categoryStats || {});
+      if (!entries.length) return "No weak area data available.";
+
+      const sorted = entries
+        .map(([category, data]) => ({
+          category,
+          correct: data.correct,
+          total: data.total,
+          percent: data.total ? Math.round((data.correct / data.total) * 100) : 0
+        }))
+        .sort((a, b) => a.percent - b.percent || b.total - a.total);
+
+      const weakest = sorted[0];
+      const strongest = [...sorted].sort((a, b) => b.percent - a.percent || b.total - a.total)[0];
+
+      return `Weakest Area: ${weakest.category} - ${weakest.correct}/${weakest.total} correct (${weakest.percent}%)\nStrongest Area: ${strongest.category} - ${strongest.correct}/${strongest.total} correct (${strongest.percent}%)`;
+    }
+
+    function downloadResults() {
+      const now = new Date();
+      const dateText = now.toLocaleString();
+      const challengeType = document.getElementById("challengeTypeSelect") ? document.getElementById("challengeTypeSelect").value : "standard";
+      const selectedCategory = document.getElementById("categorySelect") ? document.getElementById("categorySelect").value : "";
+      const selectedDifficulty = document.getElementById("difficultySelect") ? document.getElementById("difficultySelect").value : "";
+
+      const sorted = [...players].sort((a, b) =>
+        b.score - a.score ||
+        (b.bestStreak || 0) - (a.bestStreak || 0) ||
+        (b.correct || 0) - (a.correct || 0)
+      );
+
+      let report = "";
+      report += "PAVE THE WAY SAFETY CHALLENGE RESULTS\n";
+      report += "=====================================\n\n";
+      report += `Date: ${dateText}\n`;
+      report += `Game Mode: ${gameMode === "battle" ? "Team / Player Battle" : "Solo"}\n`;
+      report += `Challenge Type: ${challengeType}\n`;
+      report += `Category: ${selectedCategory}\n`;
+      report += `Difficulty: ${selectedDifficulty}\n`;
+      report += `Questions Played: ${currentQuestions.length}\n\n`;
+
+      report += "SCORES\n";
+      report += "------\n";
+      sorted.forEach((p, index) => {
+        const percent = p.answered ? Math.round((p.correct / p.answered) * 100) : 0;
+        report += `${index + 1}. ${p.name}: ${p.score} points | ${p.correct}/${p.answered} correct (${percent}%) | Best streak: ${p.bestStreak || 0}\n`;
+      });
+
+      report += "\nTRAINING SUMMARY\n";
+      report += "----------------\n";
+      report += getWeakAreaSummaryText() + "\n\n";
+
+      report += "CATEGORY BREAKDOWN\n";
+      report += "------------------\n";
+      Object.entries(categoryStats || {}).forEach(([category, data]) => {
+        const percent = data.total ? Math.round((data.correct / data.total) * 100) : 0;
+        report += `${category}: ${data.correct}/${data.total} correct (${percent}%)\n`;
+      });
+
+      report += "\nNote: This report is generated from the local game session on this device.\n";
+
+      const blob = new Blob([report], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      const safeDate = now.toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `pave-the-way-results-${safeDate}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
 
 
