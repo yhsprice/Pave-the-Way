@@ -1305,7 +1305,10 @@
       const imageName = cleanImageName(q.image);
       const imageWrap = document.getElementById("imageWrap");
 
+      const repoBase = "/Pave-the-Way";
       const candidates = [
+        `${repoBase}/images/${imageName}.png`,
+        `${repoBase}/images/${imageName}.PNG`,
         `./images/${imageName}.png`,
         `images/${imageName}.png`,
         `./images/${imageName}.PNG`,
@@ -1326,6 +1329,7 @@
             <div class="missing-image">
               Image not found:<br>
               <strong>${candidates[0]}</strong><br><br>
+              Try opening that image path directly in your browser.<br><br>
               The image name being used is:<br>
               <strong>${imageName}.png</strong><br><br>
               Check that the file is inside the images folder and matches this exact spelling.
