@@ -1445,6 +1445,8 @@
       }
 
       buildWeakAreaReport();
+      saveLocalScores();
+      renderLocalLeaderboard();
       // ===== Weak Area Report =====
 const categoryTotals = {};
 const categoryCorrect = {};
@@ -1713,7 +1715,10 @@ resultsDiv.innerHTML += `
 
     function getLocalScores() {
       try {
-        return JSON.parse(localStorage.getItem("paveTheWayScores") || "[]");
+        const raw = localStorage.getItem("paveTheWayScores");
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
       } catch (e) {
         return [];
       }
@@ -1723,26 +1728,31 @@ resultsDiv.innerHTML += `
       const stored = getLocalScores();
       const now = new Date();
       const dateText = now.toLocaleDateString() + " " + now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      const modeLabel = gameMode === "battle" ? `${players.length}-Player Battle` : "Solo";
 
       players.forEach(p => {
+        const answered = Number(p.answered || 0);
+        const correct = Number(p.correct || 0);
+
+        // Save every player/team that participated, even if they scored 0.
         stored.push({
-          name: p.name,
-          score: p.score,
-          correct: p.correct,
-          answered: p.answered,
-          bestStreak: p.bestStreak || 0,
+          name: p.name || "Unnamed Player",
+          score: Number(p.score || 0),
+          correct: correct,
+          answered: answered,
+          bestStreak: Number(p.bestStreak || 0),
           date: dateText,
-          mode: gameMode
+          mode: modeLabel
         });
       });
 
       stored.sort((a, b) =>
-        b.score - a.score ||
-        (b.bestStreak || 0) - (a.bestStreak || 0) ||
-        (b.correct || 0) - (a.correct || 0)
+        Number(b.score || 0) - Number(a.score || 0) ||
+        Number(b.bestStreak || 0) - Number(a.bestStreak || 0) ||
+        Number(b.correct || 0) - Number(a.correct || 0)
       );
 
-      localStorage.setItem("paveTheWayScores", JSON.stringify(stored.slice(0, 25)));
+      localStorage.setItem("paveTheWayScores", JSON.stringify(stored.slice(0, 50)));
     }
 
     function renderLocalLeaderboard() {
@@ -1752,15 +1762,24 @@ resultsDiv.innerHTML += `
       const scores = getLocalScores();
 
       if (!scores.length) {
-        board.innerHTML = `<div class="local-score-row"><span>—</span><span>No scores yet. Play a game first.</span><span>0</span><span class="date-cell">—</span></div>`;
+        board.innerHTML = `
+          <div class="local-score-row">
+            <span>—</span>
+            <span>No saved scores yet. Finish a game first.</span>
+            <span>0 pts</span>
+            <span class="date-cell">—</span>
+          </div>`;
         return;
       }
 
-      board.innerHTML = scores.slice(0, 10).map((s, index) => `
+      board.innerHTML = scores.slice(0, 15).map((s, index) => `
         <div class="local-score-row ${index === 0 ? "top" : ""}">
           <span>#${index + 1}</span>
-          <span>${s.name}<br><small>${s.correct}/${s.answered} correct • best streak ${s.bestStreak || 0}</small></span>
-          <span>${s.score} pts</span>
+          <span>
+            ${s.name}<br>
+            <small>${s.mode || ""} • ${s.correct || 0}/${s.answered || 0} correct • best streak ${s.bestStreak || 0}</small>
+          </span>
+          <span>${s.score || 0} pts</span>
           <span class="date-cell">${s.date || ""}</span>
         </div>
       `).join("");
@@ -1774,7 +1793,7 @@ resultsDiv.innerHTML += `
       const championBanner = document.getElementById("championBanner");
       if (championBanner) {
         championBanner.classList.remove("hidden");
-        championBanner.innerHTML = `<div class="title">🏆 Local Scoreboard</div><div class="subtitle">Scores saved on this device only.</div>`;
+        championBanner.innerHTML = `<div class="title">🏆 Local Scoreboard</div><div class="subtitle">Solo and battle scores saved on this device.</div>`;
       }
 
       document.getElementById("winnerText").textContent = "Local scoreboard for this computer/tablet.";
@@ -1787,7 +1806,7 @@ resultsDiv.innerHTML += `
         weakReport.classList.add("hidden");
         weakReport.innerHTML = "";
       }
-      document.getElementById("finalMessage").textContent = "This leaderboard is local. It will not show on other devices yet.";
+      document.getElementById("finalMessage").textContent = "This leaderboard saves solo and team/player battle scores on this device only.";
       renderLocalLeaderboard();
     }
 
