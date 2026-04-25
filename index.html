@@ -407,6 +407,63 @@
       to { transform: translateY(-5px) rotate(4deg); }
     }
 
+
+    .local-board {
+      max-width: 820px;
+      margin: 18px auto;
+      display: grid;
+      gap: 10px;
+    }
+
+    .local-board-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #111827;
+      margin: 22px 0 8px;
+    }
+
+    .local-score-row {
+      display: grid;
+      grid-template-columns: 54px 1fr 100px 120px;
+      gap: 10px;
+      align-items: center;
+      background: #111827;
+      color: #ffffff;
+      border-radius: 16px;
+      padding: 12px;
+      font-weight: 900;
+      text-align: left;
+      border: 3px solid transparent;
+    }
+
+    .local-score-row.top {
+      background: #fef3c7;
+      color: #111827;
+      border-color: #f59e0b;
+    }
+
+    .leader-actions {
+      max-width: 820px;
+      margin: 12px auto 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .leader-actions button {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    @media (max-width: 700px) {
+      .local-score-row {
+        grid-template-columns: 42px 1fr 70px;
+      }
+      .local-score-row .date-cell {
+        display: none;
+      }
+    }
+
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -499,6 +556,7 @@
 
       <div class="controls">
         <button onclick="startGame()">Start Challenge</button>
+        <button onclick="showLocalLeaderboardOnly()" class="secondary">View Local Scoreboard</button>
       </div>
     </section>
 
@@ -538,6 +596,11 @@
       <div class="leaderboard" id="leaderboard"></div>
       <div id="weakReport" class="weak-report hidden"></div>
       <p id="finalMessage"></p>
+      <div class="local-board-title">Local Scoreboard</div>
+      <div id="localLeaderboard" class="local-board"></div>
+      <div class="leader-actions">
+        <button onclick="clearLocalLeaderboard()" class="secondary">Clear Local Scoreboard</button>
+      </div>
       <div class="controls">
         <button onclick="restartGame()">Play Again</button>
       </div>
@@ -1521,6 +1584,93 @@ resultsDiv.innerHTML += `
         }, 850);
       }
     }
+
+
+    function getLocalScores() {
+      try {
+        return JSON.parse(localStorage.getItem("paveTheWayScores") || "[]");
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveLocalScores() {
+      const stored = getLocalScores();
+      const now = new Date();
+      const dateText = now.toLocaleDateString() + " " + now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+      players.forEach(p => {
+        stored.push({
+          name: p.name,
+          score: p.score,
+          correct: p.correct,
+          answered: p.answered,
+          bestStreak: p.bestStreak || 0,
+          date: dateText,
+          mode: gameMode
+        });
+      });
+
+      stored.sort((a, b) =>
+        b.score - a.score ||
+        (b.bestStreak || 0) - (a.bestStreak || 0) ||
+        (b.correct || 0) - (a.correct || 0)
+      );
+
+      localStorage.setItem("paveTheWayScores", JSON.stringify(stored.slice(0, 25)));
+    }
+
+    function renderLocalLeaderboard() {
+      const board = document.getElementById("localLeaderboard");
+      if (!board) return;
+
+      const scores = getLocalScores();
+
+      if (!scores.length) {
+        board.innerHTML = `<div class="local-score-row"><span>—</span><span>No scores yet. Play a game first.</span><span>0</span><span class="date-cell">—</span></div>`;
+        return;
+      }
+
+      board.innerHTML = scores.slice(0, 10).map((s, index) => `
+        <div class="local-score-row ${index === 0 ? "top" : ""}">
+          <span>#${index + 1}</span>
+          <span>${s.name}<br><small>${s.correct}/${s.answered} correct • best streak ${s.bestStreak || 0}</small></span>
+          <span>${s.score} pts</span>
+          <span class="date-cell">${s.date || ""}</span>
+        </div>
+      `).join("");
+    }
+
+    function showLocalLeaderboardOnly() {
+      document.getElementById("setupPanel").classList.add("hidden");
+      document.getElementById("gamePanel").classList.add("hidden");
+      document.getElementById("resultsPanel").classList.remove("hidden");
+
+      const championBanner = document.getElementById("championBanner");
+      if (championBanner) {
+        championBanner.classList.remove("hidden");
+        championBanner.innerHTML = `<div class="title">🏆 Local Scoreboard</div><div class="subtitle">Scores saved on this device only.</div>`;
+      }
+
+      document.getElementById("winnerText").textContent = "Local scoreboard for this computer/tablet.";
+      document.getElementById("finalScore").textContent = "Hall of Fame";
+      document.getElementById("leaderboard").innerHTML = "";
+      const weakReport = document.getElementById("weakReport");
+      if (weakReport) {
+        weakReport.classList.add("hidden");
+        weakReport.innerHTML = "";
+      }
+      document.getElementById("finalMessage").textContent = "This leaderboard is local. It will not show on other devices yet.";
+      renderLocalLeaderboard();
+    }
+
+    function clearLocalLeaderboard() {
+      const confirmClear = confirm("Clear the local scoreboard on this device?");
+      if (!confirmClear) return;
+      localStorage.removeItem("paveTheWayScores");
+      renderLocalLeaderboard();
+    }
+
 
     let confettiPieces = [];
     let confettiAnimation = null;
