@@ -367,6 +367,46 @@
       font-weight: 900;
     }
 
+
+    .champion-banner {
+      max-width: 760px;
+      margin: 18px auto;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #facc15, #f59e0b);
+      color: #111827;
+      border: 4px solid #111827;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.35);
+      font-weight: 900;
+      animation: championPulse 1.1s ease-in-out infinite alternate;
+    }
+
+    .champion-banner .title {
+      font-size: clamp(1.8rem, 5vw, 3.4rem);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .champion-banner .subtitle {
+      font-size: 1.1rem;
+    }
+
+    @keyframes championPulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.025); }
+    }
+
+    .victory-spark {
+      display: inline-block;
+      animation: sparkBounce 0.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes sparkBounce {
+      from { transform: translateY(0) rotate(-4deg); }
+      to { transform: translateY(-5px) rotate(4deg); }
+    }
+
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -492,6 +532,7 @@
 
     <section id="resultsPanel" class="panel results hidden">
       <h2>Game Complete</h2>
+      <div id="championBanner" class="champion-banner hidden"></div>
       <p id="winnerText">You made it through the work zone without becoming a cautionary tale.</p>
       <div class="big-score" id="finalScore"></div>
       <div class="leaderboard" id="leaderboard"></div>
@@ -1240,54 +1281,24 @@
         <div style="margin-top:8px;">Training tip: review the weakest area first. That is where the pothole is hiding.</div>
       `;
     }
-function renderScoreboard() {
-  const board = document.getElementById("scoreboard");
 
-  // Find leader
-  let highest = Math.max(...players.map(p => p.score));
-
-  board.innerHTML = players.map((p, i) => {
-    const isActive = i === currentPlayerIndex;
-    const isLeader = p.score === highest && highest > 0;
-
-    return `
-      <div class="score-card ${isActive ? "active" : ""}" 
-           style="position:relative; flex-direction:column; align-items:flex-start; padding:14px;">
-        
-        <div style="font-size:1.1rem;">${p.name}</div>
-
-        <div style="font-size:1.8rem; font-weight:900;">
-          ${p.score}
-        </div>
-
-        ${isLeader ? `
-          <div style="
-            position:absolute;
-            top:-10px;
-            right:-10px;
-            background:#facc15;
-            color:#111827;
-            padding:4px 10px;
-            border-radius:999px;
-            font-size:0.75rem;
-            font-weight:900;
-            box-shadow:0 2px 6px rgba(0,0,0,0.4);
-          ">
-            LEADING
-          </div>
-        ` : ""}
-
-      </div>
-    `;
-  }).join("");
-}
     function getQuestionPoints(q) {
       if (q.difficulty === "Expert") return 3;
       if (q.difficulty === "Advanced") return 2;
       return 1;
     }
 
-      function showResults() {
+    function renderScoreboard() {
+      const board = document.getElementById("scoreboard");
+      board.innerHTML = players.map((p, index) => `
+        <div class="score-card ${index === currentPlayerIndex ? "active" : ""}">
+          <span>${p.name}</span>
+          <span>${p.score} pts</span>
+        </div>
+      `).join("");
+    }
+
+    function showResults() {
       document.getElementById("gamePanel").classList.add("hidden");
       document.getElementById("resultsPanel").classList.remove("hidden");
 
@@ -1306,6 +1317,17 @@ function renderScoreboard() {
         document.getElementById("finalMessage").textContent = `${percent}% correct`;
       }
 
+      const championBanner = document.getElementById("championBanner");
+      championBanner.classList.remove("hidden");
+
+      if (gameMode === "battle" && players.length > 1) {
+        championBanner.innerHTML = tiedWinners.length > 1
+          ? `<div class="title"><span class="victory-spark">⚠️</span> Tie Game!</div><div class="subtitle">Nobody gets full bragging rights. The cones demand a rematch.</div>`
+          : `<div class="title"><span class="victory-spark">🏆</span> Jobsite Champions</div><div class="subtitle">${winner.name} takes the win with ${winner.score} points.</div>`;
+      } else {
+        championBanner.innerHTML = `<div class="title"><span class="victory-spark">🏆</span> Training Complete</div><div class="subtitle">${players[0].name} finished with ${players[0].score} points.</div>`;
+      }
+
       document.getElementById("leaderboard").innerHTML = sorted.map((p, index) => `
         <div class="leader-row ${p.score === winner.score ? "winner" : ""}">
           <span>#${index + 1}</span>
@@ -1317,7 +1339,7 @@ function renderScoreboard() {
       if (gameMode === "battle" && players.length > 1) {
         document.getElementById("finalMessage").textContent = tiedWinners.length > 1
           ? "That was close. The cones demand a rematch."
-          : `${winner.name} paved the way and everyone else hit a pothole.`;
+          : `${winner.name} is the Jobsite Champion. Everyone else found the potholes.`;
       }
 
       buildWeakAreaReport();
@@ -1388,6 +1410,8 @@ resultsDiv.innerHTML += `
       categoryStats = {};
       const weakReport = document.getElementById("weakReport");
       if (weakReport) { weakReport.classList.add("hidden"); weakReport.innerHTML = ""; }
+      const championBanner = document.getElementById("championBanner");
+      if (championBanner) { championBanner.classList.add("hidden"); championBanner.innerHTML = ""; }
       stopConfetti();
       document.getElementById("gamePanel").classList.add("hidden");
       document.getElementById("resultsPanel").classList.add("hidden");
@@ -1463,56 +1487,38 @@ resultsDiv.innerHTML += `
       if (!AudioContext) return;
 
       const ctx = new AudioContext();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
 
-      osc.connect(gain);
-      gain.connect(ctx.destination);
+      function tone(freq, start, duration, volume = 0.06, wave = "sine") {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = wave;
+        o.frequency.value = freq;
+        o.connect(g);
+        g.connect(ctx.destination);
+        g.gain.setValueAtTime(volume, ctx.currentTime + start);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + start + duration);
+        o.start(ctx.currentTime + start);
+        o.stop(ctx.currentTime + start + duration);
+      }
 
       if (type === "tick") {
-        osc.frequency.value = 320;
-        gain.gain.setValueAtTime(0.035, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.08);
+        tone(320, 0, 0.08, 0.035, "square");
       } else if (type === "correct") {
-        osc.frequency.value = 660;
-        gain.gain.setValueAtTime(0.09, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.18);
+        tone(660, 0, 0.12, 0.07);
+        tone(880, 0.08, 0.14, 0.06);
       } else if (type === "bonus") {
-        const notes = [660, 880, 990];
-        notes.forEach((freq, i) => {
-          const o = ctx.createOscillator();
-          const g = ctx.createGain();
-          o.frequency.value = freq;
-          o.connect(g);
-          g.connect(ctx.destination);
-          g.gain.setValueAtTime(0.06, ctx.currentTime + i * 0.08);
-          g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.12);
-          o.start(ctx.currentTime + i * 0.08);
-          o.stop(ctx.currentTime + i * 0.08 + 0.12);
-        });
+        [660, 880, 990, 1320].forEach((freq, i) => tone(freq, i * 0.07, 0.13, 0.07));
       } else if (type === "wrong") {
-        osc.frequency.value = 180;
-        gain.gain.setValueAtTime(0.08, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.25);
-      } else {
-        const notes = [523, 659, 784, 1046];
-        notes.forEach((freq, i) => {
-          const o = ctx.createOscillator();
-          const g = ctx.createGain();
-          o.frequency.value = freq;
-          o.connect(g);
-          g.connect(ctx.destination);
-          g.gain.setValueAtTime(0.06, ctx.currentTime + i * 0.11);
-          g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.11 + 0.16);
-          o.start(ctx.currentTime + i * 0.11);
-          o.stop(ctx.currentTime + i * 0.11 + 0.16);
+        tone(180, 0, 0.22, 0.08, "sawtooth");
+        tone(120, 0.12, 0.22, 0.06, "sawtooth");
+      } else if (type === "winner") {
+        // Little victory fanfare. No sound files needed, because GitHub already has enough chores.
+        [523, 659, 784, 1046, 784, 1046, 1318].forEach((freq, i) => {
+          tone(freq, i * 0.12, 0.18, 0.075);
         });
+        setTimeout(() => {
+          [1046, 1318, 1568].forEach((freq, i) => tone(freq, i * 0.09, 0.2, 0.07));
+        }, 850);
       }
     }
 
@@ -1526,7 +1532,7 @@ resultsDiv.innerHTML += `
       canvas.height = window.innerHeight;
 
       confettiPieces = [];
-      for (let i = 0; i < 180; i++) {
+      for (let i = 0; i < 260; i++) {
         confettiPieces.push({
           x: Math.random() * canvas.width,
           y: Math.random() * -canvas.height,
@@ -1563,7 +1569,7 @@ resultsDiv.innerHTML += `
 
       animate();
 
-      setTimeout(stopConfetti, 6500);
+      setTimeout(stopConfetti, 9000);
     }
 
     function stopConfetti() {
