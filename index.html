@@ -1301,9 +1301,13 @@
         </div>`;
     }
 
-    function cleanImageName(name) {
-      return String(name).trim().toLowerCase().replaceAll(" ", "-");
-    }
+   function cleanImageName(name) {
+    return String(name)
+       .trim()
+       .toLowerCase()
+       .replace(/[–—−]/g, "-")
+       .replace(/\s+/g, "-");
+  }
 
     function shuffleArray(array) {
       return [...array].sort(() => Math.random() - 0.5);
