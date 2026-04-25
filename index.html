@@ -1,13 +1,11 @@
-<!DOCTYPE html>
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pave the Way Safety Challenge</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -160,10 +158,7 @@
       color: #111827;
     }
 
-    .answers {
-      display: grid;
-      gap: 12px;
-    }
+    .answers { display: grid; gap: 12px; }
 
     .answer-btn {
       background: #f3f4f6;
@@ -173,9 +168,7 @@
       font-weight: 800;
     }
 
-    .answer-btn:hover {
-      background: #fde68a;
-    }
+    .answer-btn:hover { background: #fde68a; }
 
     .answer-btn.correct {
       background: #16a34a;
@@ -197,19 +190,9 @@
       display: none;
     }
 
-    .feedback.show {
-      display: block;
-    }
-
-    .feedback.good {
-      background: #dcfce7;
-      color: #14532d;
-    }
-
-    .feedback.bad {
-      background: #fee2e2;
-      color: #7f1d1d;
-    }
+    .feedback.show { display: block; }
+    .feedback.good { background: #dcfce7; color: #14532d; }
+    .feedback.bad { background: #fee2e2; color: #7f1d1d; }
 
     .controls {
       display: flex;
@@ -223,18 +206,10 @@
       min-width: 180px;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
-    .results {
-      text-align: center;
-    }
-
-    .results h2 {
-      font-size: 2.2rem;
-      margin-bottom: 8px;
-    }
+    .results { text-align: center; }
+    .results h2 { font-size: 2.2rem; margin-bottom: 8px; }
 
     .results .big-score {
       font-size: clamp(3rem, 10vw, 6rem);
@@ -245,13 +220,8 @@
     }
 
     @media (max-width: 760px) {
-      .question-card {
-        grid-template-columns: 1fr;
-      }
-
-      .image-wrap {
-        min-height: 210px;
-      }
+      .question-card { grid-template-columns: 1fr; }
+      .image-wrap { min-height: 210px; }
     }
   </style>
 </head>
@@ -295,16 +265,13 @@
 
     <section id="gamePanel" class="panel hidden">
       <div class="game-header">
-        <span class="pill" id="progressPill">Question 1 of 10</span>
+        <span class="pill" id="progressPill">Question 1</span>
         <span class="pill" id="scorePill">Score: 0</span>
-        <span class="pill" id="categoryPill">Equipment</span>
+        <span class="pill" id="categoryPill">Category</span>
       </div>
 
       <div class="question-card">
-        <div class="image-wrap" id="imageWrap">
-          <img id="questionImage" src="" alt="Question image" onerror="showMissingImage()" />
-        </div>
-
+        <div class="image-wrap" id="imageWrap"></div>
         <div>
           <p class="question-text" id="questionText"></p>
           <div class="answers" id="answers"></div>
@@ -357,6 +324,7 @@
       { category: "EQUIPMENT", difficulty: "Expert", question: "What is the biggest risk near rotating parts?", correct: "Entanglement", wrong: ["Overheating", "Noise exposure", "Reduced visibility"], statement: "If it spins, it wins.", image: "blind-spots" },
       { category: "EQUIPMENT", difficulty: "Advanced", question: "What is the safest position near equipment?", correct: "Visible and out of range", wrong: ["Directly behind the equipment", "Close to the operators side", "Anywhere on the job site"], statement: "Seen and safe beats close and sorry.", image: "traffic-control" },
       { category: "EQUIPMENT", difficulty: "Advanced", question: "A machine stops suddenly and workers move closer out of curiosity. What is the risk?", correct: "Unexpected restart or hazard exposure", wrong: ["The machine running out of fuel", "Minor delays in work", "Loss of communication"], statement: "Stopped doesn’t mean safe—it means waiting.", image: "worker-positioning" },
+
       { category: "TRAFFIC CONTROL", difficulty: "Advanced", question: "What is the main purpose of a work zone?", correct: "Protect workers from traffic", wrong: ["Increase equipment speed", "Store materials and tools", "Keep the site organized"], statement: "Conditions changes. Always reassess those situations.", image: "scenario-workzone" },
       { category: "TRAFFIC CONTROL", difficulty: "Advanced", question: "Traffic begins moving faster than expected through your work zone. What is the best response?", correct: "Pause work and reassess traffic control", wrong: ["Continue working and stay alert", "Move workers farther from the lane and continue", "Wait to see if traffic settles down"], statement: "If conditions change, your plan is already outdated.", image: "worker-positioning" },
       { category: "TRAFFIC CONTROL", difficulty: "Beginner", question: "What is the biggest traffic risk?", correct: "Driver error", wrong: ["Equipment failure", "Road conditions", "Weather changes"], statement: "The biggest hazard is the human behind the wheel.", image: "traffic-control" },
@@ -384,36 +352,36 @@
       { category: "TRAFFIC CONTROL", difficulty: "Beginner", question: "What is the biggest risk at night?", correct: "Reduced visibility", wrong: ["Increased traffic flow", "Cooler temperatures", "Less equipment use"], statement: "Darkness hides problems until it’s too late.", image: "unsafe-coworker" },
       { category: "TRAFFIC CONTROL", difficulty: "Beginner", question: "What is a key safety factor?", correct: "Positioning", wrong: ["Speed", "Strength", "Experience"], statement: "Where you stand decides how safe you are.", image: "worker-positioning" },
       { category: "TRAFFIC CONTROL", difficulty: "Advanced", question: "Why is worker positioning important even when signs and cones are already in place?", correct: "Devices do not guarantee perfect driver behavior", wrong: ["To prevent accidents with the equipment", "To wave to the drivers and keep them in place", "To train the new workers"], statement: "Cones don’t control people—people ignore cones.", image: "worker-positioning" },
-      { category: "TRAFFIC CONTROL", difficulty: "Advanced", question: "If traffic starts acting unpredictably near the work area, what should workers assume?", correct: "The work zone may need to be reassessed", wrong: ["It's best to shut down and wait for it to get better", "They should put signs out to slow traffic down", "They should put workers out to direct traffic better"], statement: "Address the situation and see what needs to be done.", image: "reassess-traffic" }
-    ,
-      { category: "PAVING", difficulty: "Beginner", question: "What is the biggest hazard near the paver?", correct: "Moving equipment", wrong: ["Hot surfaces","Loose material","Loud noise"], statement: "", image: "paver" },
-      { category: "PAVING", difficulty: "Expert", question: "What is the hopper area risk?", correct: "Crush hazard", wrong: ["Heat exposure","Dust buildup","Slippery footing"], statement: "", image: "hopper" },
-      { category: "PAVING", difficulty: "Advanced", question: "What is fresh asphalt hazard?", correct: "Heat", wrong: ["Strong odor","Dark color","Rough texture"], statement: "", image: "fresh-asphalt" },
-      { category: "PAVING", difficulty: "Expert", question: "What is the purpose of a screed?", correct: "Smooth material", wrong: ["Heat asphalt","Transport material","Break up debris"], statement: "", image: "screed" },
-      { category: "PAVING", difficulty: "Advanced", question: "What is the danger of standing between truck and paver?", correct: "Being crushed", wrong: ["Getting dirty","Losing balance","Reduced visibility"], statement: "", image: "truck-paver" },
-      { category: "PAVING", difficulty: "Expert", question: "What is a key paving risk?", correct: "Equipment interaction", wrong: ["Material shortage","Weather delays","Uneven surface"], statement: "", image: "paving-risk" },
-      { category: "PAVING", difficulty: "Advanced", question: "What is the danger of rushing paving?", correct: "Reduced awareness", wrong: ["Slower production","Increased cooling time","Equipment wear"], statement: "", image: "rushing" },
-      { category: "PAVING", difficulty: "Beginner", question: "What is the safest action near trucks?", correct: "Stay clear", wrong: ["Stand to the side","Signal the driver","Walk behind quickly"], statement: "", image: "trucks" },
-      { category: "PAVING", difficulty: "Beginner", question: "What is a mat?", correct: "Asphalt surface", wrong: ["Base layer","Equipment platform","Storage area"], statement: "", image: "mat" },
-      { category: "PAVING", difficulty: "Beginner", question: "What is the risk of stepping on fresh asphalt?", correct: "Burns", wrong: ["Slipping","Staining boots","Uneven footing"], statement: "", image: "fresh-asphalt" },
-      { category: "PAVING", difficulty: "Beginner", question: "What is the biggest communication need?", correct: "Coordination", wrong: ["Speed","Volume","Frequence"], statement: "", image: "communication" },
-      { category: "PAVING", difficulty: "Beginner", question: "What is the risk of poor coordination?", correct: "Confusion", wrong: ["Slower work","Extra material use","Increased noise"], statement: "", image: "coordination" },
-      { category: "PAVING", difficulty: "Beginner", question: "What is the danger of blind spots?", correct: "Being unseen", wrong: ["Reduced noise","Equipment wear","Limited lighting"], statement: "", image: "blind-spots" },
-      { category: "PAVING", difficulty: "Beginner", question: "What is the safest worker position?", correct: "Visible", wrong: ["Close to equipment","Behind the paver","Between machines"], statement: "", image: "visibility" },
-      { category: "PAVING", difficulty: "Beginner", question: "What is a paving hazard?", correct: "Moving parts", wrong: ["Painted surfaces","Equipment color","Fuel levels"], statement: "", image: "moving-parts" },
-      { category: "PAVING", difficulty: "Advanced", question: "What is a risk of high production speed?", correct: "Mistakes", wrong: ["Lower temperatures","Reduced material use","Less traffic"], statement: "", image: "speed" },
-      { category: "PAVING", difficulty: "Beginner", question: "What should you avoid near paving?", correct: "Distraction", wrong: ["Communication","Observation","Planning"], statement: "", image: "distraction" },
-      { category: "PAVING", difficulty: "Beginner", question: "What is a safety priority?", correct: "Awareness", wrong: ["Speed","Output","Equipment size"], statement: "", image: "awareness" },
-      { category: "PAVING", difficulty: "Advanced", question: "What is the danger of crowding equipment?", correct: "Reduced space", wrong: ["Better communication","Faster work","Easier access"], statement: "", image: "crowding" },
-      { category: "PAVING", difficulty: "Beginner", question: "What is the safest action if unsure?", correct: "Stop", wrong: ["Continue slowly","Ask later","Watch others"], statement: "", image: "stop" },
-      { category: "PAVING", difficulty: "Expert", question: "What is a key paving principle?", correct: "Control movement", wrong: ["Increase speed","Maximize output","Reduce downtime"], statement: "", image: "principle" },
-      { category: "PAVING", difficulty: "Advanced", question: "What is the risk of heat exposure?", correct: "Injury", wrong: ["Faster drying","Improved grip","Reduced fatigue"], statement: "", image: "heat" },
-      { category: "PAVING", difficulty: "Advanced", question: "What is the danger of loose communication?", correct: "Misalignment", wrong: ["Faster decisions","Less noise","Independent work"], statement: "", image: "communication" },
-      { category: "PAVING", difficulty: "Advanced", question: "What is the biggest mistake in paving zones?", correct: "Standing too close", wrong: ["Working too slowly","Using extra material","Over-communicating"], statement: "", image: "distance" },
-      { category: "PAVING", difficulty: "Beginner", question: "What is the safest behavior?", correct: "Stay alert", wrong: ["Work faster","Focus only on task","Trust equipment"], statement: "", image: "alert" },
-      { category: "PAVING", difficulty: "Expert", question: "Why should workers stay alert around the screed area?", correct: "Hot material & moving equipment still create exposure there", wrong: ["Anything can happen","Coworkers like to play jokes on each other","Area can get stressed and crack"], statement: "", image: "screed" },
-      { category: "PAVING", difficulty: "Advanced", question: "Workers stand under a concrete pour area. Why is this dangerous?", correct: "They are exposed to falling material or failure", wrong: ["It's hard to pay attention to surroundings","The smell is toxic","It would be hard to move out of the way if it falls"], statement: "", image: "pour" },
-      { category: "PAVING", difficulty: "Beginner", question: "A worker assumes the driver still sees them because eye contact happened earlier. What is the flaw?", correct: "Visibility can change as vehicles and workers move", wrong: ["The driver forgot instructions","The worker moved too slowly","The equipment stopped suddenly"], statement: "", image: "visibility" }
+      { category: "TRAFFIC CONTROL", difficulty: "Advanced", question: "If traffic starts acting unpredictably near the work area, what should workers assume?", correct: "The work zone may need to be reassessed", wrong: ["It's best to shut down and wait for it to get better", "They should put signs out to slow traffic down", "They should put workers out to direct traffic better"], statement: "Address the situation and see what needs to be done.", image: "reassess-traffic" },
+
+      { category: "PAVING", difficulty: "Beginner", question: "What is the biggest hazard near the paver?", correct: "Moving equipment", wrong: ["Hot surfaces", "Loose material", "Loud noise"], statement: "Big, slow, and still faster than you think.", image: "paver" },
+      { category: "PAVING", difficulty: "Expert", question: "What is the hopper area risk?", correct: "Crush hazard", wrong: ["Heat exposure", "Dust buildup", "Slippery footing"], statement: "No space = no escape.", image: "hopper" },
+      { category: "PAVING", difficulty: "Advanced", question: "What is fresh asphalt hazard?", correct: "Heat", wrong: ["Strong odor", "Dark color", "Rough texture"], statement: "It looks solid—it’s still hot enough to burn.", image: "pause-and-verify" },
+      { category: "PAVING", difficulty: "Expert", question: "What is the purpose of a screed?", correct: "Smooth material", wrong: ["Heat asphalt", "Transport material", "Break up debris"], statement: "It smooths the road, not the risk.", image: "screed-area" },
+      { category: "PAVING", difficulty: "Advanced", question: "What is the danger of standing between truck and paver?", correct: "Being crushed", wrong: ["Getting dirty", "Losing balance", "Reduced visibility"], statement: "Two machines, one bad place to stand.", image: "visibility" },
+      { category: "PAVING", difficulty: "Expert", question: "What is a key paving risk?", correct: "Equipment interaction", wrong: ["Material shortage", "Weather delays", "Uneven surface"], statement: "Machines don’t coordinate—you do.", image: "equipment-use" },
+      { category: "PAVING", difficulty: "Advanced", question: "What is the danger of rushing paving?", correct: "Reduced awareness", wrong: ["Slower production", "Increased cooling time", "Equipment wear"], statement: "Speed trades awareness for mistakes.", image: "paver" },
+      { category: "PAVING", difficulty: "Beginner", question: "What is the safest action near trucks?", correct: "Stay clear", wrong: ["Stand to the side", "Signal the driver", "Walk behind quickly"], statement: "Close doesn’t help—clear does.", image: "blind-spots" },
+      { category: "PAVING", difficulty: "Beginner", question: "What is a mat?", correct: "Asphalt surface", wrong: ["Base layer", "Equipment platform", "Storage area"], statement: "It’s the road you’re building—and it can still hurt you.", image: "screed-area" },
+      { category: "PAVING", difficulty: "Beginner", question: "What is the risk of stepping on fresh asphalt?", correct: "Burns", wrong: ["Slipping", "Staining boots", "Uneven footing"], statement: "Fresh asphalt doesn’t look dangerous—it is.", image: "pavement" },
+      { category: "PAVING", difficulty: "Beginner", question: "What is the biggest communication need?", correct: "Coordination", wrong: ["Speed", "Volume", "Frequence"], statement: "If you’re not aligned, you’re at risk.", image: "instinct" },
+      { category: "PAVING", difficulty: "Beginner", question: "What is the risk of poor coordination?", correct: "Confusion", wrong: ["Slower work", "Extra material use", "Increased noise"], statement: "Bad communication turns into bad positioning.", image: "safe-distance" },
+      { category: "PAVING", difficulty: "Beginner", question: "What is the danger of blind spots?", correct: "Being unseen", wrong: ["Reduced noise", "Equipment wear", "Limited lighting"], statement: "If they can’t see you, they can’t avoid you.", image: "blind-spots" },
+      { category: "PAVING", difficulty: "Beginner", question: "What is the safest worker position?", correct: "Visible", wrong: ["Close to equipment", "Behind the paver", "Between machines"], statement: "Seen = safer. Not safe, just safer.", image: "operator-visibility" },
+      { category: "PAVING", difficulty: "Beginner", question: "What is a paving hazard?", correct: "Moving parts", wrong: ["Painted surfaces", "Equipment color", "Fuel levels"], statement: "Anything moving can take more than it gives.", image: "paver" },
+      { category: "PAVING", difficulty: "Advanced", question: "What is a risk of high production speed?", correct: "Mistakes", wrong: ["Lower temperatures", "Reduced material use", "Less traffic"], statement: "Faster work, faster errors.", image: "safe-distance" },
+      { category: "PAVING", difficulty: "Beginner", question: "What should you avoid near paving?", correct: "Distraction", wrong: ["Communication", "Observation", "Planning"], statement: "You lose focus, you lose control.", image: "worker-positioning" },
+      { category: "PAVING", difficulty: "Beginner", question: "What is a safety priority?", correct: "Awareness", wrong: ["Speed", "Output", "Equipment size"], statement: "If you don’t see it, you can’t avoid it.", image: "reassess-traffic" },
+      { category: "PAVING", difficulty: "Advanced", question: "What is the danger of crowding equipment?", correct: "Reduced space", wrong: ["Better communication", "Faster work", "Easier access"], statement: "Less room means fewer options.", image: "unsafe-coworker" },
+      { category: "PAVING", difficulty: "Beginner", question: "What is the safest action if unsure?", correct: "Stop", wrong: ["Continue slowly", "Ask later", "Watch others"], statement: "Stopping is a decision—accidents aren’t.", image: "traffic-control" },
+      { category: "PAVING", difficulty: "Expert", question: "What is a key paving principle?", correct: "Control movement", wrong: ["Increase speed", "Maximize output", "Reduce downtime"], statement: "Control the machine or it controls the outcome.", image: "traffic-control" },
+      { category: "PAVING", difficulty: "Advanced", question: "What is the risk of heat exposure?", correct: "Injury", wrong: ["Faster drying", "Improved grip", "Reduced fatigue"], statement: "Heat doesn’t warn—it just hits.", image: "struck-by" },
+      { category: "PAVING", difficulty: "Advanced", question: "What is the danger of loose communication?", correct: "Misalignment", wrong: ["Faster decisions", "Less noise", "Independent work"], statement: "If you’re not aligned, something will collide.", image: "never-do" },
+      { category: "PAVING", difficulty: "Advanced", question: "What is the biggest mistake in paving zones?", correct: "Standing too close", wrong: ["Working too slowly", "Using extra material", "Over-communicating"], statement: "Close enough to help, close enough to get hurt.", image: "never-do" },
+      { category: "PAVING", difficulty: "Beginner", question: "What is the safest behavior?", correct: "Stay alert", wrong: ["Work faster", "Focus only on task", "Trust equipment"], statement: "Alert beats experienced every time", image: "safe-distance" },
+      { category: "PAVING", difficulty: "Expert", question: "Why should workers stay alert around the screed area?", correct: "Hot material & moving equipment still create exposure there", wrong: ["Anything can happen", "Coworkers like to play jokes on each other", "Area can get stressed and crack"], statement: "Not the kind of exposure you want.", image: "screed-area" },
+      { category: "PAVING", difficulty: "Advanced", question: "Workers stand under a concrete pour area. Why is this dangerous?", correct: "They are exposed to falling material or failure", wrong: ["It's hard to pay attention to surroundings", "The smell is toxic", "It would be hard to move out of the way if it falls"], statement: "Standing under it means trusting everything above you—don’t.", image: "concrete-pour" },
+      { category: "PAVING", difficulty: "Beginner", question: "A worker assumes the driver still sees them because eye contact happened earlier. What is the flaw?", correct: "Visibility can change as vehicles and workers move", wrong: ["The driver forgot instructions", "The worker moved too slowly", "The equipment stopped suddenly"], statement: "Eye contact expires faster than you think.", image: "visibility" }
     ];
 
     let currentQuestions = [];
@@ -421,7 +389,9 @@
     let score = 0;
     let answered = false;
 
-    function init() { populateCategories(); }
+    function init() {
+      populateCategories();
+    }
 
     function populateCategories() {
       const categorySelect = document.getElementById("categorySelect");
@@ -433,32 +403,48 @@
       const selectedCategory = document.getElementById("categorySelect").value;
       const selectedDifficulty = document.getElementById("difficultySelect").value;
       const questionCount = Number(document.getElementById("questionCountSelect").value);
-      const filtered = questions.filter(q => (selectedCategory === "All Categories" || q.category === selectedCategory) && (selectedDifficulty === "All" || q.difficulty === selectedDifficulty));
-      if (filtered.length === 0) { alert("No questions match that setup. Try All Difficulties or All Categories."); return; }
+
+      const filtered = questions.filter(q => {
+        const categoryMatch = selectedCategory === "All Categories" || q.category === selectedCategory;
+        const difficultyMatch = selectedDifficulty === "All" || q.difficulty === selectedDifficulty;
+        return categoryMatch && difficultyMatch;
+      });
+
+      if (filtered.length === 0) {
+        alert("No questions match that setup. Try All Difficulties or All Categories.");
+        return;
+      }
+
       currentQuestions = shuffleArray(filtered).slice(0, questionCount);
       currentIndex = 0;
       score = 0;
       answered = false;
+
       document.getElementById("setupPanel").classList.add("hidden");
       document.getElementById("resultsPanel").classList.add("hidden");
       document.getElementById("gamePanel").classList.remove("hidden");
+
       showQuestion();
     }
 
     function showQuestion() {
       answered = false;
       const q = currentQuestions[currentIndex];
+
       document.getElementById("progressPill").textContent = `Question ${currentIndex + 1} of ${currentQuestions.length}`;
       document.getElementById("scorePill").textContent = `Score: ${score}`;
       document.getElementById("categoryPill").textContent = `${q.category} • ${q.difficulty}`;
       document.getElementById("questionText").textContent = q.question;
-      document.getElementById("imageWrap").innerHTML = `<img id="questionImage" src="images/${cleanImageName(q.image)}.png" alt="${q.category} safety image" onerror="showMissingImage()" />`;
+      document.getElementById("imageWrap").innerHTML = `<img src="images/${cleanImageName(q.image)}.png" alt="${q.category} safety image" onerror="showMissingImage()" />`;
+
       const feedback = document.getElementById("feedback");
       feedback.className = "feedback";
       feedback.textContent = "";
       document.getElementById("nextBtn").classList.add("hidden");
+
       const answersDiv = document.getElementById("answers");
       answersDiv.innerHTML = "";
+
       buildAnswers(q).forEach(answer => {
         const button = document.createElement("button");
         button.className = "answer-btn";
@@ -477,10 +463,12 @@
       answered = true;
       const q = currentQuestions[currentIndex];
       const feedback = document.getElementById("feedback");
+
       document.querySelectorAll(".answer-btn").forEach(btn => {
         if (btn.textContent.trim() === correct.trim()) btn.classList.add("correct");
         btn.disabled = true;
       });
+
       if (selected.trim() === correct.trim()) {
         score++;
         document.getElementById("scorePill").textContent = `Score: ${score}`;
@@ -492,6 +480,7 @@
         feedback.className = "feedback show bad";
         feedback.textContent = `Not quite. Correct answer: ${correct}. ${q.statement}`;
       }
+
       document.getElementById("nextBtn").classList.remove("hidden");
     }
 
@@ -504,12 +493,15 @@
     function showResults() {
       document.getElementById("gamePanel").classList.add("hidden");
       document.getElementById("resultsPanel").classList.remove("hidden");
+
       const percent = Math.round((score / currentQuestions.length) * 100);
       document.getElementById("finalScore").textContent = `${score}/${currentQuestions.length}`;
+
       let message = "";
       if (percent >= 90) message = "Excellent. You are work-zone ready.";
       else if (percent >= 70) message = "Good job. A few hazards still tried to sneak up on you.";
       else message = "Keep practicing. Construction safety is not the place for spicy guessing.";
+
       document.getElementById("finalMessage").textContent = `${percent}% — ${message}`;
     }
 
@@ -521,11 +513,16 @@
 
     function showMissingImage() {
       const q = currentQuestions[currentIndex];
-      document.getElementById("imageWrap").innerHTML = `<div class="missing-image">Image not found:<br><strong>images/${cleanImageName(q.image)}.png</strong><br><br>Check spelling, dashes, capitalization, and that the file is inside the images folder.</div>`;
+      document.getElementById("imageWrap").innerHTML = `
+        <div class="missing-image">
+          Image not found:<br>
+          <strong>images/${cleanImageName(q.image)}.png</strong><br><br>
+          Check spelling, dashes, capitalization, and that the file is inside the images folder.
+        </div>`;
     }
 
     function cleanImageName(name) {
-      return name.trim().toLowerCase().replace(/\s+/g, "-");
+      return String(name).trim().toLowerCase().replaceAll(" ", "-");
     }
 
     function shuffleArray(array) {
@@ -535,4 +532,8 @@
     init();
   </script>
 </body>
-</html>
+</html>'''
+from pathlib import Path
+path = Path('/mnt/data/index.html')
+path.write_text(html, encoding='utf-8')
+path.as_posix()
