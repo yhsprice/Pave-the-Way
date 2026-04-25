@@ -637,9 +637,6 @@
       <p id="finalMessage"></p>
       <div class="local-board-title">Local Scoreboard</div>
       <div id="localLeaderboard" class="local-board"></div>
-      <div class="leader-actions">
-        <button onclick="clearLocalLeaderboard()" class="secondary">Clear Local Scoreboard</button>
-      </div>
       <div class="controls">
         <button onclick="restartGame()">Play Again</button>
       </div>
@@ -1809,14 +1806,6 @@ resultsDiv.innerHTML += `
       document.getElementById("finalMessage").textContent = "This leaderboard saves solo and team/player battle scores on this device only.";
       renderLocalLeaderboard();
     }
-
-    function clearLocalLeaderboard() {
-      const confirmClear = confirm("Clear the local scoreboard on this device?");
-      if (!confirmClear) return;
-      localStorage.removeItem("paveTheWayScores");
-      renderLocalLeaderboard();
-    }
-
 
     let confettiPieces = [];
     let confettiAnimation = null;
