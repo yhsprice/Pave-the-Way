@@ -455,22 +455,14 @@
       min-width: 180px;
     }
 
-   @media (max-width: 700px) {
-  .local-score-row {
-    grid-template-columns: 42px 1fr 70px;
-  }
-
-  .local-score-row .date-cell {
-    display: none;
-  }
-
-  /* 👇 ADD THIS RIGHT HERE */
-  .hero h1 {
-    font-size: 1.5rem;
-    white-space: nowrap;
-    letter-spacing: 0;
-  }
-}
+    @media (max-width: 700px) {
+      .local-score-row {
+        grid-template-columns: 42px 1fr 70px;
+      }
+      .local-score-row .date-cell {
+        display: none;
+      }
+    }
 
 
     .badge-box {
@@ -564,7 +556,7 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 1;
+      z-index: 9999;
     }
 
     @media (max-width: 760px) {
@@ -599,7 +591,6 @@
             <option value="scenario">Scenario Mode</option>
             <option value="mixed">Mixed Challenge</option>
             <option value="ramp">Difficulty Ramp</option>
-            <option value="adaptive">Smart Training Mode</option>
           </select>
         </div>
         <div>
@@ -1226,75 +1217,7 @@
       return "Boss Level";
     }
 
-function buildAdaptiveQuestions(filtered, questionCount) {
-  const byCategory = {};
-  const byDifficulty = { Beginner: [], Advanced: [], Expert: [] };
 
-  filtered.forEach(q => {
-    // group by category
-    if (!byCategory[q.category]) byCategory[q.category] = [];
-    byCategory[q.category].push(q);
-
-    // group by difficulty
-    byDifficulty[q.difficulty].push(q);
-  });
-
-  // shuffle pools
-  Object.keys(byCategory).forEach(c => byCategory[c] = shuffleArray(byCategory[c]));
-  Object.keys(byDifficulty).forEach(d => byDifficulty[d] = shuffleArray(byDifficulty[d]));
-
-  const chosen = [];
-
-  for (let i = 0; i < questionCount; i++) {
-    const currentPlayer = players[currentPlayerIndex] || { correct: 0, answered: 0 };
-
-    const accuracy = currentPlayer.answered
-      ? currentPlayer.correct / currentPlayer.answered
-      : 0.5;
-
-    let difficultyPick;
-
-    if (accuracy < 0.6) difficultyPick = "Beginner";
-    else if (accuracy < 0.8) difficultyPick = "Advanced";
-    else difficultyPick = "Expert";
-
-    let pool = byDifficulty[difficultyPick];
-
-    // fallback if empty
-    if (!pool.length) {
-      pool = [...byDifficulty.Beginner, ...byDifficulty.Advanced, ...byDifficulty.Expert];
-    }
-
-    if (!pool.length) break;
-
-    // weighted pick: prefer weakest category
-    let weakCategory = null;
-    let lowest = 1;
-
-    Object.entries(categoryStats || {}).forEach(([cat, data]) => {
-      if (data.total > 0) {
-        const pct = data.correct / data.total;
-        if (pct < lowest) {
-          lowest = pct;
-          weakCategory = cat;
-        }
-      }
-    });
-
-    let question;
-
-    if (weakCategory && byCategory[weakCategory]?.length) {
-      question = byCategory[weakCategory].shift();
-    } else {
-      question = pool.shift();
-    }
-
-    if (question) chosen.push(question);
-  }
-
-  return chosen;
-}
-    
     function startGame() {
       gameMode = document.getElementById("gameModeSelect").value;
       const selectedCategory = document.getElementById("categorySelect").value;
@@ -1334,12 +1257,15 @@ function buildAdaptiveQuestions(filtered, questionCount) {
         return;
       }
 
-      currentQuestions =
-  challengeType === "ramp"
-    ? buildRampQuestions(filtered, questionCount)
-    : challengeType === "adaptive"
-    ? buildAdaptiveQuestions(filtered, questionCount)
-    : shuffleArray(filtered).slice(0, questionCount);
+      currentQuestions = challengeType === "ramp"
+        ? buildRampQuestions(filtered, questionCount)
+        : shuffleArray(filtered).slice(0, questionCount);
+      currentIndex = 0;
+      currentPlayerIndex = 0;
+      answered = false;
+      stealActive = false;
+      originalPlayerIndex = 0;
+      categoryStats = {};
 
       document.getElementById("setupPanel").classList.add("hidden");
       document.getElementById("resultsPanel").classList.add("hidden");
@@ -2135,38 +2061,42 @@ resultsDiv.innerHTML += `
 
     function launchConfetti() {
       const canvas = document.getElementById("confettiCanvas");
+      if (!canvas) return;
+
       const ctx = canvas.getContext("2d");
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
       confettiPieces = [];
-      for (let i = 0; i < 260; i++) {
+
+      for (let i = 0; i < 300; i++) {
         confettiPieces.push({
           x: Math.random() * canvas.width,
           y: Math.random() * -canvas.height,
-          size: Math.random() * 8 + 4,
-          speed: Math.random() * 4 + 2,
+          size: Math.random() * 9 + 4,
+          speed: Math.random() * 5 + 2,
           angle: Math.random() * Math.PI * 2,
-          spin: Math.random() * 0.2 - 0.1,
+          spin: Math.random() * 0.25 - 0.125,
           color: `hsl(${Math.random() * 360}, 90%, 55%)`
         });
       }
 
       function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         confettiPieces.forEach(p => {
           p.y += p.speed;
-          p.x += Math.sin(p.angle) * 2;
+          p.x += Math.sin(p.angle) * 2.5;
           p.angle += p.spin;
 
           ctx.save();
           ctx.translate(p.x, p.y);
           ctx.rotate(p.angle);
           ctx.fillStyle = p.color;
-          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
           ctx.restore();
 
-          if (p.y > canvas.height + 20) {
+          if (p.y > canvas.height + 30) {
             p.y = Math.random() * -100;
             p.x = Math.random() * canvas.width;
           }
@@ -2176,14 +2106,16 @@ resultsDiv.innerHTML += `
       }
 
       animate();
-
       setTimeout(stopConfetti, 9000);
     }
 
     function stopConfetti() {
       if (confettiAnimation) cancelAnimationFrame(confettiAnimation);
       confettiAnimation = null;
+
       const canvas = document.getElementById("confettiCanvas");
+      if (!canvas) return;
+
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
