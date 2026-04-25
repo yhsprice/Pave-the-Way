@@ -455,14 +455,22 @@
       min-width: 180px;
     }
 
-    @media (max-width: 700px) {
-      .local-score-row {
-        grid-template-columns: 42px 1fr 70px;
-      }
-      .local-score-row .date-cell {
-        display: none;
-      }
-    }
+   @media (max-width: 700px) {
+  .local-score-row {
+    grid-template-columns: 42px 1fr 70px;
+  }
+
+  .local-score-row .date-cell {
+    display: none;
+  }
+
+  /* 👇 ADD THIS RIGHT HERE */
+  .hero h1 {
+    font-size: 1.5rem;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+}
 
 
     .badge-box {
