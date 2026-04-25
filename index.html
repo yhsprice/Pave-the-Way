@@ -1240,24 +1240,54 @@
         <div style="margin-top:8px;">Training tip: review the weakest area first. That is where the pothole is hiding.</div>
       `;
     }
+function renderScoreboard() {
+  const board = document.getElementById("scoreboard");
 
+  // Find leader
+  let highest = Math.max(...players.map(p => p.score));
+
+  board.innerHTML = players.map((p, i) => {
+    const isActive = i === currentPlayerIndex;
+    const isLeader = p.score === highest && highest > 0;
+
+    return `
+      <div class="score-card ${isActive ? "active" : ""}" 
+           style="position:relative; flex-direction:column; align-items:flex-start; padding:14px;">
+        
+        <div style="font-size:1.1rem;">${p.name}</div>
+
+        <div style="font-size:1.8rem; font-weight:900;">
+          ${p.score}
+        </div>
+
+        ${isLeader ? `
+          <div style="
+            position:absolute;
+            top:-10px;
+            right:-10px;
+            background:#facc15;
+            color:#111827;
+            padding:4px 10px;
+            border-radius:999px;
+            font-size:0.75rem;
+            font-weight:900;
+            box-shadow:0 2px 6px rgba(0,0,0,0.4);
+          ">
+            LEADING
+          </div>
+        ` : ""}
+
+      </div>
+    `;
+  }).join("");
+}
     function getQuestionPoints(q) {
       if (q.difficulty === "Expert") return 3;
       if (q.difficulty === "Advanced") return 2;
       return 1;
     }
 
-    function renderScoreboard() {
-      const board = document.getElementById("scoreboard");
-      board.innerHTML = players.map((p, index) => `
-        <div class="score-card ${index === currentPlayerIndex ? "active" : ""}">
-          <span>${p.name}</span>
-          <span>${p.score} pts</span>
-        </div>
-      `).join("");
-    }
-
-    function showResults() {
+      function showResults() {
       document.getElementById("gamePanel").classList.add("hidden");
       document.getElementById("resultsPanel").classList.remove("hidden");
 
