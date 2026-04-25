@@ -527,6 +527,31 @@
       text-transform: uppercase;
     }
 
+
+    .ramp-note {
+      margin: 10px 0 14px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #ecfeff;
+      border: 2px solid #0891b2;
+      color: #164e63;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .ramp-tag {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #164e63;
+      color: #cffafe;
+      font-size: 0.85rem;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -565,6 +590,7 @@
             <option value="standard">Standard Quiz</option>
             <option value="scenario">Scenario Mode</option>
             <option value="mixed">Mixed Challenge</option>
+            <option value="ramp">Difficulty Ramp</option>
           </select>
         </div>
         <div>
@@ -621,7 +647,7 @@
         </div>
       </div>
 
-      <p class="helper">Scoring: Beginner = 1 point, Advanced = 2 points, Expert = 3 points. Scenario Mode focuses on real situations. Streak bonus: 3 correct in a row earns +1. In battle mode, wrong answers allow the next team to steal.</p>
+      <p class="helper">Scoring: Beginner = 1 point, Advanced = 2 points, Expert = 3 points. Scenario Mode focuses on real situations. Difficulty Ramp builds from easier questions to tougher ones. Streak bonus: 3 correct in a row earns +1.</p>
 
       <div id="playerNamesPanel" class="name-grid"></div>
 
@@ -645,6 +671,7 @@
         <div class="image-wrap" id="imageWrap"></div>
         <div>
           <div id="scenarioNote" class="scenario-note hidden"></div>
+          <div id="rampNote" class="ramp-note hidden"></div>
           <p class="question-text" id="questionText"></p>
           <p class="points-note" id="pointsNote"></p>
           <div id="timerWrap" class="timer-wrap">
@@ -1139,6 +1166,57 @@
     }
 
 
+
+    function buildRampQuestions(filtered, questionCount) {
+      const beginner = shuffleArray(filtered.filter(q => q.difficulty === "Beginner"));
+      const advanced = shuffleArray(filtered.filter(q => q.difficulty === "Advanced"));
+      const expert = shuffleArray(filtered.filter(q => q.difficulty === "Expert"));
+
+      const totalAvailable = filtered.length;
+      const target = Math.min(questionCount, totalAvailable);
+
+      if (target <= 0) return [];
+
+      const rampPlan = [];
+      for (let i = 0; i < target; i++) {
+        const progress = i / Math.max(1, target - 1);
+        if (progress < 0.4) rampPlan.push("Beginner");
+        else if (progress < 0.75) rampPlan.push("Advanced");
+        else rampPlan.push("Expert");
+      }
+
+      const pools = { Beginner: beginner, Advanced: advanced, Expert: expert };
+      const fallbackOrder = ["Beginner", "Advanced", "Expert"];
+      const chosen = [];
+
+      rampPlan.forEach(level => {
+        let pick = null;
+
+        if (pools[level].length) {
+          pick = pools[level].shift();
+        } else {
+          for (const fallback of fallbackOrder) {
+            if (pools[fallback].length) {
+              pick = pools[fallback].shift();
+              break;
+            }
+          }
+        }
+
+        if (pick) chosen.push(pick);
+      });
+
+      return chosen;
+    }
+
+    function getRampStage(index, total) {
+      const progress = index / Math.max(1, total - 1);
+      if (progress < 0.4) return "Warm-Up Round";
+      if (progress < 0.75) return "Hazard Zone";
+      return "Boss Level";
+    }
+
+
     function startGame() {
       gameMode = document.getElementById("gameModeSelect").value;
       const selectedCategory = document.getElementById("categorySelect").value;
@@ -1178,7 +1256,9 @@
         return;
       }
 
-      currentQuestions = shuffleArray(filtered).slice(0, questionCount);
+      currentQuestions = challengeType === "ramp"
+        ? buildRampQuestions(filtered, questionCount)
+        : shuffleArray(filtered).slice(0, questionCount);
       currentIndex = 0;
       currentPlayerIndex = 0;
       answered = false;
@@ -1208,6 +1288,16 @@
       } else {
         scenarioNote.classList.add("hidden");
         scenarioNote.innerHTML = "";
+      }
+
+      const rampNote = document.getElementById("rampNote");
+      const challengeType = document.getElementById("challengeTypeSelect").value;
+      if (challengeType === "ramp") {
+        rampNote.classList.remove("hidden");
+        rampNote.innerHTML = `<span class="ramp-tag">${getRampStage(currentIndex, currentQuestions.length)}</span><br>Difficulty Ramp is active: the game builds from easier questions into tougher ones.`;
+      } else {
+        rampNote.classList.add("hidden");
+        rampNote.innerHTML = "";
       }
 
       document.getElementById("questionText").textContent = q.question.trim();
