@@ -338,6 +338,35 @@
       100% { transform: scale(1); }
     }
 
+
+    .steal-pill {
+      background: #dc2626;
+      color: #fff;
+      animation: pop 0.45s ease;
+    }
+
+    .weak-report {
+      max-width: 720px;
+      margin: 16px auto;
+      padding: 14px;
+      background: #fff7ed;
+      color: #7c2d12;
+      border: 3px solid #f59e0b;
+      border-radius: 18px;
+      font-weight: 900;
+      text-align: left;
+    }
+
+    .callout {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #f59e0b;
+      color: #111827;
+      font-weight: 900;
+    }
+
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -396,6 +425,7 @@
             <option value="20" selected>20 Seconds</option>
             <option value="30">30 Seconds</option>
             <option value="45">45 Seconds</option>
+            <option value="pressure">Pressure Mode</option>
           </select>
         </div>
         <div>
@@ -423,7 +453,7 @@
         </div>
       </div>
 
-      <p class="helper">Scoring: Beginner = 1 point, Advanced = 2 points, Expert = 3 points. Streak bonus: 3 correct in a row earns +1. In battle mode, turns rotate automatically.</p>
+      <p class="helper">Scoring: Beginner = 1 point, Advanced = 2 points, Expert = 3 points. Streak bonus: 3 correct in a row earns +1. In battle mode, wrong answers allow the next team to steal. Weakest category appears at the end.</p>
 
       <div id="playerNamesPanel" class="name-grid"></div>
 
@@ -465,6 +495,7 @@
       <p id="winnerText">You made it through the work zone without becoming a cautionary tale.</p>
       <div class="big-score" id="finalScore"></div>
       <div class="leaderboard" id="leaderboard"></div>
+      <div id="weakReport" class="weak-report hidden"></div>
       <p id="finalMessage"></p>
       <div class="controls">
         <button onclick="restartGame()">Play Again</button>
@@ -862,6 +893,9 @@
     let timerSeconds = 0;
     let timeLeft = 0;
     let timerInterval = null;
+    let stealActive = false;
+    let originalPlayerIndex = 0;
+    let categoryStats = {};
 
     function init() {
       populateCategories();
@@ -905,7 +939,7 @@
       const selectedCategory = document.getElementById("categorySelect").value;
       const selectedDifficulty = document.getElementById("difficultySelect").value;
       const questionCount = Number(document.getElementById("questionCountSelect").value);
-      timerSeconds = Number(document.getElementById("timerSelect").value);
+      timerSeconds = document.getElementById("timerSelect").value;
 
       const playerCount = gameMode === "solo" ? 1 : Number(document.getElementById("playerCountSelect").value);
       players = [];
@@ -936,6 +970,9 @@
       currentIndex = 0;
       currentPlayerIndex = 0;
       answered = false;
+      stealActive = false;
+      originalPlayerIndex = 0;
+      categoryStats = {};
 
       document.getElementById("setupPanel").classList.add("hidden");
       document.getElementById("resultsPanel").classList.add("hidden");
@@ -982,54 +1019,103 @@
     }
 
     function selectAnswer(button, selected, correct) {
-      if (answered) return;
-      answered = true;
+      if (answered && !stealActive) return;
 
       const q = currentQuestions[currentIndex];
       const player = players[currentPlayerIndex];
       const points = getQuestionPoints(q);
       const feedback = document.getElementById("feedback");
+      const isCorrect = selected.trim() === correct.trim();
 
-      player.answered++;
+      stopTimer();
 
       document.querySelectorAll(".answer-btn").forEach(btn => {
         if (btn.textContent.trim() === correct.trim()) btn.classList.add("correct");
         btn.disabled = true;
       });
 
-      stopTimer();
-
-      if (selected.trim() === correct.trim()) {
+      if (isCorrect) {
+        player.answered++;
         player.streak++;
         player.bestStreak = Math.max(player.bestStreak, player.streak);
+
         const streakBonus = player.streak > 0 && player.streak % 3 === 0 ? 1 : 0;
-        const totalPoints = points + streakBonus;
+        const stealBonus = stealActive ? 1 : 0;
+        const totalPoints = points + streakBonus + stealBonus;
+
         player.score += totalPoints;
         player.correct++;
+
+        recordCategoryResult(q, true);
+
         button.classList.add("correct");
         feedback.className = "feedback show good";
-        feedback.textContent = streakBonus > 0
-          ? `Correct! +${points} plus a +${streakBonus} streak bonus for ${player.name}. ${q.statement}`
-          : `Correct! +${points} for ${player.name}. ${q.statement}`;
+
+        let callout = "";
+        if (player.streak === 3) callout = " <span class='callout'>🔥 3 in a row!</span>";
+        else if (player.streak === 5) callout = " <span class='callout'>💥 Unstoppable!</span>";
+        else if (player.streak > 0 && player.streak % 3 === 0) callout = " <span class='callout'>🔥 Streak bonus!</span>";
+
+        feedback.innerHTML = stealActive
+          ? `STEAL! ${player.name} earns +${totalPoints}. ${q.statement}${callout}`
+          : `Correct! +${totalPoints} for ${player.name}. ${q.statement}${callout}`;
+
         document.getElementById("streakPill").textContent = `Streak: ${player.streak}`;
         document.getElementById("streakPill").classList.add("streak-pop");
         setTimeout(() => document.getElementById("streakPill").classList.remove("streak-pop"), 400);
-        playSound(streakBonus > 0 ? "bonus" : "correct");
-      } else {
-        player.streak = 0;
-        button.classList.add("wrong");
-        feedback.className = "feedback show bad";
-        feedback.textContent = `Not quite. Correct answer: ${correct}. ${q.statement}`;
-        document.getElementById("streakPill").textContent = `Streak: 0`;
-        playSound("wrong");
+
+        stealActive = false;
+        answered = true;
+        playSound(streakBonus > 0 || stealBonus > 0 ? "bonus" : "correct");
+        renderScoreboard();
+        document.getElementById("nextBtn").classList.remove("hidden");
+        return;
       }
 
+      button.classList.add("wrong");
+      player.streak = 0;
+      document.getElementById("streakPill").textContent = "Streak: 0";
+
+      if (gameMode === "battle" && players.length > 1 && !stealActive) {
+        player.answered++;
+        recordCategoryResult(q, false);
+
+        stealActive = true;
+        originalPlayerIndex = currentPlayerIndex;
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+
+        feedback.className = "feedback show bad";
+        feedback.innerHTML = `Wrong! <strong>${players[currentPlayerIndex].name}</strong> can STEAL this question. Pick an answer.`;
+
+        document.getElementById("turnPill").textContent = `STEAL: ${players[currentPlayerIndex].name}`;
+        document.getElementById("turnPill").classList.add("steal-pill");
+
+        document.querySelectorAll(".answer-btn").forEach(btn => {
+          if (!btn.classList.contains("wrong")) btn.disabled = false;
+        });
+
+        playSound("wrong");
+        renderScoreboard();
+        return;
+      }
+
+      player.answered++;
+      recordCategoryResult(q, false);
+
+      stealActive = false;
+      answered = true;
+      feedback.className = "feedback show bad";
+      feedback.textContent = `Not quite. Correct answer: ${correct}. ${q.statement}`;
+
+      playSound("wrong");
       renderScoreboard();
       document.getElementById("nextBtn").classList.remove("hidden");
     }
 
     function nextQuestion() {
       stopTimer();
+      stealActive = false;
+      document.getElementById("turnPill").classList.remove("steal-pill");
       currentIndex++;
       if (gameMode === "battle" && players.length > 1) {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
@@ -1045,18 +1131,20 @@
       const wrap = document.getElementById("timerWrap");
       const bar = document.getElementById("timerBar");
 
-      if (!timerSeconds) {
+      if (timerSeconds === "0" || timerSeconds === 0) {
         wrap.classList.add("hidden");
         return;
       }
 
       wrap.classList.remove("hidden");
-      timeLeft = timerSeconds;
+      const baseTime = timerSeconds === "pressure" ? Math.max(8, 25 - currentIndex) : Number(timerSeconds);
+      timeLeft = baseTime;
       bar.style.width = "100%";
 
       timerInterval = setInterval(() => {
         timeLeft--;
-        const percent = Math.max(0, (timeLeft / timerSeconds) * 100);
+        const baseTime = timerSeconds === "pressure" ? Math.max(8, 25 - currentIndex) : Number(timerSeconds);
+        const percent = Math.max(0, (timeLeft / baseTime) * 100);
         bar.style.width = `${percent}%`;
 
         if (timeLeft <= 5 && timeLeft > 0) playSound("tick");
@@ -1083,6 +1171,8 @@
 
       player.answered++;
       player.streak = 0;
+      recordCategoryResult(q, false);
+      stealActive = false;
 
       document.querySelectorAll(".answer-btn").forEach(btn => {
         if (btn.textContent.trim() === q.correct.trim()) btn.classList.add("correct");
@@ -1095,6 +1185,44 @@
       playSound("wrong");
       renderScoreboard();
       document.getElementById("nextBtn").classList.remove("hidden");
+    }
+
+
+    function recordCategoryResult(q, wasCorrect) {
+      const cat = q.category.trim();
+      if (!categoryStats[cat]) categoryStats[cat] = { correct: 0, total: 0 };
+      categoryStats[cat].total++;
+      if (wasCorrect) categoryStats[cat].correct++;
+    }
+
+    function buildWeakAreaReport() {
+      const entries = Object.entries(categoryStats);
+      const report = document.getElementById("weakReport");
+
+      if (!entries.length) {
+        report.classList.add("hidden");
+        report.innerHTML = "";
+        return;
+      }
+
+      const sorted = entries
+        .map(([category, data]) => ({
+          category,
+          correct: data.correct,
+          total: data.total,
+          percent: data.total ? Math.round((data.correct / data.total) * 100) : 0
+        }))
+        .sort((a, b) => a.percent - b.percent || b.total - a.total);
+
+      const weakest = sorted[0];
+      const best = [...sorted].sort((a, b) => b.percent - a.percent || b.total - a.total)[0];
+
+      report.classList.remove("hidden");
+      report.innerHTML = `
+        <div>⚠️ Weakest Area: <strong>${weakest.category}</strong> — ${weakest.correct}/${weakest.total} correct (${weakest.percent}%)</div>
+        <div>🏆 Strongest Area: <strong>${best.category}</strong> — ${best.correct}/${best.total} correct (${best.percent}%)</div>
+        <div style="margin-top:8px;">Training tip: review the weakest area first. That is where the pothole is hiding.</div>
+      `;
     }
 
     function getQuestionPoints(q) {
@@ -1146,12 +1274,17 @@
           : `${winner.name} paved the way and everyone else hit a pothole.`;
       }
 
+      buildWeakAreaReport();
       playSound("winner");
       launchConfetti();
     }
 
     function restartGame() {
       stopTimer();
+      stealActive = false;
+      categoryStats = {};
+      const weakReport = document.getElementById("weakReport");
+      if (weakReport) { weakReport.classList.add("hidden"); weakReport.innerHTML = ""; }
       stopConfetti();
       document.getElementById("gamePanel").classList.add("hidden");
       document.getElementById("resultsPanel").classList.add("hidden");
