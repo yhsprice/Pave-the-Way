@@ -1026,21 +1026,11 @@
       const points = getQuestionPoints(q);
       const feedback = document.getElementById("feedback");
       const isCorrect = selected.trim() === correct.trim();
-      if (!players[currentPlayerIndex].answers) {
-  players[currentPlayerIndex].answers = [];
-}
-
-players[currentPlayerIndex].answers.push({
-  category: q.category,
-  correct: isCorrect
-});
 
       stopTimer();
 
-      document.querySelectorAll(".answer-btn").forEach(btn => {
-        if (btn.textContent.trim() === correct.trim()) btn.classList.add("correct");
-        btn.disabled = true;
-      });
+      // During normal play, do NOT reveal the correct answer if a steal is possible.
+      // During a steal attempt, reveal it after the steal attempt is finished.
 
       if (isCorrect) {
         player.answered++;
@@ -1057,15 +1047,23 @@ players[currentPlayerIndex].answers.push({
         recordCategoryResult(q, true);
 
         button.classList.add("correct");
+
+        // Now lock and reveal correct answer because the question is complete.
+        document.querySelectorAll(".answer-btn").forEach(btn => {
+          if (btn.textContent.trim() === correct.trim()) btn.classList.add("correct");
+          btn.disabled = true;
+        });
+
         feedback.className = "feedback show good";
 
         let callout = "";
-        if (player.streak === 3) callout = " <span class='callout'>🔥 3 in a row!</span>";
-        else if (player.streak === 5) callout = " <span class='callout'>💥 Unstoppable!</span>";
-        else if (player.streak > 0 && player.streak % 3 === 0) callout = " <span class='callout'>🔥 Streak bonus!</span>";
+        if (stealActive) callout += " <span class='callout'>🔥 STEAL SUCCESSFUL!</span>";
+        if (player.streak === 3) callout += " <span class='callout'>🔥 3 in a row!</span>";
+        else if (player.streak === 5) callout += " <span class='callout'>💥 Unstoppable!</span>";
+        else if (player.streak > 0 && player.streak % 3 === 0) callout += " <span class='callout'>🔥 Streak bonus!</span>";
 
         feedback.innerHTML = stealActive
-          ? `STEAL! ${player.name} earns +${totalPoints}. ${q.statement}${callout}`
+          ? `${player.name} stole it! +${totalPoints}. ${q.statement}${callout}`
           : `Correct! +${totalPoints} for ${player.name}. ${q.statement}${callout}`;
 
         document.getElementById("streakPill").textContent = `Streak: ${player.streak}`;
@@ -1080,6 +1078,7 @@ players[currentPlayerIndex].answers.push({
         return;
       }
 
+      // Wrong answer.
       button.classList.add("wrong");
       player.streak = 0;
       document.getElementById("streakPill").textContent = "Streak: 0";
@@ -1092,23 +1091,32 @@ players[currentPlayerIndex].answers.push({
         originalPlayerIndex = currentPlayerIndex;
         currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
 
+        // Lock only the wrong answer they chose. Keep the other answers available.
+        // Do NOT mark the correct answer yet.
+        document.querySelectorAll(".answer-btn").forEach(btn => {
+          if (btn === button) btn.disabled = true;
+          else btn.disabled = false;
+        });
+
         feedback.className = "feedback show bad";
-        feedback.innerHTML = `Wrong! <strong>${players[currentPlayerIndex].name}</strong> can STEAL this question. Pick an answer.`;
+        feedback.innerHTML = `Wrong! <strong>${players[currentPlayerIndex].name}</strong> can STEAL this question. Pick from the remaining answers.`;
 
         document.getElementById("turnPill").textContent = `STEAL: ${players[currentPlayerIndex].name}`;
         document.getElementById("turnPill").classList.add("steal-pill");
-
-        document.querySelectorAll(".answer-btn").forEach(btn => {
-          if (!btn.classList.contains("wrong")) btn.disabled = false;
-        });
 
         playSound("wrong");
         renderScoreboard();
         return;
       }
 
+      // Wrong during steal attempt OR solo mode: question is now over, reveal correct answer.
       player.answered++;
       recordCategoryResult(q, false);
+
+      document.querySelectorAll(".answer-btn").forEach(btn => {
+        if (btn.textContent.trim() === correct.trim()) btn.classList.add("correct");
+        btn.disabled = true;
+      });
 
       stealActive = false;
       answered = true;
