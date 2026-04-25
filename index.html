@@ -1305,14 +1305,12 @@
       const imageName = cleanImageName(q.image);
       const imageWrap = document.getElementById("imageWrap");
 
-      const repoBase = "/Pave-the-Way";
+      const liveBase = "https://yhsprice.github.io/Pave-the-Way";
       const candidates = [
-        `${repoBase}/images/${imageName}.png`,
-        `${repoBase}/images/${imageName}.PNG`,
+        `${liveBase}/images/${imageName}.png`,
+        `${liveBase}/images/${imageName}.PNG`,
         `./images/${imageName}.png`,
-        `images/${imageName}.png`,
-        `./images/${imageName}.PNG`,
-        `images/${imageName}.PNG`
+        `images/${imageName}.png`
       ];
 
       let attempt = 0;
