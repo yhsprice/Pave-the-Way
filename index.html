@@ -330,33 +330,33 @@
 
   <script>
     const questions = [
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the biggest risk around a loader?", correct: "Being unseen by operator", image: "loader-use" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is another common name for a skid steer?", correct: "Bobcat", image: "bobcat" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the biggest risk around heavy equipment?", correct: "Being unseen by the operator", image: "heavy-equipment" },
-      { category: "EQUIPMENT", difficulty: "Advanced", question: "What area around equipment is most dangerous?", correct: "Blind spots", image: "blind-spots" },
-      { category: "EQUIPMENT", difficulty: "Expert", question: "What should you assume around any moving machine?", correct: "It may move unexpectedly", image: "loader-use" },
-      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is a loader primarily used for?", correct: "Moving material", image: "loader" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is a roller used for?", correct: "Compaction", image: "roller" },
-      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is the safest distance from moving equipment?", correct: "Outside the operator’s blind spots", image: "moving-machine" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the biggest mistake workers make around equipment?", correct: "Assuming they are visible", image: "equipment-use" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the safest way to approach equipment?", correct: "Make eye contact and stay clear", image: "moving-machine" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is a common nickname for a very old truck?", correct: "Beater", image: "old-truck" },
-      { category: "EQUIPMENT", difficulty: "Advanced", question: "What should you never do near moving equipment?", correct: "All of the above", image: "safe-distance" },
-      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is the biggest danger when equipment is backing up?", correct: "Limited visibility", image: "backing-up" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the safest assumption about operators?", correct: "They may not see you", image: "safe-mindset" },
-      { category: "EQUIPMENT", difficulty: "Expert", question: "What causes most struck-by incidents?", correct: "Worker position and visibility", image: "never-do" },
-      { category: "EQUIPMENT", difficulty: "Expert", question: "What is the danger of standing between machines?", correct: "Crush hazard", image: "operator-visibility" },
-      { category: "EQUIPMENT", difficulty: "Advanced", question: "What does slow movement NOT remove?", correct: "Risk", image: "blind-spots" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the purpose of backup alarms?", correct: "Alert nearby workers", image: "backing-up" },
-      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is a safe mindset near equipment?", correct: "Stay alert and expect movement", image: "operator-visibility" },
-      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is the danger of distractions near machines?", correct: "Reduced awareness", image: "equipment-use" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the safest action if unsure about equipment movement?", correct: "Stay clear", image: "visibility" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the risk of stepping into a travel path?", correct: "Being struck", image: "worker-positioning" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is a loader bucket hazard?", correct: "Unexpected movement", image: "loader-use" },
-      { category: "EQUIPMENT", difficulty: "Beginner", question: "What should you avoid near raised equipment?", correct: "Standing underneath", image: "loader-use" },
-      { category: "EQUIPMENT", difficulty: "Expert", question: "What is the biggest risk near rotating parts?", correct: "Entanglement", image: "blind-spots" },
-      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is the safest position near equipment?", correct: "Visible and out of range", image: "traffic-control" },
-      { category: "EQUIPMENT", difficulty: "Advanced", question: "A machine stops suddenly and workers move closer out of curiosity. What is the risk?", correct: "Unexpected restart or hazard exposure", image: "worker-positioning" }
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the biggest risk around a loader?", correct: "Being unseen by operator", image: "loader-use", fact: "Operators have limited visibility—if they can't see you, you are in danger." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is another common name for a skid steer?", correct: "Bobcat", image: "bobcat", fact: "Skid steers are commonly called Bobcats, regardless of brand." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the biggest risk around heavy equipment?", correct: "Being unseen by the operator", image: "heavy-equipment", fact: "Most struck-by incidents happen because workers are not visible." },
+      { category: "EQUIPMENT", difficulty: "Advanced", question: "What area around equipment is most dangerous?", correct: "Blind spots", image: "blind-spots", fact: "Blind spots exist on all heavy equipment—never assume visibility." },
+      { category: "EQUIPMENT", difficulty: "Expert", question: "What should you assume around any moving machine?", correct: "It may move unexpectedly", image: "loader-use", fact: "Machines can move suddenly—always expect unexpected motion." },
+      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is a loader primarily used for?", correct: "Moving material", image: "loader", fact: "Loaders are designed to move material quickly, often with limited visibility." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is a roller used for?", correct: "Compaction", image: "roller", fact: "Rollers compact asphalt and soil to create stable surfaces." },
+      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is the safest distance from moving equipment?", correct: "Outside the operator’s blind spots", image: "moving-machine", fact: "Staying outside blind spots keeps you visible and safer." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the biggest mistake workers make around equipment?", correct: "Assuming they are visible", image: "equipment-use", fact: "Never assume an operator sees you—visibility must be confirmed." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the safest way to approach equipment?", correct: "Make eye contact and stay clear", image: "moving-machine", fact: "Eye contact confirms the operator sees you before approaching." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is a common nickname for a very old truck?", correct: "Beater", image: "old-truck", fact: "Old trucks may have mechanical issues—always inspect before use." },
+      { category: "EQUIPMENT", difficulty: "Advanced", question: "What should you never do near moving equipment?", correct: "All of the above", image: "safe-distance", fact: "Unsafe behaviors around equipment quickly lead to serious incidents." },
+      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is the biggest danger when equipment is backing up?", correct: "Limited visibility", image: "backing-up", fact: "Operators have very limited rear visibility when backing up." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the safest assumption about operators?", correct: "They may not see you", image: "safe-mindset", fact: "Always assume the operator cannot see you unless confirmed." },
+      { category: "EQUIPMENT", difficulty: "Expert", question: "What causes most struck-by incidents?", correct: "Worker position and visibility", image: "never-do", fact: "Positioning and visibility are the leading causes of struck-by accidents." },
+      { category: "EQUIPMENT", difficulty: "Expert", question: "What is the danger of standing between machines?", correct: "Crush hazard", image: "operator-visibility", fact: "Standing between machines can result in deadly crush injuries." },
+      { category: "EQUIPMENT", difficulty: "Advanced", question: "What does slow movement NOT remove?", correct: "Risk", image: "blind-spots", fact: "Even slow-moving equipment can cause serious injuries." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the purpose of backup alarms?", correct: "Alert nearby workers", image: "backing-up", fact: "Backup alarms warn workers of reversing equipment." },
+      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is a safe mindset near equipment?", correct: "Stay alert and expect movement", image: "operator-visibility", fact: "Staying alert helps you react quickly to hazards." },
+      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is the danger of distractions near machines?", correct: "Reduced awareness", image: "equipment-use", fact: "Distractions reduce awareness and increase accident risk." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the safest action if unsure about equipment movement?", correct: "Stay clear", image: "visibility", fact: "When unsure, distance is your best protection." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the risk of stepping into a travel path?", correct: "Being struck", image: "worker-positioning", fact: "Travel paths are active danger zones—never step into them." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What is a loader bucket hazard?", correct: "Unexpected movement", image: "loader-use", fact: "Buckets can drop or move unexpectedly without warning." },
+      { category: "EQUIPMENT", difficulty: "Beginner", question: "What should you avoid near raised equipment?", correct: "Standing underneath", image: "loader-use", fact: "Never stand under raised equipment—it can fail suddenly." },
+      { category: "EQUIPMENT", difficulty: "Expert", question: "What is the biggest risk near rotating parts?", correct: "Entanglement", image: "blind-spots", fact: "Rotating parts can pull in clothing or body parts quickly." },
+      { category: "EQUIPMENT", difficulty: "Advanced", question: "What is the safest position near equipment?", correct: "Visible and out of range", image: "traffic-control", fact: "Stay visible and out of the machine’s operating range." },
+      { category: "EQUIPMENT", difficulty: "Advanced", question: "A machine stops suddenly and workers move closer out of curiosity. What is the risk?", correct: "Unexpected restart or hazard exposure", image: "worker-positioning", fact: "Machines can restart suddenly—never assume it's safe just because it stopped." }
     ];
 
     const wrongAnswerBank = [
@@ -475,11 +475,11 @@
         document.getElementById("scorePill").textContent = `Score: ${score}`;
         button.classList.add("correct");
         feedback.className = "feedback show good";
-        feedback.textContent = randomGoodFeedback();
+        feedback.textContent = currentQuestions[currentIndex].fact;
       } else {
         button.classList.add("wrong");
         feedback.className = "feedback show bad";
-        feedback.textContent = `Not quite. Correct answer: ${correct}`;
+        feedback.textContent = `Not quite. ${currentQuestions[currentIndex].fact}`;
       }
 
       document.getElementById("nextBtn").classList.remove("hidden");
