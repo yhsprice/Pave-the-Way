@@ -435,7 +435,47 @@
 { category: "MILLING", difficulty: "Beginner", question: "What is the safest reaction?", correct: "Move away", wrong: ["Move closer carefully", "Signal the operator", "Continue working"], statement: "Step back now or deal with it later.", image: "eye-contact" },
 { category: "MILLING", difficulty: "Advanced", question: "What is the biggest mistake?", correct: "Getting too close", wrong: ["Moving too slowly", "Over-communicating", "Watching equipment"], statement: "Curiosity is not a safety plan.", image: "safe-mindset" },
 { category: "MILLING", difficulty: "Advanced", question: "What is the safest habit?", correct: "Awareness", wrong: ["Speed", "Strength", "Routine"], statement: "Awareness isn’t a skill—it’s a decision every second.", image: "visibility" },
-  ];    
+ 
+// ===== UTILITY / TRENCH =====
+{ category: "UTILITY / TRENCH", difficulty: "Expert", question: "What is a trench hazard?", correct: "Collapse", wrong: ["Water buildup", "Loose tools", "Uneven surface"], statement: "It doesn’t shift—it gives way.", image: "trench-hazard" },
+
+{ category: "UTILITY / TRENCH", difficulty: "Expert", question: "What is backfill?", correct: "Refilled material", wrong: ["Removed soil", "Compacted base", "Natural ground"], statement: "Fast, silent, and deadly.", image: "backfill" },
+
+{ category: "UTILITY / TRENCH", difficulty: "Advanced", question: "What is the biggest trench risk?", correct: "Cave-in", wrong: ["Equipment damage", "Delayed work", "Material loss"], statement: "Water turns solid ground into risk.", image: "trench-hazard" },
+
+{ category: "UTILITY / TRENCH", difficulty: "Advanced", question: "What weakens soil?", correct: "Water", wrong: ["Sunlight", "Air movement", "Temperature"], statement: "Water turns solid ground into risk.", image: "standing-water" },
+
+{ category: "UTILITY / TRENCH", difficulty: "Advanced", question: "What is the safest trench action?", correct: "Verify safety", wrong: ["Enter quickly", "Work efficiently", "Follow others"], statement: "If you didn’t check it, you don’t know it.", image: "trench-hazard" },
+
+// ===== BRIDGE & STRUCTURES =====
+{ category: "BRIDGE & STRUCTURES", difficulty: "Expert", question: "What is the biggest risk when removing formwork too early?", correct: "Structural failure", wrong: ["Paperwork documentation", "Appearance damage", "No worries"], statement: "Don’t take the risk. Always check.", image: "never-do" },
+
+{ category: "BRIDGE & STRUCTURES", difficulty: "Advanced", question: "What is the purpose of rebar?", correct: "Reinforcement strength", wrong: ["Improve appearance", "Speed up curing", "Reduce weight"], statement: "Concrete is strong—rebar makes it survive.", image: "rebar" },
+
+{ category: "BRIDGE & STRUCTURES", difficulty: "Beginner", question: "What is the danger of standing under active bridge work?", correct: "Falling object hazard", wrong: ["Noise exposure", "Dust buildup", "Limited visibility"], statement: "What goes up doesn’t always stay there.", image: "concrete-pour" },
+
+// ===== AGGREGATE & MATERIALS =====
+{ category: "AGGREGATE & MATERIALS", difficulty: "Expert", question: "What is the biggest risk of mixing materials incorrectly?", correct: "Contamination", wrong: ["Color variation", "Slower mixing", "Increased weight"], statement: "Mix the wrong thing, get the wrong result—every time.", image: "scenario-stockpile" },
+
+{ category: "AGGREGATE & MATERIALS", difficulty: "Beginner", question: "What is the risk of standing on stockpiles?", correct: "Collapse or shifting", wrong: ["Dust exposure", "Heat buildup", "Reduced traction"], statement: "Standing on it doesn’t make it stable.", image: "stockpile" },
+
+// ===== TRANSLOADING / TANK / RAIL =====
+{ category: "TRANSLOADING / TANK / RAIL", difficulty: "Expert", question: "What is the biggest risk during transfer operations?", correct: "Incorrect transfer", wrong: ["Slow flow", "Equipment wear", "Reduced pressure"], statement: "Wrong place, wrong product, big problem.", image: "tank-transfer" },
+
+{ category: "TRANSLOADING / TANK / RAIL", difficulty: "Advanced", question: "What should always be verified before transfer?", correct: "Contents", wrong: ["Tank color", "Valve size", "Hose length"], statement: "What’s inside matters more than what’s outside.", image: "tank-assumption" },
+
+// ===== SAFETY & HAZARD RECOGNITION =====
+{ category: "SAFETY & HAZARD RECOGNITION", difficulty: "Beginner", question: "If you see a coworker doing something unsafe, what is the best response?", correct: "Address the situation or get help", wrong: ["Ignore it", "Call 911 immediately", "Tell supervisor later"], statement: "Stop, drop, and find out.", image: "pause-and-verify" },
+
+{ category: "SAFETY & HAZARD RECOGNITION", difficulty: "Expert", question: "If you are unsure whether an area is safe to enter, what is the best action?", correct: "Pause and verify", wrong: ["Enter briefly", "Assume safe", "Follow others"], statement: "Always do your own verification first.", image: "pause-and-verify" },
+
+// ===== ADVANCED SCENARIO QUESTIONS =====
+{ category: "ADVANCED SCENARIO QUESTIONS", difficulty: "Expert", question: "A worker feels rushed and skips a step. What increases?", correct: "Risk", wrong: ["Efficiency", "Productivity", "Speed"], statement: "Speed creates risk faster than it saves time.", image: "reassess-traffic" },
+
+{ category: "ADVANCED SCENARIO QUESTIONS", difficulty: "Expert", question: "A near miss is ignored. What is lost?", correct: "Learning opportunity", wrong: ["Time", "Productivity", "Communication"], statement: "Ignore the warning, repeat the mistake.", image: "instinct" },
+
+{ category: "ADVANCED SCENARIO QUESTIONS", difficulty: "Expert", question: "A worker assumes someone else checked something. What is the issue?", correct: "Responsibility gap", wrong: ["Delayed work", "Miscommunication", "Extra effort"], statement: "Everyone thought someone else had it.", image: "flagger" }    
+    ];    
     let currentQuestions = [];
     let currentIndex = 0;
     let score = 0;
