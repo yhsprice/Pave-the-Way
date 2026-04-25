@@ -307,6 +307,37 @@
       color: #111827;
     }
 
+    .timer-wrap {
+      margin: 12px 0 16px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      height: 20px;
+      border: 2px solid #111827;
+    }
+
+    .timer-bar {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #16a34a, #f59e0b, #dc2626);
+      transition: width 1s linear;
+    }
+
+    .bonus-pill {
+      background: #7c2d12;
+      color: #fff7ed;
+    }
+
+    .streak-pop {
+      animation: pop 0.35s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -358,6 +389,16 @@
           </select>
         </div>
         <div>
+          <label for="timerSelect">Timer</label>
+          <select id="timerSelect">
+            <option value="0">No Timer</option>
+            <option value="15">15 Seconds</option>
+            <option value="20" selected>20 Seconds</option>
+            <option value="30">30 Seconds</option>
+            <option value="45">45 Seconds</option>
+          </select>
+        </div>
+        <div>
           <label for="categorySelect">Category</label>
           <select id="categorySelect"></select>
         </div>
@@ -382,7 +423,7 @@
         </div>
       </div>
 
-      <p class="helper">Scoring: Beginner = 1 point, Advanced = 2 points, Expert = 3 points. In battle mode, turns rotate automatically.</p>
+      <p class="helper">Scoring: Beginner = 1 point, Advanced = 2 points, Expert = 3 points. Streak bonus: 3 correct in a row earns +1. In battle mode, turns rotate automatically.</p>
 
       <div id="playerNamesPanel" class="name-grid"></div>
 
@@ -397,6 +438,7 @@
       <div class="game-header">
         <span class="pill" id="progressPill">Question 1</span>
         <span class="pill turn-pill" id="turnPill">Turn</span>
+        <span class="pill bonus-pill" id="streakPill">Streak: 0</span>
         <span class="pill" id="categoryPill">Category</span>
       </div>
 
@@ -405,6 +447,9 @@
         <div>
           <p class="question-text" id="questionText"></p>
           <p class="points-note" id="pointsNote"></p>
+          <div id="timerWrap" class="timer-wrap">
+            <div id="timerBar" class="timer-bar"></div>
+          </div>
           <div class="answers" id="answers"></div>
           <div class="feedback" id="feedback"></div>
           <div class="controls">
@@ -814,6 +859,9 @@
     let players = [];
     let currentPlayerIndex = 0;
     let gameMode = "solo";
+    let timerSeconds = 0;
+    let timeLeft = 0;
+    let timerInterval = null;
 
     function init() {
       populateCategories();
@@ -857,6 +905,7 @@
       const selectedCategory = document.getElementById("categorySelect").value;
       const selectedDifficulty = document.getElementById("difficultySelect").value;
       const questionCount = Number(document.getElementById("questionCountSelect").value);
+      timerSeconds = Number(document.getElementById("timerSelect").value);
 
       const playerCount = gameMode === "solo" ? 1 : Number(document.getElementById("playerCountSelect").value);
       players = [];
@@ -866,7 +915,9 @@
           name: (input && input.value.trim()) ? input.value.trim() : (gameMode === "solo" ? "Player 1" : `Team ${i + 1}`),
           score: 0,
           correct: 0,
-          answered: 0
+          answered: 0,
+          streak: 0,
+          bestStreak: 0
         });
       }
 
@@ -903,7 +954,9 @@
       document.getElementById("categoryPill").textContent = `${q.category} • ${q.difficulty}`;
       document.getElementById("questionText").textContent = q.question.trim();
       document.getElementById("pointsNote").textContent = `Worth ${getQuestionPoints(q)} point${getQuestionPoints(q) === 1 ? "" : "s"}`;
+      document.getElementById("streakPill").textContent = `Streak: ${players[currentPlayerIndex].streak}`;
       document.getElementById("imageWrap").innerHTML = `<img src="images/${cleanImageName(q.image)}.png" alt="${q.category} safety image" onerror="showMissingImage()" />`;
+      startTimer();
 
       const feedback = document.getElementById("feedback");
       feedback.className = "feedback";
@@ -944,17 +997,30 @@
         btn.disabled = true;
       });
 
+      stopTimer();
+
       if (selected.trim() === correct.trim()) {
-        player.score += points;
+        player.streak++;
+        player.bestStreak = Math.max(player.bestStreak, player.streak);
+        const streakBonus = player.streak > 0 && player.streak % 3 === 0 ? 1 : 0;
+        const totalPoints = points + streakBonus;
+        player.score += totalPoints;
         player.correct++;
         button.classList.add("correct");
         feedback.className = "feedback show good";
-        feedback.textContent = `Correct! +${points} for ${player.name}. ${q.statement}`;
-        playSound("correct");
+        feedback.textContent = streakBonus > 0
+          ? `Correct! +${points} plus a +${streakBonus} streak bonus for ${player.name}. ${q.statement}`
+          : `Correct! +${points} for ${player.name}. ${q.statement}`;
+        document.getElementById("streakPill").textContent = `Streak: ${player.streak}`;
+        document.getElementById("streakPill").classList.add("streak-pop");
+        setTimeout(() => document.getElementById("streakPill").classList.remove("streak-pop"), 400);
+        playSound(streakBonus > 0 ? "bonus" : "correct");
       } else {
+        player.streak = 0;
         button.classList.add("wrong");
         feedback.className = "feedback show bad";
         feedback.textContent = `Not quite. Correct answer: ${correct}. ${q.statement}`;
+        document.getElementById("streakPill").textContent = `Streak: 0`;
         playSound("wrong");
       }
 
@@ -963,6 +1029,7 @@
     }
 
     function nextQuestion() {
+      stopTimer();
       currentIndex++;
       if (gameMode === "battle" && players.length > 1) {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
@@ -970,6 +1037,64 @@
 
       if (currentIndex >= currentQuestions.length) showResults();
       else showQuestion();
+    }
+
+    function startTimer() {
+      stopTimer();
+
+      const wrap = document.getElementById("timerWrap");
+      const bar = document.getElementById("timerBar");
+
+      if (!timerSeconds) {
+        wrap.classList.add("hidden");
+        return;
+      }
+
+      wrap.classList.remove("hidden");
+      timeLeft = timerSeconds;
+      bar.style.width = "100%";
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        const percent = Math.max(0, (timeLeft / timerSeconds) * 100);
+        bar.style.width = `${percent}%`;
+
+        if (timeLeft <= 5 && timeLeft > 0) playSound("tick");
+
+        if (timeLeft <= 0) {
+          handleTimeOut();
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function handleTimeOut() {
+      if (answered) return;
+      answered = true;
+      stopTimer();
+
+      const q = currentQuestions[currentIndex];
+      const player = players[currentPlayerIndex];
+      const feedback = document.getElementById("feedback");
+
+      player.answered++;
+      player.streak = 0;
+
+      document.querySelectorAll(".answer-btn").forEach(btn => {
+        if (btn.textContent.trim() === q.correct.trim()) btn.classList.add("correct");
+        btn.disabled = true;
+      });
+
+      feedback.className = "feedback show bad";
+      feedback.textContent = `Time is up! Correct answer: ${q.correct}. ${q.statement}`;
+      document.getElementById("streakPill").textContent = "Streak: 0";
+      playSound("wrong");
+      renderScoreboard();
+      document.getElementById("nextBtn").classList.remove("hidden");
     }
 
     function getQuestionPoints(q) {
@@ -1010,7 +1135,7 @@
       document.getElementById("leaderboard").innerHTML = sorted.map((p, index) => `
         <div class="leader-row ${p.score === winner.score ? "winner" : ""}">
           <span>#${index + 1}</span>
-          <span>${p.name} <small>(${p.correct}/${p.answered} correct)</small></span>
+          <span>${p.name} <small>(${p.correct}/${p.answered} correct • best streak ${p.bestStreak})</small></span>
           <span>${p.score} pts</span>
         </div>
       `).join("");
@@ -1026,6 +1151,7 @@
     }
 
     function restartGame() {
+      stopTimer();
       stopConfetti();
       document.getElementById("gamePanel").classList.add("hidden");
       document.getElementById("resultsPanel").classList.add("hidden");
@@ -1062,12 +1188,31 @@
       osc.connect(gain);
       gain.connect(ctx.destination);
 
-      if (type === "correct") {
+      if (type === "tick") {
+        osc.frequency.value = 320;
+        gain.gain.setValueAtTime(0.035, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.08);
+      } else if (type === "correct") {
         osc.frequency.value = 660;
         gain.gain.setValueAtTime(0.09, ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
         osc.start();
         osc.stop(ctx.currentTime + 0.18);
+      } else if (type === "bonus") {
+        const notes = [660, 880, 990];
+        notes.forEach((freq, i) => {
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.frequency.value = freq;
+          o.connect(g);
+          g.connect(ctx.destination);
+          g.gain.setValueAtTime(0.06, ctx.currentTime + i * 0.08);
+          g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.12);
+          o.start(ctx.currentTime + i * 0.08);
+          o.stop(ctx.currentTime + i * 0.08 + 0.12);
+        });
       } else if (type === "wrong") {
         osc.frequency.value = 180;
         gain.gain.setValueAtTime(0.08, ctx.currentTime);
