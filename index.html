@@ -884,32 +884,6 @@
 { category: "ADVANCED SCENARIO QUESTIONS", difficulty: "Expert", question: "Material is dumped into the wrong stockpile. What is the biggest risk?", correct: "Contamination and incorrect use later", wrong: ["Not fixing it fast enough", "Depends on materials", "Instantly ruined product"], statement: "One mistake now spreads into many later.", image: "stockpile" },
     ];
 
-    function allowSteal(playerIndex) {
-  const buttons = document.querySelectorAll(".answer-btn");
-
-  buttons.forEach(btn => {
-    btn.onclick = () => {
-      const selected = btn.innerText.trim();
-      const correct = currentQuestion.correct.trim();
-
-      if (selected === correct) {
-        players[playerIndex].score += 1;
-
-        document.getElementById("feedback").className = "feedback show good";
-        document.getElementById("feedback").innerHTML =
-          `🔥 STEAL SUCCESSFUL! ${players[playerIndex].name} gets the point!`;
-
-      } else {
-        document.getElementById("feedback").className = "feedback show bad";
-        document.getElementById("feedback").innerHTML =
-          `❌ Steal missed! Correct answer was: <b>${correct}</b>`;
-      }
-
-      document.getElementById("nextBtn").classList.remove("hidden");
-    };
-  });
-}
-
     let currentQuestions = [];
     let currentIndex = 0;
     let answered = false;
@@ -1052,12 +1026,6 @@
       const points = getQuestionPoints(q);
       const feedback = document.getElementById("feedback");
       const isCorrect = selected.trim() === correct.trim();
-      // ===== STEAL MODE LOGIC =====
-let stealMode = false;
-
-if (!isCorrect && players.length > 1) {
-  stealMode = true;
-}
       if (!players[currentPlayerIndex].answers) {
   players[currentPlayerIndex].answers = [];
 }
@@ -1096,28 +1064,22 @@ players[currentPlayerIndex].answers.push({
         else if (player.streak === 5) callout = " <span class='callout'>💥 Unstoppable!</span>";
         else if (player.streak > 0 && player.streak % 3 === 0) callout = " <span class='callout'>🔥 Streak bonus!</span>";
 
-        if (isCorrect) {
-  feedback.className = "feedback show good";
-  feedback.innerHTML = "✅ Correct! You stayed out of trouble.";
+        feedback.innerHTML = stealActive
+          ? `STEAL! ${player.name} earns +${totalPoints}. ${q.statement}${callout}`
+          : `Correct! +${totalPoints} for ${player.name}. ${q.statement}${callout}`;
 
-} else if (stealMode) {
+        document.getElementById("streakPill").textContent = `Streak: ${player.streak}`;
+        document.getElementById("streakPill").classList.add("streak-pop");
+        setTimeout(() => document.getElementById("streakPill").classList.remove("streak-pop"), 400);
 
-  const nextPlayer = (currentPlayerIndex + 1) % players.length;
+        stealActive = false;
+        answered = true;
+        playSound(streakBonus > 0 || stealBonus > 0 ? "bonus" : "correct");
+        renderScoreboard();
+        document.getElementById("nextBtn").classList.remove("hidden");
+        return;
+      }
 
-  feedback.className = "feedback show bad";
-  feedback.innerHTML = `❌ Wrong! <span class="callout">${players[nextPlayer].name}</span> can STEAL this question!`;
-
-  document.getElementById("turnPill").innerHTML = `<span class="pill steal-pill">STEAL MODE</span>`;
-
-  // Enable steal
-  allowSteal(nextPlayer);
-
-  return;
-
-} else {
-  feedback.className = "feedback show bad";
-  feedback.innerHTML = "❌ Wrong. That’s how incidents happen.";
-}
       button.classList.add("wrong");
       player.streak = 0;
       document.getElementById("streakPill").textContent = "Streak: 0";
