@@ -552,6 +552,22 @@
       text-transform: uppercase;
     }
 
+    
+    .confetti-dot {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1000000;
+      animation: dotFall 2.5s linear forwards;
+    }
+
+    @keyframes dotFall {
+      0% { transform: translateY(-20px) scale(1); opacity: 1; }
+      100% { transform: translateY(110vh) scale(0.7); opacity: 0; }
+    }
+
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -1616,65 +1632,9 @@
       buildWeakAreaReport();
       saveLocalScores();
       renderLocalLeaderboard();
-      // ===== Weak Area Report =====
-const categoryTotals = {};
-const categoryCorrect = {};
 
-players.forEach(p => {
-  if (!p.answers) return;
-
-  p.answers.forEach(a => {
-    if (!categoryTotals[a.category]) {
-      categoryTotals[a.category] = 0;
-      categoryCorrect[a.category] = 0;
-    }
-
-    categoryTotals[a.category]++;
-
-    if (a.correct) {
-      categoryCorrect[a.category]++;
-    }
-  });
-});
-
-let weakest = null;
-let weakestScore = 100;
-let strongest = null;
-let strongestScore = 0;
-
-Object.keys(categoryTotals).forEach(cat => {
-  const percent = Math.round(
-    (categoryCorrect[cat] / categoryTotals[cat]) * 100
-  );
-
-  if (percent < weakestScore) {
-    weakestScore = percent;
-    weakest = cat;
-  }
-
-  if (percent > strongestScore) {
-    strongestScore = percent;
-    strongest = cat;
-  }
-});
-
-const resultsDiv = document.getElementById("results");
-
-resultsDiv.innerHTML += `
-  <div style="
-    margin-top:20px;
-    padding:15px;
-    border:3px solid orange;
-    border-radius:12px;
-    background:#fff8e1;
-    font-weight:bold;
-  ">
-    ⚠️ Weakest Area: ${weakest} (${weakestScore}%)<br>
-    🏆 Strongest Area: ${strongest} (${strongestScore}%)
-  </div>
-`;
       playSound("winner");
-      launchConfetti();
+      setTimeout(launchConfetti, 150);
 
     }
 
@@ -2060,7 +2020,23 @@ resultsDiv.innerHTML += `
     let confettiPieces = [];
     let confettiAnimation = null;
 
+
+    function launchConfettiFallback() {
+      for (let i = 0; i < 90; i++) {
+        const dot = document.createElement("div");
+        dot.className = "confetti-dot";
+        dot.style.left = Math.random() * 100 + "vw";
+        dot.style.top = "-20px";
+        dot.style.background = `hsl(${Math.random() * 360}, 90%, 55%)`;
+        dot.style.animationDelay = (Math.random() * 0.8) + "s";
+        dot.style.animationDuration = (1.8 + Math.random() * 1.5) + "s";
+        document.body.appendChild(dot);
+        setTimeout(() => dot.remove(), 4000);
+      }
+    }
+
     function launchConfetti() {
+      launchConfettiFallback();
       const canvas = document.getElementById("confettiCanvas");
       if (!canvas) return;
 
