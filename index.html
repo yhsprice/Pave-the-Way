@@ -462,6 +462,28 @@
       .local-score-row .date-cell {
         display: none;
       }
+      .hero {
+        padding: 18px 12px;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.55rem, 8vw, 2.15rem);
+        white-space: nowrap;
+        letter-spacing: 0;
+        line-height: 1.05;
+      }
+
+      .hero p {
+        font-size: 0.95rem;
+        line-height: 1.45;
+      }
+
+      .category-banner {
+        font-size: 1rem;
+        padding: 10px 12px;
+        margin-top: 14px;
+      }
+
     }
 
 
@@ -568,6 +590,22 @@
       100% { transform: translateY(110vh) scale(0.7); opacity: 0; }
     }
 
+
+    .category-banner {
+      margin: 0 0 14px;
+      padding: 12px 16px;
+      border-radius: 18px;
+      background: #111827;
+      color: #facc15;
+      border: 3px solid #f59e0b;
+      font-weight: 900;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      text-align: center;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.18);
+    }
+
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -578,6 +616,28 @@
     @media (max-width: 760px) {
       .question-card { grid-template-columns: 1fr; }
       .image-wrap { min-height: 210px; }
+      .hero {
+        padding: 18px 12px;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.55rem, 8vw, 2.15rem);
+        white-space: nowrap;
+        letter-spacing: 0;
+        line-height: 1.05;
+      }
+
+      .hero p {
+        font-size: 0.95rem;
+        line-height: 1.45;
+      }
+
+      .category-banner {
+        font-size: 1rem;
+        padding: 10px 12px;
+        margin-top: 14px;
+      }
+
     }
   </style>
 </head>
@@ -680,12 +740,12 @@
         <span class="pill" id="progressPill">Question 1</span>
         <span class="pill turn-pill" id="turnPill">Turn</span>
         <span class="pill bonus-pill" id="streakPill">Streak: 0</span>
-        <span class="pill" id="categoryPill">Category</span>
       </div>
 
       <div class="question-card">
         <div class="image-wrap" id="imageWrap"></div>
         <div>
+          <div id="categoryBanner" class="category-banner">Category</div>
           <div id="scenarioNote" class="scenario-note hidden"></div>
           <div id="rampNote" class="ramp-note hidden"></div>
           <p class="question-text" id="questionText"></p>
@@ -1297,7 +1357,8 @@
 
       document.getElementById("progressPill").textContent = `Question ${currentIndex + 1} of ${currentQuestions.length}`;
       document.getElementById("turnPill").textContent = `Turn: ${players[currentPlayerIndex].name}`;
-      document.getElementById("categoryPill").textContent = `${q.category} • ${q.difficulty}`;
+      const categoryBanner = document.getElementById("categoryBanner");
+      if (categoryBanner) categoryBanner.textContent = `${q.category} • ${q.difficulty}`;
       const scenarioNote = document.getElementById("scenarioNote");
       if (isScenarioQuestion(q)) {
         scenarioNote.classList.remove("hidden");
