@@ -1792,36 +1792,58 @@
       return "For everyone’s safety, stay off the site. Just kidding... mostly.";
     }
 
-  function throwTomatoes(amount = 25) {
+function throwTomatoes(amount = 25) {
   for (let i = 0; i < amount; i++) {
-    const splat = document.createElement("div");
-    splat.textContent = "🍅💥";
-    splat.style.position = "fixed";
-    splat.style.left = Math.random() * 90 + "vw";
-    splat.style.top = Math.random() * 80 + "vh";
-    splat.style.fontSize = Math.floor(Math.random() * 28 + 34) + "px";
-    splat.style.zIndex = "1000001";
-    splat.style.pointerEvents = "none";
-    splat.style.animation = "tomatoPop 0.8s ease-out forwards";
+    const tomato = document.createElement("div");
+    tomato.textContent = "🍅";
+    tomato.style.position = "fixed";
+    tomato.style.zIndex = "1000001";
+    tomato.style.pointerEvents = "none";
+    tomato.style.fontSize = Math.floor(Math.random() * 26 + 34) + "px";
 
-    document.body.appendChild(splat);
+    const fromLeft = Math.random() < 0.5;
+    let x = fromLeft ? -80 : window.innerWidth + 80;
+    let y = Math.random() * window.innerHeight * 0.65;
 
-    setTimeout(() => splat.remove(), 900);
+    const targetX = window.innerWidth * (0.35 + Math.random() * 0.3);
+    const targetY = window.innerHeight * (0.25 + Math.random() * 0.45);
+
+    const startTime = performance.now();
+    const duration = 700 + Math.random() * 350;
+
+    document.body.appendChild(tomato);
+
+    function animate(now) {
+      const progress = Math.min((now - startTime) / duration, 1);
+
+      const ease = 1 - Math.pow(1 - progress, 3);
+
+      const currentX = x + (targetX - x) * ease;
+      const currentY = y + (targetY - y) * ease - Math.sin(progress * Math.PI) * 120;
+
+      tomato.style.left = currentX + "px";
+      tomato.style.top = currentY + "px";
+      tomato.style.transform = `scale(${0.6 + progress * 1.2}) rotate(${progress * 900}deg)`;
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        tomato.textContent = "💥";
+        tomato.style.transform = "scale(2.4)";
+        tomato.style.transition = "opacity 0.35s ease, transform 0.35s ease";
+        tomato.style.opacity = "0";
+
+        setTimeout(() => tomato.remove(), 400);
+      }
+    }
+
+    requestAnimationFrame(animate);
   }
 
   document.body.classList.add("screen-shake");
-  setTimeout(() => document.body.classList.remove("screen-shake"), 400);
+  setTimeout(() => document.body.classList.remove("screen-shake"), 350);
 }
-    // SPLAT effect
-    setTimeout(() => {
-      t.textContent = "💥";
-      t.style.animation = "tomatoSplat 0.4s ease-out forwards";
-    }, 800);
-
-    setTimeout(() => t.remove(), 1300);
-  }
-}
-
+    
     function playBooSound() {
       if (document.getElementById("soundSelect").value === "off") return;
       const AudioContext = window.AudioContext || window.webkitAudioContext;
