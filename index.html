@@ -698,3 +698,243 @@
       </div>
     </section>
   </main>
+
+    <script>
+/* ========= CORE STATE ========= */
+let players = [];
+let currentPlayerIndex = 0;
+let currentQuestions = [];
+let currentQuestionIndex = 0;
+let gameMode = "solo";
+let timerInterval = null;
+
+/* ========= STAGES ========= */
+function getStageName(index, total) {
+  const pct = index / total;
+  if (pct < 0.25) return "Stage 1: Warm-Up Zone";
+  if (pct < 0.5) return "Stage 2: Work Zone Warning";
+  if (pct < 0.75) return "Stage 3: Pressure Zone";
+  return "Stage 4: Bragging Rights Battle";
+}
+
+/* ========= PLAYER SETUP ========= */
+function updatePlayerInputs() {
+  const count = parseInt(document.getElementById("playerCountSelect").value);
+  const container = document.getElementById("playerNamesPanel");
+  container.innerHTML = "";
+
+  for (let i = 0; i < count; i++) {
+    container.innerHTML += `
+      <input placeholder="Player ${i + 1}" id="player${i}" value="Player ${i + 1}" />
+    `;
+  }
+}
+
+/* ========= START GAME ========= */
+function startGame() {
+  gameMode = document.getElementById("gameModeSelect").value;
+  const count = parseInt(document.getElementById("playerCountSelect").value);
+
+  players = [];
+  for (let i = 0; i < count; i++) {
+    players.push({
+      name: document.getElementById(`player${i}`).value || `Player ${i+1}`,
+      score: 0,
+      correct: 0,
+      answered: 0,
+      streak: 0,
+      bestStreak: 0
+    });
+  }
+
+  currentPlayerIndex = 0;
+  currentQuestionIndex = 0;
+
+  buildQuestionPool();
+
+  document.getElementById("setupPanel").classList.add("hidden");
+  document.getElementById("gamePanel").classList.remove("hidden");
+
+  showQuestion();
+}
+
+/* ========= QUESTIONS ========= */
+/* ⚠️ IMPORTANT:
+   You already have a HUGE question list in your file.
+   KEEP IT. Do NOT replace it.
+
+   We will just use it here.
+*/
+
+function buildQuestionPool() {
+  const count = parseInt(document.getElementById("questionCountSelect").value);
+
+  // shuffle existing questions array (you already have it)
+  const shuffled = [...questions].sort(() => Math.random() - 0.5);
+
+  currentQuestions = shuffled.slice(0, count === 999 ? shuffled.length : count);
+}
+
+/* ========= SHOW QUESTION ========= */
+function showQuestion() {
+  const q = currentQuestions[currentQuestionIndex];
+  const player = players[currentPlayerIndex];
+
+  document.getElementById("progressPill").textContent =
+    `Question ${currentQuestionIndex + 1}`;
+
+  document.getElementById("turnPill").textContent =
+    gameMode === "battle" ? `${player.name}'s Turn` : "Solo";
+
+  document.getElementById("streakPill").textContent =
+    `Streak: ${player.streak}`;
+
+  document.getElementById("stageBanner").textContent =
+    getStageName(currentQuestionIndex, currentQuestions.length);
+
+  document.getElementById("categoryBanner").textContent = q.category;
+  document.getElementById("questionText").textContent = q.question;
+
+  const answers = shuffle([q.correct, ...q.wrong]);
+
+  const container = document.getElementById("answers");
+  container.innerHTML = "";
+
+  answers.forEach(ans => {
+    const btn = document.createElement("button");
+    btn.className = "answer-btn";
+    btn.textContent = ans;
+
+    btn.onclick = () => handleAnswer(ans === q.correct, btn);
+
+    container.appendChild(btn);
+  });
+}
+
+/* ========= ANSWER ========= */
+function handleAnswer(correct, btn) {
+  const player = players[currentPlayerIndex];
+
+  player.answered++;
+
+  if (correct) {
+    btn.classList.add("correct");
+    player.score += 1;
+    player.correct++;
+    player.streak++;
+    player.bestStreak = Math.max(player.bestStreak, player.streak);
+  } else {
+    btn.classList.add("wrong");
+    player.streak = 0;
+  }
+
+  document.getElementById("nextBtn").classList.remove("hidden");
+}
+
+/* ========= NEXT ========= */
+function nextQuestion() {
+  document.getElementById("nextBtn").classList.add("hidden");
+
+  currentQuestionIndex++;
+
+  if (currentQuestionIndex >= currentQuestions.length) {
+    showResults();
+    return;
+  }
+
+  if (gameMode === "battle") {
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+  }
+
+  showQuestion();
+}
+
+/* ========= RESULTS ========= */
+function showResults() {
+  document.getElementById("gamePanel").classList.add("hidden");
+  document.getElementById("resultsPanel").classList.remove("hidden");
+
+  const sorted = [...players].sort((a,b)=>b.score-a.score);
+  const winner = sorted[0];
+
+  if (gameMode === "battle") {
+    document.getElementById("winnerText").textContent =
+      `Winner: ${winner.name}`;
+
+    document.getElementById("finalScore").textContent =
+      `${winner.score} pts`;
+
+    document.getElementById("finalMessage").textContent =
+      `${winner.name} wins bragging rights!`;
+
+    launchConfetti();
+
+  } else {
+    const percent = Math.round((players[0].correct / currentQuestions.length) * 100);
+
+    document.getElementById("winnerText").textContent = "Solo Results";
+    document.getElementById("finalScore").textContent = `${percent}%`;
+    document.getElementById("finalMessage").textContent =
+      getPerformanceMessage(percent);
+
+    if (percent >= 90) {
+      launchConfetti();
+    } else {
+      throwTomatoes(40);
+    }
+  }
+
+  document.getElementById("leaderboard").innerHTML = sorted.map((p,i)=>`
+    <div class="leader-row ${i===0?"winner":""}">
+      <span>#${i+1}</span>
+      <span>${p.name}</span>
+      <span>${p.score}</span>
+    </div>
+  `).join("");
+}
+
+/* ========= HELPERS ========= */
+function shuffle(arr) {
+  return [...arr].sort(()=>Math.random()-0.5);
+}
+
+function getPerformanceMessage(percent) {
+  if (percent >= 90) return "Excellent! Safety legend.";
+  if (percent >= 70) return "Needs improvement.";
+  if (percent >= 40) return "Hard work needed.";
+  return "Stay off the site 😂";
+}
+
+/* ========= FUN STUFF ========= */
+function throwTomatoes(amount=30){
+  for(let i=0;i<amount;i++){
+    const t=document.createElement("div");
+    t.textContent="🍅";
+    t.style.position="fixed";
+    t.style.left=Math.random()*100+"vw";
+    t.style.top="-50px";
+    t.style.fontSize="32px";
+    t.style.animation="tomatoFall 2s linear forwards";
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),2000);
+  }
+}
+
+/* ========= CONFETTI ========= */
+function launchConfetti(){
+  for(let i=0;i<80;i++){
+    const c=document.createElement("div");
+    c.className="confetti-dot";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},70%,60%)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),2500);
+  }
+}
+
+/* ========= INIT ========= */
+updatePlayerInputs();
+</script>
+
+</body>
+</html>
