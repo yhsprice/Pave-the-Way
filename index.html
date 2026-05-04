@@ -641,7 +641,7 @@
     }
 
 
-   .tomato-hit {
+  .tomato-hit {
   position: fixed;
   pointer-events: none;
   z-index: 1000001;
@@ -1771,27 +1771,30 @@
     t.textContent = "🍅";
     t.className = "tomato-hit";
 
-    // random start position (left or right side)
     const fromLeft = Math.random() < 0.5;
 
-    t.style.position = "fixed";
-    t.style.left = fromLeft ? "-60px" : "100vw";
-    t.style.top = Math.random() * 40 + "vh";
-    t.style.fontSize = Math.floor(Math.random() * 20 + 28) + "px";
-    t.style.zIndex = "999999";
-    t.style.pointerEvents = "none";
+    t.style.left = fromLeft ? "-80px" : "calc(100vw + 80px)";
+    t.style.top = Math.random() * 60 + "vh";
+    t.style.fontSize = Math.floor(Math.random() * 22 + 30) + "px";
 
-    // random arc
-    const x = fromLeft ? 110 : -110;
-    const y = Math.random() * 40 - 20;
+    const endX = fromLeft ? "55vw" : "-55vw";
+    const endY = (Math.random() * 40 - 20) + "vh";
 
-    t.style.setProperty("--x", x + "vw");
-    t.style.setProperty("--y", y + "vh");
+    t.style.setProperty("--x", endX);
+    t.style.setProperty("--y", endY);
 
     t.style.animation = `tomatoThrow ${0.9 + Math.random() * 0.5}s ease-out forwards`;
 
     document.body.appendChild(t);
 
+    setTimeout(() => {
+      t.textContent = "💥";
+      t.style.animation = "tomatoSplat 0.45s ease-out forwards";
+    }, 850);
+
+    setTimeout(() => t.remove(), 1400);
+  }
+}
     // SPLAT effect
     setTimeout(() => {
       t.textContent = "💥";
