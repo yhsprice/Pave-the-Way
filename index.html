@@ -717,6 +717,20 @@ function getStageName(index, total) {
   return "Stage 4: Bragging Rights Battle";
 }
 
+      function populateCategories() {
+  const select = document.getElementById("categorySelect");
+
+  // get unique categories from your questions array
+  const categories = [...new Set(questions.map(q => q.category))];
+
+  // add "All"
+  select.innerHTML = `<option value="All">All Categories</option>`;
+
+  categories.forEach(cat => {
+    select.innerHTML += `<option value="${cat}">${cat}</option>`;
+  });
+}
+      
 /* ========= PLAYER SETUP ========= */
 function updatePlayerInputs() {
   const count = parseInt(document.getElementById("playerCountSelect").value);
@@ -933,6 +947,7 @@ function launchConfetti(){
 }
 
 /* ========= INIT ========= */
+populateCategories();
 updatePlayerInputs();
 </script>
 
