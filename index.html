@@ -545,3 +545,156 @@
     }
   </style>
 </head>
+
+  </head>
+  <body>
+  <canvas id="confettiCanvas"></canvas>
+
+  <main class="app">
+    <section class="hero">
+      <h1>🚧 Pave the Way 🚧</h1>
+      <p>
+        Asphalt and construction safety challenge. Go solo or battle another player.
+        Answer correctly, earn points, survive the tomatoes, and win bragging rights.
+      </p>
+    </section>
+
+    <section id="setupPanel" class="panel">
+      <h2>Start Game</h2>
+
+      <div class="setup-grid">
+        <div>
+          <label for="gameModeSelect">Game Mode</label>
+          <select id="gameModeSelect" onchange="updatePlayerInputs()">
+            <option value="solo">Solo</option>
+            <option value="battle">Player Battle</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="playerCountSelect">Players</label>
+          <select id="playerCountSelect" onchange="updatePlayerInputs()">
+            <option value="1">1 Player</option>
+            <option value="2">2 Players</option>
+            <option value="3">3 Players</option>
+            <option value="4">4 Players</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="categorySelect">Category</label>
+          <select id="categorySelect"></select>
+        </div>
+
+        <div>
+          <label for="difficultySelect">Difficulty</label>
+          <select id="difficultySelect">
+            <option value="All">All Difficulties</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Advanced">Advanced</option>
+            <option value="Expert">Expert</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="questionCountSelect">Number of Questions</label>
+          <select id="questionCountSelect">
+            <option value="10" selected>10 Questions</option>
+            <option value="15">15 Questions</option>
+            <option value="20">20 Questions</option>
+            <option value="25">25 Questions</option>
+            <option value="999">All Available</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="timerSelect">Timer</label>
+          <select id="timerSelect">
+            <option value="0">No Timer</option>
+            <option value="15">15 Seconds</option>
+            <option value="20" selected>20 Seconds</option>
+            <option value="30">30 Seconds</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="soundSelect">Sound</label>
+          <select id="soundSelect">
+            <option value="on">Sound On</option>
+            <option value="off">Sound Off</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="helper">
+        Four stages: Warm-Up Zone, Work Zone Warning, Pressure Zone, and Bragging Rights Battle.
+        Every fourth question in battle mode becomes a steal chance.
+      </p>
+
+      <div id="playerNamesPanel" class="name-grid"></div>
+
+      <div class="controls">
+        <button onclick="startGame()">Start Challenge</button>
+        <button onclick="showLocalLeaderboardOnly()" class="secondary">View Local Scoreboard</button>
+      </div>
+    </section>
+
+    <section id="gamePanel" class="panel hidden">
+      <div id="scoreboard" class="scoreboard"></div>
+
+      <div class="game-header">
+        <span class="pill" id="progressPill">Question 1</span>
+        <span class="pill turn-pill" id="turnPill">Turn</span>
+        <span class="pill bonus-pill" id="streakPill">Streak: 0</span>
+      </div>
+
+      <div class="question-card">
+        <div class="image-wrap" id="imageWrap"></div>
+
+        <div>
+          <div id="stageBanner" class="stage-banner">Stage 1</div>
+          <div id="categoryBanner" class="category-banner">Category</div>
+
+          <p class="question-text" id="questionText"></p>
+          <p class="points-note" id="pointsNote"></p>
+
+          <div id="timerWrap" class="timer-wrap">
+            <div id="timerBar" class="timer-bar"></div>
+          </div>
+
+          <div class="answers" id="answers"></div>
+
+          <div class="feedback" id="feedback"></div>
+
+          <div class="controls">
+            <button id="nextBtn" onclick="nextQuestion()" class="hidden">Next Question</button>
+            <button onclick="restartGame()" class="secondary">Restart</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultsPanel" class="panel results hidden">
+      <h2>Game Complete</h2>
+
+      <div id="championBanner" class="champion-banner hidden"></div>
+
+      <p id="winnerText"></p>
+      <div class="big-score" id="finalScore"></div>
+      <p id="finalMessage"></p>
+
+      <div class="leaderboard" id="leaderboard"></div>
+
+      <div id="badgeBox" class="badge-box"></div>
+
+      <div id="weakReport" class="weak-report hidden"></div>
+
+      <div class="local-board-title">Local Scoreboard</div>
+      <div id="localLeaderboard" class="local-board"></div>
+
+      <div class="controls">
+        <button onclick="downloadResults()">Download Results</button>
+        <button onclick="restartGame()">Play Again</button>
+      </div>
+    </section>
+  </main>
