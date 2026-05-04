@@ -781,6 +781,18 @@
     </section>
   </main>
 
+  function getPerformanceMessage(percent) {
+  if (percent >= 90) {
+    return "Excellent! You paved the way like a safety legend.";
+  } else if (percent >= 70) {
+    return "Needs Improvement. Not terrible, but don’t frame the certificate yet.";
+  } else if (percent >= 40) {
+    return "Hard Work Needed for Improvement. The cones are judging you.";
+  } else {
+    return "For everyone’s safety, stay off the site. Just kidding... mostly.";
+  }
+}
+  
   <script>
     const questions = [
       { category: "EQUIPMENT", difficulty: "Beginner", question: "What is the biggest risk around a loader?", correct: "Being unseen by operator", wrong: ["Noise exposure", "Dust exposure", "Blinded by the light"], statement: "Get a load of this…make yourself be seen!", image: "loader-use" },
@@ -1655,15 +1667,26 @@
       const tiedWinners = sorted.filter(p => p.score === winner.score);
 
       if (gameMode === "battle" && players.length > 1) {
-        document.getElementById("winnerText").textContent =
-          tiedWinners.length > 1 ? `Tie game! Nobody gets to brag too hard.` : `Winner: ${winner.name}`;
-        document.getElementById("finalScore").textContent = tiedWinners.length > 1 ? "Tie!" : `${winner.score} pts`;
-      } else {
-        const percent = Math.round((players[0].correct / currentQuestions.length) * 100);
-        document.getElementById("winnerText").textContent = "Solo Results";
-        document.getElementById("finalScore").textContent = `${players[0].score} pts`;
-        document.getElementById("finalMessage").textContent = `${percent}% correct`;
-      }
+  document.getElementById("winnerText").textContent =
+    tiedWinners.length > 1
+      ? `Tie game! Nobody gets to brag too hard.`
+      : `Winner: ${winner.name}`;
+
+  document.getElementById("finalScore").textContent =
+    tiedWinners.length > 1 ? "Tie!" : `${winner.score} pts`;
+
+  document.getElementById("finalMessage").textContent =
+    tiedWinners.length > 1
+      ? "No bragging rights today. The safety gods demand a rematch."
+      : `${winner.name} wins bragging rights on the website!`;
+
+} else {
+  const percent = Math.round((players[0].correct / currentQuestions.length) * 100);
+
+  document.getElementById("winnerText").textContent = "Solo Results";
+  document.getElementById("finalScore").textContent = `${percent}% correct`;
+  document.getElementById("finalMessage").textContent = getPerformanceMessage(percent);
+}
 
       const championBanner = document.getElementById("championBanner");
       championBanner.classList.remove("hidden");
