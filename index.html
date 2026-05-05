@@ -1214,11 +1214,23 @@
       updatePlayerInputs();
     }
 
-    function populateCategories() {
-      const categorySelect = document.getElementById("categorySelect");
-      const categories = ["All Categories", ...new Set(questions.map(q => q.category.trim()))];
-      categorySelect.innerHTML = categories.map(cat => `<option value="${cat}">${cat}</option>`).join("");
-    }
+   function populateCategories() {
+  const categorySelect = document.getElementById("categorySelect");
+  if (!categorySelect) return;
+
+  const categories = [
+    "All Categories",
+    ...new Set(
+      questions
+        .map(q => String(q.category || "").trim())
+        .filter(Boolean)
+    )
+  ];
+
+  categorySelect.innerHTML = categories
+    .map(cat => `<option value="${cat}">${cat}</option>`)
+    .join("");
+}
 
     function updatePlayerInputs() {
       const mode = document.getElementById("gameModeSelect").value;
