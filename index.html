@@ -1449,9 +1449,12 @@ function populateCategories() {
       renderScoreboard();
     }
 
-    function buildAnswers(q) {
-      return shuffleArray([q.correct.trim(), ...q.wrong.map(answer => answer.trim()).filter(Boolean)]);
-    }
+   function buildAnswers(q) {
+  return shuffleArray([
+    q.correct.trim(),
+    ...q.wrong.map(answer => answer.trim()).filter(Boolean)
+  ]);
+}
 
     function selectAnswer(button, selected, correct) {
       if (answered && !stealActive) return;
