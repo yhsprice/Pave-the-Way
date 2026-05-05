@@ -641,13 +641,7 @@
     }
 
 
-  .tomato-hit {
-  position: fixed;
-  pointer-events: none;
-  z-index: 1000001;
-  filter: drop-shadow(0 4px 4px rgba(0,0,0,0.35));
-}
-
+  
 .screen-shake {
   animation: screenShake 0.4s ease-in-out;
 }
@@ -660,42 +654,7 @@
   80% { transform: translate(-4px, -4px); }
   100% { transform: translate(0); }
 }
-    
-.tomato-attack-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999999;
-  pointer-events: none;
-  overflow: hidden;
-  perspective: 500px;
-}
-
-.tomato-attack {
-  position: absolute;
-  font-size: 24px;
-  transform: translate(-50%, -50%) translateZ(-600px) scale(0.1);
-  animation: tomatoAttackScreen 0.65s ease-in forwards;
-  filter: drop-shadow(0 10px 8px rgba(0,0,0,0.45));
-}
-
-@keyframes tomatoAttackScreen {
-  0% {
-    transform: translate(-50%, -50%) translateZ(-600px) scale(0.1) rotate(0deg);
-    opacity: 0;
-  }
-  35% {
-    opacity: 1;
-  }
-  85% {
-    transform: translate(-50%, -50%) translateZ(80px) scale(4.8) rotate(540deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) translateZ(140px) scale(6.5) rotate(720deg);
-    opacity: 0;
-  }
-}
-    
+     
   </style>
 </head>
 <body>
@@ -1750,23 +1709,22 @@
           <div class="subtitle">${players[0].name} finished with ${players[0].correct}/${currentQuestions.length} correct.</div>
         `;
 
-        if (percent >= 90) {
-          playSound("winner");
-          setTimeout(launchConfetti, 150);
+       if (percent >= 90) {
+        playSound("winner");
+        setTimeout(launchConfetti, 150);
         } else if (percent >= 70) {
-          playBooSound();
-          throwTomatoes(25);
+        playBooSound();
+        booPlayer();
         } else if (percent >= 40) {
-          playBooSound();
-          throwTomatoes(45);
-          setTimeout(() => throwTomatoes(30), 600);
+        playBooSound();
+        booPlayer();
+        setTimeout(booPlayer, 500);
         } else {
-          playBooSound();
-          throwTomatoes(65);
-          setTimeout(() => throwTomatoes(50), 600);
-          setTimeout(() => throwTomatoes(40), 1200);
+        playBooSound();
+        booPlayer();
+        setTimeout(booPlayer, 400);
+        setTimeout(booPlayer, 800);
         }
-      }
 
       document.getElementById("leaderboard").innerHTML = sorted.map((p, index) => `
         <div class="leader-row ${p.score === winner.score ? "winner" : ""}">
@@ -1787,23 +1745,6 @@
       if (percent >= 40) return "Hard Work Needed for Improvement. The cones are judging you.";
       return "For everyone’s safety, stay off the site. Just kidding... mostly.";
     }
-
-function throwTomatoes(amount = 6) {
-  const overlay = document.createElement("div");
-  overlay.className = "tomato-attack-overlay";
-  document.body.appendChild(overlay);
-
-  for (let i = 0; i < amount; i++) {
-    const tomato = document.createElement("div");
-    tomato.className = "tomato-attack";
-    tomato.textContent = "🍅";
-
-    tomato.style.left = Math.random() * 80 + 10 + "%";
-    tomato.style.top = Math.random() * 70 + 10 + "%";
-    tomato.style.animationDelay = i * 0.18 + "s";
-
-    overlay.appendChild(tomato);
-  }
 
   document.body.classList.add("screen-shake");
   setTimeout(() => document.body.classList.remove("screen-shake"), 500);
