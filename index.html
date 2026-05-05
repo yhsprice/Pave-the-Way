@@ -654,6 +654,24 @@
   80% { transform: translate(-4px, -4px); }
   100% { transform: translate(0); }
 }
+    @keyframes booFade {
+  0% { transform: scale(0.3); opacity: 0; }
+  40% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+.cone-badge {
+  margin: 18px auto;
+  max-width: 520px;
+  padding: 18px;
+  border-radius: 22px;
+  background: #7f1d1d;
+  color: white;
+  border: 4px solid #facc15;
+  font-weight: 900;
+  font-size: 1.4rem;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+}
      
   </style>
 </head>
@@ -1702,30 +1720,71 @@
 
         document.getElementById("winnerText").textContent = "Solo Results";
         document.getElementById("finalScore").textContent = `${percent}% correct`;
-        document.getElementById("finalMessage").textContent = getPerformanceMessage(percent);
-
+        document.getElementById("finalMessage").textContent =
+            `${getPerformanceMessage(percent)} ${getRoastMessage(percent)}`;
         championBanner.innerHTML = `
           <div class="title"><span class="victory-spark">${percent >= 90 ? "🏆" : "🍅"}</span> Training Complete</div>
           <div class="subtitle">${players[0].name} finished with ${players[0].correct}/${currentQuestions.length} correct.</div>
         `;
 
-       if (percent >= 90) {
-        playSound("winner");
-        setTimeout(launchConfetti, 150);
-        } else if (percent >= 70) {
-        playBooSound();
-        booPlayer();
-        } else if (percent >= 40) {
-        playBooSound();
-        booPlayer();
-        setTimeout(booPlayer, 500);
-        } else {
-        playBooSound();
-        booPlayer();
-        setTimeout(booPlayer, 400);
-        setTimeout(booPlayer, 800);
-        }
+        function booPlayer() {
+  playBooSound();
 
+  const boo = document.createElement("div");
+  boo.textContent = "BOOOOO 👎";
+  boo.style.position = "fixed";
+  boo.style.inset = "0";
+  boo.style.display = "flex";
+  boo.style.alignItems = "center";
+  boo.style.justifyContent = "center";
+  boo.style.fontSize = "clamp(3rem, 10vw, 6rem)";
+  boo.style.fontWeight = "900";
+  boo.style.background = "rgba(127, 29, 29, 0.85)";
+  boo.style.color = "#fff";
+  boo.style.zIndex = "9999999";
+  boo.style.animation = "booFade 1s ease-out forwards";
+
+  document.body.appendChild(boo);
+  setTimeout(() => boo.remove(), 1000);
+
+  document.body.classList.add("screen-shake");
+  setTimeout(() => document.body.classList.remove("screen-shake"), 400);
+}
+
+function getRoastMessage(percent) {
+  if (percent >= 90) return "Safety legend. Hard hat royalty.";
+  if (percent >= 70) return "Close, but the cones are side-eyeing you.";
+  if (percent >= 40) return "The jobsite supervisor just aged five years.";
+  return "For everyone’s safety, please stay near the snack table.";
+}
+
+function showConeOfShame(percent) {
+  if (percent >= 90) return;
+
+  const badgeBox = document.getElementById("badgeBox");
+
+  badgeBox.innerHTML += `
+    <div class="cone-badge">
+      🚧 Cone of Shame Award 🚧<br>
+      <span style="font-size:1rem;">${getRoastMessage(percent)}</span>
+    </div>
+  `;
+}
+      if (percent >= 90) {
+  playSound("winner");
+  setTimeout(launchConfetti, 150);
+} else if (percent >= 70) {
+  booPlayer();
+} else if (percent >= 40) {
+  booPlayer();
+  setTimeout(booPlayer, 500);
+} else {
+  booPlayer();
+  setTimeout(booPlayer, 400);
+  setTimeout(booPlayer, 800);
+}
+
+showConeOfShame(percent);
       document.getElementById("leaderboard").innerHTML = sorted.map((p, index) => `
         <div class="leader-row ${p.score === winner.score ? "winner" : ""}">
           <span>#${index + 1}</span>
