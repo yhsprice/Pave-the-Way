@@ -1737,18 +1737,19 @@ function populateCategories() {
         document.getElementById("finalScore").textContent = `${percent}% correct`;
         document.getElementById("finalMessage").textContent =
             `${getPerformanceMessage(percent)} ${getRoastMessage(percent)}`;
-        championBanner.innerHTML = `
-         <div class="title">
-       <span class="victory-spark">
-  ${percent >= 90 ? "🏆" : percent >= 70 ? "😬" : percent >= 40 ? "⚠️" : "🚧"}
-</span>
-        </span>
-        TRAINING COMPLETE
-        </div>
-        <div class="subtitle">
-         ${players[0].name} finished with ${players[0].correct}/${currentQuestions.length} correct.
-          </div>
+        
+       championBanner.innerHTML = `
+  <div class="title">
+    <span class="victory-spark">
+      ${percent >= 90 ? "🏆" : percent >= 70 ? "😬" : percent >= 40 ? "⚠️" : "🚧"}
+    </span>
+    TRAINING COMPLETE
+  </div>
 
+  <div class="subtitle">
+    ${players[0].name} finished with ${players[0].correct}/${currentQuestions.length} correct.
+  </div>
+`;
         function booPlayer() {
   playBooSound();
 
@@ -1773,6 +1774,7 @@ function populateCategories() {
   setTimeout(() => document.body.classList.remove("screen-shake"), 400);
 }
 
+        
 function getRoastMessage(percent) {
   if (percent >= 90) return "Safety legend. Hard hat royalty.";
   if (percent >= 70) return "Close, but the cones are side-eyeing you.";
@@ -1792,6 +1794,7 @@ function showConeOfShame(percent) {
     </div>
   `;
 }
+
       if (percent >= 90) {
   playSound("winner");
   setTimeout(launchConfetti, 150);
