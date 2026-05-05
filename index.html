@@ -690,6 +690,7 @@
   80% { transform: translate(-4px, -4px); }
   100% { transform: translate(0); }
 }
+    
 .tomato-attack-overlay {
   position: fixed;
   inset: 0;
@@ -712,16 +713,13 @@
     transform: translate(-50%, -50%) translateZ(-600px) scale(0.1) rotate(0deg);
     opacity: 0;
   }
-
   35% {
     opacity: 1;
   }
-
   85% {
     transform: translate(-50%, -50%) translateZ(80px) scale(4.8) rotate(540deg);
     opacity: 1;
   }
-
   100% {
     transform: translate(-50%, -50%) translateZ(140px) scale(6.5) rotate(720deg);
     opacity: 0;
@@ -1839,7 +1837,7 @@ function throwTomatoes(amount = 6) {
 
   setTimeout(() => overlay.remove(), 2200);
 }
-
+    
   document.body.classList.add("screen-shake");
   setTimeout(() => document.body.classList.remove("screen-shake"), 500);
 }
