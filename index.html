@@ -1805,11 +1805,10 @@ function throwTomatoes(amount = 6) {
     overlay.appendChild(tomato);
   }
 
-  setTimeout(() => overlay.remove(), 2200);
-}
-    
   document.body.classList.add("screen-shake");
   setTimeout(() => document.body.classList.remove("screen-shake"), 500);
+
+  setTimeout(() => overlay.remove(), 2200);
 }
     
     function playBooSound() {
