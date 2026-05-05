@@ -648,19 +648,19 @@
   filter: drop-shadow(0 4px 4px rgba(0,0,0,0.35));
 }
 
-  @keyframes tomatoAtScreen {
+ @keyframes tomatoAtScreen {
   0% {
-    transform: translate(-50%, -50%) scale(0.1) rotate(0deg);
-    opacity: 0.2;
-    filter: blur(2px);
+    transform: translate(-50%, -50%) scale(0.05) rotate(0deg);
+    opacity: 0;
+    filter: blur(4px);
   }
 
-  45% {
+  40% {
     opacity: 1;
   }
 
   100% {
-    transform: translate(-50%, -50%) scale(4.2) rotate(540deg);
+    transform: translate(-50%, -50%) scale(7) rotate(720deg);
     opacity: 1;
     filter: blur(0);
   }
@@ -1789,23 +1789,23 @@ function throwTomatoes(amount = 12) {
       const tomato = document.createElement("div");
       tomato.textContent = "🍅";
       tomato.style.position = "fixed";
-      tomato.style.left = (35 + Math.random() * 30) + "vw";
-      tomato.style.top = (25 + Math.random() * 40) + "vh";
-      tomato.style.fontSize = "18px";
+      tomato.style.left = "50vw";
+      tomato.style.top = "50vh";
+      tomato.style.fontSize = "20px";
       tomato.style.zIndex = "1000001";
       tomato.style.pointerEvents = "none";
-      tomato.style.transform = "translate(-50%, -50%) scale(0.1)";
-      tomato.style.animation = "tomatoAtScreen 0.55s ease-in forwards";
+      tomato.style.transform = "translate(-50%, -50%) scale(0.05)";
+      tomato.style.animation = "tomatoAtScreen 0.45s ease-in forwards";
 
       document.body.appendChild(tomato);
 
       setTimeout(() => {
-        tomato.textContent = "🍅💥";
-        tomato.style.animation = "tomatoScreenSplat 0.75s ease-out forwards";
-      }, 520);
+        tomato.textContent = "💥🍅";
+        tomato.style.animation = "tomatoScreenSplat 0.7s ease-out forwards";
+      }, 430);
 
-      setTimeout(() => tomato.remove(), 1400);
-    }, i * 120);
+      setTimeout(() => tomato.remove(), 1200);
+    }, i * 140);
   }
 
   document.body.classList.add("screen-shake");
