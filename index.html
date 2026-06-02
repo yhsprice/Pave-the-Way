@@ -827,6 +827,13 @@ gtag('config', 'G-NSEWWL5R54');
   </main>
 
   <script>
+
+    function trackEvent(eventName, details = {}) {
+  if (typeof gtag === "function") {
+    gtag("event", eventName, details);
+  }
+}
+
     const questions = [
 
 { category: "EQUIPMENT", difficulty: "Beginner", question: "You’re walking near a loader. What gets people hurt most often?", correct: "The operator can’t see them", wrong: ["Dust in the air", "Loud engine noise", "Bright lights"], statement: "Best move: make sure you’re seen before you get close.", image: "loader-use" },
