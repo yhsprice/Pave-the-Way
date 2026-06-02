@@ -1970,11 +1970,9 @@ showConeOfShame(percent);
   document.body.classList.add("screen-shake");
   setTimeout(() => document.body.classList.remove("screen-shake"), 500);
 
-      const overlay = document.createElement("div");
-      overlay.style.display = "none";
-      document.body.appendChild(overlay);
-
-  setTimeout(() => overlay.remove(), 2200);
+   setTimeout(() => {
+  if (typeof overlay !== "undefined" && overlay) overlay.remove();
+}, 2200);
 }
     
     function playBooSound() {
