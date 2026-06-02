@@ -1474,6 +1474,15 @@ function populateCategories() {
 
       const challengeType = document.getElementById("challengeTypeSelect").value;
 
+      trackEvent("game_started", {
+        game_mode: gameMode,
+        challenge_type: challengeType,
+        category: selectedCategory,
+        difficulty: selectedDifficulty,
+        question_count: questionCount,
+        timer: timerSeconds
+      });
+
       const filtered = questions.filter(q => {
         const categoryMatch = selectedCategory === "All Categories" || q.category.trim() === selectedCategory;
         const difficultyMatch = selectedDifficulty === "All" || q.difficulty === selectedDifficulty;
@@ -1809,6 +1818,23 @@ function populateCategories() {
     function showResults() {
       document.getElementById("gamePanel").classList.add("hidden");
       document.getElementById("resultsPanel").classList.remove("hidden");
+
+      const totalCorrect = players.reduce((sum, p) => sum + (p.correct || 0), 0);
+      const totalAnswered = players.reduce((sum, p) => sum + (p.answered || 0), 0);
+      const completionPercent = currentQuestions.length
+        ? Math.round((totalCorrect / currentQuestions.length) * 100)
+        : 0;
+
+      trackEvent("game_completed", {
+        game_mode: gameMode,
+        challenge_type: document.getElementById("challengeTypeSelect").value,
+        category: document.getElementById("categorySelect").value,
+        difficulty: document.getElementById("difficultySelect").value,
+        question_count: currentQuestions.length,
+        total_correct: totalCorrect,
+        total_answered: totalAnswered,
+        score_percent: completionPercent
+      });
 
       const sorted = [...players].sort((a, b) =>
         b.score - a.score ||
