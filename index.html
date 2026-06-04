@@ -1650,9 +1650,14 @@ function populateCategories() {
 
       if (gameMode === "battle" && players.length > 1 && !stealActive) {
         player.answered++;
-        recordCategoryResult(q, false);
+recordCategoryResult(q, false);
 
-        stealActive = true;
+trackEvent("question_missed", {
+  category: q.category,
+  difficulty: q.difficulty
+});
+
+stealActive = true;
         originalPlayerIndex = currentPlayerIndex;
         currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
 
@@ -1676,9 +1681,14 @@ function populateCategories() {
 
       // Wrong during steal attempt OR solo mode: question is now over, reveal correct answer.
       player.answered++;
-      recordCategoryResult(q, false);
+recordCategoryResult(q, false);
 
-      document.querySelectorAll(".answer-btn").forEach(btn => {
+trackEvent("question_missed", {
+  category: q.category,
+  difficulty: q.difficulty
+});
+
+document.querySelectorAll(".answer-btn").forEach(btn => {
         if (btn.textContent.trim() === correct.trim()) btn.classList.add("correct");
         btn.disabled = true;
       });
@@ -1804,6 +1814,13 @@ function populateCategories() {
         <div>🏆 Strongest Area: <strong>${best.category}</strong> — ${best.correct}/${best.total} correct (${best.percent}%)</div>
         <div style="margin-top:8px;">Training tip: review the weakest area first. That is where the pothole is hiding.</div>
       `;
+
+      trackEvent("weakest_area", {
+  weakest_category: weakest.category,
+  weakest_percent: weakest.percent,
+  strongest_category: best.category,
+  strongest_percent: best.percent
+});
     }
 
     function getQuestionPoints(q) {
