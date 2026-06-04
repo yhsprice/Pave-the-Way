@@ -1860,6 +1860,10 @@ document.querySelectorAll(".answer-btn").forEach(btn => {
         score_percent: completionPercent
       });
 
+      if (completionPercent === 100) {
+  trackEvent("perfect_game");
+}
+
       const sorted = [...players].sort((a, b) =>
         b.score - a.score ||
         (b.bestStreak || 0) - (a.bestStreak || 0) ||
